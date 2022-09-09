@@ -308,16 +308,20 @@ label lb_try_to_go_peak_usual(g_type,l_access):
     nvl clear
     $ nochance = game.poverty.value * 3
     python:
-       save_girl=(girls_data.girls_info[g_type]['endurance']-0.1*l_access)
-    $ choices = [
+        save_girl=(girls_data.girls_info[g_type]['endurance']-0.1*l_access)
+        if (save_girl <= 0):
+            save_girl = 1. / 75.
+       
+        choices = [
         ("lb_try_to_go_peak_usual_save", 75 * save_girl),
         ("lb_try_to_go_peak_usual_dead_1", 10),
         ("lb_try_to_go_peak_usual_dead_2", 10),
         ("lb_try_to_go_peak_usual_dead_3", 10),
         ("lb_try_to_go_peak_usual_dead_4", 10),
         ("lb_try_to_go_peak_usual_dead_5", nochance)]
-    $ enc = weighted_random(choices)
-    $ renpy.call(enc)
+
+        enc = weighted_random(choices)
+        renpy.call(enc)
     return
 
 label lb_try_to_go_peak_usual_save:
