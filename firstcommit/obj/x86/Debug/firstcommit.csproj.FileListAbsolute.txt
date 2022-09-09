@@ -1,0 +1,6 @@
+/home/vinny/Projects/firstcommit/obj/x86/Debug/firstcommit.csproj.AssemblyReference.cache
+/home/vinny/Projects/firstcommit/obj/x86/Debug/firstcommit.csproj.CoreCompileInputs.cache
+/home/vinny/Projects/firstcommit/bin/Debug/firstcommit.exe
+/home/vinny/Projects/firstcommit/bin/Debug/firstcommit.pdb
+/home/vinny/Projects/firstcommit/obj/x86/Debug/firstcommit.exe
+/home/vinny/Projects/firstcommit/obj/x86/Debug/firstcommit.pdb

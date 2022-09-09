@@ -1,0 +1,3 @@
+/home/vinny/Projects/firstcommit/bin/Release/firstcommit.exe
+/home/vinny/Projects/firstcommit/obj/x86/Release/firstcommit.csproj.CoreCompileInputs.cache
+/home/vinny/Projects/firstcommit/obj/x86/Release/firstcommit.exe
