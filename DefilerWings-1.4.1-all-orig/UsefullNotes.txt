@@ -1,0 +1,44 @@
+Стоимость камней:
+Янтарь - 3
+Горный хрусталь - 5
+Берилл, тигровый глаз, жемчуг - 10
+Чёрный жемчуг - 15
+Гранат, турмарлин, аквамарин - 20
+Изумруд - 25
+Эльфийский берилл, топаз, сапфир, рубин - 50
+Алмаз - 75
+Яхонт, смарагд, звёздный сапфир. чёрный алмаз, розовый алмаз - 100
+
+Стоимость материалов:
+Яшма, бирюза, нефрит, малахит - 1
+Коралл, агат, перламутр - 5
+Слоновая кость - 10
+Драконий рог - 25
+
+Стоимость металлов:
+Серебро - 1
+Золото - 10
+Мифрил -25
+Адамант - 30
+
+01 - Reign of the Dark
+04 - Wolf Blood
+06 - Nocturnus
+09 - Fear no Darkness - противоположный по смыслу
+11 - Invictus
+12 - Dreamtide ?
+Adrian Von Ziegler - 2011 - Across Acheron
+01 - The End
+03 - Dark Ritual
+Adrian Von Ziegler - 2011 - Mirror Of The Night
+01 - Into the Shadow Realm
+02 - The Hidden Scroll
+03 - Challenge the Dead
+06 - Awakening ?
+08 - Midnight Blade
+10 - Haunted Corridor
+12 - Marsh of the Undead - не к этому, но тоже хорошо
+16 - The Dream Weaver
+17 - Ghost Bride - противоположный по смыслу
+18 - Death Wheel
+22 - Through the Mirror

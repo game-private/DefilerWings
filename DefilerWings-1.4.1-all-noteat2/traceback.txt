@@ -1,0 +1,31 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/labels/special_places.rpy", line 650, in <module>
+    $ chances = show_chances(game.foe)
+  File "game/texts.rpy", line 26, in show_chances
+    chance = battle.victory_chance(game.dragon, foe)
+TypeError: unsupported operand type(s) for *: 'Decimal' and 'float'
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "/home/g/user/script.rpyc", line 67, in script call
+  File "/home/g/user/labels/location/sky.rpyc", line 22, in script call
+  File "/home/g/user/labels/location/sky.rpyc", line 51, in script call
+  File "/home/g/user/labels/special_places.rpyc", line 650, in script
+  File "/G/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/G/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/labels/special_places.rpy", line 650, in <module>
+    $ chances = show_chances(game.foe)
+  File "game/texts.rpy", line 26, in show_chances
+    chance = battle.victory_chance(game.dragon, foe)
+  File "pythoncode/battle.py", line 146, in victory_chance
+  File "pythoncode/battle.py", line 120, in brute_chance
+TypeError: unsupported operand type(s) for *: 'Decimal' and 'float'
+
+Linux-5.4.0-125-generic-x86_64-with-debian-bullseye-sid
+Ren'Py 6.99.7.858
+Defiler Wings 1.4.1
