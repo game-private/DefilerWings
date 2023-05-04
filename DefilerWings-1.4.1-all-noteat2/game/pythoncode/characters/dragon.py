@@ -447,4 +447,59 @@ class Dragon(Fighter):
         if event not in self.events:
             self.events.append(event)
 
+    def attractiveness(self, girl, lair=False):
+        # Страшный дракон существено повышает проблемы с ухаживаниями
+        girlQ  = girl.quality + 2 + int(self.fear) + self.bloodiness
+        # За девушкой проще ухаживать, если ты крылатый дракон - можно покатать её :)))
+        girlQ -= self.wings
+        # Если логово украшено, ухаживать за девушками проще
+        if lair != False:
+            girlQ -= lair.summBrilliance()
+
+        # Ухаживать за девушкой проще, если дракон - драгоценный, а девушка - не "невинная"
+        if girl.nature != 'innocent':
+            if 'gold' in self.heads:
+                girlQ -= 2 + int(girl.goldWeakness / 2)
+            if 'silver' in self.heads:
+                girlQ -= 1
+        else:
+            if 'silver' in self.heads:
+                girlQ -= 2 + int(girl.goldWeakness / 2)
+
+        # Тени могут напугать "невинную" девушку дополнительно к общему страху от головы
+        if girl.nature == 'innocent':
+            if 'shadow' in self.heads:
+                girlQ += 1
+
+        # "Развратным" нравится повышенное влечение
+        if girl.nature == 'lust':
+            if 'spermtoxicos' in self.modifiers():
+                girlQ -= 2
+
+
+        if girl.nature == 'proud':
+            # Если девушка гордая, то она чувствует тени и за ней проще ухаживать
+            if 'shadow' in self.heads:
+                # +2 - компенсация страха и ещё +2 от упрощения к ухаживанию
+                girlQ -= 2 + 2
+
+            # "Гордым" не нравится повышенное влечение
+            if 'spermtoxicos' in self.modifiers():
+                girlQ += 2
+
+        # Золотая сияющая чешуя соблазняет всех девушек
+        if 'gold_scale' in self.modifiers():
+            girlQ -= 2 + girl.goldWeakness
+            
+        if girlQ <= 0:
+            if girl.quality < 0:
+                girlQ = 1
+                girlW = 0
+            else:
+                girlW  = 100 - girlQ * 100 / (girl.quality + 1)
+                girlQ  = 1
+        else:
+            girlW  = 100 / girlQ
+
+        return [girlW, girlQ]
 

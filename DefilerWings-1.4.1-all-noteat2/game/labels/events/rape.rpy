@@ -1199,7 +1199,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       if ratio_proud>0.66: # Честь превыше жизни
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону повезло
+            if random.randint(1, game.dragon.max_energy()) > 4: # Дракону повезло
               game.dragon.third '[game.dragon.name] всё же обвивается вокруг визжащего, сопротивляющегося, брыкающегося тела. Да за такое молоко надо бесплатно давать, не меньше! Гордость за этот подвиг слегка унимает растущее раздражение дракона.'
               if 'tough_scale' in game.dragon.modifiers():
                 $ game.rape.rage += random.randint(6,13)
@@ -1215,7 +1215,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
             $ game.rape.body=False
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1,game.dragon.max_energy()) <= 3: # Дракону не повезло
               game.girl.third 'С изрядным трудом [game.girl.name] отпихивает насильника в сторону'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(16,20)
@@ -1242,7 +1242,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       elif ratio_proud>0.33 and ratio_proud <=0.66:  # Отбивается яростно, но всё же без фанатизма
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 2: # Дракону не повезло
               game.girl.third '[game.girl.name]  отпихивает насильника в сторону'
               'Эх, если бы [game.dragon.name] был побольше, или поудачливее, или [game.girl.name] сопротивлялась бы не столь яростно!'
               $ game.rape.rage += random.randint(4,6)
@@ -1280,7 +1280,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       elif ratio_proud>0 and ratio_proud <=0.33:  # Заламывает руки и умоляет прекратить
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 1: # Дракону не повезло
               game.girl.third '[game.girl.name] аккуратно берёт дракона на руки и откладывает его в сторону.'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,6)
@@ -1329,7 +1329,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       if ratio_proud>0.66: # Честь превыше жизни
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 3: # Дракону не повезло
               game.dragon.third 'Точный пинок не только отшвыривает дракона, но и заставляет его разжать лапы и отпустить девушку .'
               $ game.rape.rage += random.randint(4,8)
               $ game.rape.define_freedom()
@@ -1342,7 +1342,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
             $ game.rape.body=False
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
-            if random.randint(1,10) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 2: # Дракону не повезло
               game.girl.third 'Град точных пинков не только держит дракона на расстоянии, но и заставляет его разжать лапы и отпустить девушку.'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,8)
@@ -1365,7 +1365,7 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       elif ratio_proud>0.33 and ratio_proud <=0.66:  # Отбивается яростно, но всё же без фанатизма
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,10) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 2: # Дракону не повезло
               game.girl.third 'Град точных пинков не только держит дракона на расстоянии, но и заставляет его разжать лапы и отпустить девушку.'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,8)
@@ -1426,8 +1426,8 @@ label lb_rape_arms:
 
       if ratio_proud>0.66: # Честь превыше жизни
         if game.rape.size == 1: # Миниатюрный дракончик
-          if not game.girl.willing:
-            if random.randint(1,2) == 1: # Дракону повезло
+          if not game.girl.willing: # @fdsc
+            if random.randint(1, game.dragon.max_energy()) > 2: # Дракону повезло
               game.dragon.third 'Хотя [game.girl.name] пинается и отмахивается руками подобно ветряной мельнице,  [game.dragon.name] всё же выгадывает подходящий момент и хватает её за руки.'
               $ game.rape.rage += random.randint(6,10)
               $ game.rape.arms=False
@@ -1440,7 +1440,7 @@ label lb_rape_arms:
             $ game.rape.arms=False
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 1: # Дракону не повезло
               game.girl.third '[game.dragon.name] хватает девушку за руки, но резкий и чувствительный пинок заставляет его отшатнуться. '
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,8)
@@ -1462,7 +1462,7 @@ label lb_rape_arms:
       elif ratio_proud>0.33 and ratio_proud <=0.66:  # Отбивается яростно, но всё же без фанатизма
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,3) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy()) <= 1: # Дракону не повезло
               if game.girl.blind:
                 game.girl.third 'Ориентируясь на слух, [game.girl.name]  метко пинает дракона, не позволяя ему приблизиться. '
               else:
@@ -1493,7 +1493,7 @@ label lb_rape_arms:
       elif ratio_proud>0 and ratio_proud <=0.33:  # Заламывает руки и умоляет прекратить
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,5) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy() + game.dragon.reputation.points) <= 1: # Дракону не повезло
               game.girl.third '[game.girl.name] аккуратно пинает дракона и отталкивает его в сторону.'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,10)
@@ -1527,7 +1527,7 @@ label lb_rape_arms:
       if ratio_proud>0.66: # Честь превыше жизни
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,5) == 1: # Дракону не повезло
+            if random.randint(1, game.dragon.max_energy() + game.dragon.reputation.points) <= 1: # Дракону не повезло
               game.dragon.third '[game.girl.name] наносит по телу дракона такой ошеломляющий град ударов, что [game.dragon.name] вынужден отпустить её и отползти подальше.'
               $ game.rape.rage += random.randint(2,4)
               $ game.rape.define_freedom()
@@ -1540,7 +1540,7 @@ label lb_rape_arms:
             $ game.rape.arms=False  
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
-            if random.randint(1,10) == 1: # Дракону не повезло
+            if random.randint(1,  game.dragon.max_energy() + game.dragon.reputation.points + 2) <= 1: # Дракону не повезло
               game.girl.third '[game.dragon.name] тянется своими грязными лапами к невинному телу, но резкий удар кулаком в глаз заставляет его переменить намерения. По крайней мере, на время.'
               'Да разве можно так издеваться над бедным драконом, а?!'
               $ game.rape.rage += random.randint(4,8)
@@ -1563,7 +1563,7 @@ label lb_rape_arms:
       elif ratio_proud>0.33 and ratio_proud <=0.66:  # Отбивается яростно, но всё же без фанатизма
         if game.rape.size == 1: # Миниатюрный дракончик
           if not game.girl.willing:
-            if random.randint(1,10) == 1: # Дракону не повезло
+            if random.randint(1,  game.dragon.max_energy() + game.dragon.reputation.points + 2) <= 1: # Дракону не повезло
               game.girl.third '[game.girl.name]  со всей силы бьёт дракона кулаком в глаз. Кажется, она сама не ожидала такого эффекта. '
               $ game.rape.rage += random.randint(6,10)
               $ game.rape.define_freedom()
@@ -1733,6 +1733,99 @@ label lb_bdsm_breast_clutches:   # Оторвать грудь когтями
         $ game.girl.willing = False
       call lb_bdsm_hide from _call_lb_bdsm_hide_2
       call screen bdsm_sex
+    return
+
+# Принуждение
+label lb_bdsm_breast_tongue:   # Полизать
+    $ current_image = rape.relative_path + "/ground.jpg"
+    hide bg
+    show expression current_image as bg
+    nvl clear
+    call lb_bdsm_show
+    game.dragon.third '[game.dragon.name] с удовольствием лапает полную, упругую, приятную на ощупь грудь.'
+    game.girl 'Он же там просто потрогает? Или помнёт? Или хотя бы поцарапает?! Или...'
+    game.dragon.third '[game.dragon.name] неспешно вытягивает сладкий шершавый язык. О касании этого языка девушка будет помнить всю оставшуюся жизнь! [game.dragon.name] ласкает грудь медленно, аккуратно, наслаждаясь каждым мгновением безумно приятного процесса.  '
+    play sound get_random_file("sound/sex") 
+    if game.rape.breast=='left':
+        $ add_image=rape.relative_path + "/button_left_breast_done.png"
+        show expression add_image as left_breast with vpunch_long
+    elif game.rape.breast=='right':
+        $ add_image=rape.relative_path + "/button_right_breast_done.png"
+        show expression add_image as right_breast with vpunch_long
+    game.girl 'Ах!!! Ах!!! Ах!!!'   
+    game.girl.third '[game.girl.name] подёргивается от удовольствия. Грудь, которую должен был ласкать её суженый, к которой должно было припасть её дитя - эта грудь испытывает то, что больше не испытает никогда: особое прикосновение драконьего языка!'    
+
+    $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+
+    $ game.dragon.drain_energy(girlQ+1, True)
+    $ game.rape.actual_proud -= 5 + girlQ*5
+    if game.rape.actual_proud <= 1:
+        $ game.rape.actual_proud = 1
+        $ game.girl.willing = True
+    if game.dragon.lust < 3:
+        $ game.dragon.lust+=1
+
+    call lb_bdsm_hide from _call_lb_bdsm_hide_2
+    call screen bdsm_sex
+    return
+
+# Принуждение
+label lb_bdsm_head_tongue:   # Полизать
+    $ current_image = rape.relative_path + "/ground.jpg"
+    hide bg
+    show expression current_image as bg
+    nvl clear
+    call lb_bdsm_show
+    game.dragon.third '[game.dragon.name] с удовольствием лижет губы девушки. Неспешно, он пробирается внутрь рта и касается её языка.'
+
+    play sound get_random_file("sound/sex") 
+    game.girl 'Ах!!! Ах!!! Ах!!!'   
+    
+    $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+
+    $ game.dragon.drain_energy(girlQ+1, True)
+    $ game.rape.actual_proud -= 5 + girlQ*5
+    if game.rape.actual_proud <= 1:
+        $ game.rape.actual_proud = 1
+        $ game.girl.willing = True
+        game.girl.third '[game.girl.name] на седьмом небе от счастья и уже забыла, где находится.'    
+    else:
+        game.girl.third '[game.girl.name] на седьмом небе от счастья.'
+    if game.dragon.lust < 3:
+        $ game.dragon.lust+=1
+
+    call lb_bdsm_hide from _call_lb_bdsm_hide_2
+    call screen bdsm_sex
+    return
+
+# @fdsc и выше
+# Принуждение
+label lb_bdsm_pussy_tongue:   # Полизать
+
+    $ current_image = rape.relative_path + "/ground.jpg"
+    hide bg
+    show expression current_image as bg
+    nvl clear
+    call lb_bdsm_show
+    game.dragon.third '[game.dragon.name] с удовольствием пробирается языком между ног девушки и приоткрывает половые губы.'
+    game.girl 'Он же не лишит меня девственности языком?'
+    game.dragon.third '[game.dragon.name] слышыт сладкие стоны девушки '
+    play sound get_random_file("sound/sex") 
+
+    game.girl 'А-а-а!!! А-а-а!!! А-а-а!!!'   
+    game.girl.third '[game.girl.name] изгибается от невыносимого удовольствия.'    
+
+    $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+    $ game.dragon.drain_energy(girlQ+2, True)
+    $ game.rape.actual_proud -= 10 + girlQ*5
+    if game.rape.actual_proud <= 1:
+        $ game.rape.actual_proud = 1
+        $ game.girl.willing = True
+    if game.dragon.lust < 3:
+        $ game.dragon.lust+=1
+
+    call lb_bdsm_hide from _call_lb_bdsm_hide_2
+    call screen bdsm_sex
     return
 
 label lb_bdsm_breast_fangs:   # Откусить грудь клыками

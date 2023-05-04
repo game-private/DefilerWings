@@ -67,6 +67,7 @@ class summon(object):
           summon_data.fighters['dragon']['attack'].append('sound')    
 #        if 'virtual_head' in self.game.dragon.modifiers(): # Дополнительное очко жизни
  #         summon_data.fighters['dragon']['max_hp']=3
+    
         
     def battle_st1(self):
         renpy.show("bg", what=store.Image("img/archimonde/archimonde_intro.jpg"))

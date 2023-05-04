@@ -31,6 +31,8 @@ class rape(object):
         self.fangs=False
         self.horns=False
         self.string=False
+        self.tongue=False
+        self.spermtoxicos=False
 #       Список использованных модификаторов
         self.fire_used=False
         self.ice_used=False
@@ -42,6 +44,7 @@ class rape(object):
         self.fangs_used=False
         self.horns_used=False
         self.string_used=False
+        self.tongue_used=False
 #       Задаём модификаторы
         if 'fire_breath' in self.game.dragon.modifiers() or 'attackFVirgin' in self.game.dragon.modifiers():
             if not self.game.girl.type == 'fire':
@@ -66,6 +69,10 @@ class rape(object):
           self.horns=True   # Рога (Голова)
         if 'poisoned_sting' in self.game.dragon.modifiers():
           self.string=True   # Жало (Груди и влагалище)
+        if 'tongue' in self.game.dragon.modifiers():
+          self.tongue=True   # Язык
+        if 'spermtoxicos' in self.game.dragon.modifiers():
+          self.spermtoxicos=True
 
 #       Определяем размер дракона при изнасиловании
         if not girls_data.girls_info[self.game.girl.type]['giantess']:
@@ -108,7 +115,7 @@ class rape(object):
 
     @property
     def left_breast_possible(self):   # Левая грудь
-        if self.left_breast and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.fangs or self.string):
+        if self.left_breast and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.tongue or self.fangs or self.string):
           left_breast=True
         else:
           left_breast=False
@@ -116,7 +123,7 @@ class rape(object):
 
     @property
     def right_breast_possible(self): # Левая грудь
-        if self.right_breast and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.fangs or self.string):
+        if self.right_breast and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.tongue or self.fangs or self.string):
           right_breast=True
         else:
           right_breast=False
@@ -124,7 +131,7 @@ class rape(object):
 
     @property
     def head_possible(self): # Голова
-        if self.head and(self.sound or self.fear or ((self.horns or self.clutches) and not (self.game.girl.type == 'afrodita' or self.game.girl.type == 'danu') )):
+        if self.head and(self.sound or self.fear or self.tongue or ((self.horns or self.clutches) and not (self.game.girl.type == 'afrodita' or self.game.girl.type == 'danu') )):
           head=True
         else:
           head=False
@@ -140,7 +147,7 @@ class rape(object):
 
     @property
     def pussy_possible(self): # Лоно
-        if self.pussy and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.string):
+        if self.pussy and(self.fire or self.ice or self.lightning or self.poison or self.clutches or self.tongue or self.string):
           pussy=True
         else:
           pussy=False

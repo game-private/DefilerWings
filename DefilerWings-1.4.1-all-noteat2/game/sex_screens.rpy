@@ -14,16 +14,28 @@ screen start_sex:   # Начальный сексуальный экран
         focus_mask_ext.load_focus_mask_girls(rape.relative_path + '/coordinates.bin')
         name = False  
 # Проверка ярости
-        if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
-          game.rape.game.dragon.gain_rage()
+        if game.rape.spermtoxicos:
+            if game.rape.rage >= 20 and game.dragon.bloodiness < 1:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 40 and game.dragon.bloodiness < 2:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 60 and game.dragon.bloodiness < 3:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 80 and game.dragon.bloodiness < 4:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 99 and game.dragon.bloodiness < 5:
+              game.rape.game.dragon.gain_rage()
+        else:
+            if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
+              game.rape.game.dragon.gain_rage()
 # Построение отношений
         ratio=game.rape.actual_health/game.rape.full_health
         if ratio==1:
@@ -140,20 +152,52 @@ screen start_sex:   # Начальный сексуальный экран
 #            spacing 50
 #            textbutton _("Вернуться") action [Jump('lb_lair_sex') ]
 
+# @fdsc Использовать репутацию
+        if game.dragon.reputation.points >= 5*(game.girl.quality + 3) and game.rape.actual_proud > 1:
+            hbox:
+                ypos 600
+                #xpos 1120
+                xpos 800
+                spacing 50
+                textbutton _("Использвать репутацию [game.dragon.reputation.points]") action [Jump('lb_reputation') ]
+            
+
+label lb_reputation:
+    python:
+        game.girl.willing=True
+        game.rape.actual_proud=1
+        game.dragon.reputation.points = game.dragon.reputation.points - 5 * (game.girl.quality+3)
+
+        # rape_tooltip.Action('{color=#00ff00}Дракон потратил репутацию ([game.girl.quality+3]) на то, чтобы девушка стала покорной{/color}')
+
+    call screen start_sex
 
 screen penetration_sex:
     python:
         focus_mask_ext.load_focus_mask_girls(rape.relative_path + '/coordinates.bin')
-        if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
-          game.rape.game.dragon.gain_rage()
+        if game.rape.spermtoxicos:
+          if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
+            game.rape.game.dragon.gain_rage()
+        else:
+          if game.rape.rage >= 20 and game.dragon.bloodiness < 1:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 40 and game.dragon.bloodiness < 2:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 60 and game.dragon.bloodiness < 3:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 80 and game.dragon.bloodiness < 4:
+            game.rape.game.dragon.gain_rage()
+          if game.rape.rage >= 99 and game.dragon.bloodiness < 5:
+            game.rape.game.dragon.gain_rage()
+        
 # Построение отношений
         ratio=game.rape.actual_health/game.rape.full_health
         if ratio==1:
@@ -277,16 +321,28 @@ screen penetration_sex:
 screen bdsm_sex:
     python:
         focus_mask_ext.load_focus_mask_girls(rape.relative_path + '/coordinates.bin')
-        if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
-          game.rape.game.dragon.gain_rage()
-        if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
-          game.rape.game.dragon.gain_rage()
+        if game.rape.spermtoxicos:
+            if game.rape.rage >= 20 and game.dragon.bloodiness < 1:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 40 and game.dragon.bloodiness < 2:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 60 and game.dragon.bloodiness < 3:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 80 and game.dragon.bloodiness < 4:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 99 and game.dragon.bloodiness < 5:
+              game.rape.game.dragon.gain_rage()
+        else:
+            if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 20 and game.dragon.bloodiness < 2:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 30 and game.dragon.bloodiness < 3:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 40 and game.dragon.bloodiness < 4:
+              game.rape.game.dragon.gain_rage()
+            if game.rape.rage >= 50 and game.dragon.bloodiness < 5:
+              game.rape.game.dragon.gain_rage()
 # Построение отношений
         ratio_health=game.rape.actual_health/game.rape.full_health
         if ratio_health==1:
@@ -495,6 +551,36 @@ screen bdsm_breast:   # Когти, клыки, огонь, лёд, молнии
             focus_mask FocusMaskDragons('clutches',rape.dragon_path)
             hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] оторвал бы пленнице грудь - будь у него когти...{/color}')
             action [Hide('bdsm_breast'),Show('bdsm_breast') ]
+
+
+        if game.rape.tongue and game.dragon.energy() > 0: # Полизать:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              action [Hide('bdsm_breast'),Jump('lb_bdsm_breast_tongue') ]
+              hovered rape_tooltip.Action('{color=#ff0000}Полизать грудь сладким языком{/color} (ущерб здоровью - {color=#ff0000}никакой{/color}, влияние на решимость - {color=#0085ff}ниже среднего{/color})')
+        elif game.dragon.energy() <= 0:
+          hbox:
+            ypos 500
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              action [Hide('bdsm_breast'),Show('bdsm_breast') ]
+              hovered rape_tooltip.Action('{color=#ff0000}Дракон слишком устал!{/color}')
+
+        elif not game.rape.tongue:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] полизал бы пленнице грудь, будь у него сладкий язык...{/color}')
+              action [Hide('bdsm_breast'),Show('bdsm_breast') ]
 
 # Откусить грудь зубами
         if game.rape.fangs: # Откусить грудь клыками:
@@ -745,6 +831,36 @@ screen bdsm_head:   # Когти, страх, рога, звук
             hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] выколол бы пленнице глаза - будь у него когти...{/color}')
             action [Hide('bdsm_head'),Show('bdsm_head') ]
 
+
+        if game.rape.tongue and game.dragon.energy() > 0: # Полизать:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}Поцеловать девушку сладким языком{/color} (ущерб здоровью - {color=#ff0000}никакой{/color}, влияние на решимость - {color=#0085ff}ниже среднего{/color})')
+              action [Hide('bdsm_head'),Jump('lb_bdsm_head_tongue') ]
+        elif game.dragon.energy() <= 0:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}Дракон слишком устал!{/color}')
+              action [Hide('bdsm_head'),Show('bdsm_head') ]
+        elif not game.rape.tongue:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] поцеловал бы пленницу, будь у него сладкий язык...{/color}')
+              action [Hide('bdsm_head'),Show('bdsm_head') ]
+
+
 # Зубы тут бесполезны
         if game.rape.fangs or game.rape.fangs_used: # Откусить грудь клыками:
           imagebutton:   
@@ -962,6 +1078,7 @@ screen bdsm_stomach:   # Огонь, лёд, молнии, яд
             focus_mask FocusMaskDragons('clutches',rape.dragon_path)
             hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] с удовльствием разодрал бы живот пленницы когтями и подзакусил бы её внутренностями - но , увы, пока рано... Да и когтей у него нет!{/color}')
             action [Hide('bdsm_stomach'),Show('bdsm_stomach') ]
+
 
 # Укусить живот зубами нельзя!
         if game.rape.fangs or game.rape.fangs_used: 
@@ -1198,6 +1315,34 @@ screen bdsm_pussy:   # Когти, огонь, лёд, молнии, яд, жа�
             focus_mask FocusMaskDragons('clutches',rape.dragon_path)
             hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] оторвал бы пленнице клитор когтями - будь у него когти...{/color}')
             action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
+
+        if game.rape.tongue and game.dragon.energy() > 1: # Полизать:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}Поцеловать девушку между ног сладким языком{/color} (ущерб здоровью - {color=#ff0000}никакой{/color}, влияние на решимость - {color=#0085ff}среднее{/color})')
+              action [Hide('bdsm_pussy'),Jump('lb_bdsm_pussy_tongue') ]
+        elif game.dragon.energy() <= 0:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}Дракон слишком устал!{/color}')
+              action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
+        elif not game.rape.tongue:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] полизал бы пленницу, будь у него сладкий язык...{/color}')
+              action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
 
 # Откусывать зубами нечего!
         if game.rape.fangs: 

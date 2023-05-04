@@ -73,7 +73,7 @@ class Reputation(store.object):
         return self._rp
 
     @points.setter
-    def points(self, value):
+    def points(self, value):  # @fdsc Использовать репутацию
         if value >= 0:
             delta = int(value - self._rp)
             if delta in reputation_gain:
@@ -82,12 +82,22 @@ class Reputation(store.object):
                 self._rp = int(value)
                 achieve_target(self.level, "reputation")
             else:
-                raise Exception("Cannot raise reputation. Invalid gain.")
+                if delta > 0:
+                    raise Exception("Cannot raise reputation. Invalid gain.")
+                else:
+                    delta = int(value - self._rp)
+                    self._last_gain = delta
+                    self._gain += delta
+                    self._rp = int(value)
+                    achieve_target(self.level, "reputation")
 
     @property
     def gain_description(self):
         if self._last_gain in reputation_gain:
             return reputation_gain[self._last_gain]
+        else:
+            # Это только на случай отрицательного прироста
+            return reputation_gain[-1]
 
     @property
     def points_gained(self):

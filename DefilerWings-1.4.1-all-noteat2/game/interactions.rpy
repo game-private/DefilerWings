@@ -135,43 +135,7 @@ label lb_lair_sex:
 
     # @fdsc Ухаживать за девушкой
     python:
-        # Страшный дракон существено повышает проблемы с ухаживаниями
-        girlQ  = game.girl.quality + 2 + int(game.dragon.fear) + game.dragon.bloodiness
-        # За девушкой проще ухаживать, если ты крылатый дракон
-        girlQ -= game.dragon.wings
-        # Если логово украшено, ухаживать за девушками проще
-        girlQ -= game.lair.summBrilliance()
-
-        # Ухаживать за девушкой проще, если дракон - драгоценный, а девушка - не гордая
-        if game.girl.nature != 'proud':
-            if 'gold' in game.dragon.heads:
-                girlQ -= 2 + int(game.girl.goldWeakness / 2)
-            if 'silver' in game.dragon.heads:
-                girlQ -= 1
-
-            # Тени могут напугать "невинную" девушку дополнительно к общему страху от головы
-            if game.girl.nature == 'innocent':
-                if 'shadow' in game.dragon.heads:
-                    girlQ += 1
-        else:
-            # Если девушка гордая, то она чувствует тени и за ней проще ухаживать
-            if 'shadow' in game.dragon.heads:
-                # +2 - компенсация страха и ещё +2 от упрощения к ухаживанию
-                girlQ -= 2 + 2
-
-        # Золотая сияющая чешуя соблазняет всех девушек
-        if 'gold_scale' in game.dragon.modifiers():
-            girlQ -= 2 + game.girl.goldWeakness
-            
-        if girlQ <= 0:
-            if game.girl.quality < 0:
-                girlQ = 1
-                girlW = 0
-            else:
-                girlW  = 100 - girlQ * 100 / (game.girl.quality + 1)
-                girlQ  = 1
-        else:
-            girlW  = 100 / girlQ
+        [girlW, girlQ] = game.dragon.attractiveness(game.girl, game.lair)
 
     menu:
         'Надругаться' if game.girls_list.is_mating_possible:
@@ -193,7 +157,8 @@ label lb_lair_sex:
 
             python:
                 game.dragon.drain_energy(girlQ)
-                game.dragon.gain_rage()
+                if 'spermtoxicos' not in game.dragon.modifiers():
+                    game.dragon.gain_rage()
 
                 game.girl.willingPercent += girlW
 
@@ -227,7 +192,7 @@ label lb_lair_sex:
                 game.dragon.lust = 0
                 game.girl.virgin = False
 
-                wp  = game.girl.willingPercent - 100
+                wp  = game.girl.willingPercent
                 wp /= 100.0
 
                 inaccAddition = (game.girl.quality + 1) * wp

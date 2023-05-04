@@ -2,6 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/interactions.rpy", line 236: indentation mismatch.
+File "game/labels/events/rape.rpy", line 1804: expected 'name' not found.
+    call lb_bdsm_show from
+                          ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

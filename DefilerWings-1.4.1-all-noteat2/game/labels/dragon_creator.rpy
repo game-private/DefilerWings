@@ -22,7 +22,9 @@ label lb_dragon_creator:
             "horns": "Рога",
             "fangs": "Клыки",
             "ugly": "Уродство",
-            "cunning": "Коварство"
+            "cunning": "Коварство",
+            "tongue": "Сладкий язык",
+            "spermtoxicos": "Спермотоксикоз"
         }
         colored_heads = ["red", "white", "blue", "black", "iron", "bronze", "silver", "gold", "shadow"]
     init python:

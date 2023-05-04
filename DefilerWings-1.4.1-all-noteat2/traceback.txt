@@ -1,31 +1,33 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/labels/special_places.rpy", line 650, in <module>
-    $ chances = show_chances(game.foe)
-  File "game/texts.rpy", line 26, in show_chances
-    chance = battle.victory_chance(game.dragon, foe)
-TypeError: unsupported operand type(s) for *: 'Decimal' and 'float'
+  File "game/texts.rpy", line 4, in <module>
+    from pythoncode import data
+SyntaxError: invalid syntax (data.py, line 1975)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/home/g/user/script.rpyc", line 67, in script call
-  File "/home/g/user/labels/location/sky.rpyc", line 22, in script call
-  File "/home/g/user/labels/location/sky.rpyc", line 51, in script call
-  File "/home/g/user/labels/special_places.rpyc", line 650, in script
-  File "/G/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/bootstrap.py", line 281, in bootstrap
+    renpy.main.main()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/main.py", line 346, in main
+    renpy.game.script.load_script() # sets renpy.game.script.
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/script.py", line 259, in load_script
+    self.load_appropriate_file(".rpyc", ".rpy", dir, fn, initcode)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/script.py", line 738, in load_appropriate_file
+    self.finish_load(stmts, initcode, filename=fn + source)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/script.py", line 432, in finish_load
+    node.early_execute()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 855, in early_execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "/G/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/labels/special_places.rpy", line 650, in <module>
-    $ chances = show_chances(game.foe)
-  File "game/texts.rpy", line 26, in show_chances
-    chance = battle.victory_chance(game.dragon, foe)
-  File "pythoncode/battle.py", line 146, in victory_chance
-  File "pythoncode/battle.py", line 120, in brute_chance
-TypeError: unsupported operand type(s) for *: 'Decimal' and 'float'
+  File "game/texts.rpy", line 4, in <module>
+    from pythoncode import data
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 692, in load_module
+    code = compile(source, filename, 'exec')
+SyntaxError: invalid syntax (data.py, line 1975)
 
-Linux-5.4.0-125-generic-x86_64-with-debian-bullseye-sid
+Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
-Defiler Wings 1.4.1
+ 

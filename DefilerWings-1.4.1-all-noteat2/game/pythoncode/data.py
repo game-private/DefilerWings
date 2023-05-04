@@ -1487,7 +1487,8 @@ reputation_gain = {
     3: u"Дурная слава о ваших поступках разносится по королевству.",
     5: u"Сегодня вы стяжали немалую дурную славу.",
     10: u"Об этом деянии услышат  жители всего королевства. И ужаснутся.",
-    25: u"О деянии столь ужасном будут сложены легенды, которые не забудутся и через сотни лет"
+    25: u"О деянии столь ужасном будут сложены легенды, которые не забудутся и через сотни лет",
+    -1: u"Дракон успешно воспользовался своей репутацией и потерял её часть"
 }
 
 #
@@ -1678,7 +1679,7 @@ paws_description = [
 ]
 
 # @fdsc
-special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin')
+special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos')
 
 special_description = [
     u'Его чешуя крепче, чем закалённая цвергами сталь.',
@@ -1700,7 +1701,9 @@ special_description = [
     u'Ритуалы над девственницами дали ему немного атаки рёвом',
     u'Ритуалы над девственницами дали ему немного атаки молниями',
     u'Ритуалы над девственницами дали ему немного атаки огнём',
-    u'Ритаулы над соблазнёнными девственницами дали ему немного слабой защиты'
+    u'Ритаулы над соблазнёнными девственницами дали ему немного слабой защиты',
+    u'Его длинный шершавый язык обладает особенностью доставлять девушкам сладкое, почти непереносимое, удовольствие',
+    u'Увеличенное влечение, уменьшающее ярость при ухаживаниях'
 ]
 
 # @fdsc
@@ -1718,7 +1721,8 @@ special_features_rus = {
     "attackLVirgin": u"Атака молниями от ритуала",
     "attackFVirgin": u"Атака огнём от ритуала",
     "uglyVirgin": u"Уродство от ритуала",
-    "defenseVirgin": u"Общая слабая защита от ритуала"
+    "defenseVirgin": u"Общая слабая защита от ритуала",
+    "tongue": u"Сладкий язык"
 }
 
 cunning_description = [
@@ -1921,6 +1925,8 @@ modifiers = {
     'spellbound_trap2': Modifier(),
     'spellbound_trap3': Modifier(),
     'impregnator': Modifier(),
+    'tongue': Modifier(),
+    'spermtoxicos': Modifier(),
     # Заклинания
     'fire_breath': Modifier(attack=('fire', (0, 1))),
     'ice_breath': Modifier(attack=('ice', (0, 1))),
@@ -1965,6 +1971,7 @@ modifiers = {
 def get_modifier(name):
     if name in modifiers:
         return modifiers[name]
+
     raise NotImplementedError(name)
 
 # логова, картинки
