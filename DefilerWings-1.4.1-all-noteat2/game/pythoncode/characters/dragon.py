@@ -30,11 +30,11 @@ class Miner(object):
         self.dragon     = dragon
 
         if parent != None:
-            self.silver     = parent.silver     // 4;
-            self.gold       = parent.gold       // 4;
-            self.mithril    = parent.mithril    // 4;
-            self.adamantine = parent.adamantine // 4;
-            self.gems       = parent.gems       // 4;
+            self.silver     = parent.silver
+            self.gold       = parent.gold
+            self.mithril    = parent.mithril
+            self.adamantine = parent.adamantine
+            self.gems       = parent.gems
 
 
     # Эффективность добычи металлов. 'gems' - эффективность добычи камней
@@ -190,7 +190,7 @@ class Dragon(Fighter):
         self.events = []  # список событий с этим драконом
         self.Treasure_master = 0 # Мастерство при создании украшений
         if parent != None:
-            self.Treasure_master = parent.Treasure_master // 4
+            self.Treasure_master = parent.Treasure_master
 
         if parent == None:
             self.miner = Miner(self)
@@ -266,7 +266,7 @@ class Dragon(Fighter):
 
         [dp1, dp2] = self.defence_power()
         [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13)' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(math.log(1+self.Treasure_master*self.magic*self.max_energy() + self.magic + self.max_energy()) / math.log(100) * 100), self.level)
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(math.log(1+self.Treasure_master*self.magic*self.max_energy() + self.magic + self.max_energy()) / math.log(100) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine))
 
         return ddescription
 

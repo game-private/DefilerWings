@@ -25,9 +25,9 @@ label lb_location_city_main:
     # @fdsc Просто убрал лишнюю надпись
     # 'Столица королевства людей.'
     menu:
-        'Ограбить королевский дворец'  if game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+        'Ограбить королевский дворец'  if game.dragon.can_fly and game.dragon.energy() > 0 and game.dragon.injuries <= 0:
             call lb_city_palace_atk(True)
-        'Грабить королевский дворец целый день' if game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+        'Грабить королевский дворец целый день' if game.dragon.can_fly and game.dragon.energy() > 0 and game.dragon.injuries <= 0:
             while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
                 call lb_city_palace_atk(True, True)
 

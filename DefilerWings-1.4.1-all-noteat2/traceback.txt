@@ -1,32 +1,35 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/fight.rpy", line 2, in script
-    init python:
-  File "game/fight.rpy", line 3, in <module>
-    from pythoncode import battle
-SyntaxError: invalid syntax (dragon.py, line 450)
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 52, in script
+    game.dragon.third "{font=fonts/AnticvarShadow.ttf}{size=+5} [game.dragon.fullname] {/size}{/font} \n\n[game.dragon.description]\n\n[buffs]"
+TypeError: unsupported operand type(s) for *: 'instancemethod' and 'float'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/fight.rpy", line 2, in script
-    init python:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/fight.rpy", line 3, in <module>
-    from pythoncode import battle
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 693, in load_module
-    exec code in mod.__dict__
-  File "pythoncode/battle.py", line 7, in <module>
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 693, in load_module
-    exec code in mod.__dict__
-  File "pythoncode/characters/__init__.py", line 6, in <module>
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 692, in load_module
-    code = compile(source, filename, 'exec')
-SyntaxError: invalid syntax (dragon.py, line 450)
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 52, in script
+    game.dragon.third "{font=fonts/AnticvarShadow.ttf}{size=+5} [game.dragon.fullname] {/size}{/font} \n\n[game.dragon.description]\n\n[buffs]"
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 603, in execute
+    renpy.exports.say(who, what, interact=self.interact)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 1036, in say
+    who(what, interact=interact)
+  File "pythoncode/characters/talker.py", line 53, in third
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 817, in __call__
+    what = what_pattern.replace("[what]", sub(what, translate=translate))
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 799, in sub
+    return renpy.substitutions.substitute(s, scope=scope, force=force, translate=translate)[0]
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/substitutions.py", line 229, in substitute
+    s = formatter.vformat(s, (), kwargs)
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 563, in vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 585, in _vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 652, in get_field
+  File "pythoncode/characters/dragon.py", line 269, in description
+TypeError: unsupported operand type(s) for *: 'instancemethod' and 'float'
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
