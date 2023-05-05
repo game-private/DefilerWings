@@ -103,19 +103,10 @@ label lb_dragon_creator:
                         action Show("sc_achievements_list")
 
     screen sc_dragon_description:
-        xysize(174, 36)
-        area (100, 100, 100, 100)
-        side "aaa":
-            viewport id "vp":
-                mousewheel True
-                scrollbars "vertical"
-                #window:
-                #xmaximum 960
-                xysize(960, 100)
-                xalign 0.0
-                text "[game.dragon.description]"
-
-            vbar value YScrollValue("vp")
+        window:
+            xmaximum 960
+            xalign 0.0
+            text "[game.dragon.description]"
 
         key "K_SPACE" action Hide("sc_dragon_description")
         key 'K_RETURN' action Hide("sc_dragon_description")

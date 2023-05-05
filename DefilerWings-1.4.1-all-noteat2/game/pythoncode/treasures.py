@@ -158,7 +158,7 @@ material_size_description_rus = {
 ключи - названия степени обработки,
 значения - словарь для соответствующего русского прилагательного"""
 gem_cut_description_rus = {
-    ' ': {
+    '': {
         'he': {  # эта полировка не отображается
             'nominative': u'',
             'ablative': u''
@@ -1206,7 +1206,7 @@ class Coin(object):
 
 class Gem(object):  # класс для генерации драг.камней
     cut_dict = {
-        " ": (0, 1),
+        "": (0, 1),
         "polished": (50, 2),
         "rough": (30, 1),
         "faceted": (20, 3)
@@ -1224,7 +1224,7 @@ class Gem(object):  # класс для генерации драг.камней
         self.size_mod = Gem.size_dict[size][1]  # модификатор размера
         """степень обработки"""
         if self.g_type == "pearl" or self.g_type == "black_pearl":
-            self.cut = " "
+            self.cut = ""
         else:
             self.cut = cut
         self.cut_mod = Gem.cut_dict[cut][1]  # модификатор обработки
@@ -2559,7 +2559,7 @@ class Treasury(store.object):
             for gem_type in gem_types_keys:
                 gem_params[0] = gem_type
                 if gem_type == "pearl" or gem_type == "black_pearl":
-                    gem_params[2] = " "
+                    gem_params[2] = ""
                     gem_list.append(Gem(*gem_params))
                 else:
                     for gem_cut in ('rough', 'polished', 'faceted'):

@@ -25,6 +25,7 @@ class Miner(object):
         self.adamantine = 0
         
         self.gems       = 0
+        self.allMines   = 0
         
         self.dragon     = dragon
 
@@ -38,14 +39,19 @@ class Miner(object):
 
     # Эффективность добычи металлов. 'gems' - эффективность добычи камней
     def effectiveness(self, metall='gems'):
-        return 1 + math.sqrt(self.__getattribute__(metall))
+        allMines = 1 + math.log(1 + self.allMines) / math.log(16)
+
+        if metall == 'gems':
+            return 1 + math.log(1 + self.__getattribute__(metall)) / math.log(16) * allMines
+
+        return 1 + math.sqrt(self.__getattribute__(metall)) * allMines
 
 
     # Добываем металл
     def mine(self, metall):
         metal = treasures.Ingot(metall)
 
-        k = 1.0
+        k = self.dragon.sizeForMine
         while random.randint(1, 3) <= 2:
             k += 0.5
 
@@ -57,6 +63,7 @@ class Miner(object):
             k += 1
 
         self.dragon.drain_energy(k, True)
+        self.allMines += 1
 
         return metal
 
@@ -67,7 +74,7 @@ class Miner(object):
 
         while self.dragon.energy() > 0:
 
-            effect    = self.effectiveness('gems')
+            effect    = self.effectiveness('gems') * self.dragon.sizeForMine
             choices = [
                 ("rough",    100),
                 ("polished", 8 * self.gems),
@@ -75,16 +82,22 @@ class Miner(object):
             ]
             processing = utils.weighted_random(choices)
 
-            while random.randint(0, int(effect)) >= 10:
+            if random.randint(0, 100) < effect:
                 gems     = treasures.gem_types.keys()
                 gemsLen  = len(gems)
                 gemIndex = random.randint(0, gemsLen-1)
 
-                sizes     = treasures.Gem.size_dict.keys()
-                sizesLen  = len(sizes)
-                sizeIndex = random.randint(0, sizesLen-1)
+                # sizes     = treasures.Gem.size_dict.keys()
 
-                minedGem  = treasures.Gem(g_type=gems[gemIndex], size=sizes[sizeIndex], cut=processing)
+                choices = [
+                ("small",       int(   36 * effect/math.log(1+effect)   )),
+                ("common",      int(   24 * effect   )),
+                ("large",       int(   12 * effect*math.log(effect)   )),
+                ("exceptional", int(   1  * effect   )),
+                ]
+                size = utils.weighted_random(choices)
+
+                minedGem  = treasures.Gem(g_type=gems[gemIndex], size=size, cut=processing)
                 minedGems.append(minedGem)
 
 
@@ -95,6 +108,7 @@ class Miner(object):
                 k += 1
 
             self.dragon.drain_energy(k, True)
+            self.allMines += 1
 
             if not entireDay:
                 break
@@ -104,6 +118,12 @@ class Miner(object):
 
 
     def getStringOfMinedGems(self, minedGems):
+        
+        def addSpace(str1, str2 = " "):
+            if len(str1) > 0:
+                return str1 + str2
+
+            return str1
 
         gems_counts = dict()
         for gem in minedGems:
@@ -119,21 +139,24 @@ class Miner(object):
             cnt   = gems_counts[nm][0]
             cnt10 = cnt % 10
             if cnt10 == 1:
-                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['he']['nominative'] + " "
-                names += treasures.gem_description_rus    [gems_counts[nm][1]]['he']['nominative'] + "\n"
+                names += addSpace(treasures.gem_cut_description_rus[gems_counts[nm][2]]['he']['nominative'])
+                names +=          treasures.gem_description_rus    [gems_counts[nm][1]]['he']['nominative'] + "\n"
             elif cnt10 >= 2 and cnt10 <= 4:
                 names += str(cnt) + " "
-                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'] + " "
-                names += treasures.gem_description_rus    [gems_counts[nm][1]]['he']  ['genitive'] + "\n"
+                names += addSpace(treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'])
+                names +=          treasures.gem_description_rus    [gems_counts[nm][1]]['he']  ['genitive'] + "\n"
             else:
                 names += str(cnt) + " "
-                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'] + " "
-                names += treasures.gem_description_rus    [gems_counts[nm][1]]['they']['genitive'] + "\n"
+                names += addSpace(treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'])
+                names +=          treasures.gem_description_rus    [gems_counts[nm][1]]['they']['genitive'] + "\n"
 
 
-        if names == "":
-            effect = self.effectiveness('gems')
-            names  = u"Ничего не добыто. Наверное, не хватило опыта. Эффективность добычи " + effect + " (требуется как минимум 11)"
+        effect = self.effectiveness('gems')
+        streff = str(effect * self.dragon.sizeForMine)
+        if names == "":    
+            names  = u"Ничего не добыто. Наверное, не хватило опыта. Эффективность добычи " + streff + u"\n(с увеличением размера и количества лап у дракона эффективность повышается при том же опыте; острые когти повышают эффективность)"
+        else:
+            names += u"\nЭффективность добычи " + streff
 
         return [gems_counts, names]
 
@@ -428,6 +451,16 @@ class Dragon(Fighter):
         :return: Количество пар лап
         """
         return self.modifiers().count('paws')
+    
+    @property
+    def sizeForMine(self):
+        k = 1.0
+
+        if 'clutches' in self.modifiers():
+            k = 2.0
+
+        return math.sqrt(  self.size + self.paws  ) * k
+
 
     def _get_ability(self, used_gifts):
         """

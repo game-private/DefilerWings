@@ -2,12 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/mountain.rpy", line 70: expected statement.
-    u'Добыто [weight] [name_rus]'
-                                 ^
-
-File "game/labels/location/mountain.rpy", line 84: expected statement.
-    u'Добыто:\n[names]'
-                       ^
+File "game/labels/dragon_creator.rpy", line 108: side statement expects 1 positional arguments, got 0.
+    side:
+         ^
 
 Ren'Py Version: Ren'Py 6.99.7.858
