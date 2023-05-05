@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/choose_dragon.rpy", line 146: u'mousewheel' is not a keyword argument or valid child for the vbox statement.
-    mousewheel True
-              ^
+File "game/labels/location/mountain.rpy", line 78: invalid syntax
+        else
+    
 
 Ren'Py Version: Ren'Py 6.99.7.858

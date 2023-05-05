@@ -10,7 +10,123 @@ from pythoncode.data import get_modifier
 from pythoncode.utils import get_random_image
 from pythoncode.points import Reputation
 
+from pythoncode import treasures
+from pythoncode import utils
+
 from fighter import Fighter
+
+# @fdsc Теперь дракон может добывать металлы
+class Miner(object):
+    def __init__(self, dragon, parent=None):
+        
+        self.silver     = 0
+        self.gold       = 0
+        self.mithril    = 0
+        self.adamantine = 0
+        
+        self.gems       = 0
+        
+        self.dragon     = dragon
+
+        if parent != None:
+            self.silver     = parent.silver     // 4;
+            self.gold       = parent.gold       // 4;
+            self.mithril    = parent.mithril    // 4;
+            self.adamantine = parent.adamantine // 4;
+            self.gems       = parent.gems       // 4;
+
+
+    # Эффективность добычи металлов. 'gems' - эффективность добычи камней
+    def effectiveness(self, metall='gems'):
+        return 1 + math.sqrt(self.__getattribute__(metall))
+
+
+    # Добываем металл
+    def mine(self, metall):
+        metal = treasures.Ingot(metall)
+
+        k = 1.0
+        while random.randint(1, 3) <= 2:
+            k += 0.5
+
+        metal.weight = self.effectiveness(metall) * k * 10.0 / treasures.metal_types[metall]
+        self.__setattr__(metall, self.__getattribute__(metall) + k)
+
+        k = 1
+        while random.randint(1, 3) == 1:
+            k += 1
+
+        self.dragon.drain_energy(k, True)
+
+        return metal
+    
+    # processing устанавливается в cut_mod. Объявлены в treasures.Gem.cut_dict
+    def mineGems(self):
+
+        effect    = self.effectiveness('gems')
+        minedGems = []
+        
+        choices = [
+            ("rough",    100),
+            ("polished", 8 * self.gems),
+            ("faceted",  int(   1 * self.gems * math.log(1+self.gems)   ))
+        ]
+        processing = utils.weighted_random(choices)
+
+        while random.randint(0, int(effect)+10) >= 1:
+            gems     = treasures.gem_types.keys()
+            gemsLen  = len(gems)
+            gemIndex = random.randint(0, gemsLen-1)
+
+            sizes     = treasures.Gem.size_dict.keys()
+            sizesLen  = len(sizes)
+            sizeIndex = random.randint(0, sizesLen-1)
+
+            minedGem  = treasures.Gem(g_type=gems[gemIndex], size=sizes[sizeIndex], cut=processing)
+            minedGems.append(minedGem)
+
+
+        self.gems += 1
+
+        k = 1
+        while random.randint(1, 3) == 1:
+            k += 1
+
+        self.dragon.drain_energy(k, True)
+        return minedGems
+    
+    def getStringOfMinedGems(self, minedGems):
+
+        gems_counts = dict()
+        for gem in minedGems:
+            nm  = gem.g_type + "|" + gem.cut
+            cnt = 0
+            if nm in gems_counts:
+                cnt = gems_counts[nm][0]
+
+            gems_counts[nm]  = [cnt + 1, gem.g_type, gem.cut]
+
+        names = ""
+        for nm in gems_counts:
+            cnt   = gems_counts[nm][0]
+            cnt10 = cnt % 10
+            if cnt10 == 1:
+                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['he']['nominative'] + " "
+                names += treasures.gem_description_rus    [gems_counts[nm][1]]['he']['nominative'] + "\n"
+            elif cnt10 >= 2 and cnt10 <= 4:
+                names += str(cnt) + " "
+                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'] + " "
+                names += treasures.gem_description_rus    [gems_counts[nm][1]]['he']  ['genitive'] + "\n"
+            else:
+                names += str(cnt) + " "
+                names += treasures.gem_cut_description_rus[gems_counts[nm][2]]['they']['genitive'] + " "
+                names += treasures.gem_description_rus    [gems_counts[nm][1]]['they']['genitive'] + "\n"
+
+
+        if names == "":
+            names = "Ничего не добыто. Наверное, не хватило опыта"
+
+        return [gems_counts, names]
 
 
 class Dragon(Fighter):
@@ -43,6 +159,11 @@ class Dragon(Fighter):
         self.Treasure_master = 0 # Мастерство при создании украшений
         if parent != None:
             self.Treasure_master = parent.Treasure_master // 4
+
+        if parent == None:
+            self.miner = Miner(self)
+        else:
+            self.miner = Miner(self, parent.miner)
 
         self._gift = None  # Дар Владычицы
         if used_gifts is None:

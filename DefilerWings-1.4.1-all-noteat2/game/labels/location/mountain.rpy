@@ -2,7 +2,10 @@
 init python:
     from pythoncode.utils import weighted_random
     from pythoncode.characters import Enemy
-    
+
+    from pythoncode import treasures
+
+
 label lb_location_mountain_main:
     python:
         if not renpy.music.is_playing():
@@ -21,6 +24,48 @@ label lb_location_mountain_main:
       game.dragon 'Надо сходить проверить!'
       return
  
+    menu:
+        'Охотиться за добычей':
+            jump lb_location_mountain_main_travel
+        'Добывать серебро':
+            call lb_location_mountain_main_mine_metalls('silver')
+        'Добывать золото':
+            call lb_location_mountain_main_mine_metalls('gold')
+        'Добывать мифрил':
+            call lb_location_mountain_main_mine_metalls('mithril')
+        'Добывать адамант':
+            call lb_location_mountain_main_mine_metalls('adamantine')
+        'Добывать драгоценные камни':
+            call lb_location_mountain_main_mine_gems()
+    
+    return
+
+label lb_location_mountain_main_mine_metalls(metall):
+
+    python:
+        gold_trs = game.dragon.miner.mine(metall)
+
+        game.lair.treasury.receive_treasures([gold_trs])
+        name_rus = treasures.metal_description_rus[metall]['genitive']
+
+    'Добыто [gold_trs.weight] [name_rus]'
+
+    return
+
+label lb_location_mountain_main_mine_gems():
+
+    python:
+        gems = game.dragon.miner.mineGems()
+
+        game.lair.treasury.receive_treasures(gems)
+
+        [gems_counts, names] = game.dragon.miner.getStringOfMinedGems(gems)
+
+    'Добыто:\n[names]'
+
+    return
+
+label lb_location_mountain_main_travel:
     $ nochance = game.poverty.value * 3
     $ choices = [
         ("lb_enc_miner", 10),

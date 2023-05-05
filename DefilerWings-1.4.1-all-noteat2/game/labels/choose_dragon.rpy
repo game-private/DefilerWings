@@ -148,7 +148,7 @@ label lb_choose_dragon:
                 scrollbars "vertical"
                 # @fdsc Уменьшил шрифт
                 text renpy.childtext:
-                    size 18
+                    size 22
         if togle_dragonchoose_button is True:
             fixed:
                 xalign 1.0
