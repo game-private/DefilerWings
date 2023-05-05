@@ -44,7 +44,7 @@ class Miner(object):
         if metall == 'gems':
             return 1 + math.log(1 + self.__getattribute__(metall)) / math.log(16) * allMines
 
-        return 1 + math.sqrt(self.__getattribute__(metall)) * allMines
+        return 1 + math.log(1 + self.__getattribute__(metall)) / math.log(1.41) * allMines
 
 
     # Добываем металл
@@ -55,7 +55,7 @@ class Miner(object):
         while random.randint(1, 3) <= 2:
             k += 0.5
 
-        metal.weight = self.effectiveness(metall) * k * 10.0 / treasures.metal_types[metall]
+        metal.weight = self.effectiveness(metall) * k / treasures.metal_types[metall]
         self.__setattr__(metall, self.__getattribute__(metall) + k)
 
         k = 1
@@ -154,7 +154,7 @@ class Miner(object):
         effect = self.effectiveness('gems')
         streff = str(effect * self.dragon.sizeForMine)
         if names == "":    
-            names  = u"Ничего не добыто. Наверное, не хватило опыта. Эффективность добычи " + streff + u"\n(с увеличением размера и количества лап у дракона эффективность повышается при том же опыте; острые когти повышают эффективность)"
+            names  = u"Ничего не добыто. Наверное, не хватило опыта. Эффективность добычи " + streff + u"\n(с увеличением размера и количества лап у дракона эффективность повышается при том же опыте; острые когти и бронзовая голова повышают эффективность)"
         else:
             names += u"\nЭффективность добычи " + streff
 
@@ -458,6 +458,9 @@ class Dragon(Fighter):
 
         if 'clutches' in self.modifiers():
             k = 2.0
+
+        if 'bronze' in self.heads:
+            k *= 2.0
 
         return math.sqrt(  self.size + self.paws  ) * k
 
