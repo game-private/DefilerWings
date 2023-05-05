@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/events/rape.rpy", line 1804: expected 'name' not found.
-    call lb_bdsm_show from
-                          ^
+File "game/labels/dragon_creator.rpy", line 109: u'scrollbars' is not a keyword argument or valid child for the window statement.
+    scrollbars "vertical"
+              ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

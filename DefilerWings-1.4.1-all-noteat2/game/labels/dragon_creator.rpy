@@ -102,10 +102,13 @@ label lb_dragon_creator:
                         text_size 22
                         action Show("sc_achievements_list")
     screen sc_dragon_description:
-        window:
-            xmaximum 960
-            xalign 0.0
-            text "[game.dragon.description]"
+        viewport:
+            mousewheel True
+            scrollbars "vertical"
+            window:
+               xmaximum 960
+               xalign 0.0
+               text "[game.dragon.description]"
         key "K_SPACE" action Hide("sc_dragon_description")
         key 'K_RETURN' action Hide("sc_dragon_description")
         key 'K_KP_ENTER' action Hide("sc_dragon_description")
