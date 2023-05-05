@@ -59,42 +59,50 @@ class Miner(object):
         self.dragon.drain_energy(k, True)
 
         return metal
-    
+
     # processing устанавливается в cut_mod. Объявлены в treasures.Gem.cut_dict
-    def mineGems(self):
+    def mineGems(self, entireDay=False):
 
-        effect    = self.effectiveness('gems')
         minedGems = []
-        
-        choices = [
-            ("rough",    100),
-            ("polished", 8 * self.gems),
-            ("faceted",  int(   1 * self.gems * math.log(1+self.gems)   ))
-        ]
-        processing = utils.weighted_random(choices)
 
-        while random.randint(0, int(effect)+10) >= 1:
-            gems     = treasures.gem_types.keys()
-            gemsLen  = len(gems)
-            gemIndex = random.randint(0, gemsLen-1)
+        while self.dragon.energy() > 0:
 
-            sizes     = treasures.Gem.size_dict.keys()
-            sizesLen  = len(sizes)
-            sizeIndex = random.randint(0, sizesLen-1)
+            effect    = self.effectiveness('gems')
+            choices = [
+                ("rough",    100),
+                ("polished", 8 * self.gems),
+                ("faceted",  int(   1 * self.gems * math.log(1+self.gems)   ))
+            ]
+            processing = utils.weighted_random(choices)
 
-            minedGem  = treasures.Gem(g_type=gems[gemIndex], size=sizes[sizeIndex], cut=processing)
-            minedGems.append(minedGem)
+            while random.randint(0, int(effect)) >= 10:
+                gems     = treasures.gem_types.keys()
+                gemsLen  = len(gems)
+                gemIndex = random.randint(0, gemsLen-1)
+
+                sizes     = treasures.Gem.size_dict.keys()
+                sizesLen  = len(sizes)
+                sizeIndex = random.randint(0, sizesLen-1)
+
+                minedGem  = treasures.Gem(g_type=gems[gemIndex], size=sizes[sizeIndex], cut=processing)
+                minedGems.append(minedGem)
 
 
-        self.gems += 1
+            self.gems += 1
 
-        k = 1
-        while random.randint(1, 3) == 1:
-            k += 1
+            k = 1
+            while random.randint(1, 3) == 1:
+                k += 1
 
-        self.dragon.drain_energy(k, True)
+            self.dragon.drain_energy(k, True)
+
+            if not entireDay:
+                break
+
+
         return minedGems
-    
+
+
     def getStringOfMinedGems(self, minedGems):
 
         gems_counts = dict()
@@ -106,7 +114,7 @@ class Miner(object):
 
             gems_counts[nm]  = [cnt + 1, gem.g_type, gem.cut]
 
-        names = ""
+        names = u""
         for nm in gems_counts:
             cnt   = gems_counts[nm][0]
             cnt10 = cnt % 10
@@ -124,7 +132,8 @@ class Miner(object):
 
 
         if names == "":
-            names = "Ничего не добыто. Наверное, не хватило опыта"
+            effect = self.effectiveness('gems')
+            names  = u"Ничего не добыто. Наверное, не хватило опыта. Эффективность добычи " + effect + " (требуется как минимум 11)"
 
         return [gems_counts, names]
 

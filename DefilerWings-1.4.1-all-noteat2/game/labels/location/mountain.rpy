@@ -37,31 +37,55 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_metalls('adamantine')
         'Добывать драгоценные камни':
             call lb_location_mountain_main_mine_gems()
+
+        'Добывать серебро целый день':
+            call lb_location_mountain_main_mine_metalls('silver',       True)
+        'Добывать золото целый день':
+            call lb_location_mountain_main_mine_metalls('gold',         True)
+        'Добывать мифрил целый день':
+            call lb_location_mountain_main_mine_metalls('mithril',      True)
+        'Добывать адамант целый день':
+            call lb_location_mountain_main_mine_metalls('adamantine',   True)
+        'Добывать драгоценные камни целый день':
+            call lb_location_mountain_main_mine_gems(True)
     
     return
 
-label lb_location_mountain_main_mine_metalls(metall):
+label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
 
     python:
-        gold_trs = game.dragon.miner.mine(metall)
+        gold_trs = []
+        weight   = 0
+        while game.dragon.energy() > 0:
+            metal   = game.dragon.miner.mine(metall)
+            weight += metal.weight
+            gold_trs.append(metal)
 
-        game.lair.treasury.receive_treasures([gold_trs])
+            if not entireDay:
+                break
+
+        game.lair.treasury.receive_treasures(gold_trs)
         name_rus = treasures.metal_description_rus[metall]['genitive']
 
-    'Добыто [gold_trs.weight] [name_rus]'
+        txt = u'Добыто ' + str(weight) + ' ' + name_rus
+
+    '[txt]'
 
     return
 
-label lb_location_mountain_main_mine_gems():
+
+label lb_location_mountain_main_mine_gems(entireDay=False):
 
     python:
-        gems = game.dragon.miner.mineGems()
+        gems = game.dragon.miner.mineGems(entireDay)
 
         game.lair.treasury.receive_treasures(gems)
 
         [gems_counts, names] = game.dragon.miner.getStringOfMinedGems(gems)
 
-    'Добыто:\n[names]'
+        txt = u'Добыто:\n' + names
+
+    '[txt]'
 
     return
 

@@ -2,8 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/mountain.rpy", line 78: invalid syntax
-        else
-    
+File "game/labels/location/mountain.rpy", line 70: expected statement.
+    u'Добыто [weight] [name_rus]'
+                                 ^
+
+File "game/labels/location/mountain.rpy", line 84: expected statement.
+    u'Добыто:\n[names]'
+                       ^
 
 Ren'Py Version: Ren'Py 6.99.7.858
