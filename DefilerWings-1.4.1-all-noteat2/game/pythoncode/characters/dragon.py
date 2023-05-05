@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import random
+import math
 
 from copy import deepcopy
 
@@ -40,6 +41,9 @@ class Dragon(Fighter):
         self.special_places = {}  # Список разведанных "достопримечательностей"
         self.events = []  # список событий с этим драконом
         self.Treasure_master = 0 # Мастерство при создании украшений
+        if parent != None:
+            self.Treasure_master = parent.Treasure_master // 4
+
         self._gift = None  # Дар Владычицы
         if used_gifts is None:
             used_gifts = []
@@ -109,7 +113,7 @@ class Dragon(Fighter):
 
         [dp1, dp2] = self.defence_power()
         [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy())
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13)' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(math.log(1+self.Treasure_master*self.magic*self.max_energy() + self.magic + self.max_energy()) / math.log(100) * 100), self.level)
 
         return ddescription
 
@@ -452,6 +456,15 @@ class Dragon(Fighter):
         girlQ  = girl.quality + 2 + int(self.fear) + self.bloodiness
         # За девушкой проще ухаживать, если ты крылатый дракон - можно покатать её :)))
         girlQ -= self.wings
+        
+        # Коэффициент умножения
+        K = 1
+
+        # Целоваться с драконом нравится всем девушкам
+        if 'tongue' in self.modifiers():
+            K += 1
+
+        
         # Если логово украшено, ухаживать за девушками проще
         if lair != False:
             girlQ -= lair.summBrilliance()
@@ -459,12 +472,14 @@ class Dragon(Fighter):
         # Ухаживать за девушкой проще, если дракон - драгоценный, а девушка - не "невинная"
         if girl.nature != 'innocent':
             if 'gold' in self.heads:
-                girlQ -= 2 + int(girl.goldWeakness / 2)
+                girlQ -= K + int(girl.goldWeakness * K / 2)
             if 'silver' in self.heads:
-                girlQ -= 1
+                girlQ -= K
         else:
             if 'silver' in self.heads:
-                girlQ -= 2 + int(girl.goldWeakness / 2)
+                girlQ -= K
+            if 'gold' in self.heads:
+                girlQ -= int(girl.goldWeakness * K / 2)
 
         # Тени могут напугать "невинную" девушку дополнительно к общему страху от головы
         if girl.nature == 'innocent':
@@ -474,7 +489,7 @@ class Dragon(Fighter):
         # "Развратным" нравится повышенное влечение
         if girl.nature == 'lust':
             if 'spermtoxicos' in self.modifiers():
-                girlQ -= 2
+                girlQ -= K
 
 
         if girl.nature == 'proud':
@@ -489,8 +504,8 @@ class Dragon(Fighter):
 
         # Золотая сияющая чешуя соблазняет всех девушек
         if 'gold_scale' in self.modifiers():
-            girlQ -= 2 + girl.goldWeakness
-            
+            girlQ -= 2 + girl.goldWeakness * K
+
         if girlQ <= 0:
             if girl.quality < 0:
                 girlQ = 1

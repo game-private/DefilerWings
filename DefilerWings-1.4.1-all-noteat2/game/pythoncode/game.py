@@ -139,6 +139,10 @@ class Game(store.object):
         call(data.game_events["sleep_new_year"])
         self.year += 1
         self.dragon.age += 1
+
+        # @fdsc Размножение девушек в армии
+        self.army.girl_breeding()
+
         # Проверяем номер столетия
 #        if (self.year+1)%100==0:
 #           self.chronik.chronik_next_century()
@@ -760,6 +764,8 @@ class Game(store.object):
                         spells_menu.append((self.spell_list_rus['spellbound_trap'], 'spellbound_trap2'))
                     elif 'magic_traps3' not in self.lair.upgrades and self.dragon.mana >= 6:
                         spells_menu.append((self.spell_list_rus['spellbound_trap'], 'spellbound_trap3'))
+                    elif 'magic_traps4' not in self.lair.upgrades and self.dragon.mana >= 11:
+                        spells_menu.append((self.spell_list_rus['spellbound_trap'], 'spellbound_trap4'))
 
             if to_add:
                 spells_menu.append((self.spell_list_rus[spell], spell))
@@ -779,6 +785,9 @@ class Game(store.object):
             elif spell_name == 'spellbound_trap3':
                 self.lair.add_upgrade('magic_traps3')
                 self.dragon.drain_mana(5)   # Всего - 6
+            elif spell_name == 'spellbound_trap4':
+                self.lair.add_upgrade('magic_traps4')
+                self.dragon.drain_mana(10)   # Всего - 11
             else:
                 self.dragon.add_effect(spell_name)
             return True

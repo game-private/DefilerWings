@@ -25,10 +25,16 @@ label lb_location_city_main:
     # @fdsc Просто убрал лишнюю надпись
     # 'Столица королевства людей.'
     menu:
+        'Ограбить королевский дворец'  if game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+            call lb_city_palace_atk(True)
+        'Грабить королевский дворец целый день' if game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+            while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+                call lb_city_palace_atk(True, True)
+
         'Украсть девушку с рынка и загипнотизировать' if game.dragon.can_fly and game.dragon.mana > 1 and  not (game.witch_st1==6 or game.witch_st1==7):
             # @fdsc
             # 'Легко перемахнув через городскую стену, [game.dragon.kind] оказывается в самом центре города. От летучего врага укрепления не спасут...'
-            call lb_girl_citizen_market_kidnapped(True)
+            call lb_city_market_atk(True)
 
             # @fdsc Девушки добровольно соглашаются
             $ game.girl.willing=True
@@ -611,47 +617,59 @@ label lb_city_queen:
     'Две женщины ещё долго смотрели на море'
     return
 
-label lb_city_palace_atk:
+label lb_city_palace_atk(grab=False, fast=False):
     $ game.dragon.drain_energy()
     $ game.foe = Enemy('palace_guards', game_ref=game)
-    $ chances = show_chances(game.foe)
-    call lb_fight from _call_lb_fight
+    if not fast:
+        $ chances = show_chances(game.foe)
+
+    call lb_fight(game.foe, False, fast) from _call_lb_fight
     nvl clear
     hide bg
     show expression 'img/bg/city/palace.jpg' as bg
-    'Пока остальные защитники цитадели находятся в замешательстве, у дракона появился отличный шанс для грабежа и разбоя.'
+    
     $ game.dragon.reputation.points += 3
-    '[game.dragon.reputation.gain_description]'
+    if not fast:
+        'Пока остальные защитники цитадели находятся в замешательстве, у дракона появился отличный шанс для грабежа и разбоя.\n\n[game.dragon.reputation.gain_description]'
+
+    if grab:
+        call lb_city_palace_atk_grab
+        return
+    
     menu:
         'Обесчестить благородную девицу':
 #            $ game.dragon.drain_energy()
             $ description = game.girls_list.new_girl('princess')
             $ text = u'%s, фрейлина прекрасной принцессы, прислуживала своей госпоже в королевском дворце. Что плохого могло с ней случиться в самом защищённом месте королества?! Вот только дракона не остановили ни высокие стены столицы, ни отменная выуска гвардейцев. Когда фрейлина попала в лапы дракона, в её голове билась одна-единственная мысль: "Как хорошо, что моя госпожа в безопасности!!!" \n\n' % game.girl.name
             $ game.chronik.write_chronik(text,game.dragon.level,game.chronik.girl_id)
-            '[game.dragon.fullname] ловит благородную девицу'
             $ game.dragon.reputation.points += 1
-            '[game.dragon.reputation.gain_description]'
+            '[game.dragon.fullname] ловит благородную девицу\n[game.dragon.reputation.gain_description]'
             nvl clear
             game.girl.third "[description]"
             call lb_nature_sex from _call_lb_nature_sex     
         'Вороватъ @ убиватъ':
-#            $ game.dragon.drain_energy()
-            python:
-                count = random.randint(4, 9)
-                alignment = 'knight'
-                min_cost = 200
-                max_cost = 2000
-                obtained = "Это предмет из королевской сокровищницы."
-                trs = treasures.gen_treas(count, data.loot['palace'], alignment, min_cost, max_cost, obtained)
-                trs_list = game.lair.treasury.treasures_description(trs)
-                trs_descrptn = '\n'.join(trs_list)
-            'С кровожадным рёвом [game.dragon.fullname] проносится по коридорам дворца, убивая всех на своём пути и присваивая каждую понравившуся ему вещь:'
-            '[trs_descrptn]'
-            $ game.lair.treasury.receive_treasures(trs)
-            $ game.dragon.reputation.points += 5
-            '[game.dragon.reputation.gain_description]'
+            call lb_city_palace_atk_grab
         'Убежать':
             'Решив не искушать судьбу и использовать поднявшуюся суматоху для безопасного отхода, [game.dragon.kind] уходит прочь из города.'
+    return
+    
+label lb_city_palace_atk_grab:
+#    $ game.dragon.drain_energy()
+    python:
+        count = random.randint(4, 6 + game.dragon.max_energy())
+        alignment = 'knight'
+        min_cost = 200
+        max_cost = 2000
+        obtained = "Это предмет из королевской сокровищницы."
+        trs = treasures.gen_treas(count, data.loot['palace'], alignment, min_cost, max_cost, obtained)
+        trs_list = game.lair.treasury.treasures_description(trs)
+        trs_descrptn = '\n'.join(trs_list)
+
+    $ game.lair.treasury.receive_treasures(trs)
+    $ game.dragon.reputation.points += 5
+
+    'С кровожадным рёвом [game.dragon.fullname] проносится по коридорам дворца, убивая всех на своём пути и присваивая каждую понравившуся ему вещь:\n[trs_descrptn]\n[game.dragon.reputation.gain_description]'
+
     return
 
 label lb_city_market:
@@ -675,7 +693,7 @@ label lb_city_market:
 
     return
 
-label lb_city_market_atk:
+label lb_city_market_atk(girl=False):
     show expression 'img/bg/city/market.jpg' as bg    
     $ night_watch = game.historical_check('night_watch')
     if night_watch:
@@ -684,6 +702,11 @@ label lb_city_market_atk:
       call lb_fight from _call_lb_fight_73
       'Теперь люди беззащитны перед яростью дракона!'
     nvl clear
+
+    if girl:
+        call lb_girl_citizen_market_kidnapped(True)
+        return
+    
     'На рыночной площади люди продают всяческие бесполезные вещи вроде молока, овощей и домашней утвари. Впрочем, тут легко можно прихватить симпатичную красотку... или, на худой конец, попросту повеселиться от души!'
     menu:
         'Устроить резню':

@@ -1376,7 +1376,7 @@ label lb_love_lizardman_live:
     $ text = u'%s тоже с честью выдержала предложенное испытание, превратившись в аппарат по производству отродий. Практически ежедневно она становилась главной героиней массовых оргий с монстрами. Но это не тяготило законченную нимфоманку-ксенофилку, ведь иногда в тех же оргиях участвовал её любимый... \n\n' %(game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ game.chronik.live('dark_whore',current_image)
-    $ game.army.add_warrior('lizardman')
+    $ game.army.add_warrior('lizardman', 1)
     return
 
 label lb_love_lizardman_uncle: # Возвращается к родственникам - счастливый исход

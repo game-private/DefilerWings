@@ -144,10 +144,16 @@ label lb_location_lair_main:
                     QE = game.dragon.energy()
 
                     new_item.quality_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
+                    if new_item.dec_mod > 1:
+                        new_item.dec_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
 
                     game.dragon.drain_mana(QM)
                     game.dragon.drain_energy(QE)
-                    game.dragon.Treasure_master += new_item.cost
+                    k = 1
+                    if new_item.dec_mod > 1:
+                        k = QE*QM
+
+                    game.dragon.Treasure_master += new_item.cost + (k + QE + QM)*100
 
                     game.lair.treasury.receive_treasures([new_item])
                     test_description = new_item.description()

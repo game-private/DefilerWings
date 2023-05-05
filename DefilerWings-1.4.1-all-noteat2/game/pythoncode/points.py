@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import math
+
 import renpy.store as store
 import girls_data
 from utils import call
@@ -169,11 +171,28 @@ class Army(store.object):
         self._elites = {}  # словарь для хранения элитных войск
         self.money = 0  # деньги в казне Владычицы
         self._force_residue = 100  # процент оставшейся силы армии - мощь армии
+        self.girls = 0 # Количество девушек-воспроизводителей
+        self.girls_derivatives = 0 # Количество уже размножившихся девушек
 
-    def add_warrior(self, warrior_type):
+    # @fdsc Размножение девушек
+    # Вызывается в game.py next_year
+    def girl_breeding(self):
+
+        # if 'girls' not in dir(self):
+        #    self.girls = 0
+        # if 'girls_derivatives' not in dir(self):
+        #    self.girls_derivatives = 0
+
+        self.girls_derivatives += self.girls
+
+
+    def add_warrior(self, warrior_type, girls=0):
         """
         Добавляет воина  в армию тьмы. warrior_type - название типа добавляемого воина из словаря girls_data.spawn_info
         """
+        if 'girls' not in dir(self):
+            self.girls = 0
+
         if 'elite' in girls_data.spawn_info[warrior_type]['modifier']:
             # воин элитный, добавляется в список элитных 
             warriors_list = self._elites
@@ -187,6 +206,11 @@ class Army(store.object):
             # такого типа воина нет в списке, добавляем
             warriors_list[warrior_type] = 1
 
+        # @fdsc Размножение девушек
+        if girls > 0:
+            self.girls += girls
+
+
     @property
     def grunts(self):
         """
@@ -196,6 +220,18 @@ class Army(store.object):
         for grunts_i in self._grunts.values():
             grunts_count += grunts_i
         return grunts_count
+
+    @property
+    def grunts_power(self):
+        """
+        Возвращает число элитных войск в армии тьмы
+        """
+        res=0
+        for name, count in self._grunts.iteritems():
+            res += girls_data.spawn_info[name]['power']*count
+
+        return res // 5
+
 
     @property
     def grunts_list(self):
@@ -216,6 +252,17 @@ class Army(store.object):
         for elites_i in self._elites.values():
             elites_count += elites_i
         return elites_count
+    
+    @property
+    def elites_power(self):
+        """
+        Возвращает число элитных войск в армии тьмы
+        """
+        res=0
+        for elite_name, elite_count in self._elites.iteritems():
+            res += girls_data.spawn_info[elite_name]['power']*elite_count
+
+        return res // 5
 
     @property
     def elites_list(self):
@@ -232,7 +279,8 @@ class Army(store.object):
         """
         Возвращает разнообразие армии тьмы
         """
-        diversity = len(self._elites)
+        # @fdsc Размножение девушек
+        diversity = len(self._elites) + (self.girls // 4)
         dominant_number = sorted(self._grunts.values())[-1] // 2
         for number_i in self._grunts.values():
             if dominant_number <= number_i:
@@ -240,13 +288,18 @@ class Army(store.object):
         return diversity
 
     @property
+    def money_requirements_for_equipment(self):
+        return (self.grunts + self.elites*3) * 1000
+    
+    @property
     def equipment(self):
         """
         Возвращает уровень экипировки армии тьмы
         """
         equipment = 1
         aod_money = self.money
-        aod_cost = (self.grunts + self.elites) * 1000
+        # @fdsc Было просто (self.grunts + self.elites)
+        aod_cost = self.money_requirements_for_equipment
         while aod_money >= aod_cost:
             aod_money //= 2
             equipment += 1
@@ -258,8 +311,9 @@ class Army(store.object):
         Возвращает суммарную силу армии тьмы по формуле
         (force) = (grunts + 3 * elites) * diversity * equipment * текущий процент мощи
         """
-        self.force_clear=(self.grunts + 3 * self.elites) * self.diversity * self.equipment
+        self.force_clear= (self.grunts_power + 3 * self.elites_power) * self.diversity * self.equipment * math.log(self.girls_derivatives+2)/math.log(2) // 10
 #        self.force_clear=1800.
+
         return self.force_clear* self._force_residue // 100
 
 #    @property
@@ -282,7 +336,13 @@ class Army(store.object):
     def army_description(self):
         description_str = get_description_by_count(dark_army['grunts'], self.grunts) + '\n'
         description_str += get_description_by_count(dark_army['elites'], self.elites) + '\n'
-        description_str += get_description_by_count(dark_army['diversity'], self.diversity) + '\n'
+        description_str += get_description_by_count(dark_army['diversity'], self.diversity - (self.girls//4)) + '\n'
         description_str += get_description_by_count(dark_army['equipment'], self.equipment) + '\n'
-        description_str += get_description_by_count(dark_army['force'], self.force)
+        description_str += get_description_by_count(dark_army['force'], self.force) + '\n'
+
+        description_str += u"Бойцы (сила): " + str(self.grunts) + ' (' + str(self.grunts_power) + ')' + ',    ' + str(self.elites) + ' (' + str(self.elites_power) + ')' + "\n"
+        description_str += u"Снаряжение: " + str(self.money/self.money_requirements_for_equipment * 100 // 4) + '%\n'
+        description_str += u"Девушки и разнообразие: " + str(self.girls) + ", " + str(self.girls_derivatives) + ', '  + str(self.diversity - (self.girls//4)) + '\n'
+        description_str += u"Сила: " + str(int(self.force*100/1800)) + '%\n'
+
         return description_str

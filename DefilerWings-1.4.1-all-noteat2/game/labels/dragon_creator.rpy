@@ -101,14 +101,22 @@ label lb_dragon_creator:
                         background "img/bg/logovo.png"
                         text_size 22
                         action Show("sc_achievements_list")
+
     screen sc_dragon_description:
-        viewport:
-            mousewheel True
-            scrollbars "vertical"
-            window:
-               xmaximum 960
-               xalign 0.0
-               text "[game.dragon.description]"
+        xysize(174, 36)
+        area (100, 100, 100, 100)
+        side "aaa":
+            viewport id "vp":
+                mousewheel True
+                scrollbars "vertical"
+                #window:
+                #xmaximum 960
+                xysize(960, 100)
+                xalign 0.0
+                text "[game.dragon.description]"
+
+            vbar value YScrollValue("vp")
+
         key "K_SPACE" action Hide("sc_dragon_description")
         key 'K_RETURN' action Hide("sc_dragon_description")
         key 'K_KP_ENTER' action Hide("sc_dragon_description")

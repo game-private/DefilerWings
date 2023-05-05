@@ -139,12 +139,16 @@ label lb_choose_dragon:
         $renpy.childtext = "%s %s\n\n%s" % (child_choose.name, child_choose.surname, child_choose.description)
         window:
             xsize 760
+            ysize 0.725
             xpos 200
             ypos 200
             align(0.0, 0.0)
-            # @fdsc Уменьшил шрифт
-            text renpy.childtext:
-                size 18
+            viewport:
+                mousewheel True
+                scrollbars "vertical"
+                # @fdsc Уменьшил шрифт
+                text renpy.childtext:
+                    size 18
         if togle_dragonchoose_button is True:
             fixed:
                 xalign 1.0

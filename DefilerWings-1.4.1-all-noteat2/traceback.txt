@@ -1,76 +1,36 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 65, in script
-    $ target_label = renpy.call_screen("main_map")
-  File "game/script.rpy", line 65, in <module>
-    $ target_label = renpy.call_screen("main_map")
-  File "game/map.rpy", line 26, in execute
-    screen main_map:
-  File "game/map.rpy", line 26, in execute
-    screen main_map:
-  File "game/map.rpy", line 80, in execute
-    use status_bar
-  File "game/map.rpy", line 93, in execute
-    screen status_bar:
-  File "game/map.rpy", line 93, in execute
-    screen status_bar:
-  File "game/map.rpy", line 95, in execute
-    fixed:
-  File "game/map.rpy", line 101, in execute
-    if game.dragon is not None and game.dragon.is_alive:
-  File "game/map.rpy", line 103, in execute
-    text "%d / %d" % (game.dragon.energy(), game.dragon.max_energy()):
-NotImplementedError: \u0421\u043f\u0435\u0440\u043c\u043e\u0442\u043e\u043a\u0441\u0438\u043a\u043e\u0437
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/mordor.rpy", line 33, in script
+    '[game.army.army_description]'
+AttributeError: 'Army' object has no attribute 'girls_derivatives'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 65, in script
-    $ target_label = renpy.call_screen("main_map")
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/script.rpy", line 65, in <module>
-    $ target_label = renpy.call_screen("main_map")
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 2369, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ui.py", line 277, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 2365, in interact
-    scene_lists.replace_transient()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 728, in replace_transient
-    self.remove(layer, tag)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1015, in remove
-    self.hide_or_replace(layer, remove_index, "hide")
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 939, in hide_or_replace
-    d = oldsle.displayable._hide(now - st, now - at, prefix)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 430, in _hide
-    self.update()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 565, in update
-    self.screen.function(**self.scope)
-  File "game/map.rpy", line 26, in execute
-    screen main_map:
-  File "game/map.rpy", line 26, in execute
-    screen main_map:
-  File "game/map.rpy", line 80, in execute
-    use status_bar
-  File "game/map.rpy", line 93, in execute
-    screen status_bar:
-  File "game/map.rpy", line 93, in execute
-    screen status_bar:
-  File "game/map.rpy", line 95, in execute
-    fixed:
-  File "game/map.rpy", line 101, in execute
-    if game.dragon is not None and game.dragon.is_alive:
-  File "game/map.rpy", line 103, in execute
-    text "%d / %d" % (game.dragon.energy(), game.dragon.max_energy()):
-  File "<screen language>", line 103, in <module>
-  File "pythoncode/characters/dragon.py", line 152, in energy
-  File "pythoncode/characters/dragon.py", line 146, in max_energy
-  File "pythoncode/data.py", line 1975, in get_modifier
-NotImplementedError: \u0421\u043f\u0435\u0440\u043c\u043e\u0442\u043e\u043a\u0441\u0438\u043a\u043e\u0437
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/mordor.rpy", line 33, in script
+    '[game.army.army_description]'
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 603, in execute
+    renpy.exports.say(who, what, interact=self.interact)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 1036, in say
+    who(what, interact=interact)
+  File "pythoncode/characters/talker.py", line 40, in __call__
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 817, in __call__
+    what = what_pattern.replace("[what]", sub(what, translate=translate))
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 799, in sub
+    return renpy.substitutions.substitute(s, scope=scope, force=force, translate=translate)[0]
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/substitutions.py", line 229, in substitute
+    s = formatter.vformat(s, (), kwargs)
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 563, in vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 585, in _vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 652, in get_field
+  File "pythoncode/points.py", line 312, in army_description
+  File "pythoncode/points.py", line 286, in force
+AttributeError: 'Army' object has no attribute 'girls_derivatives'
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858

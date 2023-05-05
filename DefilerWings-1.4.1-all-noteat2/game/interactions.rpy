@@ -2,6 +2,8 @@
 # локация взаимодействий
 init python:
 
+    import math
+
     from pythoncode import focus_mask_ext
 label lb_nature_sex:
     if game.girl.jailed:
@@ -156,7 +158,9 @@ label lb_lair_sex:
         'Долго ухаживать за девушкой (+[girlW]\%)' if game.dragon.energy() >= 3 and game.dragon.energy() >= girlQ and game.girl.virgin:
 
             python:
-                game.dragon.drain_energy(girlQ)
+                [girlW, girlQ] = game.dragon.attractiveness(game.girl, game.lair)
+
+                game.dragon.drain_energy(girlQ, True)
                 if 'spermtoxicos' not in game.dragon.modifiers():
                     game.dragon.gain_rage()
 
@@ -165,6 +169,26 @@ label lb_lair_sex:
                 if game.girl.willingPercent >= 100:
                     # @fdsc Девушки добровольно соглашаются
                     game.girl.willing=True
+
+            pass
+
+        # @fdsc Ухаживать за девушкой
+        'Очень долго ухаживать за девушкой' if game.dragon.energy() >= 4 and game.dragon.energy() >= girlQ+1 and game.girl.virgin and 'spermtoxicos' in game.dragon.modifiers():
+
+            python:
+                # Это не ошибка: здесь энергия дракона после ухаживания будет отрицательной: просто поспать не получится
+                while girlW > 0 and game.dragon.energy() >= 0:
+                    [girlW, girlQ] = game.dragon.attractiveness(game.girl, game.lair)
+
+                    game.dragon.drain_energy(girlQ, True)
+                    if 'spermtoxicos' not in game.dragon.modifiers():
+                        game.dragon.gain_rage()
+
+                    game.girl.willingPercent += girlW
+
+                    if game.girl.willingPercent >= 100:
+                        # @fdsc Девушки добровольно соглашаются
+                        game.girl.willing=True
 
             pass
         
@@ -177,10 +201,17 @@ label lb_lair_sex:
             $ game.dragon.lust -= 1
 
         # @fdsc 
-        'Лишить невинности без оплодотворения (мана)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0:
-            $ text = u' %s целый день развлекался с %s, лишив её невинности и получив %d маны' % (game.dragon.name, game.girl.name, game.girl.quality + 2)
+        'Лишить невинности без оплодотворения (мана на ход)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0:
+            python:
+                wp  = math.sqrt(game.girl.willingPercent) - 10
+                if wp < 1:
+                    wp = 1
+
+                mana = (game.girl.quality + 2) * wp
+
+            $ text = u' %s целый день развлекался с %s, лишив её невинности и получив %d маны' % (game.dragon.name, game.girl.name, mana)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-            $ game.dragon.drain_mana(-game.girl.quality - 2)
+            $ game.dragon.drain_mana(-mana)
             $ game.girl.virgin = False
             $ game.dragon.lust -= 1
 

@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/dragon_creator.rpy", line 109: u'scrollbars' is not a keyword argument or valid child for the window statement.
-    scrollbars "vertical"
+File "game/labels/choose_dragon.rpy", line 146: u'mousewheel' is not a keyword argument or valid child for the vbox statement.
+    mousewheel True
               ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

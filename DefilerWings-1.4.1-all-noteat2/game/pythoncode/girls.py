@@ -1,6 +1,7 @@
 ﻿# coding=utf-8
 
 import random
+import math
 import data
 import renpy.exports as renpy
 import renpy.store as store
@@ -1009,14 +1010,24 @@ class GirlsList(object):
               self.game.love.new_love_smuggler()
             else:
               self.decision(girl_i) # Думают, что им делать
-          elif self.love_possible_lizardman:
-            if self.game.girl.type == 'peasant' and (random.randint(1, 10) == 1):
+          elif self.love_possible_lizardman:  # Принятие решения о любви между девушкой и монстров
+
+            # @fdsc
+            kv = 0
+            if self.game.girl.virgin:
+                kv = 3
+            if self.game.girl.willingPercent >= 100:
+                kv -= (self.game.girl.willingPercent - 80) // 100;
+            if kv < -9:
+                kv = -9
+
+            if self.game.girl.type == 'peasant' and (random.randint(1, 10+kv) == 1):
               self.game.love.new_love_lizardman()
-            elif self.game.girl.type == 'citizen' and (random.randint(1, 12) == 1):
+            elif self.game.girl.type == 'citizen' and (random.randint(1, 12+kv) == 1):
               self.game.love.new_love_lizardman()
-            elif self.game.girl.type == 'princess' and (random.randint(1, 14) == 1):
+            elif self.game.girl.type == 'princess' and (random.randint(1, 14+kv) == 1):
               self.game.love.new_love_lizardman()
-            elif self.game.girl.type == 'elf' and (random.randint(1, 16) == 1):
+            elif self.game.girl.type == 'elf' and (random.randint(1, 16+kv) == 1):
               self.game.love.new_love_lizardman()
             else:
               self.decision(girl_i)                     
@@ -1354,8 +1365,18 @@ class GirlsList(object):
     def prison_birth(self):
         girl_type = girls_data.girls_info[self.game.girl.type]
         self.birth()
-        self.spawn.append(girl_type[self.spawn_class])
-        self.event('spawn', girl_type[self.spawn_class])  # событие "рождение отродий"
+
+        # @fdsc Девушки иногда рожают по нескольку отродий сразу: если хорошо ухаживать
+        kl = math.sqrt(self.game.girl.willingPercent / 200)
+        if 'spermtoxicos' in self.game.dragon.modifiers():
+            kl += 0.50001
+
+        if kl < 1:
+            kl = 1
+
+        for K in xrange(int(kl)):
+            self.spawn.append(girl_type[self.spawn_class])
+            self.event('spawn', girl_type[self.spawn_class])  # событие "рождение отродий"
 
 
     # noinspection PyTypeChecker
@@ -1538,7 +1559,8 @@ class GirlsList(object):
         Проверяет возможность ксенофилии с ящериком
         """
         assert self.game.girl, "Girl not found"
-        possible = self.game.girl.love is None and self.game.lair.beast == 'lizardman' and not girls_data.girls_info[self.game.girl.type]['giantess'] and not self.game.girl.type == 'mermaid' and not self.game.girl.blind and not self.game.girl.cripple and not self.game.girl.willing
+        possible = self.game.girl.love is None and self.game.lair.beast == 'lizardman' and not girls_data.girls_info[self.game.girl.type]['giantess'] and not self.game.girl.type == 'mermaid' and not self.game.girl.blind and not self.game.girl.cripple
+        # and not self.game.girl.willing
         return possible
 
     def girl_in_lair(self,girl_i):
