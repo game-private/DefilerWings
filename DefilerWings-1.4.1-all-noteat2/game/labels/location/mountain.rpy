@@ -48,7 +48,9 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_metalls('adamantine',   True)
         'Добывать драгоценные камни целый день':
             call lb_location_mountain_main_mine_gems(True)
-    
+        'Вернуться':
+            return
+
     return
 
 label lb_location_mountain_main_mine_metalls(metall, entireDay=False):

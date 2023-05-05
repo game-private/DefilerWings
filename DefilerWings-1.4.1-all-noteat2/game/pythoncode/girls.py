@@ -82,7 +82,8 @@ class GirlsList(object):
         self.game.girl.virgin = False
         if self.game.girl.quality < self.game.dragon.magic or \
                 'impregnator'  in self.game.dragon.modifiers() or \
-                'spermtoxicos' in self.game.dragon.modifiers():
+                'spermtoxicos' in self.game.dragon.modifiers() or \
+                self.game.girl.willingPercent >= 200:
             self.game.girl.pregnant = 2
         else:
             self.game.girl.pregnant = 1

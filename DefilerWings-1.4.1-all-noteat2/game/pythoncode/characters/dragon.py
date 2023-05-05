@@ -462,6 +462,9 @@ class Dragon(Fighter):
         if 'bronze' in self.heads:
             k *= 2.0
 
+        if 'gold' in self.heads:
+            k *= 1.1
+
         return math.sqrt(  self.size + self.paws  ) * k
 
 

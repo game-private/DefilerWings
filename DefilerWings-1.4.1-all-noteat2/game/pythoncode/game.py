@@ -149,8 +149,12 @@ class Game(store.object):
         # Платим за службу, проверяется в начале года
         for upgrade in self.lair.upgrades.keys():
 
-            if type(self.lair.upgrades) == type(self.lair.upgrades[upgrade]) and \
-                    'cost' in self.lair.upgrades[upgrade].keys():
+            #if type(self.lair.upgrades) == type(self.lair.upgrades[upgrade]) and \
+            # if type(self.lair.upgrades[upgrade]) == dict and \
+            upgrade_object = self.lair.upgrades[upgrade]
+            if 'keys' in dir(upgrade_object) and \
+                    'cost' in self.lair.upgrades[upgrade].keys() and \
+                    self.lair.upgrades[upgrade]['cost'] != None:
                 salary = self.lair.treasury.get_salary(self.lair.upgrades[upgrade]['cost'])
 #                self.narrator(u"%s" % salary)
 #                self.narrator(u"%s" % salary)
