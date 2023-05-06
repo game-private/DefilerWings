@@ -5,7 +5,7 @@ While running game code:
     init python:
   File "game/fight.rpy", line 3, in <module>
     from pythoncode import battle
-SyntaxError: invalid syntax (treasures.py, line 2474)
+IndentationError: unindent does not match any outer indentation level (dragon.py, line 632)
 
 -- Full Traceback ------------------------------------------------------------
 
@@ -24,12 +24,9 @@ Full traceback:
   File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 693, in load_module
     exec code in mod.__dict__
   File "pythoncode/characters/__init__.py", line 6, in <module>
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 693, in load_module
-    exec code in mod.__dict__
-  File "pythoncode/characters/dragon.py", line 13, in <module>
   File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 692, in load_module
     code = compile(source, filename, 'exec')
-SyntaxError: invalid syntax (treasures.py, line 2474)
+IndentationError: unindent does not match any outer indentation level (dragon.py, line 632)
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858

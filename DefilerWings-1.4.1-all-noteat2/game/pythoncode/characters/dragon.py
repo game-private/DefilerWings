@@ -622,14 +622,13 @@ class Dragon(Fighter):
 
     # @fdsc
     def getTreasureMasterEffect(self, QK = 0):
-            QM = game.dragon.mana
-            QE = game.dragon.energy() + QK
+        QM = self.mana
+        QE = self.energy() + QK
 
-            QM3 = QM*QM*QM
-            QE2 = QE*QE
+        QM3 = QM*QM*QM
+        QE2 = QE*QE
 
-
-        return 1 + QK + math.log(1+game.dragon.Treasure_master*QM3*QE2+QM3+QE2) / math.log(100)
+        return 1 + QK + math.log(1+self.Treasure_master*QM3*QE2+QM3+QE2) / math.log(100)
 
     def attractiveness(self, girl, lair=False):
         # Страшный дракон существено повышает проблемы с ухаживаниями
