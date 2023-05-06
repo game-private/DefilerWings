@@ -31,14 +31,14 @@ label lb_location_city_main:
             while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
                 call lb_city_palace_atk(True, True)
 
-        'Украсть девушку с рынка и загипнотизировать' if game.dragon.can_fly and game.dragon.mana > 1 and  not (game.witch_st1==6 or game.witch_st1==7):
+        'Украсть девушку с рынка' if game.dragon.can_fly and game.dragon.mana > 1 and  not (game.witch_st1==6 or game.witch_st1==7):
             # @fdsc
             # 'Легко перемахнув через городскую стену, [game.dragon.kind] оказывается в самом центре города. От летучего врага укрепления не спасут...'
             call lb_city_market_atk(True)
 
             # @fdsc Девушки добровольно соглашаются
-            $ game.girl.willing=True
-            $ game.dragon.drain_mana(game.girl.quality + 1)
+            # $ game.girl.willing=True
+            # $ game.dragon.drain_mana(game.girl.quality + 1)
             
             $ text = u'Заполучив девицу, дракон утащил бедняжку в своё логово%s. \n\n' % game.lair.type.name_locative
 

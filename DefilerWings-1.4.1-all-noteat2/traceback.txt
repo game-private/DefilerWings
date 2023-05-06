@@ -1,19 +1,35 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-error: No available video device
+While running game code:
+  File "game/labels/location/mordor.rpy", line 147, in script call
+    call lb_choose_dragon from _call_lb_choose_dragon_2
+  File "game/labels/choose_dragon.rpy", line 169, in script
+    $ game.dragon = child_selected
+  File "game/labels/choose_dragon.rpy", line 169, in <module>
+    $ game.dragon = child_selected
+IndexError: list index out of range
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/bootstrap.py", line 281, in bootstrap
-    renpy.main.main()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/main.py", line 450, in main
-    renpy.display.core.Interface()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1439, in __init__
-    pygame.display.init()
-  File "pygame_sdl2/display.pyx", line 66, in pygame_sdl2.display.init (gen/pygame_sdl2.display.c:1501)
-error: No available video device
+  File "game/labels/location/mordor.rpy", line 147, in script call
+    call lb_choose_dragon from _call_lb_choose_dragon_2
+  File "game/labels/choose_dragon.rpy", line 169, in script
+    $ game.dragon = child_selected
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/labels/choose_dragon.rpy", line 169, in <module>
+    $ game.dragon = child_selected
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 546, in do_mutation
+    return method(self, *args, **kwargs)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 710, in __setattr__
+    object.__setattr__(self, attr, value)
+  File "pythoncode/game.py", line 92, in dragon
+  File "pythoncode/game.py", line 466, in set_quest
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/random.py", line 275, in choice
+IndexError: list index out of range
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858

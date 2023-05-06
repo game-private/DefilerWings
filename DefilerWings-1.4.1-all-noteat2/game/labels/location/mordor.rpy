@@ -117,6 +117,16 @@ label lb_mistress:
             call lb_location_mordor_main from _call_lb_location_mordor_main_2
     return
 
+label lb_location_mordor_questtime_completed:
+    'Квест был выполнен. Вы можете продолжать играть дальше или пойти к Владычице получить новый квест'
+    menu:
+        'Пока продолжить':
+            return False
+        'Идти к Владычице':
+            return True
+
+    return True
+
 label lb_location_mordor_questtime:
     $ place = 'mordor' 
     show place as bg

@@ -321,14 +321,24 @@ class Game(store.object):
         # Действия с девушками после конца сна    
         self.girls_list.after_awakening()
         # Проверка срока выполнения квеста
-        if (self.quest_time <= 0) and not store.freeplay:
-            if self.girls_list.prisoners_count > 0:
-              self.dragon.third(u"Тёмная госпожа призывает своё дитя. Дракон выпускает пленниц.")
-            self.girls_list.free_all_girls()
-            self.girls_list.next_year()
-            self.remove_history()
-#                break
-            call('lb_location_mordor_questtime')
+
+        # @fdsc Если условия квеста выполнены, позволяем дракону играть дальше без загрузки нового квеста
+        if (self.quest_time <= 0) and not store.freeplay and not self.is_quest_has_been_completed:
+            mistress_flag = True
+            if self.is_quest_complete:
+                self.is_quest_has_been_completed = True
+                self.quest_time = 1000
+                mistress_flag = call('lb_location_mordor_questtime_completed')
+
+            if mistress_flag:
+                if self.girls_list.prisoners_count > 0:
+                  self.dragon.third(u"Тёмная госпожа призывает своё дитя. Дракон выпускает пленниц.")
+                self.girls_list.free_all_girls()
+                self.girls_list.next_year()
+                self.remove_history()
+    #                break
+                call('lb_location_mordor_questtime')
+
         call(data.game_events["sleep_end"])
 
     def create_foe(self, foe_type):
@@ -424,6 +434,9 @@ class Game(store.object):
           self.knight.other_lair()
 
     def set_quest(self):
+        # @fdsс
+        self.is_quest_has_been_completed = False
+
         lvl = self.dragon.level
         # проходим весь список квестов
         quests = []

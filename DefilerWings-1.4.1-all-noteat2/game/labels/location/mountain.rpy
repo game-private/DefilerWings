@@ -25,8 +25,7 @@ label lb_location_mountain_main:
       return
  
     menu:
-        'Охотиться за добычей':
-            jump lb_location_mountain_main_travel
+
         'Добывать серебро':
             call lb_location_mountain_main_mine_metalls('silver')
         'Добывать золото':
@@ -35,9 +34,11 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_metalls('mithril')
         'Добывать адамант':
             call lb_location_mountain_main_mine_metalls('adamantine')
+        # '{color=#00FF00}Добывать драгоценные камни{/color}':
         'Добывать драгоценные камни':
             call lb_location_mountain_main_mine_gems()
 
+        ''
         'Добывать серебро целый день':
             call lb_location_mountain_main_mine_metalls('silver',       True)
         'Добывать золото целый день':
@@ -48,7 +49,13 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_metalls('adamantine',   True)
         'Добывать драгоценные камни целый день':
             call lb_location_mountain_main_mine_gems(True)
-        'Вернуться':
+
+        ''
+        'Охотиться за добычей':
+            jump lb_location_mountain_main_travel
+
+        # '\n{color=#707070}{b}Вернуться{/b}{/color}\n':
+        '{color=#707070}Вернуться{/color}':
             return
 
     return

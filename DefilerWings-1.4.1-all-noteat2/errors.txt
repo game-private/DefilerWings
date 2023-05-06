@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/dragon_creator.rpy", line 108: side statement expects 1 positional arguments, got 0.
-    side:
-         ^
+File "game/labels/location/mountain.rpy", line 58: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
+    'Вернуться'
+               ^
 
 Ren'Py Version: Ren'Py 6.99.7.858
