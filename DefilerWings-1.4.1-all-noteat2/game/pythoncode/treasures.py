@@ -2462,15 +2462,17 @@ class Treasury(store.object):
         """
         # treasure_list = sorted(treasure_types.keys(), key=lambda treas: treasure_description_rus[treas]['nominative'])
         def A(treas):
+            # Если можно украсить изображением
             if treasure_types[treas][6]:
-                s = '1'
-            else:
                 s = '0'
+            else:
+                s = '1'
 
+            # Если можно украсить изображением или сам объект является изображением (вдохновение приходит к дракону только на таких объектах)
             # if treasure_types[treas][4] or treasure_types[treas][6]:
-            #     s += '1'
-            # else:
             #     s += '0'
+            # else:
+            #     s += '1'
 
             # s += "%3d" % treasure_types[treas][0]
             s +=treasure_description_rus[treas]['nominative']
@@ -2478,7 +2480,7 @@ class Treasury(store.object):
             return s
 
 
-        treasure_list = sorted(treasure_types.keys(), key=A, reverse=True)
+        treasure_list = sorted(treasure_types.keys(), key=A, reverse=False)
 
         # получаем список возможных сокровищ
         if is_crafting:
