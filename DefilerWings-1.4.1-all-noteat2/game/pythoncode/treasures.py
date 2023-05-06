@@ -1621,7 +1621,7 @@ class Treasure(object):  # класс для сокровищ
         :param price_multiplier: увеличение цены (для покупки, в процентах)
         :return: созданная вещь либо None в случае отмены
         """
-        if by_dragon:
+        if by_dragon != False:
             return 0
 
         price = self.cost * price_multiplier // 100
@@ -2467,12 +2467,12 @@ class Treasury(store.object):
             else:
                 s = '0'
 
-            if treasure_types[treas][4] or treasure_types[treas][6]:
-                s += '1'
-            else:
-                s += '0'
+            # if treasure_types[treas][4] or treasure_types[treas][6]:
+            #     s += '1'
+            # else:
+            #     s += '0'
 
-            s += "%3d" % treasure_types[treas][0]
+            # s += "%3d" % treasure_types[treas][0]
             s +=treasure_description_rus[treas]['nominative']
 
             return s
@@ -2503,7 +2503,8 @@ class Treasury(store.object):
             for i in xrange(position, min(position + row_count, len(treasure_list))):
                 treasure_type = treasure_list[i]
 #                treas_name = treasure_description_rus[treasure_type]['nominative'].capitalize() + u" (ценность: %s)" %treasure_types[treasure_type][0]
-                treas_name = treasure_description_rus[treasure_type]['nominative'].capitalize() 
+                treas_name = treasure_description_rus[treasure_type]['nominative'].capitalize()
+                # treas_name = "%s: %2d" % (treas_name, treasure_types[treasure_type][0])
                 if is_crafting:
                     menu_options.append((treas_name, treasure_type, True, self.is_craft_possible(treasure_type, alignment)))
                 else:
@@ -2667,6 +2668,10 @@ class Treasury(store.object):
         item.huge = None
         item.decoration = None
         item.decoration_image = None
+        
+        if by_dragon != False:
+            item.base_price = by_dragon
+        
         menu_choice = None
         while menu_choice is not 'create':
             menu_options = [(u"Отменить", 'return', True, True)]
@@ -2753,7 +2758,7 @@ class Treasury(store.object):
             item.quality = weighted_random(quality_list)
 
         # @fdsc Дракон может сам создавать предметы
-        if by_dragon:
+        if by_dragon != False:
             item.obtained = u"Этот предмет изготовлен драконом"
             item.quality  = "dragon"
 

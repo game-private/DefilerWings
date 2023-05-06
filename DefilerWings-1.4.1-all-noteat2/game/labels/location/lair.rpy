@@ -141,7 +141,7 @@ label lb_location_lair_main:
             
          # @fdsc
         'Заниматься искусством ([quality_mod])' if game.dragon.energy() > 0:
-            $ new_item = game.lair.treasury.craft(**data.craft_options['dragon'])
+            $ new_item = game.lair.treasury.craft(is_crafting=True, price_multiplier=0, by_dragon=game.dragon.energy())
             if new_item:
 
                 python:
