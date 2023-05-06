@@ -41,14 +41,14 @@ label lb_location_mordor_main:
                     $ renpy.call_screen("border_map") 
                 # @fdsc всегда можно сразу отдать сокровища
                 # 'Отдать сокровища для оснащения армии' if freeplay and game.lair.treasury.wealth > 0:
-                'Отдать сокровища для оснащения армии' if game.dragon.level > 12 and game.lair.treasury.wealth > 0:
+                'Отдать сокровища для оснащения армии' if (freeplay or game.is_quest_has_been_completed) and game.lair.treasury.wealth > 0:
                     '[game.dragon.name], рыдая от невыносимого горя, отдаёт все свои сокровища для подготовки вторжения'
                     $ game.dragon.gain_rage(gain=5)
                     $ game.army.money += game.lair.treasury.wealth
                     $ game.lair.treasury = treasures.Treasury()
                 'Продолжить подготовку':
                     'Армия пока не готова.'
-                    
+
             call lb_location_mordor_main from _call_lb_location_mordor_main
             
         'Аудиенция с владычицей' if game.mistress_alive: # if not freeplay:
@@ -844,7 +844,7 @@ label lb_mistress_defeate:
     game.girl 'Я вам... ещё... нужна?'
     witch 'У меня большие планы на твоего ребёнка'
     game.girl 'Вам нужно... моё... добровольное согласие?'
-    witch 'Но помешало бы. Впрочем, ты не согласишься'
+    witch 'Не помешало бы. Впрочем, ты не согласишься'
     game.girl 'Я соглашусь... на что угодно... если вы... убьёте... дракона'
     witch 'Дракон мне тоже не помешал бы...'
     witch 'Впрочем, я могу вырастить своих драконов, исправив ошибки изначальной версии. Благо, спермы мне хватит.'

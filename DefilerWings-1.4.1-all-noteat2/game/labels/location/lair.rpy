@@ -136,21 +136,41 @@ label lb_location_lair_main:
                 $ test_description = new_item.description()
                 "Изготовлено: [test_description]."
             call lb_location_lair_main from _call_lb_location_lair_main_4              
-            
+
          # @fdsc
         'Заниматься искусством ([quality_mod])' if game.dragon.energy() > 0:
 
             call lb_create_treasures
-        
+
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
         # @fdsc
-        'Вдохновенно создать случайную вещь' if game.dragon.energy() > 0:
+        'Вдохновенно создать случайную вещь' if game.dragon.energy() > 2:
 
             call lb_create_treasures(True)
 
             if not _return:
                 'Нет материала для создания вещей'
+
+            call lb_location_lair_main from _call_lb_location_lair_main_4
+
+        'Отдаться вдохновению на неделю' if game.dragon.energy() > 2 and game.dragon.injuries <= 0:
+
+            $ cnt = 7
+            while cnt > 0 and game.dragon.injuries <= 0:
+                $ cnt -= 1
+
+                while game.dragon.energy() > game.dragon.max_energy() // 2:
+                    call lb_create_treasures(True)
+                    if not _return:
+
+                        menu:
+                            'Нет материала для создания вещей'
+                            'Выйти':
+                                jump lb_location_lair_main
+
+                call lb_sleep
+
 
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
@@ -225,15 +245,16 @@ label lb_create_treasures(random_choice=False):
             if QK > 0:
                 txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + u" энергии; стоимость увеличена)"
 
+        # if not random_choice:
         "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
-        
+
         return True
 
     return False
 
 
 label lb_sleep:
-
+    
     nvl clear
     if game.witch_st1==5:
       'Дракон на мгновение задумывается, какой может быть награда ведьмы.'
@@ -279,7 +300,6 @@ label lb_sleep:
       call lb_gwidon from _call_lb_gwidon
 
     $this_turn_achievements = []
-
 
 
 label lb_save_game:

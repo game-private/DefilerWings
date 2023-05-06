@@ -266,7 +266,7 @@ class Dragon(Fighter):
 
         [dp1, dp2] = self.defence_power()
         [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(math.log(1+self.Treasure_master*self.magic*self.max_energy() + self.magic + self.max_energy()) / math.log(100) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine))
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine))
 
         return ddescription
 
@@ -308,7 +308,7 @@ class Dragon(Fighter):
         """
         return self.max_energy() - self._tiredness
 
-    def drain_energy(self, drain=1, always = False):
+    def drain_energy(self, drain=1, always = False, useEnergyModifier = True):
         """
         :param drain: количество отнимаемой у дракона энергии.
         :return: True если успешно, иначе False.
@@ -317,7 +317,7 @@ class Dragon(Fighter):
         if self.energy() - drain >= 0 or always:
             self._tiredness += drain
 
-            if 'energy' in self.modifiers():
+            if useEnergyModifier and 'energy' in self.modifiers():
                 for i in range(1, drain):
                     while random.randint(0, 99) <= 20:
                         self._tiredness -= 1
@@ -628,14 +628,19 @@ class Dragon(Fighter):
             self.events.append(event)
 
     # @fdsc
-    def getTreasureMasterEffect(self, QK = 0):
+    def getTreasureMasterEffect(self, QK = 0, isNominal=False):
         QM = self.mana
         QE = self.energy() + QK
+        
+        if isNominal:
+            QM = self.magic
+            QE = self.max_energy()
 
         QM3 = QM*QM*QM
         QE2 = QE*QE
+        Q1  = QM3*QE2 + 0.01
 
-        return 1 + QK + math.log(1+self.Treasure_master*QM3*QE2+QM3+QE2) / math.log(100)
+        return 1 + QK + math.log(1+self.Treasure_master*Q1+QM3+QE2) / math.log(100)
 
     def attractiveness(self, girl, lair=False):
         # Страшный дракон существено повышает проблемы с ухаживаниями

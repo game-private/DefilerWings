@@ -442,9 +442,6 @@ class Game(store.object):
         quests = []
         for quest_i in xrange(len(data.quest_list)):
             quest = data.quest_list[quest_i]
-            
-            if self.lastQuest == quest:
-                continue
 
             # находим квест, подходящий по уровню, не уникальный или ещё не выполненный за текущую игру
             is_applicable = ('prerequisite' not in quest or quest['prerequisite'] in self.unique)
@@ -463,7 +460,13 @@ class Game(store.object):
                 quests.append(quest)
 #        for i in xrange(len(quests)):
 #            self.narrator(u"%s, %s" %(quests[i]['task'], lvl))
-        self._quest    = random.choice(quests)
+
+        # Здесь мы проверяем в цикле, т.к. иногда бывает такое, что последний квест - единственный возможный сейчас (хотя, вообще, странно)
+        while self.lastQuest == self._quest:
+            self._quest    = random.choice(quests)
+            if len(quests) <= 1:
+                break
+
         self.lastQuest = self._quest
 
         # Задание года окончания выполнения квеста

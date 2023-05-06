@@ -33,7 +33,7 @@ label lb_event_no_knight:
 
 label lb_event_sleep_start:
     show screen controls_overwrite
-    '[game.dragon.fullname] засыпает, устав от нечестивых дел. Его сон продлится долго...'
+    # '[game.dragon.fullname] засыпает, устав от нечестивых дел. Его сон продлится долго...'
     nvl clear
     return
 
@@ -77,7 +77,7 @@ label lb_event_sleep_end:
     $ place = game.lair.type_name
     hide bg
     show place as bg
-    'Полный сил и коварной злобы, [game.dragon.fullname] просыпается в своём логове. Время для грабежа и насилия!'
+    # 'Полный сил и коварной злобы, [game.dragon.fullname] просыпается в своём логове. Время для грабежа и насилия!'
     if game.witch_st1 == 1:
       game.dragon 'Интересно, что за задание имела в виду ведьма с болот? Надо бы проверить!'
     return

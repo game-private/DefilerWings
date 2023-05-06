@@ -68,15 +68,25 @@ def battle_action(dragon, foe):
             # проверяем, если атака противника больше защиты дракона - дракон ранен
     foe_hit = calc_hit_def(power)
     dragon_defence = calc_hit_def(dragon.protection())
+
     if foe_hit > dragon_defence:
-        # Если противник сразу обезглавливает дракона не наося ему ран.
-        if 'decapitator' in foe.modifiers():
-            status.extend(dragon.decapitate())
-        # А так просто наносим ранения.
+
+        # @fdsc Если дракон очень энергичен, он может увернуться
+        if 'energy' in dragon.modifiers() and dragon.energy() > foe_hit - dragon_defence and dragon.energy() > dragon.max_energy() // 2:
+            dragon.drain_energy(foe_hit - dragon_defence, True, False)
+            # status.append('dragon_energy_dodged')
+            status.append('dragon_undamaged')
         else:
-            status.extend(dragon.struck())
+            # Если противник сразу обезглавливает дракона не наося ему ран.
+            if 'decapitator' in foe.modifiers():
+                status.extend(dragon.decapitate())
+            # А так просто наносим ранения.
+            else:
+                status.extend(dragon.struck())
+
     else:
         status.append('dragon_undamaged')
+
     return status
 
 

@@ -82,7 +82,10 @@ label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
 
     '[txt]'
 
-    jump lb_location_mountain_main
+    if game.dragon.energy() > 0:
+        jump lb_location_mountain_main
+
+    return
 
 
 label lb_location_mountain_main_mine_gems(entireDay=False):
@@ -99,7 +102,11 @@ label lb_location_mountain_main_mine_gems(entireDay=False):
 
     '[txt]'
 
-    jump lb_location_mountain_main
+    if game.dragon.energy() > 0:
+        jump lb_location_mountain_main
+
+    return
+
 
 label lb_location_mountain_main_travel:
     $ nochance = game.poverty.value * 3
