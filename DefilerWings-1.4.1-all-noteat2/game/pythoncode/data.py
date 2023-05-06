@@ -1693,7 +1693,7 @@ paws_description = [
 ]
 
 # @fdsc
-special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos')
+special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos', 'energy')
 
 special_description = [
     u'Его чешуя крепче, чем закалённая цвергами сталь.',
@@ -1717,7 +1717,8 @@ special_description = [
     u'Ритуалы над девственницами дали ему немного атаки огнём',
     u'Ритаулы над соблазнёнными девственницами дали ему немного слабой защиты',
     u'Его длинный шершавый язык обладает особенностью доставлять девушкам сладкое, почти непереносимое, удовольствие',
-    u'Увеличенное влечение, уменьшающее ярость при ухаживаниях. Великий осеменитель - никогда не рождаются слабые отродья от сильных женщин'
+    u'Увеличенное влечение, уменьшающее ярость при ухаживаниях. Великий осеменитель - никогда не рождаются слабые отродья от сильных женщин',
+    u'Дракон делает всё так быстро, что время иногда не успевает проходить мимо него'
 ]
 
 # @fdsc
@@ -1737,7 +1738,8 @@ special_features_rus = {
     "uglyVirgin": u"Уродство от ритуала",
     "defenseVirgin": u"Общая слабая защита от ритуала",
     "tongue": u"Сладкий язык",
-    'spermtoxicos': u"Спермотоксикоз"
+    'spermtoxicos': u"Спермотоксикоз",
+    'energy': u"Энергичный дракон"
 }
 
 cunning_description = [
@@ -1942,6 +1944,7 @@ modifiers = {
     'impregnator': Modifier(),
     'tongue': Modifier(),
     'spermtoxicos': Modifier(),
+    'energy': Modifier(),
     # Заклинания
     'fire_breath': Modifier(attack=('fire', (0, 1))),
     'ice_breath': Modifier(attack=('ice', (0, 1))),

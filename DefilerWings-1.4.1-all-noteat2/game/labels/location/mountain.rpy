@@ -26,6 +26,18 @@ label lb_location_mountain_main:
  
     menu:
 
+        'Добывать серебро целый день':
+            call lb_location_mountain_main_mine_metalls('silver',       True)
+        'Добывать золото целый день':
+            call lb_location_mountain_main_mine_metalls('gold',         True)
+        'Добывать мифрил целый день':
+            call lb_location_mountain_main_mine_metalls('mithril',      True)
+        'Добывать адамант целый день':
+            call lb_location_mountain_main_mine_metalls('adamantine',   True)
+        'Добывать драгоценные камни целый день':
+            call lb_location_mountain_main_mine_gems(True)
+
+        ''
         'Добывать серебро':
             call lb_location_mountain_main_mine_metalls('silver')
         'Добывать золото':
@@ -37,18 +49,6 @@ label lb_location_mountain_main:
         # '{color=#00FF00}Добывать драгоценные камни{/color}':
         'Добывать драгоценные камни':
             call lb_location_mountain_main_mine_gems()
-
-        ''
-        'Добывать серебро целый день':
-            call lb_location_mountain_main_mine_metalls('silver',       True)
-        'Добывать золото целый день':
-            call lb_location_mountain_main_mine_metalls('gold',         True)
-        'Добывать мифрил целый день':
-            call lb_location_mountain_main_mine_metalls('mithril',      True)
-        'Добывать адамант целый день':
-            call lb_location_mountain_main_mine_metalls('adamantine',   True)
-        'Добывать драгоценные камни целый день':
-            call lb_location_mountain_main_mine_gems(True)
 
         ''
         'Охотиться за добычей':
@@ -82,7 +82,7 @@ label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
 
     '[txt]'
 
-    return
+    jump lb_location_mountain_main
 
 
 label lb_location_mountain_main_mine_gems(entireDay=False):
@@ -99,7 +99,7 @@ label lb_location_mountain_main_mine_gems(entireDay=False):
 
     '[txt]'
 
-    return
+    jump lb_location_mountain_main
 
 label lb_location_mountain_main_travel:
     $ nochance = game.poverty.value * 3

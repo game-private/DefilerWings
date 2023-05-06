@@ -2454,7 +2454,7 @@ class Treasury(store.object):
             craft_possible = craft_possible and alignment
         return craft_possible
 
-    def craft_select_item(self, is_crafting, alignment):
+    def craft_select_item(self, is_crafting, alignment, random_choice=False):
         """
         Функция для вывода меню выбора типа покупаемой/создаваемой вещи
         :param is_crafting: создаётся из материалов дракона (True) или покупается (False)
@@ -2495,6 +2495,10 @@ class Treasury(store.object):
             treasure_list = craft_possible + craft_impossible
         menu_choice = None
         row_count = 10  # количество кнопок с отображаемым типом сокровища для создания/покупки
+
+        if random_choice:
+            return random.choice(craft_possible)
+
         position = 0  # начальное значение 
         while menu_choice not in treasure_list:
             # цикл для выбора типа сокровища для создания/покупки
@@ -2519,6 +2523,7 @@ class Treasury(store.object):
             else:
                 menu_options += [(u"", 'blank', True, False)]
             menu_options += [(u"Отмена", 'return', True, True)]
+
             menu_choice = call_screen("dw_choice", menu_options)
             if menu_choice == 'dec':
                 position -= row_count
@@ -2526,6 +2531,7 @@ class Treasury(store.object):
                 position += row_count
             elif menu_choice == 'return':
                 return None
+
         return menu_choice
 
     def craft_select_material(self, materials):
@@ -2631,7 +2637,7 @@ class Treasury(store.object):
         else:
             return gem_list[menu_choice]
 
-    def craft(self, is_crafting=False, quality=['random'], alignment=['random'], base_cost=0, price_multiplier=100, by_dragon=False):
+    def craft(self, is_crafting=False, quality=['random'], alignment=['random'], base_cost=0, price_multiplier=100, by_dragon=False, random_choice=False):
         """
         Функция для вывода меню покупки/создания вещи
         :param is_crafting: создаётся из материалов дракона (True) или покупается (False)
@@ -2649,7 +2655,7 @@ class Treasury(store.object):
         if 'random' in alignment or not alignment:
             alignment = image_types.keys()
         alignment = random.choice(alignment)
-        treasure_type = self.craft_select_item(is_crafting, alignment)
+        treasure_type = self.craft_select_item(is_crafting, alignment, random_choice)
         if treasure_type is None:
             return None
         # случайный выбор стиля вещи из списка
@@ -2664,17 +2670,25 @@ class Treasury(store.object):
         item.quality = quality[0]
         # первоначальный выбор качества - первый в списке
         materials = self.available_materials(is_crafting, treasure_type)
-        item.material = self.craft_select_material(materials)
+
+        if random_choice:
+            item.material = random.choice(materials)
+        else:
+            item.material = self.craft_select_material(materials)
+
         item.spangled = None
         item.inlaid = None
         item.huge = None
         item.decoration = None
         item.decoration_image = None
-        
+
         if by_dragon != False:
             item.base_price = by_dragon
-        
+
         menu_choice = None
+        if random_choice:
+            menu_choice = 'create'
+
         while menu_choice is not 'create':
             menu_options = [(u"Отменить", 'return', True, True)]
             treasure_name = treasure_description_rus[treasure_type]['nominative'].capitalize()
@@ -2724,7 +2738,12 @@ class Treasury(store.object):
                 price_msg = number_conjugation_rus(item.craft_cost(base_cost, price_multiplier), u"фартинг")
                 craft_msg = u"Купить за %s (есть %s, стоимость %s)" % (price_msg, self.money, item.cost)
             menu_options += [(craft_msg, 'create', True, item.craft_cost(base_cost, price_multiplier) <= self.money)]
+            
+#            if not random_choice:
             menu_choice = call_screen("dw_choice", menu_options)
+ #           else:
+                
+
             # показ меню
             if menu_choice == 'return':
                 return None
@@ -2769,26 +2788,33 @@ class Treasury(store.object):
             item.obtained = u"Этот предмет изготовлен по заказу дракона"
 
         if is_crafting:
-            # если делается из материалов дракона - убираем материалы из сокровищницы
-            if item.material in material_types:
-                material = None
-                materials_size = sorted(Material.size_dict.keys(), key=lambda mat_size: Material.size_dict[mat_size][1]) 
-                # сортировка по размеру, т.к. дракон жадный - зачем отдавать большой кусок, если можно сделать из любого?
-                for material_size in materials_size:
-                    # ищем из какого бы куска изготовить вещь
-                    if not material:
-                        material = self.take_material(item.material + u";" + material_size)
-            else:
-                self.take_ingot(item.material)
-            if item.spangled:
-                self.take_gem(item.spangled.g_type + u';small;' + item.spangled.cut)
-            if item.inlaid:
-                self.take_gem(item.inlaid.g_type + u';common;' + item.inlaid.cut)
-            if item.huge:
-                self.take_gem(item.huge.g_type + u';large;' + item.huge.cut)
-            if item.image:
-                item.decoration_image = random.choice(image_types[item.alignment])
+            self.removeMaterials(item)
+
         return item
+    
+    def removeMaterials(self, item):
+
+        # если делается из материалов дракона - убираем материалы из сокровищницы
+        if item.material in material_types:
+            material = None
+            materials_size = sorted(Material.size_dict.keys(), key=lambda mat_size: Material.size_dict[mat_size][1]) 
+            # сортировка по размеру, т.к. дракон жадный - зачем отдавать большой кусок, если можно сделать из любого?
+            for material_size in materials_size:
+                # ищем из какого бы куска изготовить вещь
+                if not material:
+                    material = self.take_material(item.material + u";" + material_size)
+        else:
+            self.take_ingot(item.material)
+
+        if item.spangled:
+            self.take_gem(item.spangled.g_type + u';small;' + item.spangled.cut)
+        if item.inlaid:
+            self.take_gem(item.inlaid.g_type + u';common;' + item.inlaid.cut)
+        if item.huge:
+            self.take_gem(item.huge.g_type + u';large;' + item.huge.cut)
+        if item.image:
+            item.decoration_image = random.choice(image_types[item.alignment])
+
 
 #    def set_active_treasure_botton(self, treasury_i):
 # Сохраняем индекс выбранного дракона. Это - для кнопки

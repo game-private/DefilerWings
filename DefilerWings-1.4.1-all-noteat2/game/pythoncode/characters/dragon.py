@@ -316,7 +316,14 @@ class Dragon(Fighter):
         # @fdsc
         if self.energy() - drain >= 0 or always:
             self._tiredness += drain
+
+            if 'energy' in self.modifiers():
+                for i in range(1, drain):
+                    while random.randint(0, 99) <= 20:
+                        self._tiredness -= 1
+
             return True
+
         return False
 
     def gain_rage(self, gain=1):

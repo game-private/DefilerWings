@@ -182,6 +182,16 @@ screen status_bar:
                 text_size 22
                 action ShowMenu("lb_test_main")
 
+        textbutton "{font=fonts/Tchekhonin2.ttf}С{/font}{font=fonts/times.ttf}пать{/font}":
+                pos(72, 549)
+                xysize(174, 36)
+                text_xalign 0.5
+                text_yalign 0.5
+                background "img/bg/logovo.png"
+                text_size 22
+                action Jump("lb_sleep")
+
+
 screen special_places:
     fixed:
         xalign 1.0

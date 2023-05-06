@@ -24,7 +24,8 @@ label lb_dragon_creator:
             "ugly": "Уродство",
             "cunning": "Коварство",
             "tongue": "Сладкий язык",
-            "spermtoxicos": "Спермотоксикоз"
+            "spermtoxicos": "Спермотоксикоз",
+            "energy": "Энергичный дракон"
         }
         colored_heads = ["red", "white", "blue", "black", "iron", "bronze", "silver", "gold", "shadow"]
     init python:

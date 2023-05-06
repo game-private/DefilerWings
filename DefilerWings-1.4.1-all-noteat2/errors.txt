@@ -2,7 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/lair.rpy", line 153: is not terminated with a newline. (Check strings and parenthesis.)
-                        while new_item.dec_mod > 1 and random.randint(0, int(QI) > 10:
+File "game/labels/location/lair.rpy", line 150: expected statement.
+    cnt = 3
+        ^
+
+File "game/labels/location/lair.rpy", line 152: expected statement.
+    cnt -= 1
+         ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

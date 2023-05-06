@@ -139,47 +139,19 @@ label lb_location_lair_main:
             
          # @fdsc
         'Заниматься искусством ([quality_mod])' if game.dragon.energy() > 0:
-            $ new_item = game.lair.treasury.craft(is_crafting=True, quality=['common'], price_multiplier=0, by_dragon=game.dragon.energy())
-            if new_item:
 
-                python:
-                    QM = game.dragon.mana
-                    QE = game.dragon.energy()
-                    QK = 0
-
-                    QI = math.log(1+game.dragon.Treasure_master) + game.dragon.max_energy() - QE + game.dragon.magic - QM
-
-                    isImage = new_item.dec_mod > 1
-                    if not isImage:
-                        isImage = new_item.image
-
-                    # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
-                    # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
-                    while isImage and random.randint(0, int(QI)) > 10:
-                        QE += 1
-                        QK += 1
-
-                    new_item.quality_mod = game.dragon.getTreasureMasterEffect(QK)
-                    if new_item.dec_mod > 1:
-                        new_item.dec_mod = new_item.quality_mod
-
-                    game.dragon.drain_mana(QM)
-                    game.dragon.drain_energy(QE, True)
-                    k = 0
-                    if new_item.dec_mod > 1:
-                        k = QE*QM
-
-                    game.dragon.Treasure_master += new_item.cost + (k + QE + QM)*100
-
-                    game.lair.treasury.receive_treasures([new_item])
-                    test_description = new_item.description()
-
-                    txt = ""
-                    if QK > 0:
-                        txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + " энергии)"
-
-                "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
+            call lb_create_treasures
+        
             call lb_location_lair_main from _call_lb_location_lair_main_4
+
+        # @fdsc
+        'Вдохновенно заниматься искусством ([quality_mod]; создаёт случайную вещь)' if game.dragon.energy() > 0:
+
+            call lb_create_treasures(True)
+
+            call lb_location_lair_main from _call_lb_location_lair_main_4
+
+
         'Уволить слуг-гремлинов' if 'gremlin_servant' in game.lair.upgrades:
             $ del game.lair.upgrades['gremlin_servant']
             "Гремлины уходят"
@@ -201,56 +173,110 @@ label lb_location_lair_main:
 #                call screen scroll_chronik_menu
 #                call lb_location_lair_main from _call_lb_location_lair_main_8
         'Лечь спать':
-            nvl clear
-            if game.witch_st1==5:
-              'Дракон на мгновение задумывается, какой может быть награда ведьмы.'
-              game.dragon 'Надо сходить проверить!'
-              if game.dragon.energy() > 0:
-                return
-            if game.witch_st1==4 and game.dragon.health<2:
-              $ game.dragon.health=2
-              witch 'На следующий год тебе понадобятся все силы. На этот раз я исцелю тебя бесплатно.'
-            python:
-                # Делаем хитрую штуку.
-                # Используем переменную game_loaded чтобы определить была ли игра загружена.
-                # Но ставим ее перед самым сохранинием, используя renpy.retain_after_load() для того
-                # чтобы она попала в сохранение.
-                if 'game_loaded' in locals() and game_loaded:
-                    del game_loaded
-                    game.narrator("game loaded")
-                    renpy.restart_interaction()
-                else:
-                    game_loaded = True
-                    renpy.retain_after_load()
-                    
-                    if not freeplay:
-                        utils.call ("lb_achievement_acquired")
-                        game.save()
-                    else:
-                        game.save_freegame()
-                     
-                    save_blocked = True
-
-                    game.sleep()
-                    save_blocked = False
-                    del game_loaded
-# Проверка на визит Архимонда
-            if game.summon.seal>data.max_summon and not game.historical_check('archimonde_was'):
-              call lb_archimonde_arrive from _call_lb_archimonde_arrive
-            if game.witch_st1==2 or game.witch_st1==3:
-              witch 'Я же человеческим языком тебя просила: выполнить задание в прошлом году...'
-              witch 'Больше не рассчитывай ни на помощь гремлинов, ни на логово контрабандистов, ни на какие магические заклинания' 
-              game.dragon 'Ой! Кажется, я проиграл...'
-              jump lb_game_over
-            if game.witch_st1==5:
-              call lb_gwidon from _call_lb_gwidon
-                    
-            $this_turn_achievements = []
+            call lb_sleep
+            call lb_location_lair_main
         'Покинуть логово':
             $ pass
-            
+
     return
-    
+
+
+label lb_create_treasures(random_choice=False):
+
+    $ new_item = game.lair.treasury.craft(is_crafting=True, quality=['common'], price_multiplier=0, by_dragon=game.dragon.energy(), random_choice=random_choice)
+    if new_item:
+
+        python:
+            QM = game.dragon.mana
+            QE = game.dragon.energy()
+            QK = 0
+
+            QI = math.log(1+game.dragon.Treasure_master) + game.dragon.max_energy() - QE + game.dragon.magic - QM
+
+            isImage = new_item.dec_mod > 1
+            if not isImage:
+                isImage = new_item.image
+
+            # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
+            # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
+            while isImage and random.randint(0, int(QI)) > 10:
+                QE += 1
+                QK += 1
+
+            new_item.quality_mod = game.dragon.getTreasureMasterEffect(QK)
+            if new_item.dec_mod > 1:
+                new_item.dec_mod = new_item.quality_mod
+
+            game.dragon.drain_mana(QM)
+            game.dragon.drain_energy(QE, True)
+            k = 0
+            if new_item.dec_mod > 1:
+                k = QE*QM
+
+            game.dragon.Treasure_master += new_item.cost + (k + QE + QM)*100
+
+            game.lair.treasury.receive_treasures([new_item])
+            test_description = new_item.description()
+
+            txt = ""
+            if QK > 0:
+                txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + " энергии)"
+
+        "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
+
+    return
+
+label lb_sleep:
+
+    nvl clear
+    if game.witch_st1==5:
+      'Дракон на мгновение задумывается, какой может быть награда ведьмы.'
+      game.dragon 'Надо сходить проверить!'
+      if game.dragon.energy() > 0:
+        return
+    if game.witch_st1==4 and game.dragon.health<2:
+      $ game.dragon.health=2
+      witch 'На следующий год тебе понадобятся все силы. На этот раз я исцелю тебя бесплатно.'
+    python:
+        # Делаем хитрую штуку.
+        # Используем переменную game_loaded чтобы определить была ли игра загружена.
+        # Но ставим ее перед самым сохранинием, используя renpy.retain_after_load() для того
+        # чтобы она попала в сохранение.
+        if 'game_loaded' in locals() and game_loaded:
+            del game_loaded
+            game.narrator("game loaded")
+            renpy.restart_interaction()
+        else:
+            game_loaded = True
+            renpy.retain_after_load()
+
+            if not freeplay:
+                utils.call ("lb_achievement_acquired")
+                game.save()
+            else:
+                game.save_freegame()
+
+            save_blocked = True
+
+            game.sleep()
+            save_blocked = False
+            del game_loaded
+# Проверка на визит Архимонда
+    if game.summon.seal>data.max_summon and not game.historical_check('archimonde_was'):
+      call lb_archimonde_arrive from _call_lb_archimonde_arrive
+    if game.witch_st1==2 or game.witch_st1==3:
+      witch 'Я же человеческим языком тебя просила: выполнить задание в прошлом году...'
+      witch 'Больше не рассчитывай ни на помощь гремлинов, ни на логово контрабандистов, ни на какие магические заклинания' 
+      game.dragon 'Ой! Кажется, я проиграл...'
+      jump lb_game_over
+    if game.witch_st1==5:
+      call lb_gwidon from _call_lb_gwidon
+
+    $this_turn_achievements = []
+
+    return
+
+
 label lb_save_game:
 #    hide screen navigation
     pause 0.01
