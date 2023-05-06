@@ -45,6 +45,7 @@ class Game(store.object):
         self._quest_time = 0  # год окончания квеста
         self.currentCharacter = None  # Последний говоривший персонаж. Используется для поиска аватарки.
         self.unique = []  # список уникальных действий для квестов
+        self.lastQuest = None
 
         self._dragon = None
 
@@ -428,6 +429,9 @@ class Game(store.object):
         quests = []
         for quest_i in xrange(len(data.quest_list)):
             quest = data.quest_list[quest_i]
+            
+            if self.lastQuest == quest:
+                continue
 
             # находим квест, подходящий по уровню, не уникальный или ещё не выполненный за текущую игру
             is_applicable = ('prerequisite' not in quest or quest['prerequisite'] in self.unique)
@@ -446,7 +450,9 @@ class Game(store.object):
                 quests.append(quest)
 #        for i in xrange(len(quests)):
 #            self.narrator(u"%s, %s" %(quests[i]['task'], lvl))
-        self._quest = random.choice(quests)
+        self._quest    = random.choice(quests)
+        self.lastQuest = self._quest
+
         # Задание года окончания выполнения квеста
         self._quest_time = self._year
         if 'fixed_time' in self._quest:

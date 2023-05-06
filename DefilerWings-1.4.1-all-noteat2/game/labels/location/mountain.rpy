@@ -66,10 +66,12 @@ label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
             if not entireDay:
                 break
 
+        oldWealth = game.lair.treasury.wealth
+
         game.lair.treasury.receive_treasures(gold_trs)
         name_rus = treasures.metal_description_rus[metall]['genitive']
 
-        txt = u'Добыто ' + str(weight) + ' ' + name_rus
+        txt = u'Добыто ' + str(weight) + ' ' + name_rus + u'\nОбщая стоимость: ' + str(game.lair.treasury.wealth - oldWealth)
 
     '[txt]'
 
@@ -79,13 +81,14 @@ label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
 label lb_location_mountain_main_mine_gems(entireDay=False):
 
     python:
-        gems = game.dragon.miner.mineGems(entireDay)
-
+        oldWealth = game.lair.treasury.wealth
+        gems      = game.dragon.miner.mineGems(entireDay)
+        
         game.lair.treasury.receive_treasures(gems)
 
         [gems_counts, names] = game.dragon.miner.getStringOfMinedGems(gems)
 
-        txt = u'Добыто:\n' + names
+        txt = u'Добыто:\n' + names + u'\n\nОбщая стоимость: ' + str(game.lair.treasury.wealth - oldWealth)
 
     '[txt]'
 

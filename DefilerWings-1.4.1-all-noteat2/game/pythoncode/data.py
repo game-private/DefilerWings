@@ -2050,6 +2050,7 @@ special_places = {
     'enc_adamant': (u"Адамантитовый рудник", 'lb_enc_mines_adamantine'),
 }
 
+# См. is_quest_complete в game.py
 quest_list = (
     {   # только для дебага, не используется
         'min_lvl': 25,  # минимальный уровень дракона для получения квеста

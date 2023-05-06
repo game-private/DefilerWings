@@ -1,31 +1,19 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 193, in script
-    python:
-  File "game/labels/location/lair.rpy", line 214, in <module>
-    game.sleep()
-TypeError: unsupported operand type(s) for -=: 'int' and 'NoneType'
+After initialization, but before game start.
+error: No available video device
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 193, in script
-    python:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/labels/location/lair.rpy", line 214, in <module>
-    game.sleep()
-  File "pythoncode/game.py", line 312, in sleep
-  File "pythoncode/game.py", line 157, in next_year
-  File "pythoncode/treasures.py", line 2353, in get_salary
-TypeError: unsupported operand type(s) for -=: 'int' and 'NoneType'
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/bootstrap.py", line 281, in bootstrap
+    renpy.main.main()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/main.py", line 450, in main
+    renpy.display.core.Interface()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1439, in __init__
+    pygame.display.init()
+  File "pygame_sdl2/display.pyx", line 66, in pygame_sdl2.display.init (gen/pygame_sdl2.display.c:1501)
+error: No available video device
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
