@@ -151,9 +151,13 @@ label lb_location_lair_main:
 
                     QI = math.log(1+game.dragon.Treasure_master) + game.dragon.max_energy() - QE + game.dragon.magic - QM
 
+                    isImage = new_item.dec_mod > 1
+                    if not isImage:
+                        isImage = new_item.image
+
                     # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
                     # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
-                    while new_item.dec_mod > 1 and random.randint(0, int(QI)) > 10:
+                    while isImage and random.randint(0, int(QI)) > 10:
                         QE += 1
                         QK += 1
 

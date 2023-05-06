@@ -2460,7 +2460,26 @@ class Treasury(store.object):
         :param is_crafting: создаётся из материалов дракона (True) или покупается (False)
         :return: выбранный тип вещи либо None в случае отмены
         """
-        treasure_list = sorted(treasure_types.keys(), key=lambda treas: treasure_description_rus[treas]['nominative'])
+        # treasure_list = sorted(treasure_types.keys(), key=lambda treas: treasure_description_rus[treas]['nominative'])
+        def A(treas):
+            if treasure_types[treas][6]:
+                s = '1'
+            else:
+                s = '0'
+
+            if treasure_types[treas][4] or treasure_types[treas][6]:
+                s += '1'
+            else:
+                s += '0'
+
+            s += "%3d" % treasure_types[treas][0]
+            s +=treasure_description_rus[treas]['nominative']
+
+            return s
+
+
+        treasure_list = sorted(treasure_types.keys(), key=A, reverse=True)
+
         # получаем список возможных сокровищ
         if is_crafting:
             # если идёт создание вещи - ставим первыми в списке вещи, которые можем сделать
