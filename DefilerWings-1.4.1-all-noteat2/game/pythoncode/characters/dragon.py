@@ -620,6 +620,17 @@ class Dragon(Fighter):
         if event not in self.events:
             self.events.append(event)
 
+    # @fdsc
+    def getTreasureMasterEffect(self, QK = 0):
+            QM = game.dragon.mana
+            QE = game.dragon.energy() + QK
+
+            QM3 = QM*QM*QM
+            QE2 = QE*QE
+
+
+        return 1 + QK + math.log(1+game.dragon.Treasure_master*QM3*QE2+QM3+QE2) / math.log(100)
+
     def attractiveness(self, girl, lair=False):
         # Страшный дракон существено повышает проблемы с ухаживаниями
         girlQ  = girl.quality + 2 + int(self.fear) + self.bloodiness

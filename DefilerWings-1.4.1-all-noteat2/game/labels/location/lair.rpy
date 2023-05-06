@@ -37,10 +37,8 @@ label lb_location_lair_main:
         $ game.dragon.Treasure_master = 0
 
     python:
-        QM = game.dragon.mana
-        QE = game.dragon.energy()
         try:
-            quality_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
+            quality_mod = game.dragon.getTreasureMasterEffect()
             quality_mod = math.floor(quality_mod * 10) / 10
         except:
             quality_mod = 0
@@ -161,9 +159,9 @@ label lb_location_lair_main:
                         QE += 1
                         QK += 1
 
-                    new_item.quality_mod = 1 + QK + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
+                    new_item.quality_mod = game.dragon.getTreasureMasterEffect(QK)
                     if new_item.dec_mod > 1:
-                        new_item.dec_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
+                        new_item.dec_mod = new_item.quality_mod
 
                     game.dragon.drain_mana(QM)
                     game.dragon.drain_energy(QE, True)
