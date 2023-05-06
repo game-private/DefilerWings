@@ -2,8 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/mountain.rpy", line 58: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    'Вернуться'
-               ^
+File "game/labels/location/lair.rpy", line 153: is not terminated with a newline. (Check strings and parenthesis.)
+                        while new_item.dec_mod > 1 and random.randint(0, int(QI) > 10:
 
 Ren'Py Version: Ren'Py 6.99.7.858

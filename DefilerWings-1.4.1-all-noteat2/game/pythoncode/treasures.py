@@ -2165,6 +2165,24 @@ class Treasury(store.object):
         else:
             return u"Украшений в сокровищнице нет"
 
+
+    @property
+    def all_jewelry(self):
+
+        if len(self.jewelry) <= 0:
+            return u"Украшений в сокровищнице нет"
+
+        js = ""
+        for j in self.jewelry:
+            js += u"%s.\nСтоимость украшения: %s.\n%s" % (
+                    capitalize_first(  j.description()  ),
+                    number_conjugation_rus(j.cost, u"фартинг"),
+                    j.obtained
+                ) + "\n\n"
+
+        return js
+
+
     @property
     def random_jewelry(self):
         if len(self.jewelry):

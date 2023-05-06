@@ -117,6 +117,9 @@ label lb_location_lair_main:
                         'Случайная':
                             "[game.lair.treasury.random_jewelry]"
                             nvl clear
+                        'Просмотреть все':
+                            "[game.lair.treasury.all_jewelry]"
+                            nvl clear
                         'Навести порядок в сокровищнице':
                             call screen order_treasury
                             nvl clear
@@ -135,6 +138,8 @@ label lb_location_lair_main:
                 $ test_description = new_item.description()
                 "Изготовлено: [test_description]."
             call lb_location_lair_main from _call_lb_location_lair_main_4              
+            
+         # @fdsc
         'Заниматься искусством ([quality_mod])' if game.dragon.energy() > 0:
             $ new_item = game.lair.treasury.craft(**data.craft_options['dragon'])
             if new_item:
@@ -142,14 +147,23 @@ label lb_location_lair_main:
                 python:
                     QM = game.dragon.mana
                     QE = game.dragon.energy()
+                    QK = 0
 
-                    new_item.quality_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
+                    QI = math.log(1+game.dragon.Treasure_master) + game.dragon.max_energy() - QE + game.dragon.magic - QM
+
+                    # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
+                    # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
+                    while new_item.dec_mod > 1 and random.randint(0, int(QI)) > 10:
+                        QE += 1
+                        QK += 1
+
+                    new_item.quality_mod = 1 + QK + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
                     if new_item.dec_mod > 1:
                         new_item.dec_mod = 1 + math.log(1+game.dragon.Treasure_master*QM*QE+QM+QE) / math.log(100)
 
                     game.dragon.drain_mana(QM)
-                    game.dragon.drain_energy(QE)
-                    k = 1
+                    game.dragon.drain_energy(QE, True)
+                    k = 0
                     if new_item.dec_mod > 1:
                         k = QE*QM
 
@@ -158,7 +172,11 @@ label lb_location_lair_main:
                     game.lair.treasury.receive_treasures([new_item])
                     test_description = new_item.description()
 
-                "Изготовлено: [test_description]."
+                    txt = ""
+                    if QK > 0:
+                        txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + " энергии)"
+
+                "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
             call lb_location_lair_main from _call_lb_location_lair_main_4
         'Уволить слуг-гремлинов' if 'gremlin_servant' in game.lair.upgrades:
             $ del game.lair.upgrades['gremlin_servant']

@@ -317,7 +317,7 @@ label lb_lair_sex:
                         cnt += 1
 
                     game.dragon.drain_energy(1, True)
-                    if 'impregnator' in game.dragon.modifiers():
+                    if 'impregnator' in game.dragon.modifiers() or 'spermtoxicos' in game.dragon.modifiers():
                         None
                     else:
                         game.dragon.lust -= 1
@@ -341,10 +341,14 @@ label lb_lair_sex:
 
         'Ласкать и расслаблять (для борделя)' if game.girl.years_in_brothel > 0 and game.dragon.lust > 0 and game.dragon.energy() > 0:
             $ game.girl.years_in_brothel -= game.dragon.mana + 1
+            
+            if 'tongue' in game.dragon.modifiers():
+                $ game.girl.years_in_brothel -= 1
+
             if game.girl.years_in_brothel < 0:
                 $ game.girl.years_in_brothel = 0
             python:
-                if 'impregnator' in game.dragon.modifiers():
+                if 'impregnator' in game.dragon.modifiers() or 'spermtoxicos' in game.dragon.modifiers():
                     None
                 else:
                     game.dragon.lust -= 1

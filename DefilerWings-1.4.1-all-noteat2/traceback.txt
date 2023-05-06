@@ -1,35 +1,36 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/labels/location/mordor.rpy", line 147, in script call
-    call lb_choose_dragon from _call_lb_choose_dragon_2
-  File "game/labels/choose_dragon.rpy", line 169, in script
-    $ game.dragon = child_selected
-  File "game/labels/choose_dragon.rpy", line 169, in <module>
-    $ game.dragon = child_selected
-IndexError: list index out of range
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 130, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_2
+  File "game/labels/location/lair.rpy", line 130, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_2
+  File "game/labels/location/lair.rpy", line 147, in script
+    python:
+  File "game/labels/location/lair.rpy", line 164, in <module>
+    game.dragon.drain_mana(QM, True)
+TypeError: drain_mana() takes at most 2 arguments (3 given)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/labels/location/mordor.rpy", line 147, in script call
-    call lb_choose_dragon from _call_lb_choose_dragon_2
-  File "game/labels/choose_dragon.rpy", line 169, in script
-    $ game.dragon = child_selected
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 130, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_2
+  File "game/labels/location/lair.rpy", line 130, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_2
+  File "game/labels/location/lair.rpy", line 147, in script
+    python:
   File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 805, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1460, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/labels/choose_dragon.rpy", line 169, in <module>
-    $ game.dragon = child_selected
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 546, in do_mutation
-    return method(self, *args, **kwargs)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 710, in __setattr__
-    object.__setattr__(self, attr, value)
-  File "pythoncode/game.py", line 92, in dragon
-  File "pythoncode/game.py", line 466, in set_quest
-  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/random.py", line 275, in choice
-IndexError: list index out of range
+  File "game/labels/location/lair.rpy", line 164, in <module>
+    game.dragon.drain_mana(QM, True)
+TypeError: drain_mana() takes at most 2 arguments (3 given)
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
