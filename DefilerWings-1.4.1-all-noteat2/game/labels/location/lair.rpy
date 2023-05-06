@@ -145,9 +145,12 @@ label lb_location_lair_main:
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
         # @fdsc
-        'Вдохновенно заниматься искусством ([quality_mod]; создаёт случайную вещь)' if game.dragon.energy() > 0:
+        'Вдохновенно создать случайную вещь' if game.dragon.energy() > 0:
 
             call lb_create_treasures(True)
+
+            if not _return:
+                'Нет материала для создания вещей'
 
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
@@ -220,11 +223,14 @@ label lb_create_treasures(random_choice=False):
 
             txt = ""
             if QK > 0:
-                txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + " энергии)"
+                txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + u" энергии; стоимость увеличена)"
 
         "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
+        
+        return True
 
-    return
+    return False
+
 
 label lb_sleep:
 
@@ -274,7 +280,6 @@ label lb_sleep:
 
     $this_turn_achievements = []
 
-    return
 
 
 label lb_save_game:

@@ -80,7 +80,8 @@ screen main_map:
     use status_bar
     if game.lair is not None:
         use to_lair_button
-    
+        use to_sleep_button
+
     if game.dragon is not None and game.dragon.special_places_count > 0:
         use special_places 
 
@@ -182,14 +183,6 @@ screen status_bar:
                 text_size 22
                 action ShowMenu("lb_test_main")
 
-        textbutton "{font=fonts/Tchekhonin2.ttf}С{/font}{font=fonts/times.ttf}пать{/font}":
-                pos(72, 549)
-                xysize(174, 36)
-                text_xalign 0.5
-                text_yalign 0.5
-                background "img/bg/logovo.png"
-                text_size 22
-                action Jump("lb_sleep")
 
 
 screen special_places:
@@ -217,6 +210,19 @@ screen to_lair_button:
             background "img/bg/logovo.png"
             text_size 22
             action Return("lb_location_lair_main")
+
+screen to_sleep_button:
+    fixed:
+        xalign 1.0
+        xmaximum 320
+        textbutton "{font=fonts/Tchekhonin2.ttf}С{/font}{font=fonts/times.ttf}пать{/font}":
+                pos(72, 549)
+                xysize(174, 36)
+                text_xalign 0.5
+                text_yalign 0.5
+                background "img/bg/logovo.png"
+                text_size 22
+                action Return("lb_sleep")
 
 
 screen battle_map:

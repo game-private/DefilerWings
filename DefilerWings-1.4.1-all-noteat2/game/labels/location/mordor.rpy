@@ -39,7 +39,9 @@ label lb_location_mordor_main:
                       renpy.music.play(get_random_files('mus/battle'))
                     $ game.vini_vidi_vici = True
                     $ renpy.call_screen("border_map") 
-                'Отдать сокровища для оснащения армии' if freeplay and game.lair.treasury.wealth > 0:
+                # @fdsc всегда можно сразу отдать сокровища
+                # 'Отдать сокровища для оснащения армии' if freeplay and game.lair.treasury.wealth > 0:
+                'Отдать сокровища для оснащения армии' if game.dragon.level > 12 and game.lair.treasury.wealth > 0:
                     '[game.dragon.name], рыдая от невыносимого горя, отдаёт все свои сокровища для подготовки вторжения'
                     $ game.dragon.gain_rage(gain=5)
                     $ game.army.money += game.lair.treasury.wealth

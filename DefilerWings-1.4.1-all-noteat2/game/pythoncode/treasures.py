@@ -2489,15 +2489,23 @@ class Treasury(store.object):
             craft_impossible = []
             for treasure_type in treasure_list:
                 if self.is_craft_possible(treasure_type, alignment):
+                    if random_choice:
+                        if not treasure_types[treasure_type][6]:
+                            continue
+
                     craft_possible.append(treasure_type)
                 else:
                     craft_impossible.append(treasure_type)
+
             treasure_list = craft_possible + craft_impossible
         menu_choice = None
         row_count = 10  # количество кнопок с отображаемым типом сокровища для создания/покупки
 
         if random_choice:
-            return random.choice(craft_possible)
+            if len(craft_possible) > 0:
+                return random.choice(craft_possible)
+
+            return None
 
         position = 0  # начальное значение 
         while menu_choice not in treasure_list:
@@ -2688,6 +2696,14 @@ class Treasury(store.object):
         menu_choice = None
         if random_choice:
             menu_choice = 'create'
+
+            if item.decorable:
+                item.decoration_image = random.choice(image_types[item.alignment])
+                if item.material in material_types:
+                    item.decoration = 'carving'
+                else:
+                    item.decoration = weighted_select(Treasure.decorate_types)
+
 
         while menu_choice is not 'create':
             menu_options = [(u"Отменить", 'return', True, True)]
