@@ -5,14 +5,14 @@ init python:
 label lb_event_mobilization_increase:
     show screen controls_overwrite
     show expression get_random_image("img/scene/mobilization") as bg
-    nvl clear
+    ### nvl clear
     "Правители вольных народов обеспокоены бесчинством дракона. Они мобилизуют войска и усиливают охрану в своих владениях."
     return
 
 label lb_event_poverty_increase:
     show screen controls_overwrite
     show expression get_random_image("img/scene/poverty") as bg
-    nvl clear
+    ### nvl clear
     "Деяния дракона привели к росту бедности и разрухи в стране. Люди голодают, многие остались без крова и средств к существованию. Мобилизационный потенциал уменьшается."
     return
 label lb_event_no_thief:
@@ -40,7 +40,7 @@ label lb_event_sleep_start:
 label lb_event_sleep_new_year:
     show screen controls_overwrite
     if game.historical_check('rebel_daughter'):
-      nvl clear
+      ### nvl clear
 #      hide bg
       $ current_image=get_random_image("img/scene/poverty")
       show expression current_image as bg
@@ -51,7 +51,7 @@ label lb_event_sleep_new_year:
       $ game.chronik.live('rebel',current_image)
       $ game.poverty.value +=3
     if game.historical_check('rebel_mother'):
-      nvl clear
+      ### nvl clear
 #      hide bg
       $ current_image=get_random_image("img/scene/poverty")
       show expression current_image as bg
@@ -59,7 +59,7 @@ label lb_event_sleep_new_year:
       game.rebel_girl.third '[text]'
       $ game.poverty.value +=1
     if game.historical_check('rebel_niece'):
-      nvl clear
+      ### nvl clear
 #      hide bg
       $ current_image=get_random_image("img/scene/poverty")
       show expression current_image as bg
@@ -73,7 +73,7 @@ label lb_event_sleep_new_year:
 
 label lb_event_sleep_end:
     show screen controls_overwrite
-    nvl clear
+    ### nvl clear
     $ place = game.lair.type_name
     hide bg
     show place as bg
@@ -85,7 +85,7 @@ label lb_event_sleep_end:
 label lb_historical_image:    # Показ изображения
     hide bg
     show expression game.historical_image as bg
-    nvl clear
+    ### nvl clear
     '[game.historical_desc]'
     return
 
@@ -137,7 +137,7 @@ label lb_lair_without_guards:
 
 label lb_lair_guards_disappear:
     show screen controls_overwrite
-    nvl clear
+    ### nvl clear
     if "gremlin_servant" in game.lair.upgrades:
       'Гремлины считают контракт выполненным и уходят'
     if "servant" in game.lair.upgrades:

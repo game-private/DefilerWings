@@ -12,19 +12,19 @@ label lb_new_love_smuggler:  # Девушка встречает контраб�
     show place as bg
     game.girl 'Спасибо... Иначе меня бы съели!'
     game.girl.love 'Не за что. Это просто моя работа.'
-    nvl clear
+    ### nvl clear
     'Обычный разговор. Обычная ситуация. И вдруг...'
     hide bg
     show expression 'img/bg/love/love.jpg' as bg
-    nvl clear
+    ### nvl clear
     'Это было подобно удару грома. Подобно молнии, соединившей два сердца. [game.girl.name] и [game.girl.love.name] смотрят друг на друга и понимают...'
     game.girl 'Я люблю тебя.'
     game.girl.love 'Я люблю тебя!'
-    nvl clear
+    ### nvl clear
     'Девушку больше не волнуют ни дракон, ни бесчестье, ни весьма вероятная смерть. Любимый рядом, и это всё, что имеет значение. '
     hide bg
     show expression 'img/bg/love/romantic_couple.jpg' as bg
-    nvl clear
+    ### nvl clear
     'Забившись в уголок, [game.girl.name] и [game.girl.love.name] сидят, прижавшись друг к другу. '
     game.girl.love 'Нам надо бежать. Но сейчас это невозможно. Слишком бдительная охрана, слишком сложно добраться до обжитых мест. Боюсь, придётся ждать до следующего года.'
     '[game.girl.love.name] отчётливо содрогается.'
@@ -34,7 +34,7 @@ label lb_new_love_smuggler:  # Девушка встречает контраб�
     $ text = u'%s влюбилась в контрабандиста по имени %s, и он ответил ей взаимностью. Они задумали бежать на следующий год. \n' % (game.girl.name, game.girl.love.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ game.chronik.write_image('img/bg/love/romantic_couple.jpg',game.dragon.level,game.girl.girl_id)
-    nvl clear
+    ### nvl clear
     if game.girl.virgin:
       if game.girl.nature == 'innocent':
         call lb_nls_innocent_sex from _call_lb_nls_innocent_sex
@@ -51,7 +51,7 @@ label lb_girl_waits:  # Девушка ждёт свою истинную люб
     $ place = game.lair.type_name
     hide bg
     show place as bg
-    nvl clear
+    ### nvl clear
     if game.girl.type == 'peasant':
         '[game.girl.name] слоняется по драконьему логову. Ящер спит, стражники неусыпно бдят, наружу не выбраться: это она проверила в первую очередь. Девушка вздыхает: как же ей хочется попасть домой! Пусть опять придётся работать от рассвета до заката, прясть пряжу, ухаживать за коровами, целыми днями под жарким солнцем собирать грибы и ягоды... Только бы вырваться из этого кошмара!  В последнее время драконьи слуги смотрят на неё необычайно голодными глазами...'
     elif game.girl.type == 'citizen':
@@ -74,7 +74,7 @@ label lb_girl_waits:  # Девушка ждёт свою истинную люб
     hide expression current_image
     show expression current_image as bg
     game.girl 'Ой...'
-    nvl clear
+    ### nvl clear
     'Драконьи слуги окружают девушку, плотоядно облизываясь и что-то обсуждая между собой. В их руках как по волшебству появляются различные соусы и приправы, пятеро коротышек несут огромный острый вертел.'
     game.girl 'Нееет!!!'
     return
@@ -180,7 +180,7 @@ label lb_nls_pregnant:
     return
 
 label lb_nls_first_sex:
-    nvl clear
+    ### nvl clear
     $ current_image=get_random_image("img/bg/love/sex")
     $ game.chronik.write_image(current_image,game.dragon.level,game.girl.girl_id)
     hide bg
@@ -194,7 +194,7 @@ label lb_nls_first_sex:
     return
 
 label lb_nls_pregnant_sex:
-    nvl clear
+    ### nvl clear
     $ current_image=get_random_image("img/bg/love/sex")
     $ game.chronik.write_image(current_image,game.dragon.level,game.girl.girl_id)
     hide bg
@@ -247,7 +247,7 @@ label lb_love_alchemist_cripple:
         alchemist= Talker(game_ref=game)
         alchemist.avatar = "img/avahuman/alchemist.jpg"
         alchemist.name = 'Безумный алхимик'  
-      nvl clear
+      ### nvl clear
       $ current_image="img/bg/love/alchemist.jpg"          
       hide bg
       show expression current_image as bg
@@ -263,7 +263,7 @@ label lb_love_alchemist_cripple:
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
       $ game.chronik.death('alchemist_cripple',current_image)
       hide expression current_image
-      nvl clear
+      ### nvl clear
     else:
       assert "Roman of smuggler and blind"
     return
@@ -283,7 +283,7 @@ label lb_love_execution_smuggler: #Дракон казнит девушку с �
       game.girl.love 'Разумеется, моя дорогая, я сделаю это! Неужели ты хоть на миг вообразила, что я люблю тебя? Ха! На рынках Султаната за девушку, побывавшую в лапах дракона, дают сумасшедшие деньги. Ради них стоило немного покорчить из себя влюблённого придурка. Но моя жизнь мне всяко дороже.'
     game.girl 'Нет... ты так не считаешь, ты вовсе не такой! Я не верю в это!'
     game.girl.love 'Верь во что хочешь. Мой лорд, как именно мне прикончить эту пустоголовую шлюшку?'
-    nvl clear
+    ### nvl clear
     menu:
         'Отруби ей голову':
           game.dragon 'Да отрежь ей голову, и дело с концом.'
@@ -333,7 +333,7 @@ label lb_love_execution_smuggler: #Дракон казнит девушку с �
           game.girl.love.third 'Логово сотрясает истошный крик. [game.girl.name] вырывается, молит о милосердии, дёргается - всё бесполезно. [game.girl.love.name] глядит в глаза своей жертвы, улыбается и начинает неспешно доставать из живота ленту кишечника. Девушка борется, пытается запихнуть "как было", но контрабандист вновь достаёт их наружу. [game.girl.name] быстро слабеет, её крики становятся более тихими и жалостливыми. [game.girl.love.name] продолжает неспешную экзекуцию. Сегодня у него ещё много работы. '
           $ text = u'По приказу дракона %s неспешно и с удовольствием выпустил девушке кишки. \n\n' % (game.girl.love.name)
           $ game.chronik.death('gutted',current_image)
-    nvl clear
+    ### nvl clear
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     'После [game.dragon.name] и [game.girl.love.name] мирно поговорили за жизнь, полакомившись телом их общей любовницы. [game.girl.name] - истинный деликатес!'    
     return
@@ -350,11 +350,11 @@ label lb_love_execution_both_smuggler_cripple:
     pause (1.5)
     game.girl.love 'Эээ...'
     game.dragon 'Смелее, смелее! Ты же не хочешь нарушить мой приказ, верно?'
-    nvl clear
+    ### nvl clear
     '[game.girl.love.name] раздевается и неуверенно подходит к [game.girl.name_d], растерянно хлопающей глазами. Чувствуется, что вся эта ситуация его изрядно напрягает.'
     'Тем не менее, возбуждение пересиливает. [game.girl.love.name] начинает совершать характерные движения, сначала медленно, потом всё быстрее и быстрее. Кажется, необычное состояние партнёрши пришлось ему по вкусу. Он быстро подбирается к самому пику, и в миг наибольшего белаженства...'
     game.dragon 'Паралич!'
-    nvl clear
+    ### nvl clear
     '...дракон накладывает на любовников заклятье паралича.'
     game.dragon 'Так, теперь надо отрезать мужчине руки и ноги и погрузить парочку в какую-нибудь прозрачную смолу. И в моём логове будет храниться уникальное произведение искусства!'
     game.dragon 'Эта скульптура будет вечной.'
@@ -367,7 +367,7 @@ label lb_love_execution_both_smuggler: # Смерть обоих
     game.dragon 'Где же эти изменники? Как только найду - казню обоих!'
     game.girl.third 'Ой...'
     hide bg
-    nvl clear
+    ### nvl clear
     show expression "img/bg/love/couple_death.jpg" as bg
     if game.girl.blind:
       'После потери зрения слух у [game.girl.name_r] чрезвычайно обострился. Она услышала слова, случайно оброненные драконом, и сумела быстро отыскать своего возлюбленного. [game.girl.love.name] сначала не согласился c её планом, но потом признал, что это единственный выход.'
@@ -375,7 +375,7 @@ label lb_love_execution_both_smuggler: # Смерть обоих
       'Случайно подслушав слова дракона, [game.girl.name] прибежала к своему возлюбленному. [game.girl.love.name] сначала не согласился c её планом, но потом признал, что это единственный выход.'
     'Возлюбленные выпили яд. [game.dragon.fullname] нашёл лишь их остывшие трупы.'
     $ text = u'Осозновая, что их измена вскрылась и дракон непременно казнит обоих, возлюбленные приняли яд. \n\n' 
-    nvl clear
+    ### nvl clear
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ game.chronik.death('couple_death',"img/bg/love/couple_death.jpg")
     return
@@ -393,7 +393,7 @@ label lb_love_escape_smuggler_cripple:
 label lb_love_smuggler_cripple:
     if game.girl.pregnant > 0:
       hide bg
-      nvl clear
+      ### nvl clear
       show expression game.girl.cripple_image as bg
       game.girl.love.third '[game.girl.love.name] нежно гладит беспомощное тело [game.girl.name_r]. Инвалидка смотрит на него молящим взглядом.'
       game.girl.love 'Всё будет хорошо, моя дорогая. Я знаю, где за тебя дадут отличную цену!'
@@ -406,7 +406,7 @@ label lb_love_smuggler_cripple:
 
 label lb_love_escape_smuggler_blind:
     if game.girl.pregnant > 0:
-      nvl clear
+      ### nvl clear
       hide bg
       show expression "img/bg/love/escape.jpg" as bg
       game.girl.love 'Как ты?'
@@ -419,7 +419,7 @@ label lb_love_escape_smuggler_blind:
         alchemist= Talker(game_ref=game)
         alchemist.avatar = "img/avahuman/alchemist.jpg"
         alchemist.name = 'Безумный алхимик'  
-      nvl clear
+      ### nvl clear
       $ current_image="img/bg/love/alchemist.jpg"          
       hide bg
       show expression current_image as bg
@@ -437,13 +437,13 @@ label lb_love_escape_smuggler_blind:
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
       $ game.chronik.death('alchemist_blind',current_image)
       hide expression current_image
-      nvl clear
+      ### nvl clear
     else:
       assert "Roman of smuggler and blind"
     return
 
 label lb_love_escape_smuggler: # Побег 
-    nvl clear
+    ### nvl clear
     hide bg
     show expression "img/bg/love/escape.jpg" as bg
     game.girl 'Всё готово? Мы можем идти?'
@@ -458,7 +458,7 @@ label lb_love_escape_smuggler: # Побег
         alchemist= Talker(game_ref=game)
         alchemist.avatar = "img/avahuman/alchemist.jpg"
         alchemist.name = 'Безумный алхимик'  
-      nvl clear
+      ### nvl clear
       $ current_image="img/bg/love/alchemist.jpg"          
       hide bg
       show expression current_image as bg
@@ -477,7 +477,7 @@ label lb_love_escape_smuggler: # Побег
       $ game.chronik.death('alchemist',current_image)
       hide expression current_image
     else:
-      nvl clear
+      ### nvl clear
       $ current_image="img/bg/love/slave_market.jpg"          
       hide bg
       show expression current_image as bg
@@ -486,7 +486,7 @@ label lb_love_escape_smuggler: # Побег
       game.girl.love 'Ха! Неужели ты и впрямь решила, что я действительно тебя любил? Ну-ну. Я связался с такой пустоголовой шлюхой, как ты, только чтобы поднакопить побольше деньжат. За драконью подстилку султанские вельможи мне столько денег отвалят, что до конца жизни хватит!'
       $ text = u'Но их счастье было недолгим: %s продал свою возлюбленную работорговцам. \n\n' % (game.girl.love.name)
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-      nvl clear
+      ### nvl clear
       $ current_image="img/bg/love/slave_caravan.jpg"          
       hide bg
       show expression current_image as bg
@@ -497,7 +497,7 @@ label lb_love_escape_smuggler: # Побег
       game.girl.third '[game.girl.name] медленно бредёт по обжигающему песку в цепочке таких же несчастных рабынь. Зачем? Куда? Как жить после такого предательства? Для чего она вообще существует?'
       game.girl.third 'Мало сил и мало воды, но зато много солнца, песка и ярости надмотрщиков. Каждый день кто-то из девочек остаётся лежать в песках. Возможно, её ждёт та же участь.'
       if  (random.randint(1,5) == 1):
-        nvl clear
+        ### nvl clear
         $ current_image="img/bg/love/bone_desert.jpg" 
         hide bg
         show expression current_image as bg
@@ -512,7 +512,7 @@ label lb_love_escape_smuggler: # Побег
     return
 
 label lb_sultan:   # Девушка при дворе султана
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/sultan.jpg" 
     hide bg
     show expression current_image as bg
@@ -558,7 +558,7 @@ label lb_sultan:   # Девушка при дворе султана
     return
 
 label lb_sultan_normal_innocent:
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/sultan_fate.jpg" 
     hide bg
     show expression current_image as bg
@@ -570,7 +570,7 @@ label lb_sultan_normal_innocent:
     return
 
 label lb_sultan_normal_proud:
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/sultan_fate.jpg" 
     hide bg
     show expression current_image as bg
@@ -582,7 +582,7 @@ label lb_sultan_normal_proud:
     return
 
 label lb_sultan_normal_lust:
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/sultan_fate.jpg" 
     hide bg
     show expression current_image as bg
@@ -597,7 +597,7 @@ label lb_sultan_crucify:
     $ text = u'Но однажды %s прогневала своего мужа, и он приказал распять её. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/crucify.jpg" 
     $ game.chronik.death('crucify',current_image)
     hide bg
@@ -611,7 +611,7 @@ label lb_sultan_scorpion:
     $ text = u'Но однажды %s прогневала своего мужа, и он приказал натравить на неё скорпиона. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/scorpion.jpg" 
     $ game.chronik.death('scorpion',current_image)
     hide bg
@@ -623,7 +623,7 @@ label lb_sultan_tiger:
     $ text = u'Но однажды %s прогневала своего мужа, и он приказал скормить её тиграм. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/tiger.jpg" 
     $ game.chronik.death('tiger',current_image)
     hide bg
@@ -636,7 +636,7 @@ label lb_sultan_cage:
     $ text = u'Но однажды %s прогневала своего мужа, и он приказал посадить её в клетку и вывесить на солнцепёк. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/cage.jpg" 
     $ game.chronik.death('cage',current_image)
     hide bg
@@ -648,7 +648,7 @@ label lb_sultan_peril:
     $ text = u'Но однажды %s неудачно ввязалась в интригу, и хатун с помощью евнухов убила её, перетянув живот верёвкой. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/peril.jpg" 
     $ game.chronik.death('peril',current_image)
     hide bg
@@ -661,7 +661,7 @@ label lb_sultan_poison:
     $ text = u'Но однажды %s неудачно ввязалась в интригу, и хатун угостила её отравленным вином. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/poison.jpg" 
     $ game.chronik.death('poison',current_image)
     hide bg
@@ -674,7 +674,7 @@ label lb_sultan_crocodile:
     $ text = u'Но однажды %s неудачно ввязалась в интригу, и хатун с помощью евнухов убила её, скормив крокодилам. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/crocodile.jpg" 
     $ game.chronik.death('crocodile',current_image)
     hide bg
@@ -687,7 +687,7 @@ label lb_sultan_sands:
     $ text = u'Но однажды %s неудачно ввязалась в интригу, и хатун с помощью евнухов убила её, утопив в зыбучих песках. \n\n' % (game.girl.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ narrator (text)
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/sultan/execution/sands.jpg" 
     $ game.chronik.death('sands',current_image)
     hide bg
@@ -700,7 +700,7 @@ label lb_sultanat_trade:  # Установка глобальных модифи
       sultanat_trade_basic = game.historical_check('sultanat_trade_basic')
       sultanat_trade_advanced = game.historical_check('sultanat_trade_advanced')
       sultanat_trade_ultimate = game.historical_check('sultanat_trade_ultimate')
-    nvl clear
+    ### nvl clear
     hide bg
     show expression "img/bg/sultan/sultan_glory.jpg" as bg
     if not sultanat_trade_basic:
@@ -718,7 +718,7 @@ label lb_sultanat_trade:  # Установка глобальных модифи
     return
 
 label lb_caravan_trade:
-    nvl clear
+    ### nvl clear
     $ game.history = historical( name='caravan_trade',end_year=None,desc=None,image=None)
     $ game.history_mod.append(game.history)
     python: #делаем аватарку Хаким для диалогового окна
@@ -755,21 +755,21 @@ label lb_new_love_lizardman:  # Девушка встречает контраб
     hide bg
     show expression 'img/bg/love/lizardman_run.jpg' as bg
     game.girl 'Аааа!!!'
-    nvl clear
+    ### nvl clear
     '[game.girl.name] бежит не разбирая дороги, бежит во всю мочь, но вскоре спотыкается и падает... прямо на колья ловушки!'
     'Чьи-то крепкие руки хватают её за плечи, предотвращая непоправимое. За спиной раздаётся глухой голос, спрашивающий "Вы в порядке?". [game.girl.name] оборачивается...'
     game.girl 'Ты умеешь говорить?!'
     game.girl.love 'Да, умею.'
     game.girl.third 'Почему-то ничего более умного ей в этот момент в голову не пришло.'
     game.girl.love 'Понимаю. Немногие из моих сородичей изучают ваш язык.'
-    nvl clear
+    ### nvl clear
     hide bg
     show expression 'img/bg/love/lizardman_couple.jpg' as bg
     '[game.girl.name] и сама не заметила, как разговорилась с ящериком. [game.girl.love.name] оказался, на удивление, умным и понимающим собеседником. Конечно, он не знал многих простых и обыденных вещей, но впитывал знания, как губка.'
     'Они встретились и на следующий день, и на последующий, и на после-после-следующий... Со временем это вошло в привычку, и [game.girl.name] больше не представляла жизни без дружеских посиделок с [game.girl.love.name]ом. Постепенно она перестала обращать внимание на игольчатые зубы своего спутника, на его вытянутую морду, чешуйчатую кожу, острый раздвоенный язык, нечеловеческие глаза. Точнее, не то что бы "перестала обращать внимание..."'
     hide bg
     show expression 'img/bg/love/love.jpg' as bg
-    nvl clear
+    ### nvl clear
     if game.girl.type == 'elf':
       '[game.girl.name] поняла, что её привлекает всё вышеперечисленное. Что её привлекает [game.girl.love.name]. Не просто как хороший собеседник и надёжный друг. А как мужчина. Её. Альву, дитя богини Дану. Привлекает ящерик, порождение драконьего семени. Что с ней творится?!'
     else:
@@ -780,10 +780,10 @@ label lb_new_love_lizardman:  # Девушка встречает контраб
     else:
       game.girl 'А на юге лежит дремучий лес, в котором живут альвы, дети богини Дану. Кстати, [game.girl.love.name], я люблю тебя.'
     game.girl.love 'А я тебя. При самой первой встрече я поклялся, что кровь моя прольётся прежде твоей крови. Что жизнь моя будет отдана за твою жизнь.'
-    nvl clear
+    ### nvl clear
     hide bg
     show expression 'img/bg/love/lizardman_couple.jpg' as bg
-    nvl clear
+    ### nvl clear
     '[game.girl.name] и [game.girl.love.name] сидят в уголке, прижавшись друг к другу. '
     game.girl.love 'Нам надо бежать. Но сейчас это невозможно. Слишком бдительная охрана, слишком сложно добраться до обжитых мест. Боюсь, придётся ждать до следующего года.'
     '[game.girl.love.name] отчётливо содрогается.'
@@ -793,7 +793,7 @@ label lb_new_love_lizardman:  # Девушка встречает контраб
     $ text = u'%s, неожиданно для себя, влюбилась в ящерика по имени %s, и он ответил ей взаимностью. Они задумали бежать на следующий год. \n\n Девушка долго убеждала себя в противоестественности этой связи, но так и не смогла задавить вспыхнувшее чувство. Возможно, именно так боги ответили на её молитвы? ' % (game.girl.name, game.girl.love.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     $ game.chronik.write_image('img/bg/love/lizardman_couple.jpg',game.dragon.level,game.girl.girl_id)
-    nvl clear
+    ### nvl clear
     if game.girl.virgin:
       if game.girl.nature == 'innocent':
         call lb_nll_innocent_sex from _call_lb_nll_innocent_sex
@@ -908,7 +908,7 @@ label lb_nll_pregnant:
     return
 
 label lb_nll_first_sex:
-    nvl clear
+    ### nvl clear
     $ current_image=get_random_image("img/bg/love/lizardman_sex")
     $ game.chronik.write_image(current_image,game.dragon.level,game.girl.girl_id)
     hide bg
@@ -920,13 +920,13 @@ label lb_nll_first_sex:
     game.girl.love 'Тебе плохо?'
     game.girl 'Мне хорошо... мне здорово... войди в меня!'
     game.girl.love 'Уверена?'
-    nvl clear
+    ### nvl clear
     '[game.girl.name] видит восставший член ящерика. Он страшен. Огромный, толстый, перевитый венами, он далеко превосходит в размерах хозяйство человека. [game.girl.name] отстраняется от ящерика, а потом резко, со всего маха насаживается на его член.'
     'В первый раз было очень больно. Во второй - просто больно. Но вскоре [game.girl.name] уже не представляла жизни без регулярного секса с ящериком.'
     return
 
 label lb_nll_pregnant_sex:
-    nvl clear
+    ### nvl clear
     $ current_image=get_random_image("img/bg/love/lizardman_sex")
     $ game.chronik.write_image(current_image,game.dragon.level,game.girl.girl_id)
     hide bg
@@ -938,7 +938,7 @@ label lb_nll_pregnant_sex:
     game.girl.love 'Тебе плохо?'
     game.girl 'Мне хорошо... мне здорово... войди в меня!'
     game.girl.love 'Уверена?'
-    nvl clear
+    ### nvl clear
     '[game.girl.name] видит восставший член ящерика. Он страшен. Огромный, толстый, перевитый венами, он далеко превосходит в размерах хозяйство человека. [game.girl.name] отстраняется от ящерика, а потом резко, со всего маха насаживается на его член.'
     'В первый раз было не больнее, чем с драконом. Во второй - почти терпимо. А вскоре [game.girl.name] уже не представляла жизни без регулярного секса с ящериком.'
     return
@@ -989,7 +989,7 @@ label lb_love_execution_lizardman:
         game.girl.love 'Как прикажешь, отец.'
         $ text = u'и ящерик выполнил приказ своего отца, оказав калеке последнюю милость. %s обезглавил %s, быстро и безболезненно.\n' % (game.girl.love.name, game.girl.name_r )
         $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-        nvl clear
+        ### nvl clear
         game.girl.love 'Кажется, это действительно единственный выход.'
         $ current_image = get_random_image("img/bg/love/execution/beheaded/4.jpg")
         hide bg
@@ -1059,7 +1059,7 @@ label lb_love_lizardman_conflict:  # Конфликт отцов и детей.
       '[game.girl.love.name] обнажает свой топорик. Увидев это, [game.girl.name] достаёт из волос костяную заколку.'
     game.dragon 'Что?!!'
     game.girl.love 'Если я должен разъять тебя на части, папочка, я сделаю это! Лучше отпусти нас по-хорошему.'
-    nvl clear
+    ### nvl clear
     menu:
         'Отпустить':
             $ text = u'Дракон не захотел марать когти и отпустил влюблённых.  \n\n'
@@ -1132,12 +1132,12 @@ label lb_love_lizardman_victory:
 label lb_love_lizardman_cripple:
     if game.girl.pregnant>0:
       hide bg
-      nvl clear
+      ### nvl clear
       $ current_image = game.girl.cripple_image
       show expression current_image as bg
       game.girl.love.third '[game.girl.love.name] стоит перед искалеченной [game.girl.name_t]. Его мордочка обычно безымоциональна, но теперь на ней отчётливо проявляются гнев и горе. [game.girl.name] пристально смотрит на возлюбленного, и в её взгляде читается... кто знает, что в нём читается? Она ничего не может ни сказать, ни услышать.'
       game.girl.love 'Проклятье, проклятье, отец всё-таки сделал это! [game.girl.name], чем я... что я...'
-      nvl clear
+      ### nvl clear
       'Ящерик замолкает, не в силах закончить фразу. Он неотрывно следит за зрачками [game.girl.name_r], пытаясь прочитать ответ на невысказанный вопрос.'
       $ text = u'%s хорошо подготивлся к побегу, чего нельзя сказать о %s: после встречи с драконом она стала калекой. После долгих и мучительных размышлений ящерик решил ' % (game.girl.love.name, game.girl.name_p )
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -1153,7 +1153,7 @@ label lb_love_lizardman_cripple:
 label lb_love_lizardman_cripple_kill:
     $ text = u'оказать своей возлюбленной последнюю милость. %s обезглавил %s, быстро и безболезненно.\n' % (game.girl.love.name, game.girl.name_r )
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-    nvl clear
+    ### nvl clear
     'Молчание висело долго, очень долго'
     game.girl.love 'Кажется, это действительно единственный выход.'
     $ current_image = get_random_image("img/bg/love/execution/beheaded/4.jpg")
@@ -1197,7 +1197,7 @@ label lb_love_lizardman_cripple_alchemist_1:
       alchemist= Talker(game_ref=game)
       alchemist.avatar = "img/avahuman/alchemist.jpg"
       alchemist.name = 'Безумный алхимик'  
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/love/alchemist.jpg"          
     hide bg
     show expression current_image as bg
@@ -1242,7 +1242,7 @@ label lb_love_escape_lizardman:
     return
 
 label lb_love_lizardman_mistress:
-    nvl clear
+    ### nvl clear
     hide bg
     show expression 'img/scene/mistress.jpg' as bg
     mistress 'Кто беспокоит меня?'
@@ -1259,12 +1259,17 @@ label lb_love_lizardman_mistress:
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     hide bg
     show expression "img/scene/spawn/dragonborn.jpg" as bg
-    if random.randint(1,5)==1: # Проигрыш ящерика
+    if random.randint(1,5)==-1: # Проигрыш ящерика # @fdsc Ящерики никогда не проигрывают: девочек жалко
       $ text = u'%s сражался храбро и отчаянно, но доблесть и самоотверженность - плохая замена голой мощи. Драконорождённый убил ящерика и надругался над его возлюбленной. %s скончалась, не выдержав горя и издевательств. ' %(game.girl.love.name, game.girl.name)
       '[text]'
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
       $ game.chronik.death('rape_army',"img/scene/spawn/dragonborn.jpg")
     else:
+      # @fdsc Замена проигрыша ящерика на работу дракона
+      if random.randint(1,5)==1:
+        $ game.dragon.drain_energy(7, True)
+        '{color=#FF0000}Ящерик споткнулся от усталости, но [game.dragon.name] хорошо помнит своих слуг. Он мысленно дал ему ещё энергии, чтобы ящерик спог победить.{/color}'
+
       '[game.girl.love.name] сражался храбро и отчаянно, и ему удалось удивить даже драконорожденного. Не сразу, далеко не сразу исполинский монстр уступил напору человека-ящерицы, но в конце концов даже ему пришлось признать своё поражение.'
       $ text = u'%s выполнил испытание Тёмной Госпожи, победив драконорожденного. \n ' %(game.girl.love.name)
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -1302,7 +1307,7 @@ label lb_love_suicide_lizardman:
     return
 
 label lb_love_caravan_lizardman:  # Ящерик спасает возлюбленную из каравана.
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/love/slave_caravan.jpg"          
     hide bg
     show expression current_image as bg
@@ -1312,7 +1317,7 @@ label lb_love_caravan_lizardman:  # Ящерик спасает возлюбле
     hide expression current_image
     game.girl.third '[game.girl.name] медленно бредёт по обжигающему песку в цепочке таких же несчастных рабынь. Зачем? Куда? Как жить после того, как её разлучили с любимым? Да, [game.girl.love.name] - монстр, но он для неё дороже всего на свете! А теперь [game.girl.name] его больше никогда не увидит. Для чего она вообще существует?'
     game.girl.third 'Мало сил и мало воды, но зато много солнца, песка и ярости надмотрщиков. Каждый день кто-то из девочек остаётся лежать в песках. Возможно, её ждёт та же участь.'
-    nvl clear
+    ### nvl clear
     $ current_image="img/bg/love/night_desert.jpg"          
     hide bg
     show expression current_image as bg
@@ -1327,7 +1332,7 @@ label lb_love_caravan_lizardman:  # Ящерик спасает возлюбле
     return
 
 label lb_love_lizardman_death: # Затрахали до смерти
-    nvl clear
+    ### nvl clear
     hide bg
     if game.girl.type == 'elf': # Тролли
       $ current_image=get_random_image("img/bg/love/troll_sex")
@@ -1335,7 +1340,7 @@ label lb_love_lizardman_death: # Затрахали до смерти
       'Тролль!'
       'Огромный тролль насиловал его возлюбленную. Живот девушки был страшно, противоестественно раздут.'
       'Нет, не так: тролль насиловал труп его возлюбленной. Девушка была очевидно и безнадёжно мертва.'
-      nvl clear
+      ### nvl clear
       game.girl.love.third '[game.girl.love.name] в ярости кинулся на тролля. Атака была настолько яростной и неожиданной, то ящерику удалось убить тролля, но и сам он скончался от полученных ран. По крайней мере, [game.girl.name] была отомщена!'
       $ text = u'А вот альва не выдержала. Привлечённой ароматом священной плоти, к оргии присоединился тролль. %s не выдержала надругательств и скончалась от полученных травм. %s ценой своей жизни отомстил за её смерть. \n ' %(game.girl.name,game.girl.love.name)
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -1347,14 +1352,14 @@ label lb_love_lizardman_death: # Затрахали до смерти
       game.girl.love '[game.girl.name]!'
       game.girl 'Ты... пришёл...'
       game.girl 'Прости... не выдержала...'
-      nvl clear
+      ### nvl clear
       '[game.girl.name] шепчет - тем шёпотом, что громче и страшнее крика.'
       game.girl 'Пожалуйста... возьми меня...'
       game.girl.love 'Нет!!! Ещё можно что-то поправить... как-то вылечить...'
-      nvl clear
+      ### nvl clear
       '[game.girl.love.name] сам понимает, насколько фальшиво звучат его слова. Никто в армии тьмы и не почешется ради спасения человеческой самки'
       game.girl 'Пожалуйста... Будь... моим... последним мужчиной.'
-      nvl clear
+      ### nvl clear
       '[game.girl.love.name] выполнил последнюю просьбу умирающей, а после её смерти - покончил с собой.'
       $ text = u'А вот его возлюбленная не выдержала оргии с гоблинами и скончалась. %s покончил жизнь самоубийством \n ' %(game.girl.love.name)
       $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -1362,14 +1367,14 @@ label lb_love_lizardman_death: # Затрахали до смерти
     return
 
 label lb_love_lizardman_live:
-    nvl clear
+    ### ### nvl clear
     hide bg 
     if game.girl.type == 'elf': # Тролли
       $ current_image=get_random_image("img/bg/love/elf_sex")
     else:
       $ current_image=get_random_image("img/bg/love/goblin_sex")  
     show expression current_image as bg 
-    'Возлюбленная [game.girl.love.name]а постанывала, удовлетворяя сразу несколько отродий Тёмной Госпожи, но в целом казалась здоровой и невредимой'
+    'Возлюбленная [game.girl.love.name]а постанывала, удовлетворяя сразу несколько отродий Тёмной Госпожи, но {color=#00ff00}в целом казалась здоровой и невредимой{/color}'
     game.girl.love 'Ты как?'
     'Идиотский вопрос, но ничего умнее ящерику в голову не пришло.'
     game.girl 'Хорошо... Было трудно, но я справилась. И дальше справлюсь.'
@@ -1383,7 +1388,7 @@ label lb_love_lizardman_live:
     return
 
 label lb_love_lizardman_uncle: # Возвращается к родственникам - счастливый исход
-    nvl clear
+    ### nvl clear
     call lb_show_home from _call_lb_show_home_4
     $ text = u'%s привела %sа к дяде и честно рассказала ему о проихошедшем. Дядя был, мягко говоря, поражён, но он быстро убедился, ' %(game.girl.name, game.girl.love.name)
     $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -1404,7 +1409,7 @@ label lb_love_lizardman_uncle: # Возвращается к родственн�
     uncle 'Эээ...'
     game.girl.love 'Меня зовут [game.girl.love.name]. Приятно познакомиться.'
     uncle 'Я убью этого монстра!'
-    game.girl.third '[game.girl.name] носит кинжал к своей груди.'
+    game.girl.third '[game.girl.name] подносит кинжал к своей груди.'
     game.girl '[game.girl.love.name] - никакой не монстр, а очень способный и образованный молодой ящерик! А если ты убьёшь его, дядя, то я покончу с собой.'
     uncle 'Способный?!! Такие твари, как он, способны только убивать и насиловать!'  
     if game.girl.type == 'peasant':

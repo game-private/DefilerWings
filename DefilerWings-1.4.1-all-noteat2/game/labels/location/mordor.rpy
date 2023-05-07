@@ -31,6 +31,7 @@ label lb_location_mordor_main:
         'Армия Тьмы':
             show expression 'img/bg/special/army.jpg' as bg
             '[game.army.army_description]'
+            $ game.pauseForSkip()
             nvl clear
             menu:
                 'Собрать армию и начать войну!' if not freeplay:
@@ -39,7 +40,7 @@ label lb_location_mordor_main:
                       renpy.music.play(get_random_files('mus/battle'))
                     $ game.vini_vidi_vici = True
                     $ renpy.call_screen("border_map") 
-                # @fdsc всегда можно сразу отдать сокровища
+                # @fdsc можно сразу отдать сокровища после выполнения квеста
                 # 'Отдать сокровища для оснащения армии' if freeplay and game.lair.treasury.wealth > 0:
                 'Отдать сокровища для оснащения армии' if (freeplay or game.is_quest_has_been_completed) and game.lair.treasury.wealth > 0:
                     '[game.dragon.name], рыдая от невыносимого горя, отдаёт все свои сокровища для подготовки вторжения'

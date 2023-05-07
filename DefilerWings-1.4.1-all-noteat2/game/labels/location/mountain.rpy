@@ -99,6 +99,7 @@ label lb_location_mountain_main_mine_metalls(metall, entireDay=False):
 
         txt = u'Добыто ' + str(weight) + ' ' + name_rus + u'\nОбщая стоимость: ' + str(game.lair.treasury.wealth - oldWealth)
 
+    nvl clear
     '[txt]'
 
     if game.dragon.energy() > 0:
@@ -119,6 +120,7 @@ label lb_location_mountain_main_mine_gems(entireDay=False):
 
         txt = u'Добыто:\n' + names + u'\n\nОбщая стоимость: ' + str(game.lair.treasury.wealth - oldWealth)
 
+    nvl clear
     '[txt]'
 
     if game.dragon.energy() > 0:

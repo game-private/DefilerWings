@@ -266,7 +266,8 @@ class Game(store.object):
             self.thief.receive_item(lair=self.lair,)
           else:
             self.thief.event("prepare_useless")
-          if self.thief.forced_to_rob or random.choice(range(6)) in range(      1 + len(self.thief.items)):  # Шанс 1 + количество шмота на воре, что он пойдет на дело
+          # @fdsc Было range(6)
+          if self.thief.forced_to_rob or random.choice(range(2 + self.dragon.reputation.points)) in range(      1 + len(self.thief.items)):  # Шанс 1 + количество шмота на воре, что он пойдет на дело
  #             self.thief.new_lair=False
             if self.thief.new_lair: # Упс, а дракона-то и нет!
               self.thief.event("no_dragon")
@@ -298,13 +299,17 @@ class Game(store.object):
           else:
             self.knight.event("prepare_useless")
           # Шанс 1 + количество небазового шмота на рыцаре из 7, что он пойдет на дело
-          if self.knight.forced_to_challenge or random.choice(range(7)) in range( 1 + self.knight.enchanted_equip_count):
+          # @fdsc Уменьшил шанс, чтобы рыцарь мог собрать больше вещей (было range(7))
+          if self.knight.forced_to_challenge or random.choice(range(3 + self.dragon.reputation.points)) in range( 1 + self.knight.enchanted_equip_count):
                 # Идем на дело
             if self.knight.new_lair: # Упс, а дракона-то и нет!
               self.knight.event("no_dragon")
               self.knight.forced_to_challenge=False
               self.knight.new_lair=False
             else:
+              # if noPause < 1:
+              self.pauseForSkip()
+
               self.knight.forced_to_challenge=True
               self.knight.go_challenge(self.lair,self.dragon)
           else:
@@ -313,8 +318,14 @@ class Game(store.object):
         if noPause < 2:
             self.pauseForSkip()
 
+        pc = self.girls_list.prisoners_count_virgins_pregnant()
         # Действия с девушками каждый год
         self.girls_list.next_year()
+
+        # Делаем паузу, если изменилось количество девственниц, беременных, 
+        if self.girls_list.prisoners_count_virgins_pregnant(pc):
+            self.pauseForSkip()
+
         return
 
     # @fdsc
@@ -510,7 +521,7 @@ class Game(store.object):
 #            self.narrator(u"%s, %s" %(quests[i]['task'], lvl))
 
         # Здесь мы проверяем в цикле, т.к. иногда бывает такое, что последний квест - единственный возможный сейчас (хотя, вообще, странно)
-        while self.lastQuest == self._quest:
+        while self.lastQuest != None and self.lastQuest['task'] == self._quest['task']:
             self._quest    = random.choice(quests)
             if len(quests) <= 1:
                 break
@@ -532,7 +543,9 @@ class Game(store.object):
         self._quest_text = self._quest['text'].format(*[self._quest_threshold])
 
         # @fdsc Запоминаем количество девушек, которое было в начале выполнения квеста (для квеста girls)
-        self._quest_girls = self.army.girls
+        self._quest_girls  = self.army.girls
+        self._quest_elites = self.army.elites
+
 
     @property
     def is_quest_complete(self):
@@ -565,6 +578,9 @@ class Game(store.object):
         # @fdsc Проверка количества девушек, поступивших на службу к Владычице
         elif task_name == 'girls':  # проверка событий
             current_level = self.army.girls - self._quest_girls
+        # @fdsc Проверка количества элитных войск, поступивших на службу к Владычице
+        elif task_name == 'elite':  # проверка событий
+            current_level = self.army.elites - self._quest_elites
 
         # проверка требований
         if 'task_requirements' in self._quest and type(self._quest['task_requirements']) is str:
@@ -811,16 +827,26 @@ class Game(store.object):
     @property
     def quest_time_text(self):
         number = self.quest_time
+        
+        post_str = "";
+        if self._quest['task'] == 'girls':
+            current_level = self.army.girls - self._quest_girls
+            post_str = u"\n\nКоличество девушек, поступивших на службу: " + str(current_level)
+        elif self._quest['task'] == 'elite':
+            current_level = self.army.elites - self._quest_elites
+            post_str = u"\n\nКоличество элитных бойцов, поступивших на службу: " + str(current_level)
+
+
         if number == 1:
-            return u"Последний год на выполнение задания!"
+            return u"Последний год на выполнение задания!" + post_str
         elif 1 < number < 5:
-            return u"Тебе нужно выполнить задание за %s года!" % str(number)
+            return u"Тебе нужно выполнить задание за %s года!" % str(number) + post_str
         elif (number % 100 > 20) and (number % 10 == 1):
-            return u"Задание нужно выполнить за %s год." % str(number)
+            return u"Задание нужно выполнить за %s год." % str(number) + post_str
         elif (number % 100 > 20) and (1 < number % 10 < 5):
-            return u"Задание нужно выполнить за %s года." % str(number)
+            return u"Задание нужно выполнить за %s года." % str(number) + post_str
         else:
-            return u"Задание нужно выполнить за %s лет." % str(number)
+            return u"Задание нужно выполнить за %s лет." % str(number) + post_str
 
     def choose_spell(self, back_message=u"Вернуться"):
         """

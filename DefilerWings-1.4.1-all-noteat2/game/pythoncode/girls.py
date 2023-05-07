@@ -901,6 +901,38 @@ class GirlsList(object):
         """
         return len(self.prisoners)
 
+    def prisoners_count_virgins_pregnant(self, oldPC = None):
+        """
+        Возвращает количество плененных девушек-девственниц и беременных женщин.
+        """
+
+        if oldPC != None:
+            new = self.prisoners_count_virgins_pregnant()
+
+            for i in xrange(len(oldPC)):
+                if new[i] != oldPC[i]:
+                    return True
+
+            return False
+
+        cntv = 0
+        cntp = 0
+        cntA = 0
+        cntL = 0
+        for i in xrange(len(self.prisoners)):
+            girl = self.prisoners[i]
+            if girl.virgin:
+                cntv += 1
+            if girl.pregnant > 0:
+                cntp += 1
+            if girl.pregnant < 0:
+                cntA += 1
+            if girl.love:
+                cntL += 1
+
+        return [self.prisoners_count, cntv, cntp, cntA, cntL]
+
+
     def description(self, status, say=False):
         """
         Генерация описания ситуации для текущей девушки (self.game.girl).
@@ -993,6 +1025,7 @@ class GirlsList(object):
         """
         Все действия с девушками за год.
         """
+
         # плененные девушки
         self.love_escape()  # Девушки бегут с возлюбленным
         self.escape_without_guard()  # Девушки бегут при отсутствии стражи

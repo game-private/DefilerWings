@@ -139,12 +139,15 @@ label lb_location_lair_main:
             call lb_location_lair_main from _call_lb_location_lair_main_2
         '[room_desc]' if game.girls_list.prisoners_count > 0:
             call screen girls_menu
-            call lb_location_lair_main from _call_lb_location_lair_main_3            
+            call lb_location_lair_main from _call_lb_location_lair_main_3
+
+        ''
         'Смастерить вещь' if ('servant' in game.lair.upgrades) or ('gremlin_servant' in game.lair.upgrades):
             $ new_item = game.lair.treasury.craft(**data.craft_options['servant'])
             if new_item:
                 $ game.lair.treasury.receive_treasures([new_item])
                 $ test_description = new_item.description()
+                nvl clear
                 "Изготовлено: [test_description]."
             call lb_location_lair_main from _call_lb_location_lair_main_4              
 
@@ -185,7 +188,7 @@ label lb_location_lair_main:
 
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
-
+        ''
         'Уволить слуг-гремлинов' if 'gremlin_servant' in game.lair.upgrades:
             $ del game.lair.upgrades['gremlin_servant']
             "Гремлины уходят"
@@ -257,6 +260,7 @@ label lb_create_treasures(random_choice=False):
                 txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + u" энергии; стоимость увеличена)"
 
         # if not random_choice:
+        nvl clear
         "Изготовлено: [test_description]\nСтоимость [new_item.cost][txt]"
 
         return True

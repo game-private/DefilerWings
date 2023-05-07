@@ -2,6 +2,16 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/mountain.rpy", line 47: indentation mismatch.
+File "game/labels/events/thief.rpy", line 179: expected statement.
+    magic_traps = 0
+                ^
+
+File "game/labels/events/thief.rpy", line 199: reached end of line when expecting ':'.
+    if ch == 0;
+               ^
+
+File "game/labels/events/thief.rpy", line 202: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 6.99.7.858
