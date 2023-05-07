@@ -326,7 +326,10 @@ class Game(store.object):
             return
 
         renpy.config.skipping = False
-        renpy.say(self.narrator, '')
+        # renpy.say(self.narrator, '')
+        # self.narrator('')
+        ch = self.nvl_character()
+        ch('')
         renpy.config.skipping = True
 
     def isSkip(self):
@@ -525,8 +528,11 @@ class Game(store.object):
         if 'fixed_threshold' in self._quest:
             self._quest_threshold += self._quest['fixed_threshold']
         if 'lvlscale_threshold' in self._quest:
-            self._quest_threshold += lvl * self._quest['lvlscale_threshold']
+            self._quest_threshold += int( lvl * self._quest['lvlscale_threshold'] )
         self._quest_text = self._quest['text'].format(*[self._quest_threshold])
+
+        # @fdsc Запоминаем количество девушек, которое было в начале выполнения квеста (для квеста girls)
+        self._quest_girls = self.army.girls
 
     @property
     def is_quest_complete(self):
@@ -556,6 +562,10 @@ class Game(store.object):
             reached_list.append(self.lair.type_name)
         elif task_name == 'event':  # проверка событий
             reached_list.extend(self.dragon.events)
+        # @fdsc Проверка количества девушек, поступивших на службу к Владычице
+        elif task_name == 'girls':  # проверка событий
+            current_level = self.army.girls - self._quest_girls
+
         # проверка требований
         if 'task_requirements' in self._quest and type(self._quest['task_requirements']) is str:
             quest_complete = self._quest['task_requirements'] in reached_list

@@ -167,7 +167,7 @@ label lb_event_thief_lair_enter(thief):
     nvl clear
     show expression "img/scene/thief_in_lair.jpg" as bg
     thief "Ну вот и оно - логово дракона. Я войду словно тень и выскользну обратно с мешком сокровищ, тяжким как мои грехи..."
-    $ game.pauseForSkip()
+    # $ game.pauseForSkip()
     return
 
 label lb_event_thief_die_inaccessability(thief):

@@ -324,10 +324,13 @@ init -1 python hide:
     # is run, so the persistent information can be found by the init code.)
 python early:
     config.save_directory = "Defiler Wings"
-    
-    
-    
-    
+    # @fdsc Отключаем автосохранение
+    config.has_autosave       = False
+    config.autosave_on_choice = False
+    config.autosave_on_input  = False
+    config.autosave_slots     = 1
+
+
 init -1 python hide:
     #########################################
     # Default values of Preferences.

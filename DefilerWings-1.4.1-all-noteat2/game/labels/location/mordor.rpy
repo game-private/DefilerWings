@@ -99,6 +99,7 @@ label lb_mistress:
             return
         'Уточнить задание' if not game.is_quest_complete and not freeplay:
             "Текущее задание:\n[game.quest_text]\n[game.quest_time_text]"
+            $ game.pauseForSkip()
             call lb_mistress from _call_lb_mistress
         'Завести разговор':
             $ txt = game.interpolate(random.choice(txt_advice))

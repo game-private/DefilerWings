@@ -31,7 +31,7 @@ label lb_location_city_main:
             while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
                 call lb_city_palace_atk(True, True)
 
-        'Украсть девушку с рынка' if game.dragon.can_fly and game.dragon.mana > 1 and  not (game.witch_st1==6 or game.witch_st1==7):
+        'Украсть девушку с рынка' if game.dragon.can_fly and  not (game.witch_st1==6 or game.witch_st1==7):
             # @fdsc
             # 'Легко перемахнув через городскую стену, [game.dragon.kind] оказывается в самом центре города. От летучего врага укрепления не спасут...'
             call lb_city_market_atk(True)

@@ -114,18 +114,23 @@ label lb_location_lair_main:
                     menu:
                         'Самая дорогая в сокровищнице':
                             "[game.lair.treasury.most_expensive_jewelry]"
+                            $ game.pauseForSkip()
                             nvl clear
                         'Самая дешёвая в сокровищнице':
                             "[game.lair.treasury.cheapest_jewelry]"
+                            $ game.pauseForSkip()
                             nvl clear
                         'Случайная':
                             "[game.lair.treasury.random_jewelry]"
+                            $ game.pauseForSkip()
                             nvl clear
                         'Просмотреть все':
                             "[game.lair.treasury.all_jewelry]"
+                            $ game.pauseForSkip()
                             nvl clear
                         'Навести порядок в сокровищнице':
                             call screen order_treasury
+                            $ game.pauseForSkip()
                             nvl clear
                         'Вернуться в логово':
                             jump lb_location_lair_main   
@@ -163,7 +168,7 @@ label lb_location_lair_main:
         'Отдаться вдохновению на неделю' if game.dragon.energy() > 2 and game.dragon.injuries <= 0:
 
             $ cnt = 7
-            while cnt > 0 and game.dragon.injuries <= 0:
+            while cnt > 0 and game.dragon.injuries <= 0 and game.quest_time > 0:
                 $ cnt -= 1
 
                 while game.dragon.energy() > game.dragon.max_energy() // 2:
