@@ -3,24 +3,48 @@
 While running game code:
   File "game/script.rpy", line 67, in script call
     $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 152, in script call
+  File "game/labels/location/lair.rpy", line 174, in script call
     call lb_location_lair_main from _call_lb_location_lair_main_4
-  File "game/labels/location/lair.rpy", line 46, in script
-    menu:
-TypeError: list indices must be integers, not str
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 171, in script
+    pause(1, hard=True)
+  File "renpy/common/000statements.rpy", line 360, in execute_pause
+    delay = eval(p["delay"])
+SyntaxError: invalid syntax (lair.rpy, line 171)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "game/script.rpy", line 67, in script call
     $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 152, in script call
+  File "game/labels/location/lair.rpy", line 174, in script call
     call lb_location_lair_main from _call_lb_location_lair_main_4
-  File "game/labels/location/lair.rpy", line 46, in script
-    menu:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 1446, in execute
-    next_node(self.items[choice][2][0])
-TypeError: list indices must be integers, not str
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 174, in script call
+    call lb_location_lair_main from _call_lb_location_lair_main_4
+  File "game/labels/location/lair.rpy", line 171, in script
+    pause(1, hard=True)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 1689, in execute
+    self.call("execute")
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 1707, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/statements.py", line 144, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 360, in execute_pause
+    delay = eval(p["delay"])
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 1488, in py_eval
+    code = py_compile(code, 'eval')
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/python.py", line 512, in py_compile
+    raise e
+SyntaxError: invalid syntax (lair.rpy, line 171)
 
 Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
