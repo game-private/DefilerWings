@@ -14,9 +14,17 @@ label lb_location_mountain_main:
     hide bg
     show expression get_place_bg(place) as bg
     nvl clear
-    
-    if game.dragon.energy() == 0:
-        'Даже драконам надо иногда спать. Особенно драконам!'
+
+    if game.dragon.energy() <= 0:
+        menu:
+            'Даже драконам надо иногда спать. Особенно драконам!'
+
+            '\n\n\nСпать\n\n\n':
+                call lb_sleep
+
+            ''
+            'Вернуться':
+                pass
         return
 
     if game.witch_st1==5:

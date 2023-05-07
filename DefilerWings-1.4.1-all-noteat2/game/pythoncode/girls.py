@@ -80,6 +80,12 @@ class GirlsList(object):
         # self.description('sex', True)
         # self.description('impregnate', True)
         self.game.girl.virgin = False
+        self.setPregnant()
+        self.game.dragon.lust -= 1
+        achieve_target(self.game.girl.type, "impregnate")
+        return self.description('shout')
+
+    def setPregnant(self):
         if self.game.girl.quality < self.game.dragon.magic or \
                 'impregnator'  in self.game.dragon.modifiers() or \
                 'spermtoxicos' in self.game.dragon.modifiers() or \
@@ -87,16 +93,13 @@ class GirlsList(object):
             self.game.girl.pregnant = 2
         else:
             self.game.girl.pregnant = 1
-        self.game.dragon.lust -= 1
-        achieve_target(self.game.girl.type, "impregnate")
-        return self.description('shout')
 
     def rape_impregnate(self):
         """
         Осеменение женщины в ходе изнасилования.
         """
         self.game.girl.virgin = False
-        self.game.girl.pregnant = 2
+        self.setPregnant()  # @fdsc Здесь всегда было 2, то есть более сильное отродье вне зависимости от качества магии дракона
         achieve_target(self.game.girl.type, "impregnate")
         if self.game.girl.cripple:
           return self.description('shout_cripple')

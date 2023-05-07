@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/lair.rpy", line 260: expected menuitem
-    if game.witch_st1==5:
-    ^
+File "game/labels/location/lair.rpy", line 78: invalid syntax
+    $ game.pauseForSkip()
+     ^
+    
 
 Ren'Py Version: Ren'Py 6.99.7.858

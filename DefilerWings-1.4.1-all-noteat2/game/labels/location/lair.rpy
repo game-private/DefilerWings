@@ -48,7 +48,11 @@ label lb_location_lair_main:
             # чтобы вывести сообщение от имени дракона можно использовать "game.dragon"
             $ buffs=game.buff_description()
             game.dragon.third "{font=fonts/AnticvarShadow.ttf}{size=+5} [game.dragon.fullname] {/size}{/font} \n\n[game.dragon.description]\n\n[buffs]"
+
+            $ game.pauseForSkip()
+
             jump lb_location_lair_main
+
         'Проинспектировать логово':
             python hide:
                 lair_description = u"Логово: %s (размер %d).\n" % (game.lair.type.name, game.lair.size)
@@ -71,6 +75,8 @@ label lb_location_lair_main:
                     lair_description += u"\nОбразы девственниц отвлекают атакующих, сбивая с пути: %d (+%s)" % (ibg, str(ibg10) + "%")
 
                 narrator(lair_description)
+                game.pauseForSkip()
+                
             call lb_location_lair_main from _call_lb_location_lair_main
         'Сотворить заклинание' if game.dragon.mana > 0:
             if game.choose_spell(u"Вернуться в логово"):
@@ -254,7 +260,7 @@ label lb_create_treasures(random_choice=False):
 
 
 label lb_sleep:
-    
+
     nvl clear
     if game.witch_st1==5:
       'Дракон на мгновение задумывается, какой может быть награда ведьмы.'
@@ -279,9 +285,9 @@ label lb_sleep:
 
             if not freeplay:
                 utils.call ("lb_achievement_acquired")
-                game.save()
+                game.save(freeplay)
             else:
-                game.save_freegame()
+                game.save(freeplay)
 
             save_blocked = True
 
@@ -302,14 +308,12 @@ label lb_sleep:
     $this_turn_achievements = []
 
 
+
 label lb_save_game:
 #    hide screen navigation
     pause 0.01
     python:
-        if not freeplay:
-          game.save()
-        else:
-          game.save_freegame() 
+      game.save(freeplay)
     return
    
 

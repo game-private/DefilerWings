@@ -330,8 +330,9 @@ screen file_picker:
 
         has vbox
 
+        # Загрузка и сохранение: окно со слотами загрузчика
         $ columns = 2
-        $ rows = 2
+        $ rows = 6
 
         # Display a grid of file slots.
         grid columns rows:

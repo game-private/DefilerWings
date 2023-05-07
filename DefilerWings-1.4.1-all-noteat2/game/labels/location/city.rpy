@@ -51,6 +51,12 @@ label lb_location_city_main:
 
             pass
 
+        'Устроить резню на рынке' if game.dragon.can_fly and game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+            # while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
+            call lb_city_market_atk(False, True)
+
+        ''
+
         'Тайный визит' if game.dragon.mana > 0:
             'Дракон превращается в человека и проходит в город. На это пришлось потратить драгоценную волшебную силу...'
             $ game.dragon.drain_mana()
@@ -693,7 +699,23 @@ label lb_city_market:
 
     return
 
-label lb_city_market_atk(girl=False):
+label lb_city_massKilling(fast=False):
+    $ game.dragon.drain_energy()
+    play sound "sound/eat.ogg"
+    show expression 'img/scene/fire.jpg' as bg
+
+    $ game.dragon.reputation.points += 10
+
+    'Зря эти обыватели думали, что за стенами столицы они в безопсности. [game.dragon.fullname] отрывается по полной, чтобы люди уж точно его не забыли. Кровь, кишки, распидорасило...\n[game.dragon.reputation.gain_description]'
+
+    if (random.randint(1,2) == 1):
+      $ game.history = historical( name='night_watch',end_year=game.year+1,desc='Доблестный городской дозор счёл, что на рынке теперь безопасно, и в поте лица патрулирует ближайшую таверну.',image='img/bg/city/night_watch.jpg')
+      $ game.history_mod.append(game.history)
+        
+    return
+
+
+label lb_city_market_atk(girl=False, massKilling=False):
     show expression 'img/bg/city/market.jpg' as bg    
     $ night_watch = game.historical_check('night_watch')
     if night_watch:
@@ -706,23 +728,19 @@ label lb_city_market_atk(girl=False):
     if girl:
         call lb_girl_citizen_market_kidnapped(True)
         return
-    
+    if massKilling:
+        call lb_city_massKilling(True)
+        return
+
     'На рыночной площади люди продают всяческие бесполезные вещи вроде молока, овощей и домашней утвари. Впрочем, тут легко можно прихватить симпатичную красотку... или, на худой конец, попросту повеселиться от души!'
     menu:
         'Устроить резню':
-            $ game.dragon.drain_energy()
-            play sound "sound/eat.ogg"
-            show expression 'img/scene/fire.jpg' as bg
-            'Зря эти обыватели думали, что за стенами столицы они в безопсности. [game.dragon.fullname] отрывается по полной, чтобы люди уж точно его не забыли. Кровь, кишки, распидорасило...'
-            $ game.dragon.reputation.points += 10
-            '[game.dragon.reputation.gain_description]'
-            if (random.randint(1,2) == 1):
-              $ game.history = historical( name='night_watch',end_year=game.year+1,desc='Доблестный городской дозор счёл, что на рынке теперь безопасно, и в поте лица патрулирует ближайшую таверну.',image='img/bg/city/night_watch.jpg')
-              $ game.history_mod.append(game.history)
+            call lb_city_massKilling
         'Схватить девицу':
             call lb_girl_citizen_market_kidnapped
         'Покинуть город':
             return
+
     return
     
 label lb_girl_citizen_market_kidnapped(fast=False):

@@ -5,7 +5,13 @@ init python:
     import math
 
     from pythoncode import focus_mask_ext
+
+
+
 label lb_nature_sex:
+
+    $ game.pauseForSkip()
+
     if game.girl.jailed:
         $ place = 'prison'
         show place as bg
@@ -201,13 +207,18 @@ label lb_lair_sex:
             $ game.dragon.lust -= 1
 
         # @fdsc 
-        'Лишить невинности без оплодотворения (мана на ход)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0:
+        'Лишить невинности без оплодотворения (мана на ход)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.girl.willingPercent > 101:
             python:
-                wp  = math.sqrt(game.girl.willingPercent) - 10
+                wp = game.girl.willingPercent - 100
+                if wp < 1001:
+                    wp = wp // 100
+                else:
+                    wp  = 10 + math.log(wp - 1000)
+
                 if wp < 1:
                     wp = 1
 
-                mana = (game.girl.quality + 2) * wp
+                mana = (game.girl.quality + 1) * wp
 
             $ text = u' %s целый день развлекался с %s, лишив её невинности и получив %d маны' % (game.dragon.name, game.girl.name, mana)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)

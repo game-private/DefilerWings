@@ -110,22 +110,38 @@ class Game(store.object):
         else:
             raise Exception("Время не может течь назад")
 
-    @staticmethod
-    def save():
+    # @staticmethod
+    def save(self, isFreeGame=False, inBeginGame=False):
         """
         Логика сохранения игры.
         """
-        renpy.rename_save("1-1", "1-2")  # Переименовываем старый сейв
-        renpy.take_screenshot()  # Делаем скриншот для отображения в сейве
-        renpy.save("1-1")  # Сохраняем игру
+
+        if isFreeGame:
+            type=2
+        else:
+            type=1
+
+        # Пробегает 3, 2, 1
+        if not inBeginGame:
+            for i in range(3, 0, -1):
+                # new = f"{type}-{i}"
+                # old = f"{type}-{i+1}"
+                new = "%d-%d" % (type, i)
+                old = "%d-%d" % (type, i+1)
+                renpy.rename_save(new, old)  # Переименовываем старый сейв
+
+            renpy.take_screenshot()  # Делаем скриншот для отображения в сейве
+            renpy.save(str(type) + "-1")  # Сохраняем игру
+
+
+        if self.quest_time % 8 == 7 or inBeginGame:
+            renpy.save(str(type) + "-5")
+
+        if self.quest_time % 22 == 21 or inBeginGame:
+            renpy.save(str(type) + "-6")
+
+
         return True
-
-    @staticmethod
-    def save_freegame():
-        renpy.rename_save("1-3", "1-4")
-        renpy.take_screenshot()
-        renpy.save("1-3")
-
 
 
     def next_year(self):
@@ -174,6 +190,7 @@ class Game(store.object):
                     if upgrade=='smuggler_guards':
                       self.girls_list.romeo_check()
                     del self.lair.upgrades[upgrade]
+
         # Проверка на наличие охранников и слуг. Одни без других работать не могут.
         if not ('servant' in self.lair.upgrades or 'gremlin_servant' in self.lair.upgrades):
           if 'smuggler_guards' in self.lair.upgrades:
@@ -199,7 +216,9 @@ class Game(store.object):
           if 'gremlin_servant' in self.lair.upgrades:
             self.narrator(u"Узнав, что они беззащитны перед кровожадными рыцарями и безжалостными героями, гремлины в панике разбежались. Разумеется, о возвращении полученной платы не может быть и речи!")
             del self.lair.upgrades['gremlin_servant']
-        # Применяем разруху накопленную за год с учетом отстройки
+
+
+        # Применяем разруху, накопленную за год, с учетом отстройки
         self.poverty.value -= 1
         for spawn_i in xrange(len(self.girls_list.spawn_list)):
           self.active_spawn=self.girls_list.spawn_list[spawn_i]
@@ -225,6 +244,7 @@ class Game(store.object):
         self.fear = self.dragon.reputation.level-self.mobilization.level  # Уровень страха - разность между репутацией дракона и уровнем мобилизации
         self.check_history()  # Просматриваем исторические модификаторы, удаляем те, срок действия которых вышел.
 
+        noPause = 0
 
         # Если вора нет, то пробуем создать его
         if self.thief is None or self.thief.is_dead:
@@ -233,6 +253,7 @@ class Game(store.object):
               if renpy.config.debug:
                   self.narrator(u"Вор не появился.")
               call(data.game_events["no_thief"])
+              noPause += 1
           else:
               if renpy.config.debug:
                   self.narrator(u"Вор появился.")
@@ -263,6 +284,7 @@ class Game(store.object):
           self._create_knight()
           if self.knight is None:
             call(data.game_events["no_knight"])
+            noPause += 1
           else:
             self.knight.event("spawn")
         else:  # Иначе пробуем его пустить на дело
@@ -287,9 +309,28 @@ class Game(store.object):
               self.knight.go_challenge(self.lair,self.dragon)
           else:
             self.knight.event("find_useless")  # Не смог найти логово дракона
+
+        if noPause < 2:
+            self.pauseForSkip()
+
         # Действия с девушками каждый год
         self.girls_list.next_year()
         return
+
+    # @fdsc
+    # https://www.renpy.org/doc/html/store_variables.html?highlight=skip#var-_skipping
+    # self.pauseForSkip()
+    def pauseForSkip(self):
+
+        if not renpy.config.skipping:
+            return
+
+        renpy.config.skipping = False
+        renpy.say(self.narrator, '')
+        renpy.config.skipping = True
+
+    def isSkip(self):
+        return renpy.config.skipping
 
     def sleep(self):
         """
@@ -432,6 +473,10 @@ class Game(store.object):
           self.thief.other_lair()
         if self.knight is not None:
           self.knight.other_lair()
+        
+        # @fdsc Сохраняем игру в начале каждого квеста
+        self.save(store.freeplay, True)
+
 
     def set_quest(self):
         # @fdsс

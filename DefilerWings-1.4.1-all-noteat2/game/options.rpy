@@ -14,6 +14,11 @@ init -1 python hide:
     # set to False before the game is released, so the user can't
     # cheat using developer tools.
 
+    # @fdsc skip
+    # По-умолчанию - 75
+    config.skip_delay = 380
+
+
     config.developer = False
     config.use_cpickle = True
 
@@ -89,7 +94,7 @@ init -1 python hide:
         return "Unknown"                # Возвращаем "Unknown", если ничего не получилось.
 
     # config.version = get_version()
-    config.version = "1.4.1"
+    config.version = "1.4.1.fdsc"
 
     #########################################
     # Themes

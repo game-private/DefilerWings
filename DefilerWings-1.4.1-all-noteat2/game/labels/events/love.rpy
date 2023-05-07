@@ -1283,7 +1283,10 @@ label lb_love_lizardman_mistress:
         ("lb_love_lizardman_live", 10*weight*girls_data.girls_info[game.girl.type]['endurance'])]
       # Умереть гор-раздо проще!
       $ enc = weighted_random(choices)
-      $ renpy.call(enc)      
+      $ renpy.call(enc)
+
+    $ game.pauseForSkip()
+      
     return
 
 label lb_love_die_lizardman:
