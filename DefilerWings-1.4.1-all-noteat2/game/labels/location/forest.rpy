@@ -207,7 +207,7 @@ label lb_enc_guardian:
             call lb_fight from _call_lb_fight_54
             python:
                 txt = game.interpolate(random.choice(txt_enc_forest_guardian[2]))
-                if game.dragon.magic > 0:
+                if game.dragon.mana > 0:    # @fdsc было magic
                     txt = game.interpolate(random.choice(txt_enc_forest_guardian[3]))
                     game.dragon.add_special_place('enchanted_forest', 'enter_ef')
             '[txt]'
