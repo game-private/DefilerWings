@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 212: u'Start' is not a keyword argument or valid child for the frame statement.
-    Start()
-         ^
+File "game/screens.rpy", line 198: expected ':' not found.
+    label lb_time_setToStore
+                            ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

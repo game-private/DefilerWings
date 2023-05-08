@@ -13,12 +13,42 @@ import summon
 from historical import historical
 from data import get_modifier
 from copy import deepcopy
+
 import renpy.exports as renpy
 import renpy.store as store
+
 from characters import Fighter, Mortal, Talker, Thief, Knight, Enemy
 from utils import call, tuples_sum, get_random_image
 from points import Mobilization, Poverty, Army
 from lair import Lair
+
+
+class VIP_Changes:
+    def __init__(self, game):
+
+        self.knight = game.knight
+        self.thief  = game.thief
+        self.girls  = game.girls_list.prisoners_count
+
+        if 'load_time' in dir(game) and game.load_time:
+            self.isLoaded = game.load_time
+        else:
+            self.isLoaded = False
+
+
+    # В other нужно передавать более раннюю версию, чтобы если персонажи были созданы - это бы игнорировалось
+    def isEqual(self, other):
+
+        if self.knight != other.knight and other.knight != None:
+            return False
+        if self.thief  != other.thief  and other.thief  != None:
+            return False
+        if self.girls  != other.girls  :
+            return False
+        if self.isLoaded != other.isLoaded:
+            return False
+
+        return True
 
 class Game(store.object):
     _win = False
@@ -69,6 +99,9 @@ class Game(store.object):
         self.desperate = 0    # В начале игры отчаяние равно нулю.
         self.mistress_alive = True # Жива ли Тёмная Госпожа
         self.first_meet = True  # Возможна ли первая встреча
+
+        self.vip_changes = None
+
         
     @property
     def dragon(self):
@@ -117,11 +150,12 @@ class Game(store.object):
         """
 
         if isFreeGame:
-            type=6
+            type=8
         else:
             type=0
 
-        name = u"год " + str(self.dragon.age) + u" ур. " + str(self.dragon.level) + " " + self.dragon.name
+        renpy.take_screenshot()  # Делаем скриншот для отображения в сейве
+        name = u"год " + str(self.dragon.age) + u"\nур. " + str(self.dragon.level) + "\n" + self.dragon.name
         # Пробегает 3, 2, 1
         if not inBeginGame:
             for i in range(3, 0, -1):
@@ -131,9 +165,7 @@ class Game(store.object):
                 old = "%d-%d" % (1, i+1 + type)
                 renpy.rename_save(new, old)  # Переименовываем старый сейв
 
-            renpy.take_screenshot()  # Делаем скриншот для отображения в сейве
-            renpy.save("1-" + str(1 + type), name)  # Сохраняем игру
-
+        renpy.save("1-" + str(1 + type), name)  # Сохраняем игру
 
         if self.quest_time % 8 == 7 or inBeginGame:
             renpy.save("1-" + str(5 + type), name)
@@ -141,8 +173,44 @@ class Game(store.object):
         if self.quest_time % 22 == 21 or inBeginGame:
             renpy.save("1-" + str(6 + type), name)
 
+        if self.dragon.age == 0 or inBeginGame:
+            renpy.save("1-" + str(7 + type), name)
+
 
         return True
+
+
+    def setVIPChanges(self, time=None):
+
+        if time:
+            self.load_time = time
+
+        self.vip_changes = VIP_Changes(self)
+        
+
+    def setVIPChanges_isLoadedOrAnotherChanges(self):
+
+        if self.vip_changes == None:
+            return False
+
+        self.vip_changes.isLoaded = True
+        return True
+
+
+    def isNoVIPChanges(self, time=None):
+
+        if time:
+            self.load_time = time
+
+        if self.dragon.injuries > 0:
+            return False
+
+        if self.quest_time <= 1 and not store.freeplay:
+            return False
+
+        vc = VIP_Changes(self)
+
+        return vc.isEqual(self.vip_changes)
 
 
     def next_year(self):
@@ -380,8 +448,12 @@ class Game(store.object):
 
         # @fdsc Если условия квеста выполнены, позволяем дракону играть дальше без загрузки нового квеста
         if (self.quest_time <= 0) and not store.freeplay and not self.is_quest_has_been_completed:
+
+            self.setVIPChanges_isLoadedOrAnotherChanges()
+
             mistress_flag = True
             if self.is_quest_complete:
+
                 self.is_quest_has_been_completed = True
                 self.quest_time = 1000
                 mistress_flag = call('lb_location_mordor_questtime_completed')

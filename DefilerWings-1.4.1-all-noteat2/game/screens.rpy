@@ -181,7 +181,22 @@ screen nvl:
 # Screen that's used to display the main menu, when Ren'Py first starts
 # http://www.renpy.org/doc/html/screen_special.html#main-menu
 
+init:
+    python:
+        # from datetime import date
+        import time
+        persistent.load_time = time.time()
+
+
+# @fdsc Сохраняем время загрузки в неизменяемое хранилище
+label lb_time:
+    $ persistent.load_time = time.time()
+
+    $ renpy.load("1-1")
+
+
 screen main_menu:
+
 
     # This ensures that any other menu screen is replaced.
     tag menu
@@ -204,7 +219,7 @@ screen main_menu:
                 xalign .966
                 yalign .465
         else:
-            textbutton _("Продолжить сюжет") action FileLoad("1", confirm=False, page="1"):
+            textbutton _("Продолжить сюжет") action Jump('lb_time'): # FileLoad("1", confirm=False, page="1")
                 xalign .966
                 yalign .465
 
@@ -212,12 +227,12 @@ screen main_menu:
             textbutton _("Достижения") action Show("sc_achievements_choose"):
                 xalign .966
                 yalign .580
-        elif not renpy.can_load("1-7"):
+        elif not renpy.can_load("1-9"):
             textbutton _("Свободная игра") action SetVariable("freeplay", True), Start():
                     xalign .966
                     yalign .580
         else:
-            textbutton _("Продолжить свободную") action FileLoad("7", confirm=False, page="1"):
+            textbutton _("Продолжить свободную") action FileLoad("9", confirm=False, page="1"):
                 xalign .966
                 yalign .580
         textbutton _("Настройки") action ShowMenu("preferences"):
@@ -325,7 +340,7 @@ init -2 python:
 # from simple load and save screens.
 
 screen file_picker:
-    #add "img/menu/gmenu2.jpg"
+    # add "img/menu/gmenu2.jpg"
     use navigation
     frame:
         style "file_picker_frame"
@@ -333,13 +348,14 @@ screen file_picker:
         has vbox
 
         # Загрузка и сохранение: окно со слотами загрузчика
-        $ columns = 3
-        $ rows = 4
+        $ columns = 2
+        $ rows = 8
 
         # Display a grid of file slots.
         grid columns rows:
             transpose True
             xfill True
+            xsize 800
             style_group "file_picker"
 
             # Display ten file slots, numbered 1 - 10.
@@ -353,9 +369,9 @@ screen file_picker:
                     has hbox
 
                     # Add the screenshot.
-                    add FileScreenshot(i)
+                    # add FileScreenshot(i)
 
-                    $ file_name = FileSlotName(i, 6)
+                    $ file_name = FileSlotName(i, columns * rows)
                     $ file_time = FileTime(i, empty=_("Empty Slot."))
                     $ save_name = FileSaveName(i)
 
@@ -428,8 +444,8 @@ screen preferences:
         textbutton _("Сюжет") xpos 120 ypos 540 action SensitiveIf(renpy.can_load("1-1")), Show("yesno_prompt",
                                                                                       yes_action=FileDelete("1", confirm=False, page="1"), no_action=NullAction(),
                                                                                       message="Вы уверены что хотите удалить Сюжетную Игру?")
-        textbutton _("Свобод") xpos 280 ypos 480 action SensitiveIf(renpy.can_load("1-7")), Show("yesno_prompt",
-                                                                                      yes_action=FileDelete("7", confirm=False, page="1"), no_action=NullAction(),
+        textbutton _("Свобод") xpos 280 ypos 480 action SensitiveIf(renpy.can_load("1-9")), Show("yesno_prompt",
+                                                                                      yes_action=FileDelete("9", confirm=False, page="1"), no_action=NullAction(),
                                                                                       message="Вы уверены что хотите удалить Свободную Игру?")
     
     frame xpos 858 ypos 132:

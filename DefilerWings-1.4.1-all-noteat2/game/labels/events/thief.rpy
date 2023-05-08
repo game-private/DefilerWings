@@ -341,7 +341,8 @@ label lb_event_thief_lair_empty(thief):
     # There were no treasures in the lair:
     # Debug message: thief(u"В сокровищнице нечего брать. Сваливаю.")
     show expression "img/scene/thief_in_lair.jpg" as bg        
-    thief "Тут больше нечем поживиться... проклятье, я думал драконы куда богаче. Надо сваливать!"
+    ### thief
+    "Тут больше нечем поживиться... проклятье, я думал драконы куда богаче. Надо сваливать!"
     return
     
 label lb_event_thief_awakened_dragon(thief, stolen_items):

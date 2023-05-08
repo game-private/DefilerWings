@@ -1491,7 +1491,7 @@ class GirlsList(object):
           if sultanat_trade_ultimate and self.game.dragon.reputation.level>=10:
             call("lb_caravan_trade")
             achieve_target("hakim", "sultan_trade")
-#            if not freeplay:
+#            if not store.freeplay:
  #             call ("lb_achievement_acquired")
 
            

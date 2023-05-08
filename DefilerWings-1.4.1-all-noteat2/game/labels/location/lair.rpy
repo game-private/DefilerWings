@@ -164,20 +164,25 @@ label lb_location_lair_main:
             call lb_create_treasures(True)
 
             if not _return:
+                nvl clear
                 'Нет материала для создания вещей'
 
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
         'Отдаться вдохновению на неделю' if game.dragon.energy() > 2 and game.dragon.injuries <= 0:
 
+            $ game.setVIPChanges(persistent.load_time)
+
             $ cnt = 7
-            while cnt > 0 and game.dragon.injuries <= 0 and (game.quest_time > 0 or freeplay):
+            $ rc  = 0
+            while cnt > 0 and game.isNoVIPChanges(persistent.load_time):
                 $ cnt -= 1
+                $ rc  += 1
 
                 while game.dragon.energy() > game.dragon.max_energy() // 2:
                     call lb_create_treasures(True)
                     if not _return:
-
+                        nvl clear
                         menu:
                             'Нет материала для создания вещей'
                             'Выйти':
@@ -185,6 +190,8 @@ label lb_location_lair_main:
 
                 call lb_sleep
 
+            if rc <= 0:
+                'Что-то мешает исполнению цикла. Возможно, близко время доклада Владычице?'
 
             call lb_location_lair_main from _call_lb_location_lair_main_4
 
@@ -279,13 +286,14 @@ label lb_sleep:
     if game.witch_st1==4 and game.dragon.health<2:
       $ game.dragon.health=2
       witch 'На следующий год тебе понадобятся все силы. На этот раз я исцелю тебя бесплатно.'
+
     python:
         # Делаем хитрую штуку.
         # Используем переменную game_loaded чтобы определить была ли игра загружена.
-        # Но ставим ее перед самым сохранинием, используя renpy.retain_after_load() для того
+        # Но ставим ее перед самым сохранением, используя renpy.retain_after_load() для того
         # чтобы она попала в сохранение.
         if 'game_loaded' in locals() and game_loaded:
-            del game_loaded
+            del game_loaded # game.setVIPChanges_isLoadedOrAnotherChanges()
             game.narrator("game loaded")
             renpy.restart_interaction()
         else:
@@ -303,6 +311,7 @@ label lb_sleep:
             game.sleep()
             save_blocked = False
             del game_loaded
+
 
 # Проверка на визит Архимонда
     if game.summon.seal>data.max_summon and not game.historical_check('archimonde_was'):

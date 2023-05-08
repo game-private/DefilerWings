@@ -233,6 +233,7 @@ class Dragon(Fighter):
         self.avatar = get_random_image("img/avadragon/" + self.color_eng, used_avatars)  # Назначаем аватарку
 
         self.correct_for_manual_creation()
+        self.setUpBloodinessByStrongHeart()
 
 
     def correct_for_manual_creation(self):
@@ -342,9 +343,9 @@ class Dragon(Fighter):
         heads = 0
         if 'gold'  in self.heads:
             heads += 1
-        if 'black' in self.heads:
+        if 'shadow' in self.heads:
             heads += 1
-        
+
         return heads
     
     def drain_energy(self, drain=1, always = False, useEnergyModifier = True):
@@ -463,12 +464,15 @@ class Dragon(Fighter):
         self.spells = []  # заклинания сбрасываются
         self.health = 2
 
-        # Мощное сердце сразу же повышает ярость
-        if 'strong_heart' in self.modifiers():
-            self.bloodiness = 2
+        self.setUpBloodinessByStrongHeart()
 
         self._mana_used = -self.astral_projection_mana  # использованная мана сбрасывается
         self.astral_projection_mana = 0
+
+    def setUpBloodinessByStrongHeart(self):
+        # Мощное сердце сразу же повышает ярость
+        if 'strong_heart' in self.modifiers():
+            self.bloodiness = 2
 
 
     @property

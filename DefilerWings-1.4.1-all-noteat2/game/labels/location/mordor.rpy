@@ -42,7 +42,8 @@ label lb_location_mordor_main:
                     $ renpy.call_screen("border_map") 
                 # @fdsc можно сразу отдать сокровища после выполнения квеста
                 # 'Отдать сокровища для оснащения армии' if freeplay and game.lair.treasury.wealth > 0:
-                'Отдать сокровища для оснащения армии' if (freeplay or game.is_quest_has_been_completed) and game.lair.treasury.wealth > 0:
+                # 'Отдать сокровища для оснащения армии' if (freeplay or game.is_quest_has_been_completed) and game.lair.treasury.wealth > 0:
+                'Отдать сокровища для оснащения армии' if game.lair.treasury.wealth > 0:
                     '[game.dragon.name], рыдая от невыносимого горя, отдаёт все свои сокровища для подготовки вторжения'
                     $ game.dragon.gain_rage(gain=5)
                     $ game.army.money += game.lair.treasury.wealth
@@ -122,8 +123,11 @@ label lb_mistress:
     return
 
 label lb_location_mordor_questtime_completed:
-    'Квест был выполнен. Вы можете продолжать играть дальше или пойти к Владычице получить новый квест'
+    $ game.pauseForSkip()
+    nvl clear
     menu:
+        'Настало время доложить Владычице об успехе. Она ждёт'
+
         'Пока продолжить':
             return False
         'Идти к Владычице':

@@ -16,7 +16,8 @@ init -1 python hide:
 
     # @fdsc skip
     # По-умолчанию - 75
-    config.skip_delay = 380
+    # config.skip_delay = 380
+    config.skip_delay = 270
 
 
     config.developer = False

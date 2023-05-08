@@ -260,7 +260,7 @@ class Thief(Talker, Mortal):
           por=0
         else:
           por=2
-        
+
         # @fdsc Ухаживать за девушкой
         # Золотая чешуя слишком привлекает вора, поэтому он начинает вести себя не очень адекватно
         if 'gold_scale' in dragon.modifiers():
