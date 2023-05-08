@@ -202,7 +202,7 @@ label lb_test_debug:
                     $ renpy.unlink_save("1-1")
                     "Сохранение сюжетной игры удалено!"
                 "Сохранение свободной игры":
-                    $ renpy.unlink_save("1-3")
+                    $ renpy.unlink_save("1-7")
                     "Сохранение свободной игры удалено!"
                 "Назад":
                     pass

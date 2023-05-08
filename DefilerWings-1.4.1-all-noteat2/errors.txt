@@ -2,16 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/labels/events/thief.rpy", line 179: expected statement.
-    magic_traps = 0
-                ^
-
-File "game/labels/events/thief.rpy", line 199: reached end of line when expecting ':'.
-    if ch == 0;
-               ^
-
-File "game/labels/events/thief.rpy", line 202: expected statement.
-    else:
-        ^
+File "game/screens.rpy", line 212: u'Start' is not a keyword argument or valid child for the frame statement.
+    Start()
+         ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

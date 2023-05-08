@@ -196,9 +196,9 @@ class Dragon(Fighter):
             self.miner = Miner(self)
         else:
             self.miner = Miner(self, parent.miner)
-        
+
         if parent == None:
-            self.astral_projection_max  = 1.0
+            self.astral_projection_max  = 0.0
             self.astral_projection_mana = 0
         else:
             self.astral_projection_max  = parent.astral_projection_max
@@ -231,6 +231,13 @@ class Dragon(Fighter):
         else:
             self.anatomy.append(self._gift)
         self.avatar = get_random_image("img/avadragon/" + self.color_eng, used_avatars)  # Назначаем аватарку
+
+        self.correct_for_manual_creation()
+
+
+    def correct_for_manual_creation(self):
+        if 'astral_projection' in self.modifiers() and self.astral_projection_max <= 0:
+            self.astral_projection_max = 1.0
 
     @property
     def fullname(self):
@@ -274,7 +281,7 @@ class Dragon(Fighter):
 
         [dp1, dp2] = self.defence_power()
         [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d\%' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100))
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100)) + u"%"
 
         return ddescription
 
@@ -308,7 +315,21 @@ class Dragon(Fighter):
         """
         :return: Максимальная энергия(целое число)
         """
-        return self._base_energy + sum([get_modifier(mod).max_energy for mod in self.modifiers()])
+        
+        if 'strong_heart' not in self.modifiers():
+            return self._base_energy + sum([get_modifier(mod).max_energy for mod in self.modifiers()])
+
+        ws = ['wings', 'wings_of_wind', 'paws']
+        result = self._base_energy
+        for name in self.modifiers():
+            mod = get_modifier(name)
+            if name not in ws:
+                result += mod.max_energy
+            else:
+                result += mod.max_energy * 2
+
+        return result
+
 
     def energy(self):
         """
@@ -401,7 +422,7 @@ class Dragon(Fighter):
         return sum([get_modifier(mod).fear for mod in self.modifiers()])
 
     def rest(self, time_to_sleep):
-        
+
         me  = self.max_energy()
         me2 = me // 2
 
@@ -441,6 +462,10 @@ class Dragon(Fighter):
         self.hunger = 3  # range 0..3
         self.spells = []  # заклинания сбрасываются
         self.health = 2
+
+        # Мощное сердце сразу же повышает ярость
+        if 'strong_heart' in self.modifiers():
+            self.bloodiness = 2
 
         self._mana_used = -self.astral_projection_mana  # использованная мана сбрасывается
         self.astral_projection_mana = 0

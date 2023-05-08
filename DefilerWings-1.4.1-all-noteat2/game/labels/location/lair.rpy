@@ -171,7 +171,7 @@ label lb_location_lair_main:
         'Отдаться вдохновению на неделю' if game.dragon.energy() > 2 and game.dragon.injuries <= 0:
 
             $ cnt = 7
-            while cnt > 0 and game.dragon.injuries <= 0 and game.quest_time > 0:
+            while cnt > 0 and game.dragon.injuries <= 0 and (game.quest_time > 0 or freeplay):
                 $ cnt -= 1
 
                 while game.dragon.energy() > game.dragon.max_energy() // 2:
@@ -303,6 +303,7 @@ label lb_sleep:
             game.sleep()
             save_blocked = False
             del game_loaded
+
 # Проверка на визит Архимонда
     if game.summon.seal>data.max_summon and not game.historical_check('archimonde_was'):
       call lb_archimonde_arrive from _call_lb_archimonde_arrive

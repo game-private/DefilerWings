@@ -50,6 +50,8 @@ label lb_dragon_creator:
                             special_features_rus.pop(self.mod)
                         elif self.dragon.modifiers().count("cunning") >= 3:
                             special_features_rus.pop(self.mod)
+
+                self.dragon.correct_for_manual_creation()
                 renpy.restart_interaction()
     screen creator:
         window:

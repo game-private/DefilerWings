@@ -1,6 +1,7 @@
 # coding=utf-8
 label splashscreen:
     python:
+
         if not persistent.disclaimer_accepted:                      # Проверяем был ли принят дисклеймер. Если нет, то:
             disclaimer_status = renpy.call_screen("sc_disclaimer")  # Показываем экран с дисклеймером.
             if disclaimer_status:                                   # И если дисклеймер приняли, то

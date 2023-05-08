@@ -1720,7 +1720,7 @@ special_description = [
     u'Увеличенное влечение, уменьшающее ярость при ухаживаниях. Великий осеменитель - никогда не рождаются слабые отродья от сильных женщин',
     u'Дракон делает всё так быстро, что время иногда не успевает проходить мимо него',
     u'Мощное сердце удваивает эффект энергии от лап и от крыльев, но, при этом, повышается ярость',
-    u'Астральная проекция позволяет дракону накапливать энергию между годами'
+    u'Астральная проекция позволяет дракону накапливать ману между годами'
 ]
 
 # @fdsc
@@ -1934,27 +1934,29 @@ modifiers = {
     'decapitator': Modifier(),  # Обезглавливатель, при наличии этого модификатора у врага дракон вместо получения урона
                                 # сразу теряет одну голову
     # Knight-specific
-    'fearless': Modifier(),
+    'fearless':             Modifier(),
     # Dragon-specific
-    'can_dig': Modifier(),
-    'greedy': Modifier(),
-    'virtual_head': Modifier(),
+    'can_dig':              Modifier(),
+    'greedy':               Modifier(),
+    'virtual_head':         Modifier(),
     # @fdsc
-    'spellbound_trap': Modifier(),
-    'spellbound_trap2': Modifier(),
-    'spellbound_trap3': Modifier(),
-    'impregnator': Modifier(),
-    'tongue': Modifier(),
-    'spermtoxicos': Modifier(),
-    'energy': Modifier(),
+    'spellbound_trap':      Modifier(),
+    'spellbound_trap2':     Modifier(),
+    'spellbound_trap3':     Modifier(),
+    'impregnator':          Modifier(),
+    'tongue':               Modifier(),
+    'spermtoxicos':         Modifier(),
+    'energy':               Modifier(),
+    "strong_heart":         Modifier(),
+    "astral_projection":    Modifier(),
     # Заклинания
-    'fire_breath': Modifier(attack=('fire', (0, 1))),
-    'ice_breath': Modifier(attack=('ice', (0, 1))),
-    'poison_breath': Modifier(attack=('poison', (0, 1))),
-    'sound_breath': Modifier(attack=('sound', (0, 1))),
-    'lightning_breath': Modifier(attack=('lightning', (0, 1))),
-    'black_power': Modifier(attack=('base', (1, 0))),
-    'iron_scale': Modifier(protection=('scale', (1, 0))),
+    'fire_breath':          Modifier(attack=('fire', (0, 1))),
+    'ice_breath':           Modifier(attack=('ice', (0, 1))),
+    'poison_breath':        Modifier(attack=('poison', (0, 1))),
+    'sound_breath':         Modifier(attack=('sound', (0, 1))),
+    'lightning_breath':     Modifier(attack=('lightning', (0, 1))),
+    'black_power':          Modifier(attack=('base', (1, 0))),
+    'iron_scale':           Modifier(protection=('scale', (1, 0))),
     'bronze_scale': Modifier(protection=('scale', (1, 0))),
     'silver_magic': Modifier(magic=1),
     'gold_magic': Modifier(magic=1),

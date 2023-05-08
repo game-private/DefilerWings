@@ -52,7 +52,7 @@ label lb_you_win:
     $ persistent.allow_freeplay = True
     $ renpy.unlink_save("1-1")
     $ renpy.unlink_save("1-2")
-    $ renpy.unlink_save("1-3")
-    $ renpy.unlink_save("1-4")
+    $ renpy.unlink_save("1-7")
+    $ renpy.unlink_save("1-8")
     $ game.win()
     $ renpy.full_restart()

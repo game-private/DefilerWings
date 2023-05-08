@@ -117,28 +117,29 @@ class Game(store.object):
         """
 
         if isFreeGame:
-            type=2
+            type=6
         else:
-            type=1
+            type=0
 
+        name = u"год " + str(self.dragon.age) + u" ур. " + str(self.dragon.level) + " " + self.dragon.name
         # Пробегает 3, 2, 1
         if not inBeginGame:
             for i in range(3, 0, -1):
                 # new = f"{type}-{i}"
                 # old = f"{type}-{i+1}"
-                new = "%d-%d" % (type, i)
-                old = "%d-%d" % (type, i+1)
+                new = "%d-%d" % (1, i   + type)
+                old = "%d-%d" % (1, i+1 + type)
                 renpy.rename_save(new, old)  # Переименовываем старый сейв
 
             renpy.take_screenshot()  # Делаем скриншот для отображения в сейве
-            renpy.save(str(type) + "-1")  # Сохраняем игру
+            renpy.save("1-" + str(1 + type), name)  # Сохраняем игру
 
 
         if self.quest_time % 8 == 7 or inBeginGame:
-            renpy.save(str(type) + "-5")
+            renpy.save("1-" + str(5 + type), name)
 
         if self.quest_time % 22 == 21 or inBeginGame:
-            renpy.save(str(type) + "-6")
+            renpy.save("1-" + str(6 + type), name)
 
 
         return True

@@ -44,9 +44,9 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_metalls('adamantine',   True)
         'Добывать драгоценные камни целый день':
             call lb_location_mountain_main_mine_gems(True)
-        'Добывать драгоценные камни целую неделю' if game.quest_time > 1:
+        'Добывать драгоценные камни целую неделю' if game.quest_time > 1 or freeplay:
             $ cnt = 7
-            if game.quest_time < cnt:
+            if game.quest_time < cnt and not freeplay:
                 $ cnt = game.quest_time - 1
 
             while cnt > 0 and game.dragon.injuries <= 0:
