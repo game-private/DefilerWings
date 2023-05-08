@@ -2,4 +2,4 @@
 *.rpyb
 *.save
 
-game/saves/persistent
+*/game/saves/persistent
