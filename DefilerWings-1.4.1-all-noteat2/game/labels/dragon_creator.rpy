@@ -25,7 +25,9 @@ label lb_dragon_creator:
             "cunning": "Коварство",
             "tongue": "Сладкий язык",
             "spermtoxicos": "Спермотоксикоз",
-            "energy": "Энергичный дракон"
+            "energy": "Энергичный дракон",
+            "strong_heart": "Мощное сердце",
+            "astral_projection": "Астральная проекция"
         }
         colored_heads = ["red", "white", "blue", "black", "iron", "bronze", "silver", "gold", "shadow"]
     init python:

@@ -196,6 +196,14 @@ class Dragon(Fighter):
             self.miner = Miner(self)
         else:
             self.miner = Miner(self, parent.miner)
+        
+        if parent == None:
+            self.astral_projection_max  = 1.0
+            self.astral_projection_mana = 0
+        else:
+            self.astral_projection_max  = parent.astral_projection_max
+            self.astral_projection_mana = 0
+
 
         self._gift = None  # Дар Владычицы
         if used_gifts is None:
@@ -266,7 +274,7 @@ class Dragon(Fighter):
 
         [dp1, dp2] = self.defence_power()
         [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine))
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d\%' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100))
 
         return ddescription
 
@@ -308,6 +316,16 @@ class Dragon(Fighter):
         """
         return self.max_energy() - self._tiredness
 
+    @property
+    def astral_heads(self):
+        heads = 0
+        if 'gold'  in self.heads:
+            heads += 1
+        if 'black' in self.heads:
+            heads += 1
+        
+        return heads
+    
     def drain_energy(self, drain=1, always = False, useEnergyModifier = True):
         """
         :param drain: количество отнимаемой у дракона энергии.
@@ -321,6 +339,13 @@ class Dragon(Fighter):
                 for i in range(1, drain):
                     while random.randint(0, 99) <= 20:
                         self._tiredness -= 1
+
+            if 'astral_projection' in self.modifiers():
+                heads = self.astral_heads
+                for i in range(1, drain):
+                    while random.randint(0, 100) > (80000 - heads*20000) // int(math.sqrt(self.astral_projection_max*100)):
+                        self._tiredness += 1
+                        self.drain_mana(-1)
 
             return True
 
@@ -357,9 +382,15 @@ class Dragon(Fighter):
         :param drain: количество отнимаемой у дракона маны.
         :return: True если успешно, иначе False.
         """
+        self._mana_used += drain
+        return True
+
+        # @fdsc Это старый код
+    
         if self.mana - drain >= 0:
             self._mana_used += drain
             return True
+
         return False
 
     @property
@@ -371,14 +402,37 @@ class Dragon(Fighter):
 
     def rest(self, time_to_sleep):
         
+        me  = self.max_energy()
+        me2 = me // 2
+
+        mu = self.mana
+
+
         # @fdsc Сохраняем часть непотраченной энергии
         if time_to_sleep > 1:
-            self._tiredness = -self.max_energy() // 2
+            self._tiredness = -me2 - mu
         else:
             me = self.max_energy()
             self._tiredness = self._tiredness - me + 3 - self.lust + 2 - self.health
-            if self._tiredness < -me // 2:
-                self._tiredness = -me // 2
+
+        if self._tiredness < -me2:
+            ms  = -self._tiredness - me2
+            self._tiredness = -me2
+            ms += mu
+
+            if 'astral_projection' in self.modifiers():
+                heads = self.astral_heads
+                for i in range(1, ms):
+                    # Здесь специально сделано без sqrt: прокачивать выгодно
+                    while random.randint(0, 1000) > (80000 - heads*20000) // int(self.astral_projection_max*100):
+                        self.astral_projection_mana += 1
+
+                    # Прокачивается на 100% один раз на 50 энергии
+                    self.astral_projection_max += 1.0 / 50.0
+
+                if self.astral_projection_mana > self.astral_projection_max + heads:
+                    self.astral_projection_mana = int(  self.astral_projection_max + heads  )
+
 
         # @fdsc Сохраняем часть непотраченной энергии
         # self._tiredness = 0  # range 0..max_energy
@@ -386,8 +440,11 @@ class Dragon(Fighter):
         self.lust = 3  # range 0..3
         self.hunger = 3  # range 0..3
         self.spells = []  # заклинания сбрасываются
-        self._mana_used = 0  # использованная мана сбрасывается
         self.health = 2
+
+        self._mana_used = -self.astral_projection_mana  # использованная мана сбрасывается
+        self.astral_projection_mana = 0
+
 
     @property
     def color(self):

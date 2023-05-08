@@ -1693,7 +1693,7 @@ paws_description = [
 ]
 
 # @fdsc
-special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos', 'energy')
+special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos', 'energy', 'strong_heart', 'astral_projection')
 
 special_description = [
     u'Его чешуя крепче, чем закалённая цвергами сталь.',
@@ -1718,7 +1718,9 @@ special_description = [
     u'Ритаулы над соблазнёнными девственницами дали ему немного слабой защиты',
     u'Его длинный шершавый язык обладает особенностью доставлять девушкам сладкое, почти непереносимое, удовольствие',
     u'Увеличенное влечение, уменьшающее ярость при ухаживаниях. Великий осеменитель - никогда не рождаются слабые отродья от сильных женщин',
-    u'Дракон делает всё так быстро, что время иногда не успевает проходить мимо него'
+    u'Дракон делает всё так быстро, что время иногда не успевает проходить мимо него',
+    u'Мощное сердце удваивает эффект энергии от лап и от крыльев, но, при этом, повышается ярость',
+    u'Астральная проекция позволяет дракону накапливать энергию между годами'
 ]
 
 # @fdsc
