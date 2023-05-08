@@ -4,7 +4,10 @@ import random
 import decimal
 
 from data import achieve_target
-from characters import  Talker        
+from characters import Talker
+from characters import Dragon
+
+
 army_battle = False
 #narrator = Talker( kind='nvl')
 def calc_hit_def(hitdef):
@@ -31,6 +34,7 @@ def battle_action(dragon, foe):
     :return: список, описывающий состояние боя
     """
     status = []
+    dragon.is_dragon_energy_dodged = False
     # проверяем атаку дракона
     power = dragon.attack()
     immun = foe.immunity()
@@ -74,8 +78,9 @@ def battle_action(dragon, foe):
         # @fdsc Если дракон очень энергичен, он может увернуться
         if 'energy' in dragon.modifiers() and dragon.energy() > foe_hit - dragon_defence and dragon.energy() > dragon.max_energy() // 2:
             dragon.drain_energy(foe_hit - dragon_defence, True, False)
-            # status.append('dragon_energy_dodged')
-            status.append('dragon_undamaged')
+            status.append('dragon_energy_dodged')
+            dragon.is_dragon_energy_dodged = True
+            # status.append('dragon_undamaged')
         else:
             # Если противник сразу обезглавливает дракона не наося ему ран.
             if 'decapitator' in foe.modifiers():
@@ -138,6 +143,24 @@ def victory_chance(objective, foe):
     :param    foe: текущий противник
     :return: вероятность победы в процентах
     """
+    
+    isDragon = False
+    if type(objective) is Dragon:
+        dragon   = objective
+        isDragon = True
+    elif type(foe) is Dragon:
+        dragon = foe
+    else:
+        raise Exception()
+
+    # Учитываем возможность уворота противника
+    energyDefence = 0
+    if 'energy' in dragon.modifiers():
+        energyDefence = dragon.energy() - dragon.max_energy() // 2
+        if energyDefence <= 0:
+            energyDefence = 0
+
+
     # вычисляем атаку
     immun = foe.immunity()
     power = objective.attack_strength(immun)
@@ -147,6 +170,10 @@ def victory_chance(objective, foe):
     defence = foe.defence_power()
     regular_defence = defence[0]
     perfect_defence = defence[1]
+
+    if not isDragon:
+        perfect_defence += energyDefence
+
     # вычисляем вероятность победы
     if perfect_attack + regular_attack < perfect_defence:
         return 0  # верную защиту невозможно пробить, победа невозможна

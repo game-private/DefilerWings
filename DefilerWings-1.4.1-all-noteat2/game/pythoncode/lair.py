@@ -73,7 +73,7 @@ class Lair(object):
 
         return self.type.inaccessability  +\
                self.summInaccessability() +\
-               int(self.inaccByGirls / 100)
+               int(self.inaccByGirls // 100)
 
     # @fdsc
     def summInaccessability(self):

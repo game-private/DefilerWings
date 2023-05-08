@@ -521,7 +521,8 @@ class Game(store.object):
 #            self.narrator(u"%s, %s" %(quests[i]['task'], lvl))
 
         # Здесь мы проверяем в цикле, т.к. иногда бывает такое, что последний квест - единственный возможный сейчас (хотя, вообще, странно)
-        while self.lastQuest != None and self.lastQuest['task'] == self._quest['task']:
+
+        while self._quest == None or self.lastQuest != None and self.lastQuest['task'] == self._quest['task']:
             self._quest    = random.choice(quests)
             if len(quests) <= 1:
                 break

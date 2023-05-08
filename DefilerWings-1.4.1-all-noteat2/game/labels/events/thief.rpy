@@ -1,3 +1,8 @@
+init:
+    python:
+        import random
+
+
 # coding=utf-8
 label lb_event_thief_spawn(thief):
     show screen controls_overwrite
@@ -178,16 +183,26 @@ label lb_event_thief_die_inaccessability(thief):
     show screen controls_overwrite
 
     python:
-        magic_traps = 0
+        magic_traps  = 0
+        inaccByGirls = False
 
         if 'magic_traps3' in game.lair.upgrades:
             magic_traps = 1
         if 'magic_traps4' in game.lair.upgrades:
             magic_traps = 2
 
+        if random.randint(1, game.lair.inaccessability) <= game.lair.inaccByGirls:
+            inaccByGirls = True
+
     "[thief.title] [game.thief.name] не смог даже забраться в логово - укрепления слишком надёжные."
     ### thief 
-    if magic_traps == 0:
+    if inaccByGirls:
+        '[thief.title] [game.thief.name]: Что это? Почему здесь ходят голые девушки? Красивая! Подойду поближе.'
+        '[thief.title] [game.thief.name]: Куда я зашёл? А?'
+        '[thief.title] [game.thief.name]: Что она говорит?'
+        '[thief.title] [game.thief.name]: Куда она делась? Прошла сквозь стену?'
+        '[thief.title] [game.thief.name]: Чёрт! В смысле - дракон! Я заблудился!'
+    elif magic_traps == 0:
         '[thief.title] [game.thief.name]: Проклятый [game.dragon.kind] окопался лучше, чем король цвергов - стены, рвы, ставни, решётки и запоры... я не вижу ни единой лазейки. Видать, такое дело мне не по зубам.'
         "[thief.title] [game.thief.name] благополучно заблудился в лабиринте пещер, комнат и коридоров, окружавших логово дракона."
     elif magic_traps == 1:

@@ -102,6 +102,17 @@ class Fighter(Talker, Mortal):
                 immun.append(immune_type)
         return immun
 
+    # @fdsc
+    def is_battle_description_contains_energy_dodge(self):
+        for desc_i in range(len(self.descriptions)):
+            (require, desc_str, battle_round) = self.descriptions[desc_i]
+            for req in require:
+                if req == 'dragon_energy_dodged':
+                    return True
+
+        return False
+
+    # см. /game/pythoncode/mob_data.py
     def battle_description(self, status, dragon):
         """
         :param status: список, описывающий состояние боя
@@ -113,10 +124,25 @@ class Fighter(Talker, Mortal):
             'dragon_name_full': dragon.fullname,
             'dragon_type': dragon.kind,
             'dragon_type_cap': dragon.kind.capitalize(),
-            'foe_name': self.name,
+            'foe_name': self.name
         }
+        
+        addition_dodged = ""
+        if 'dragon_energy_dodged' in status and not self.is_battle_description_contains_energy_dodge():
+            newstatus = []
+            for ns in status:
+                if ns == 'dragon_energy_dodged':
+                    newstatus.append('dragon_undamaged')
+                else:
+                    newstatus.append(ns)
+
+            status = newstatus
+
+            addition_dodged = u'\n{color=#FF0000}Дракон потратил часть своей энергии на то, чтобы увернуться от противника (свойство энергичности дракона){/color}'
+
+
         desc_list = []  # список для возможных описаний момента боя
-        curr_round = 100  # переменная для определения наимее использовавшегося описания
+        curr_round = 1024*1024  # переменная для определения наимее использовавшегося описания
         for desc_i in range(len(self.descriptions)):
             # цикл по всем индексам списка self.descriptions
             (require, desc_str, battle_round) = self.descriptions[desc_i]
@@ -137,7 +163,7 @@ class Fighter(Talker, Mortal):
             desc = random.choice(desc_list)
             # выбираем случайное описание
             self.descriptions[desc[1]][2] += 1  # увеличиваем число использований этого описания
-            return desc[0]
+            return desc[0] + addition_dodged
         else:
             return status  # список описаний пуст, возвращаем информацию для дебага
 

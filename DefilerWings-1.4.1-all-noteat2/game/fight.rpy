@@ -5,7 +5,7 @@ init python:
 label lb_fight(foe=game.foe, skip_fear=False, fast=False):
 #    hide bg
     show expression foe.bg as foeimg_bg
-    nvl clear
+    nvl clear       # Если это закомментировать, то описание может залезть на кнопки меню
 #    "[foe.name], [foe.kind]"
 #    'Должно быть изображение [foe.bg]' 
     if not skip_fear:
@@ -16,14 +16,17 @@ label lb_fight(foe=game.foe, skip_fear=False, fast=False):
     if not fast:
         $ narrator(foe.battle_description(battle_status, game.dragon))
 
+    # Сражаться до тех пор, пока враг жив
     while 'foe_alive' in battle_status:
 
         $ battle_status = battle.battle_action(game.dragon, foe)
         $ description = foe.battle_description(battle_status, game.dragon)
-        if not fast:
-            "[description]"
+        ### if not fast:
+        ###    "[description]"
 
         if 'dragon_dead' in battle_status:
+            "[description]"
+
             if foe.kind == 'imps' or foe.kind == 'architot_proection':
               call lb_death_dragon from _call_lb_death_dragon_2
             game.dragon "Я подвёл тебя, мама..."
@@ -36,13 +39,22 @@ label lb_fight(foe=game.foe, skip_fear=False, fast=False):
             return "defeat"
         elif 'foe_alive' in battle_status:
             $ chances = show_chances(foe)
-            if not fast:
-                '[chances]'
-            nvl clear
-            
+            ### if not fast:
+            ###    '[chances]'
+            ### nvl clear
+
             if not fast:
                 menu:
+                    "[description]\n\n"
+                    '[chances]'
+                    ""
+                    ""
+                    ""
+                    ""
+
                     'Продолжать бой':
+                        # @fdsc Здесь вставил очистку, т.к. выше её убрал
+                        nvl clear
                         pass
                     'Отступить' if (not battle.army_battle) and not (foe.kind == 'dark_sister' or foe.kind == 'imps'):
                         if foe.kind == 'knight':

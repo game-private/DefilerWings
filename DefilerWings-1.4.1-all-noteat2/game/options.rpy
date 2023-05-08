@@ -328,7 +328,8 @@ python early:
     config.has_autosave       = False
     config.autosave_on_choice = False
     config.autosave_on_input  = False
-    config.autosave_slots     = 1
+    config.autosave_on_quit   = False
+    config.autosave_slots     = 0
 
 
 init -1 python hide:

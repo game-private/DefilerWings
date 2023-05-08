@@ -373,12 +373,12 @@ class Dragon(Fighter):
         
         # @fdsc Сохраняем часть непотраченной энергии
         if time_to_sleep > 1:
-            self._tiredness = -self.max_energy() / 2
+            self._tiredness = -self.max_energy() // 2
         else:
             me = self.max_energy()
             self._tiredness = self._tiredness - me + 3 - self.lust + 2 - self.health
-            if self._tiredness < -me / 2:
-                self._tiredness = -me / 2
+            if self._tiredness < -me // 2:
+                self._tiredness = -me // 2
 
         # @fdsc Сохраняем часть непотраченной энергии
         # self._tiredness = 0  # range 0..max_energy
