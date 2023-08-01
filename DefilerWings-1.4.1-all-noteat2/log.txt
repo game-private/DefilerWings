@@ -1,5 +1,5 @@
-Mon May  8 20:49:14 2023
-Linux-5.15.0-71-generic-x86_64-with-debian-bookworm-sid
+Wed Aug  2 01:02:20 2023
+Linux-5.15.0-78-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
  
 
@@ -7,11 +7,11 @@ Bootstrap to the start of init.init took 0.14s
 Early init took 0.01s
 Loader init took 0.07s
 Loading error handling took 0.05s
-Loading script took 1.24s
-Loading persistent took 0.17s
+Loading script took 0.91s
+Loading persistent took 0.18s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
 Running init code took 0.62s
-Loading analysis data took 0.66s
+Loading analysis data took 0.65s
 Analyze and compile ATL took 0.02s
 Index archives took 0.00s
 Dump and make backups. took 0.00s
@@ -21,12 +21,12 @@ Creating interface object took 0.09s
 Cleaning stores took 0.00s
 Init translation took 0.01s
 Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.07s
-Save screen analysis took 0.22s
-Prepare screens took 0.31s
+Load screen analysis took 0.04s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
+Prepare screens took 0.26s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.18s
+Save bytecode. took 0.00s
 Running _start took 0.00s
 Performance test:
 Interface start took 0.01s
@@ -35,7 +35,7 @@ Windowed mode.
 Screen sizes: virtual=(1280, 720) physical=(1168, 657) drawable=(1168, 657)
 Vendor: 'Intel'
 Renderer: 'Mesa Intel(R) HD Graphics 2000 (SNB GT1)'
-Version: '3.3 (Compatibility Profile) Mesa 22.2.5'
+Version: '3.3 (Compatibility Profile) Mesa 22.2.5-0ubuntu0.1~22.04.3'
 Display Info: <Info({'blit_sw_CC': False, 'bitsize': 32, 'wm': True, 'losses': (0, 0, 0, 8), 'hw': False, 'masks': (16711680, 65280, 255, 0), 'current_h': 1024, 'current_w': 1280, 'shifts': (16, 8, 0, 0), 'blit_sw_A': False, 'blit_hw': False, 'blit_sw': False, 'bytesize': 4, 'blit_hw_CC': False, 'blit_hw_A': False, 'video_mem': 268435456})>
 Extensions:
     
@@ -299,13 +299,13 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 4.11684203148s
+Total time until interface ready: 3.39506292343s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.003805 seconds.
-- Frame drawn at 0.012651 seconds.
-- Frame drawn at 0.018720 seconds.
-- Frame drawn at 0.024599 seconds.
-- 0.024599 seconds to render 5 frames.
+- Frame drawn at 0.005304 seconds.
+- Frame drawn at 0.015901 seconds.
+- Frame drawn at 0.031861 seconds.
+- Frame drawn at 0.048394 seconds.
+- 0.048394 seconds to render 5 frames.
 The window was minimized.
 The window was restored.

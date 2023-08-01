@@ -204,6 +204,11 @@ class Dragon(Fighter):
             self.astral_projection_max  = parent.astral_projection_max
             self.astral_projection_mana = 0
 
+        self.attractiveness_12 = 0
+        # @fdsc Девственная ромашка
+        if parent is not None:
+            if 'attractiveness_12' in dir(parent):
+                self.attractiveness_12 = parent.attractiveness_12
 
         self._gift = None  # Дар Владычицы
         if used_gifts is None:
@@ -280,9 +285,14 @@ class Dragon(Fighter):
                 dscrptn = data.cunning_description[-1]  # Выдаем последнее описание (как самое мощное)
                 ddescription += '\n  ' + self._accentuation(dscrptn, self._gift == 'cunning')
 
-        [dp1, dp2] = self.defence_power()
-        [at1, at2] = self.attack_strength()
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100)) + u"%"
+        # attractiveness_12
+        if self.attractiveness_12 > 0:
+            ddescription += u'\n Ритуал "Ромашка из девственниц" дал дракону дополнительную привлекательность: %d' % self.attractiveness_12
+
+        [dp1,   dp2]   = self.defence_power()
+        [at1,   at2]   = self.attack_strength()
+        [girlW, girlQ] = self.attractiveness(None)
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d%%, привлекательность %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100), int(100-girlQ))
 
         return ddescription
 
@@ -728,12 +738,24 @@ class Dragon(Fighter):
 
         return 1 + QK + math.log(1+self.Treasure_master*Q1+QM3+QE2) / math.log(100)
 
+    class GirlHelperClass:
+        quality      = 100
+        goldWeakness = 1
+        nature       = ''
+
     def attractiveness(self, girl, lair=False):
+        if girl is None:
+            girl = Dragon.GirlHelperClass()
+
         # Страшный дракон существено повышает проблемы с ухаживаниями
         girlQ  = girl.quality + 2 + int(self.fear) + self.bloodiness
+
+        # @fdsc Девственная ромашка
+        girlQ -= self.attractiveness_12
         # За девушкой проще ухаживать, если ты крылатый дракон - можно покатать её :)))
-        girlQ -= self.wings
-        
+        if self.wings > 0:
+            girlQ -= 1
+
         # Коэффициент умножения
         K = 1
 
@@ -794,4 +816,3 @@ class Dragon(Fighter):
             girlW  = 100 / girlQ
 
         return [girlW, girlQ]
-

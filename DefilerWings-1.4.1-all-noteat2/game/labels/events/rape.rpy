@@ -453,7 +453,7 @@ label lb_rape_erection:  # Непосредственное проникнове
             $ game.rape.erection += 1
 
         elif game.rape.erection == 1: # Разорвать девственную плеву.
-          game.girl.third 'Пленница дёргается всем телом и коротко вскрикивает от боли.'
+          game.girl.third 'Пленница коротко, но сладко вскрикивает от боли.'
           call lb_rape_women from _call_lb_rape_women_7
           if 'tough_scale' in game.dragon.modifiers():
             $ game.rape.rage += random.randint(0,3)

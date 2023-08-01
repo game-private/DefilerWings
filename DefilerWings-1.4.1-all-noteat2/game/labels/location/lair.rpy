@@ -141,6 +141,13 @@ label lb_location_lair_main:
             call screen girls_menu
             call lb_location_lair_main from _call_lb_location_lair_main_3
 
+        # @fdsc Девственная ромашка
+        '{color=#FF0000}{b}Ромашка из девственниц: привлекательность{b}{/color}' if game.girls_list.howManyVirgins12 >= 12:
+            "Дракон разложил всех пленниц на полу и по очереди лишил каждую невинности.\nРаз за разом в логове слышались тонкие короткие вскрики, когда мощный член входил в лоно девушек в первый раз."
+            $ game.girls_list.UseVirgins12()
+
+            call lb_location_lair_main from _call_lb_location_lair_main_3
+
         ''
         'Смастерить вещь' if ('servant' in game.lair.upgrades) or ('gremlin_servant' in game.lair.upgrades):
             $ new_item = game.lair.treasury.craft(**data.craft_options['servant'])

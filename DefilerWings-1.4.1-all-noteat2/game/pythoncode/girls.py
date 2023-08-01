@@ -13,6 +13,8 @@ from characters import Girl
 from data import achieve_target
 from points import Mobilization
 
+import chronik
+
 class GirlsList(object):
     def __init__(self, game_ref, base_character):
         self.game = game_ref
@@ -143,6 +145,7 @@ class GirlsList(object):
               continue
             self.try_to_go() 
         self.prisoners = []
+
 
     def knight_free_all_girls(self):
 # Рыцарь выпускает девушек на свободу
@@ -894,6 +897,38 @@ class GirlsList(object):
             jail_list.append(self.prisoners[girl_i].name)
         return jail_list
 
+    # @fdsc Девственная ромашка
+    @property
+    def howManyVirgins12(self):
+        cnt = 0
+        for girl_i in reversed(xrange(self.prisoners_count)):
+            girl = self.prisoners[girl_i]
+            if girl.virgin and girl.willing:
+                cnt += 1
+
+        return cnt
+
+    # Оплодотворяем девственниц при девственной ромашке
+    def UseVirgins12(self):
+        cnt = 0
+        for girl_i in reversed(xrange(self.prisoners_count)):
+            girl = self.prisoners[girl_i]
+            if girl.virgin and girl.willing:
+                cnt += 1
+                self.game.girl = girl
+                self.impregnate()
+                self.game.chronik.write_chronik(u"Девушка была лишена невинности в ритуале девственной ромашки", self.game.dragon.level, girl.girl_id)
+                self.girl = None
+
+                if cnt >= 12:
+                    break
+
+        self.game.dragon.drain_energy(cnt, True)
+        self.game.dragon.lust = 0
+        self.game.dragon.attractiveness_12 += 1
+
+        return cnt
+
     @property
     def prisoners_count(self):
         """
@@ -1597,8 +1632,14 @@ class GirlsList(object):
         Проверяет возможность ксенофилии с ящериком
         """
         assert self.game.girl, "Girl not found"
+
+        # @fdsc Делаем невозможность соблазнения девушки, пока она девственна и обещала свою невинность дракону
+        if self.game.girl.virgin and self.game.girl.willing:
+            return False
+
         possible = self.game.girl.love is None and self.game.lair.beast == 'lizardman' and not girls_data.girls_info[self.game.girl.type]['giantess'] and not self.game.girl.type == 'mermaid' and not self.game.girl.blind and not self.game.girl.cripple
         # and not self.game.girl.willing
+        
         return possible
 
     def girl_in_lair(self,girl_i):
