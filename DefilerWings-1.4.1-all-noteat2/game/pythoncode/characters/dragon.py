@@ -752,6 +752,15 @@ class Dragon(Fighter):
         goldWeakness = 1
         nature       = ''
 
+    def adv_attractiveness(self):
+        a = 100 - self.attractiveness(None)[1]
+        if 'tongue' in self.modifiers():
+            a += 1
+        if 'spermtoxicos' in self.modifiers():
+            a += 1
+
+        return a-2
+
     def attractiveness(self, girl, lair=False):
         if girl is None:
             girl = Dragon.GirlHelperClass()

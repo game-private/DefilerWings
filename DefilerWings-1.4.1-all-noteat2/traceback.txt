@@ -1,19 +1,81 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-error: No available video device
+While running game code:
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 236, in script call
+    call lb_location_lair_main
+  File "game/interactions.rpy", line 148, in script
+    menu:
+  File "game/screens.rpy", line 24, in execute
+    screen choice:
+  File "game/screens.rpy", line 24, in execute
+    screen choice:
+  File "game/screens.rpy", line 26, in execute
+    window:
+  File "game/screens.rpy", line 31, in execute
+    vbox:
+  File "game/screens.rpy", line 35, in execute
+    for caption, action, chosen in items:
+  File "game/screens.rpy", line 36, in execute
+    if action:
+  File "game/screens.rpy", line 37, in execute
+    button:
+  File "game/screens.rpy", line 40, in execute
+    text caption style "menu_choice"
+AttributeError: 'Dragon' object has no attribute 'adv_attractiveness()'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/bootstrap.py", line 281, in bootstrap
-    renpy.main.main()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/main.py", line 450, in main
-    renpy.display.core.Interface()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1439, in __init__
-    pygame.display.init()
-  File "pygame_sdl2/display.pyx", line 66, in pygame_sdl2.display.init (gen/pygame_sdl2.display.c:1501)
-error: No available video device
+  File "game/script.rpy", line 67, in script call
+    $ renpy.call(target_label)
+  File "game/labels/location/lair.rpy", line 236, in script call
+    call lb_location_lair_main
+  File "game/interactions.rpy", line 148, in script
+    menu:
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 1443, in execute
+    choice = renpy.exports.menu(choices, self.set)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 748, in menu
+    rv = renpy.store.menu(items)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 896, in display_menu
+    show_screen(screen, items=item_actions, _widget_properties=props, _transient=True, _layer=renpy.config.choice_layer, **scope)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 981, in show_screen
+    sls.add(_layer, d, _tag, zorder=d.zorder, transient=_transient, keep_st=True, name=name)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 917, in add
+    self.hide_or_replace(layer, remove_index, "replaced")
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 939, in hide_or_replace
+    d = oldsle.displayable._hide(now - st, now - at, prefix)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 430, in _hide
+    self.update()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 565, in update
+    self.screen.function(**self.scope)
+  File "game/screens.rpy", line 24, in execute
+    screen choice:
+  File "game/screens.rpy", line 24, in execute
+    screen choice:
+  File "game/screens.rpy", line 26, in execute
+    window:
+  File "game/screens.rpy", line 31, in execute
+    vbox:
+  File "game/screens.rpy", line 35, in execute
+    for caption, action, chosen in items:
+  File "game/screens.rpy", line 36, in execute
+    if action:
+  File "game/screens.rpy", line 37, in execute
+    button:
+  File "game/screens.rpy", line 40, in execute
+    text caption style "menu_choice"
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/text/text.py", line 1317, in __init__
+    self.set_text(text, scope, substitute)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/text/text.py", line 1384, in set_text
+    i, did_sub = renpy.substitutions.substitute(i, scope, substitute)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/substitutions.py", line 229, in substitute
+    s = formatter.vformat(s, (), kwargs)
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 563, in vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 585, in _vformat
+  File "/home/tom/ab/x64lucid-deps/install/lib/python2.7/string.py", line 652, in get_field
+AttributeError: 'Dragon' object has no attribute 'adv_attractiveness()'
 
 Linux-5.15.0-78-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858
