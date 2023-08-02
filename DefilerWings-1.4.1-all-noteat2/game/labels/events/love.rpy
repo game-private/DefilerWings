@@ -1214,6 +1214,8 @@ label lb_love_lizardman_cripple_alchemist_1:
     return       
 
 label lb_love_escape_lizardman:
+    $ skip_delay = config.skip_delay
+    $ config.skip_delay=75
     $ current_image = get_random_image("img/bg/love/lizardman_sex")
     hide bg
     show expression current_image
@@ -1239,9 +1241,12 @@ label lb_love_escape_lizardman:
     game.girl.love 'Но как же тогда? В глуши нам не выжить.'
     game.girl 'Вот я и говорю - дурачок. Я-то давно выход нашла.'
     $ game.girls_list.save_girl()
+    $ config.skip_delay=skip_delay
     return
 
 label lb_love_lizardman_mistress:
+    $ skip_delay = config.skip_delay
+    $ config.skip_delay=75
     ### nvl clear
     hide bg
     show expression 'img/scene/mistress.jpg' as bg
@@ -1290,6 +1295,7 @@ label lb_love_lizardman_mistress:
       $ enc = weighted_random(choices)
       $ renpy.call(enc)
 
+    $ config.skip_delay=skip_delay
     $ game.pauseForSkip()
       
     return

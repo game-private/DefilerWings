@@ -142,11 +142,19 @@ label lb_location_lair_main:
             call lb_location_lair_main from _call_lb_location_lair_main_3
 
         # @fdsc Девственная ромашка
-        '{color=#FF0000}{b}Ромашка из девственниц: привлекательность{b}{/color}' if game.girls_list.howManyVirgins12 >= 12:
+        '{color=#FF0000}{b}Ромашка из девственниц:\nпривлекательность{b}{/color}' if game.girls_list.howManyVirgins12 >= 12:
             "Дракон разложил всех пленниц на полу и по очереди лишил каждую невинности.\nРаз за разом в логове слышались тонкие короткие вскрики, когда мощный член входил в лоно очередной девушки в первый раз."
             $ game.girls_list.UseVirgins12()
 
-            call lb_location_lair_main from _call_lb_location_lair_main_3
+            call lb_location_lair_main from _call_lb_location_lair_main_3_12a
+
+
+        '{color=#FF0000}{b}Ромашка из девственниц:\nзащита логова{b}{/color}' if game.girls_list.howManyVirgins12 >= 12:
+            "Дракон разложил всех пленниц на полу и по очереди лишил каждую невинности.\nРаз за разом в логове слышались тонкие короткие вскрики, когда мощный член входил в лоно очередной девушки в первый раз."
+            $ game.girls_list.UseVirgins12_protection()
+
+            call lb_location_lair_main from _call_lb_location_lair_main_3_12p
+
 
         ''
         'Смастерить вещь' if ('servant' in game.lair.upgrades) or ('gremlin_servant' in game.lair.upgrades):
@@ -283,13 +291,18 @@ label lb_create_treasures(random_choice=False):
 
 
 label lb_sleep:
+    # $ skip_delay = config.skip_delay
+    # $ config.skip_delay=75
+    # renpy.config.skip_delay
 
     nvl clear
     if game.witch_st1==5:
       'Дракон на мгновение задумывается, какой может быть награда ведьмы.'
       game.dragon 'Надо сходить проверить!'
       if game.dragon.energy() > 0:
+        $ config.skip_delay=skip_delay
         return
+
     if game.witch_st1==4 and game.dragon.health<2:
       $ game.dragon.health=2
       witch 'На следующий год тебе понадобятся все силы. На этот раз я исцелю тебя бесплатно.'
@@ -319,6 +332,7 @@ label lb_sleep:
             save_blocked = False
             del game_loaded
 
+    # $ config.skip_delay=skip_delay
 
 # Проверка на визит Архимонда
     if game.summon.seal>data.max_summon and not game.historical_check('archimonde_was'):

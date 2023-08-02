@@ -428,13 +428,14 @@ class Game(store.object):
         time_to_sleep = self.dragon.injuries + 1
 		# @fdsc
         # Сбрасываем характеристики дракона
-        self.dragon.rest(time_to_sleep)
+        # self.dragon.rest(time_to_sleep)
         # Действия с девушками до начала сна
         self.girls_list.before_sleep()
         # Спим
         i = 0
-        while self.dragon.is_alive and i < time_to_sleep:
+        while self.dragon.is_alive and (i < time_to_sleep or self.dragon.energy() <= 0):
             i += 1
+            self.dragon.rest(1)
             self.next_year()
 
             # По идее тут мы должны завершить сон

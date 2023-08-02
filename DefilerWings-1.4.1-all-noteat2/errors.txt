@@ -2,8 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/labels/location/lair.rpy", line 147: expected statement.
-    game.girls_list.UseVirgins12()
-                                  ^
+File "game/labels/events/love.rpy", line 1218: expected statement.
+    config.skip_delay=75
+                     ^
+
+File "game/labels/events/love.rpy", line 1249: expected statement.
+    config.skip_delay=75
+                     ^
 
 Ren'Py Version: Ren'Py 6.99.7.858

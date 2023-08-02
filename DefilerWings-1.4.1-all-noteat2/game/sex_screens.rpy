@@ -310,12 +310,19 @@ screen penetration_sex:
               xfill True
               text '{font=fonts/AnticvarShadow.ttf}{size=+20}Девушка{/size}{/font}\n%s\n%s' % (game.rape.health_text,game.rape.proud_text):  # Выводим собственно текст подсказки
                 xalign 0.5
-        if game.rape.erection <4: # сли ещё не кончил, можно вернуться
+        if game.rape.erection <4: # Если ещё не кончил, можно вернуться
           hbox: 
             ypos 680
             xpos 1020
             spacing 50
             textbutton _("Попробовать иначе") hovered rape_tooltip.Action('{color=#ff0000}Потом придётся начинать заново...{/color}') action [Function(game.rape.define_freedom),Hide('penetration_sex'),Show('start_sex') ]
+        # @fdsc Ухаживания языком - можно выйти не лишая невинности
+        if game.girl.virgin: # and game.girl.jailed:
+            hbox: 
+                ypos 640
+                xpos 1020
+                spacing 50
+                textbutton _("Закончить") hovered rape_tooltip.Action('{color=#ff0000}Потом придётся начинать заново...{/color}') action [Function(game.rape.define_freedom),Hide('penetration_sex'),Jump('lb_rape_end_virgin') ]
 
 # Принуждение
 screen bdsm_sex:

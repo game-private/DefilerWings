@@ -179,10 +179,12 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(10,20)
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но это не помогает. '
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(6,12)
-                else:
-                  $ game.rape.rage += random.randint(8,14)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(6,12)
+                    else:
+                      $ game.rape.rage += random.randint(8,14)
+
                 call lb_rape_women from _call_lb_rape_women_13
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы и сжимает кулаки, и когда член дракона разрывает её девственую плеву, не издаёт ни единого стона боли.'  
@@ -196,20 +198,22 @@ label lb_rape_erection:  # Непосредственное проникнове
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но увы - дракон слишком велик. '
                 call lb_rape_women from _call_lb_rape_women_12
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(6,10)
-                else:
-                  $ game.rape.rage += random.randint(8,12)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(6,10)
+                    else:
+                      $ game.rape.rage += random.randint(8,12)
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы и сжимает кулаки, но когда член дракона разрывает её девственую плеву, с её уст срывается негромкий стон боли.'  
               call lb_rape_women from _call_lb_rape_women_20
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing:  
               game.girl.third 'Пленница вырывается изо всех сил, но никому не дано сбросить с себя объятия гиганта.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(4,8)
-              else:
-                $ game.rape.rage += random.randint(6,10)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(4,8)
+                  else:
+                    $ game.rape.rage += random.randint(6,10)
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы и сжимает кулаки. Тщетно: когда член дракона разрывает её девственую плеву, [game.girl.name] истошно орёт от боли и размахивает руками во все стороны.'  
             call lb_rape_women from _call_lb_rape_women_11
@@ -223,10 +227,11 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(10,20)
               else:
                 game.girl.third '[game.girl.name] продолжает сопротивляться, мешая дракону сосредоточиться на приятном процессе'
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(6,10)
-                else:
-                  $ game.rape.rage += random.randint(8,12)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(6,10)
+                    else:
+                      $ game.rape.rage += random.randint(8,12)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] сжимает кулаки и громко дышит сквозь сомкнутые зубы - и этим её участи в процессе и ограничивается. Лежит бревно-бревном. Честное слово, лучше бы брыкалась - хоть что-то интересное было бы!'   
@@ -239,10 +244,11 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(8,15)
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но увы - дракон слишком велик. Все её трепыхания лишь слегка мешают процессу '
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(4,8)
-                else:
-                  $ game.rape.rage += random.randint(6,10)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(4,8)
+                    else:
+                      $ game.rape.rage += random.randint(6,10)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] сжимает кулаки и негромко постанывает сквозь сомкнутые зубы - и этим её участи в процессе и ограничивается. Лежит бревно-бревном. Честное слово, лучше бы брыкалась - хоть что-то интересное было бы!'   
@@ -250,10 +256,11 @@ label lb_rape_erection:  # Непосредственное проникнове
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing:  
               game.girl.third 'Пленница вырывается изо всех сил, но никому не дано сбросить с себя объятия гиганта. Поглощённый процессом, [game.dragon.name] едва замечает её усилия'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(2,6)
-              else:
-                $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(2,6)
+                  else:
+                    $ game.rape.rage += random.randint(4,8)
             else: # Согласна
               game.girl.third 'Несмотря на попытки сохранить неподвижность, [game.girl.name] нервно перебирает пальцами и громко стонет от боли. [game.dragon.name] улыбается - такой процесс явно пришёлся ему по вкусу!'   
             $ game.rape.erection += 1  
@@ -341,30 +348,33 @@ label lb_rape_erection:  # Непосредственное проникнове
               else:
                 game.girl.third 'Пленница пытается вырваться, но это не помогает. '
                 call lb_rape_women from _call_lb_rape_women_10
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(4,8)
-                else:
-                  $ game.rape.rage += random.randint(6,10)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(4,8)
+                    else:
+                      $ game.rape.rage += random.randint(6,10)
             else: # Согласна
               game.girl.third 'Короткий стон прерывает молитву, но [game.girl.name] быстро приходит в себя, вновь прижимает ладони друг к другу и начинает молиться ещё истовее. '  
               call lb_rape_women from _call_lb_rape_women_21
           elif game.rape.size == 2: # Средний дракон 
             if not game.girl.willing: 
               game.girl.third 'Пленница пытается вырваться, но увы - дракон слишком велик.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(2,6)
-              else:
-                $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(2,6)
+                  else:
+                    $ game.rape.rage += random.randint(4,8)
             else: # Согласна
               game.girl.third 'Молитва заканчивается громким стоном. Впрочем, [game.girl.name] всё же приходит в себя, вновь прижимает ладони друг к другу и начинает молиться ещё истовее. '  
             call lb_rape_women from _call_lb_rape_women_9
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing: 
               game.girl.third 'Пленница пытается вырваться, но никому не дано сбросить с себя объятия гиганта.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(0,4)
-              else:
-                $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(0,4)
+                  else:
+                    $ game.rape.rage += random.randint(2,6)
             else: # Согласна
               game.girl.third 'Молитва заканчивается криком боли. [game.girl.name] лихорадочно размахивает руками и пытается прийти в себя. Кажется, с молитвами на сегодня всё. '  
             call lb_rape_women from _call_lb_rape_women_8
@@ -378,10 +388,11 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(10,20)
               else:
                 game.girl.third '[game.girl.name] продолжает сопротивляться,  но уже без прежней ярости. Похоже, произошедшее сломило её, и пленница смирилась со своей участью.'
-                if 'tough_scale' in game.dragon.modifiers():
-                  $ game.rape.rage += random.randint(2,6)
-                else:
-                  $ game.rape.rage += random.randint(4,8)
+                if not game.rape.spermtoxicos:
+                    if 'tough_scale' in game.dragon.modifiers():
+                      $ game.rape.rage += random.randint(2,6)
+                    else:
+                      $ game.rape.rage += random.randint(4,8)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] продолжает молиться, то и дело постанывая от боли. Она сосредатачивается на соединённых вместе ладонях, пытаясь отрешиться от того, что происходит там, внизу.' 
@@ -389,20 +400,22 @@ label lb_rape_erection:  # Непосредственное проникнове
           elif game.rape.size == 2: # Средний дракон 
             if not game.girl.willing: 
               game.girl.third '[game.girl.name] продолжает сопротивляться, но тщетно: дракон слишком велик. Похоже, произошедшее сломило её, и пленница смирилась со своей участью. '
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(0,2)
-              else:
-                $ game.rape.rage += random.randint(2,4)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(0,2)
+                  else:
+                    $ game.rape.rage += random.randint(2,4)
             else: # Согласна
               game.girl.third 'Молитва [game.girl.name_r] то и дело прерывается криками боли. Она сосредатачивается на соединённых вместе ладонях, пытаясь отрешиться от того, что происходит там, внизу. Тщетно.' 
             $ game.rape.erection += 1
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing: 
               game.girl.third '[game.girl.name] продолжает сопротивлятья, но никому не дано сбросить с себя объятия гиганта. Тщетность усилий очевидна; похоже, произошедшее сломило её, и пленница смирилась со своей участью.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(0,1)
-              else:
-                $ game.rape.rage += random.randint(1,2)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(0,1)
+                  else:
+                    $ game.rape.rage += random.randint(1,2)
             else: # Согласна
               game.girl.third 'Отдельные слова молитв тонут в криках боли. [game.girl.name] размахивает руками во все стороны, пытаясь хоть как-то облегчить эту пытку.' 
             $ game.rape.erection += 1  
@@ -441,10 +454,11 @@ label lb_rape_erection:  # Непосредственное проникнове
           else:
             if not game.girl.willing:
               game.girl.third '[game.girl.name] вяло отбивается и умоляет дракона о милосердии'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(0,4)
-              else:
-                $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(0,4)
+                  else:
+                    $ game.rape.rage += random.randint(2,6)
             else: # Согласна
               if game.girl.type == 'afrodita':
                 game.girl.third '[game.girl.name] ласкает руками член дракона. Кажется, богиня любви стремится доставить ему как можно больше удовольствия.'
@@ -455,10 +469,11 @@ label lb_rape_erection:  # Непосредственное проникнове
         elif game.rape.erection == 1: # Разорвать девственную плеву.
           game.girl.third 'Пленница коротко, но сладко вскрикивает от боли.'
           call lb_rape_women from _call_lb_rape_women_7
-          if 'tough_scale' in game.dragon.modifiers():
-            $ game.rape.rage += random.randint(0,3)
-          else:
-            $ game.rape.rage += random.randint(1,4)
+          if not game.rape.spermtoxicos:
+              if 'tough_scale' in game.dragon.modifiers():
+                $ game.rape.rage += random.randint(0,3)
+              else:
+                $ game.rape.rage += random.randint(1,4)
 
         elif game.rape.erection == 2: # Совершить половой акт.
           if game.rape.pussy: # Лоно не повреждено
@@ -525,7 +540,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third '[game.girl.name] пытается пнуть ногой по восставшему драконьему члену, но для слепой эта задача не под силу.'
                 else:
                   game.girl.third '[game.girl.name] пытается пнуть ногой по восставшему драконьему члену, но промахивается.'
-                $ game.rape.rage += random.randint(12,16)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(12,16)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third 'Когда член дракона упирается во влагалище девушки, [game.girl.name] отворачивается, прикусывает губу и передёргивается всем телом. Похоже, маленький рост дракона искушает её ложной надеждой на успех - но [game.girl.name] всё-таки удерживается от сопротивления.'   
@@ -543,7 +559,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third '[game.girl.name] пытается пнуть ногой по восставшему драконьему члену, но для слепой эта задача не под силу.'
                 else:
                   game.girl.third '[game.girl.name] пытается пнуть ногой по восставшему драконьему члену, но немного промахивается.'
-                $ game.rape.rage += random.randint(10,14)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(10,14)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third 'Когда член дракона упирается во влагалище девушки, [game.girl.name] отворачивается, прикусывает губу и передёргивается всем телом. Похоже, она пытается не начать пинаться.'   
@@ -561,7 +578,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third '[game.girl.name] пытается пнуть ногой по восставшему драконьему члену, но для слепой эта задача не под силу.'
                 else:
                   game.girl.third '[game.girl.name] изворачивается каким-то немыслимым образом и пытается пнуть ногой по восставшему драконьему члену, но немного промахивается.'
-                $ game.rape.rage += random.randint(8,12)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(8,12)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third 'Когда член дракона упирается во влагалище девушки, [game.girl.name] отворачивается, прикусывает губу и передёргивается всем телом. Впрочем, даже если бы она начала сопротивляться - это всё равно не помогло бы. Хотя.. меткий пинок... нет. Плохая идея. '   
@@ -577,7 +595,8 @@ label lb_rape_erection:  # Непосредственное проникнове
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но [game.dragon.name] держит её за руки слишком крепко.'
                 call lb_rape_women from _call_lb_rape_women_6
-                $ game.rape.rage += random.randint(8,14)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(8,14)
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы, и когда член дракона разрывает её девственую плеву, не издаёт ни единого стона боли.'  
               call lb_rape_women from _call_lb_rape_women_24
@@ -590,14 +609,16 @@ label lb_rape_erection:  # Непосредственное проникнове
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но увы - дракон слишком велик.'
                 call lb_rape_women from _call_lb_rape_women_5
-                $ game.rape.rage += random.randint(8,12)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(8,12)
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы, но когда член дракона разрывает её девственую плеву, с её уст срывается негромкий стон боли.'  
               call lb_rape_women from _call_lb_rape_women_25
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing:  
               game.girl.third 'Пленница вырывается изо всех сил, но никому не дано разжать лапы гиганта.'
-              $ game.rape.rage += random.randint(6,10)
+              if not game.rape.spermtoxicos:
+                  $ game.rape.rage += random.randint(6,10)
             else: # Согласна
               game.girl.third '[game.girl.name] изо всех сил стискивает зубы. Тщетно: когда член дракона разрывает её девственую плеву, [game.girl.name] истошно орёт от боли и бессильно дрыгает ногами.'  
             call lb_rape_women from _call_lb_rape_women_18
@@ -611,7 +632,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(10,20)
               else:
                 game.girl.third '[game.girl.name] продолжает брыкаться, мешая дракону сосредоточиться на приятном процессе'
-                $ game.rape.rage += random.randint(8,12)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(8,12)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] громко дышит сквозь сомкнутые зубы - и этим её участи в процессе и ограничивается. Лежит бревно-бревном, даже не дёргается. Честное слово, лучше бы брыкалась - хоть что-то интересное было бы!'   
@@ -624,7 +646,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(8,15)
               else:
                 game.girl.third 'Пленница вырывается изо всех сил, но увы - дракон слишком велик. Все её трепыхания лишь слегка мешают процессу '
-                $ game.rape.rage += random.randint(6,10)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(6,10)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] негромко постанывает сквозь сомкнутые зубы - и этим её участи в процессе и ограничивается. Лежит бревно-бревном и не дёргается. Честное слово, лучше бы брыкалась - хоть что-то интересное было бы!'   
@@ -632,7 +655,8 @@ label lb_rape_erection:  # Непосредственное проникнове
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing:
               game.girl.third 'Пленница вырывается изо всех сил, но никому не дано разжать лапы гиганта. Поглощённый процессом, [game.dragon.name] едва замечает её усилия'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
             else: # Согласна
               game.girl.third 'Несмотря на попытки сохранить неподвижность, [game.girl.name] дрыгает ногами и громко стонет от боли. [game.dragon.name] улыбается - такой процесс явно пришёлся ему по вкусу!'
             $ game.rape.erection += 1  
@@ -677,7 +701,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и слепо пинается во все стороны. '
                 else:                
                   game.girl.third 'Увидев драконий член, [game.girl.name] орёт от ужаса и пытается пнуть дракона ногой в промежность. Безуспешно. '
-                $ game.rape.rage += random.randint(8,15)
+                if not game.rape.spermtoxicos:
+                  $ game.rape.rage += random.randint(8,15)
                 $ game.rape.erection += 1
             elif game.rape.size == 2: # Средний дракон 
               if random.randint(1,5) == 1: # Дракону не повезло
@@ -691,7 +716,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и начинает пинаться. К счатью, она не попадает ногой по самому сокровенному!'
                 else:    
                   game.girl.third 'Увидив драконий член, [game.girl.name] орёт от ужаса и начинает пинаться. К счатью, она не попадает ногой по самому сокровенному!'
-                $ game.rape.rage += random.randint(6,10)
+                if not game.rape.spermtoxicos:
+                  $ game.rape.rage += random.randint(6,10)
                 $ game.rape.erection += 1
             elif game.rape.size == 3: # Матёрый драконище 
               if random.randint(1,8) == 1: # Дракону не повезло
@@ -705,7 +731,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                   game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и начинает пинаться. К счатью, [game.dragon.name] велик, и попасть по самому сокровенному она может разве что случайно!'
                 else:    
                   game.girl.third 'Увидив драконий член, [game.girl.name] орёт от ужаса и начинает пинаться. К счатью, [game.dragon.name] велик, и попасть по самому сокровенному она может разве что случайно! '
-                $ game.rape.rage += random.randint(2,6)
+                if not game.rape.spermtoxicos:
+                    $ game.rape.rage += random.randint(2,6)
                 $ game.rape.erection += 1
           else: # Согласна
             game.girl.third '[game.girl.name] передёргивается всем телом, закрывает глаза и начинает истово молиться.'   
@@ -721,7 +748,8 @@ label lb_rape_erection:  # Непосредственное проникнове
               else:
                 game.girl.third 'Пленница пытается вырваться, но это не помогает.'
                 call lb_rape_women from _call_lb_rape_women_4
-                $ game.rape.rage += random.randint(6,10)
+                if not game.rape.spermtoxicos:
+                  $ game.rape.rage += random.randint(6,10)
             else: # Согласна
               game.girl.third 'Короткий стон прерывает молитву, но [game.girl.name] быстро приходит в себя, содрогается всем телом и начинает молиться ещё истовее. '  
               call lb_rape_women from _call_lb_rape_women_26
@@ -729,14 +757,16 @@ label lb_rape_erection:  # Непосредственное проникнове
           elif game.rape.size == 2: # Средний дракон 
             if not game.girl.willing:
               game.girl.third 'Пленница пытается вырваться, но увы - дракон слишком велик.'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
             else: # Согласна
               game.girl.third 'Молитва заканчивается громким стоном. Впрочем, [game.girl.name] всё же приходит в себя, содрагается все телом и начинает молиться ещё истовее. '  
             call lb_rape_women from _call_lb_rape_women_3
           elif game.rape.size == 3: # Матёрый драконище 
             if not game.girl.willing:
               game.girl.third 'Пленница пытается вырваться, но никому не дано вырвать свои руки из лап гиганта.'
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
             else: # Согласна
               game.girl.third 'Молитва заканчивается криком боли. [game.girl.name] дрожит крупной дрожью и пытается прийти в себя. Кажется, с молитвами на сегодня всё. ' 
             call lb_rape_women from _call_lb_rape_women_2
@@ -750,7 +780,8 @@ label lb_rape_erection:  # Непосредственное проникнове
                 $ game.rape.rage += random.randint(10,20)
               else:
                 game.girl.third '[game.girl.name] продолжает сопротивляться, но уже без прежней ярости. Похоже, произошедшее сломило её, и пленница смирилась со своей участью.'
-                $ game.rape.rage += random.randint(4,8)
+                if not game.rape.spermtoxicos:
+                  $ game.rape.rage += random.randint(4,8)
                 $ game.rape.erection += 1
             else: # Согласна
               game.girl.third '[game.girl.name] продолжает молиться, то и дело постанывая от боли. Её глаза закрыты, она пытается отрешиться от того, что происходит там, внизу.' 
@@ -758,14 +789,16 @@ label lb_rape_erection:  # Непосредственное проникнове
           elif game.rape.size == 2: # Средний дракон 
             if not game.girl.willing: 
               game.girl.third '[game.girl.name] продолжает сопротивляться, но тщетно: дракон слишком велик. Похоже, произошедшее сломило её, и пленница смирилась со своей участью. '
-              $ game.rape.rage += random.randint(2,4)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,4)
             else: # Согласна
               game.girl.third 'Молитва [game.girl.name_r] то и дело прерывается криками боли. Её глаза закрыты, она пытается отрешиться от того, что происходит там, внизу. Тщетно.' 
             $ game.rape.erection += 1
           elif game.rape.size == 3: # Матёрый драконище
             if not game.girl.willing:   
               game.girl.third '[game.girl.name] продолжает сопротивлятья, но никому не дано вырваться из хватки гиганта. Тщетность усилий очевидна; похоже, произошедшее сломило её, и пленница смирилась со своей участью.'
-              $ game.rape.rage += random.randint(1,2)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(1,2)
             else: # Согласна
               game.girl.third 'Отдельные слова молитв тонут в криках боли. Глаза [game.girl.name_r] крепко зажмурены, она дёргается всем телом, пытаясь хоть как-то облегчить эту пытку.' 
             $ game.rape.erection += 1  
@@ -802,7 +835,8 @@ label lb_rape_erection:  # Непосредственное проникнове
           else:
             if not game.girl.willing:
               game.girl.third '[game.girl.name] вяло пинается и умоляет дракона о милосердии'
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
             else: # Согласна
               game.girl.third '[game.girl.name], замирая от какого-то необъяснимого чувства, выгибается в сторону дракона.' 
             $ game.rape.erection += 1
@@ -810,7 +844,8 @@ label lb_rape_erection:  # Непосредственное проникнове
         elif game.rape.erection == 1: # Разорвать девственную плеву.
           game.girl.third 'Пленница дёргается всем телом и коротко вскрикивает от боли.'
           call lb_rape_women from _call_lb_rape_women_1
-          $ game.rape.rage += random.randint(1,4)
+          if not game.rape.spermtoxicos:
+            $ game.rape.rage += random.randint(1,4)
           $ game.rape.erection += 1
           $ game.girl.virgin = False
 
@@ -865,12 +900,13 @@ label lb_rape_erection:  # Непосредственное проникнове
           $ game.rape.erection += 1  
           if not game.girl.willing:
             game.girl.third '[game.girl.name] в критической ситуации: драконий член уже приставлен к её лону, она полностью обездвижена, сопротивление ни к чему не приводит. Но вместо того, чтобы впасть в панику, она резко успокаивается и ищет выход из ситуации.'
-            if game.rape.size == 1: # Миниатюрный дракончик
-              $ game.rape.rage += random.randint(4,8)
-            elif game.rape.size == 2: # Средний дракон 
-              $ game.rape.rage += random.randint(2,6)
-            elif game.rape.size == 3: # Матёрый драконище 
-              $ game.rape.rage += random.randint(0,4)
+            if not game.rape.spermtoxicos:
+                if game.rape.size == 1: # Миниатюрный дракончик
+                  $ game.rape.rage += random.randint(4,8)
+                elif game.rape.size == 2: # Средний дракон 
+                  $ game.rape.rage += random.randint(2,6)
+                elif game.rape.size == 3: # Матёрый драконище 
+                  $ game.rape.rage += random.randint(0,4)
             if game.girl.type == 'peasant' or game.girl.type == 'citizen' or game.girl.type == 'princess' or game.girl.type == 'jasmine':
               game.girl 'Мой дед пришёл сюда через Туманы из иного мира. Перед своей смертью он научил меня Опасному и Запретному приёму, который можно применять лишь в критической ситуации. По-моему, ситуация весьма критическая.'
             elif game.girl.type == 'elf':
@@ -1011,19 +1047,22 @@ label lb_rape_erection:  # Непосредственное проникнове
                 game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: несмотря на свой маленький размер, [game.dragon.name] полностью обездвижил пленницу. '      
               else:  
                 game.girl.third 'Увидив драконий член, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: несмотря на свой маленький размер, [game.dragon.name] полностью обездвижил пленницу. '
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
             elif game.rape.size == 2: # Средний дракон 
               if game.girl.blind:
                 game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: [game.dragon.name] полностью обездвижил пленницу. '
               else:
                 game.girl.third 'Увидив драконий член, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: [game.dragon.name] полностью обездвижил пленницу. '
-              $ game.rape.rage += random.randint(0,4)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(0,4)
             elif game.rape.size == 3: # Матёрый драконище 
               if game.girl.blind:
                 game.girl.third 'Услышав возбуждённое, учащённое дыхание дракона, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: [game.dragon.name] полностью обездвижил пленницу. Да от такого гиганта сбежать в любом случае затруднительно.'
               else:
                 game.girl.third 'Увидив драконий член, [game.girl.name] орёт от ужаса и пытается вырваться. Безуспешно: [game.dragon.name] полностью обездвижил пленницу. Да от такого гиганта сбежать в любом случае затруднительно.'
-              $ game.rape.rage += random.randint(0,2)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(0,2)
           else: # Согласна
             game.girl.third '[game.girl.name] передёргивается всем телом, закрывает глаза и начинает истово молиться.'  
           $ game.rape.erection += 1
@@ -1232,10 +1271,11 @@ label lb_rape_body:    # Змей обвивается вокруг тела
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] визжит, царапается, бьёт по телу дракона кулаками и кусается. Но [game.dragon.name] слишком велик, трепыхания жертвы лишь раздражают его, но не могут ничем повредить. '
-            if 'tough_scale' in game.dragon.modifiers():
-              $ game.rape.rage += random.randint(12,20)
-            else:
-              $ game.rape.rage += random.randint(14,22)
+            if not game.rape.spermtoxicos:
+                if 'tough_scale' in game.dragon.modifiers():
+                  $ game.rape.rage += random.randint(12,20)
+                else:
+                  $ game.rape.rage += random.randint(14,22)
           else: # Согласна
             game.girl.third '[game.girl.name] с ненавистью смотрит, как огромный змей обвивается вокруг её тела, но, несмотря на свободные руки, даже не пытается ему помешать. Впрочем, это у неё всё равно бы не получилось.'
           $ game.rape.body=False
@@ -1248,10 +1288,11 @@ label lb_rape_body:    # Змей обвивается вокруг тела
               $ game.rape.rage += random.randint(4,6)
             else: # Дракону повезло
               game.girl.third '[game.girl.name] пытается отпихнуть насильника в сторону, но в последний момент замирает от страха, и [game.dragon.name] обвивается вокруг её тела.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(8,12)
-              else:
-                $ game.rape.rage += random.randint(10,14)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(8,12)
+                  else:
+                    $ game.rape.rage += random.randint(10,14)
               $ game.rape.body=False
           else: # Согласна
             game.girl.third 'Когда мелкий змеёныш обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться.'
@@ -1259,20 +1300,22 @@ label lb_rape_body:    # Змей обвивается вокруг тела
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пытается отпихнуть насильника в сторону, но он чересчур велик, а пленница слишком напугана и сражается вполсилы.'
-            if 'tough_scale' in game.dragon.modifiers():
-              $ game.rape.rage += random.randint(6,10)
-            else:
-              $ game.rape.rage += random.randint(8,12)
+            if not game.rape.spermtoxicos:
+                if 'tough_scale' in game.dragon.modifiers():
+                  $ game.rape.rage += random.randint(6,10)
+                else:
+                  $ game.rape.rage += random.randint(8,12)
           else: # Согласна
             game.girl.third 'Когда змей обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться.'
           $ game.rape.body=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пытается отпихнуть насильника в сторону, но он слишком велик и едва замечает её усилия'
-            if 'tough_scale' in game.dragon.modifiers():
-              $ game.rape.rage += random.randint(4,8)
-            else:
-              $ game.rape.rage += random.randint(6,10)
+            if not game.rape.spermtoxicos:
+                if 'tough_scale' in game.dragon.modifiers():
+                  $ game.rape.rage += random.randint(4,8)
+                else:
+                  $ game.rape.rage += random.randint(6,10)
           else: # Согласна
             game.girl.third 'Когда огромный змей обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться. Впрочем, сопротивляйся-не сопротивляйся - исход всё равно один.'
           $ game.rape.body=False
@@ -1289,10 +1332,11 @@ label lb_rape_body:    # Змей обвивается вокруг тела
                 game.girl.third '[game.girl.name] пытается взять дракона на руки и отложить в сторону, но в последний момент замирает от страха и прислушивается к своим ощущениям. [game.dragon.name] неспешно обвивается вокруг её тела.'
               else:
                 game.girl.third '[game.girl.name] пытается взять дракона на руки и отложить в сторону, но в последний момент замирает от страха и безвольно смотрит, как [game.dragon.name] обвивается вокруг её тела.'
-              if 'tough_scale' in game.dragon.modifiers():
-                $ game.rape.rage += random.randint(2,6)
-              else:
-                $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                  if 'tough_scale' in game.dragon.modifiers():
+                    $ game.rape.rage += random.randint(2,6)
+                  else:
+                    $ game.rape.rage += random.randint(4,8)
               $ game.rape.body=False
           else: # Согласна
             game.girl.third '[game.girl.name] всячески помогает мелкому дракоше поудобнее обвиться вокруг её тела.'
@@ -1300,20 +1344,22 @@ label lb_rape_body:    # Змей обвивается вокруг тела
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] вяло сопротивляется и молит дракона о пощаде, пока тот неспешно обвивается вокруг её тела.'
-            if 'tough_scale' in game.dragon.modifiers():
-              $ game.rape.rage += random.randint(2,14)
-            else:
-              $ game.rape.rage += random.randint(4,6)
+            if not game.rape.spermtoxicos:
+                if 'tough_scale' in game.dragon.modifiers():
+                  $ game.rape.rage += random.randint(2,14)
+                else:
+                  $ game.rape.rage += random.randint(4,6)
           else: # Согласна
             game.girl.third '[game.girl.name] помогает дракону поудобнее обвиться вокруг её тела.'
           $ game.rape.body=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] понимает, что насильник слишком велик и сопротивление бесполезно. Она пробует молить о пощаде, но после короткого шипения решает расслабиться и попытаться получить удовольствие. '
-            if 'tough_scale' in game.dragon.modifiers():
-              $ game.rape.rage += random.randint(0,2)
-            else:
-              $ game.rape.rage += random.randint(2,4)
+            if not game.rape.spermtoxicos:
+                if 'tough_scale' in game.dragon.modifiers():
+                  $ game.rape.rage += random.randint(0,2)
+                else:
+                  $ game.rape.rage += random.randint(2,4)
           else: # Согласна
             game.girl.third '[game.girl.name] пытается помочь дракону поудобнее обвиться вокруг её тела, но огромный ящер успешно справляется с этим и без посторонней помощи.'
           $ game.rape.body=False
@@ -1349,7 +1395,8 @@ label lb_rape_body:    # Змей обвивается вокруг тела
               $ game.rape.define_freedom()
             else:  #  У дракона всё получилось
               game.girl.third '[game.girl.name] визжит, пинается и кусается, но благодаря зафиксированным рукам ничего не может сделать.'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
               $ game.rape.body=False
           else: # Согласна
             game.girl.third '[game.girl.name] с ненавистью смотрит, как змей обвивается вокруг её тела, но даже не пытается ему помешать. Впрочем, дракон всё равно крепко держит её ладони своими лапами.'
@@ -1357,7 +1404,8 @@ label lb_rape_body:    # Змей обвивается вокруг тела
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] визжит, пинается и кусается, но благодаря зафиксированным рукам ничего не может сделать. Впрочем, дракон настолько велик, что свободные руки ей не слишком помогли бы.'
-            $ game.rape.rage += random.randint(2,6)
+            if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
           else: # Согласна
             game.girl.third '[game.girl.name] с ненавистью смотрит, как огромный змей обвивается вокруг её тела, но даже не пытается ему помешать. Впрочем, это у неё всё равно бы не получилось.'
           $ game.rape.body=False
@@ -1372,7 +1420,8 @@ label lb_rape_body:    # Змей обвивается вокруг тела
               $ game.rape.define_freedom()
             else: # Дракону  повезло
               game.girl.third '[game.girl.name] пытается избежать драконих объятий, но с зафиксированными руками это несколько неудобно.'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
               $ game.rape.body=False
           else: # Согласна
             game.girl.third 'Когда мелкий змеёныш обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться.'
@@ -1380,14 +1429,16 @@ label lb_rape_body:    # Змей обвивается вокруг тела
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пытается пинками отогнать насильника в сторону, но он чересчур велик, а пленница слишком напугана и сражается вполсилы.'
-            $ game.rape.rage += random.randint(2,6)
+            if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
           else: # Согласна
             game.girl.third 'Когда змей обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться.'
           $ game.rape.body=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пытается пинками отогнать  насильника в сторону, но он слишком велик и едва замечает её усилия'
-            $ game.rape.rage += random.randint(0,4)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(0,4)
           else: # Согласна
             game.girl.third 'Когда огромный змей обвивается вокруг тела [game.girl.name_r], девушка, даже не пытаясь сопротивляться, начинает громко и отчаянно молиться. Впрочем, даже будь у неё свободны руки и сопротивляйся она изо все сил - исход всё равно был бы тем же самым.'
           $ game.rape.body=False
@@ -1395,7 +1446,8 @@ label lb_rape_body:    # Змей обвивается вокруг тела
       elif ratio_proud>0 and ratio_proud <=0.33:  # Заламывает руки и умоляет прекратить
         if not game.girl.willing:
           game.girl.third '[game.girl.name] пытается сопротивляться и молит дракона о пощаде. Правда, как-то вяло. Похоже, ей и самой интересно, что будет дальше. '
-          $ game.rape.rage += random.randint(0,2)
+          if not game.rape.spermtoxicos:
+            $ game.rape.rage += random.randint(0,2)
         else: # Согласна
           if game.rape.size == 1: # Миниатюрный дракончик
             game.girl.third '[game.girl.name] с улыбкой смотрит, как мелкий дракончик обвивается вокруг её тела.'
@@ -1429,7 +1481,8 @@ label lb_rape_arms:
           if not game.girl.willing: # @fdsc
             if random.randint(1, game.dragon.max_energy()) > 2: # Дракону повезло
               game.dragon.third 'Хотя [game.girl.name] пинается и отмахивается руками подобно ветряной мельнице,  [game.dragon.name] всё же выгадывает подходящий момент и хватает её за руки.'
-              $ game.rape.rage += random.randint(6,10)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(6,10)
               $ game.rape.arms=False
             else: # Дракону не повезло
               game.girl.third '[game.girl.name] пинается и отмахивается руками подобно ветряной мельнице. [game.dragon.name] никак не может выгадать подходящий момент. '
@@ -1446,7 +1499,8 @@ label lb_rape_arms:
               $ game.rape.rage += random.randint(4,8)
             else:  #  У дракона всё получилось
               game.girl.third '[game.girl.name] визжит, пинается и бьёт по телу дракона кулаками. На последнем он её и ловит. Всё, теперь не уйдёт! '
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
               $ game.rape.arms=False
           else: # Согласна
             game.girl.third '[game.girl.name] неохотно разжимает кулаки и позволяет дракону взять ладони своими лапами.'
@@ -1454,7 +1508,8 @@ label lb_rape_arms:
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] визжит, пинается и бьёт по телу дракона кулаками. Но [game.dragon.name] слишком велик, он с лёгкостью захватывает руки девушки в свои лапы. '
-            $ game.rape.rage += random.randint(2,6)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(2,6)
           else: # Согласна
             game.girl.third '[game.girl.name] неохотно разжимает кулаки. Её крошечные ладони практически тонут в огромных лапах дракона.'
           $ game.rape.arms=False
@@ -1470,7 +1525,8 @@ label lb_rape_arms:
               $ game.rape.rage += random.randint(6,10)
             else: # Дракону повезло
               game.girl.third '[game.girl.name] пинается и пытается отпихнуть насильника в сторону, но в последний момент замирает от страха, и [game.dragon.name] благополучно хватает её за руки.'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
               $ game.rape.arms=False
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо вздрагивает, когда маленький дракончик берёт её ладони своими крошечными лапками.'
@@ -1478,14 +1534,16 @@ label lb_rape_arms:
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пинается и пытается отпихнуть насильника в сторону, но он чересчур велик, а пленница слишком напугана и сражается вполсилы.'
-            $ game.rape.rage += random.randint(2,6)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(2,6)
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо вздрагивает, когда дракон берёт её ладони своими лапами.'
           $ game.rape.arms=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] пинается и пытается отпихнуть насильника в сторону, но он слишком велик и едва замечает её усилия'
-            $ game.rape.rage += random.randint(1,4)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(1,4)
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо вздрагивает, когда её ладони тонут в огромных лапах дракона.'
           $ game.rape.arms=False
@@ -1499,7 +1557,8 @@ label lb_rape_arms:
               $ game.rape.rage += random.randint(4,10)
             else: # Дракону повезло
               game.girl.third '[game.girl.name]  пытается акуратно пнуть дракона и оттолкнуть в сторону, но в последний момент замирает от страха и безвольно смотрит, как [game.dragon.name] хватает её за руки.'
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
               $ game.rape.arms=False
           else: # Согласна
             game.girl.third 'Счастливо улыбаясь, [game.girl.name] берёт ладонями лапки дракона.'
@@ -1507,14 +1566,16 @@ label lb_rape_arms:
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] вяло сопротивляется и молит дракона о пощаде, пока тот неспешно лапает её за руки.'
-            $ game.rape.rage += random.randint(0,4)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(0,4)
           else: # Согласна
             game.girl.third 'Счастливо улыбаясь, [game.girl.name] вкладывает ладони в лапы дракона.'
           $ game.rape.arms=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] понимает, что насильник слишком велик и сопротивление бесполезно. Она пробует молить о пощаде, но после короткого шипения решает расслабиться и попытаться получить удовольствие. '
-            $ game.rape.rage += random.randint(0,2)
+            if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(0,2)
           else: # Согласна
             game.girl.third 'Очень аккуратно [game.girl.name] вкладывает ладони в огромные лапы дракона.'
           $ game.rape.arms=False
@@ -1533,7 +1594,8 @@ label lb_rape_arms:
               $ game.rape.define_freedom()
             else: # Дракону не повезло
               game.girl.third '[game.girl.name] со всей дури бьёт по телу дракона, но это лишь помогает зафиксировать её руки.'
-              $ game.rape.rage += random.randint(4,8)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(4,8)
               $ game.rape.arms=False   
           else: # Согласна
             game.girl.third '[game.girl.name] неохотно разжимает кулаки и позволяет маленькому дракончику взять ладони своими крошечными лапками.'
@@ -1547,7 +1609,8 @@ label lb_rape_arms:
               $ game.rape.define_freedom()
             else:  #  У дракона всё получилось
               game.girl.third '[game.girl.name] визжит и бьёт по телу дракона кулаками. На последнем он её и ловит. Всё, теперь не уйдёт! '
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
               $ game.rape.arms=False
           else: # Согласна
             game.girl.third '[game.girl.name] неохотно разжимает кулаки и позволяет дракону взять ладони своими лапами.'
@@ -1555,7 +1618,8 @@ label lb_rape_arms:
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] визжит и бьёт по телу дракона кулаками. Но [game.dragon.name] слишком велик, он с лёгкостью захватывает руки девушки в свои лапы. '
-            $ game.rape.rage += random.randint(0,4)
+            if not game.rape.spermtoxicos:
+              $ game.rape.rage += random.randint(0,4)
           else: # Согласна
             game.girl.third '[game.girl.name] неохотно разжимает кулаки. Её крошечные ладони практически тонут в огромных лапах дракона.'
           $ game.rape.arms=False
@@ -1569,7 +1633,8 @@ label lb_rape_arms:
               $ game.rape.define_freedom()
             else: # Дракону повезло
               game.girl.third '[game.girl.name] пытается сопротивляться, но обвившееся вокруг неё тело дракона внушает ей дикий ужас, и [game.dragon.name] благополучно хватает её за руки.'
-              $ game.rape.rage += random.randint(2,6)
+              if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(2,6)
               $ game.rape.arms=False
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо сглатывает, когда маленький дракончик берёт её ладони своими крошечными лапками.'
@@ -1577,14 +1642,16 @@ label lb_rape_arms:
         elif game.rape.size == 2: # Средний дракон
           if not game.girl.willing:
             game.girl.third '[game.girl.name] в ужасе от обвившегося вокруг неё дракона. Она сражается вполсилы.'
-            $ game.rape.rage += random.randint(0,4)
+            if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(0,4)
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо сглатывает, когда дракон берёт её ладони своими лапами.'
           $ game.rape.arms=False
         elif game.rape.size == 3: # Матёрый драконище
           if not game.girl.willing:
             game.girl.third '[game.girl.name] в ужасе от обвившегося вокруг неё дракона. Его размер настолько велик, что её воля к сопротивлению практически парализована.'
-            $ game.rape.rage += random.randint(0,2)
+            if not game.rape.spermtoxicos:
+                $ game.rape.rage += random.randint(0,2)
           else: # Согласна
             game.girl.third '[game.girl.name] отчётливо сглатывает, когда её ладони тонут в огромных лапах дракона.'
           $ game.rape.arms=False
@@ -1670,6 +1737,10 @@ label lb_rape_end:
     pause (500.0)
     stop sound fadeout 1.0
     hide xxx
+    return
+
+# @fdsc Это нужно, чтобы отпустить девушку
+label lb_rape_end_virgin:
     return
 
 label lb_rape_escape: # Побег из лап дракона
@@ -1758,7 +1829,11 @@ label lb_bdsm_breast_tongue:   # Полизать
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
 
     $ game.dragon.drain_energy(girlQ+1, True)
-    $ game.rape.actual_proud -= 5 + girlQ*5
+    $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_breast//5)
+    $ game.girl.willingPercent += P*10
+    $ game.rape.actual_proud   -= P
+    $ game.dragon.tongue_exp        += 1
+    $ game.dragon.tongue_exp_breast += 1
     if game.rape.actual_proud <= 1:
         $ game.rape.actual_proud = 1
         $ game.girl.willing = True
@@ -1784,7 +1859,11 @@ label lb_bdsm_head_tongue:   # Полизать
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
 
     $ game.dragon.drain_energy(girlQ+1, True)
-    $ game.rape.actual_proud -= 5 + girlQ*5
+    $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_kiss//5)
+    $ game.girl.willingPercent += P*10
+    $ game.rape.actual_proud   -= P
+    $ game.dragon.tongue_exp      += 1
+    $ game.dragon.tongue_exp_kiss += 1
     if game.rape.actual_proud <= 1:
         $ game.rape.actual_proud = 1
         $ game.girl.willing = True
@@ -1817,7 +1896,11 @@ label lb_bdsm_pussy_tongue:   # Полизать
 
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
     $ game.dragon.drain_energy(girlQ+2, True)
-    $ game.rape.actual_proud -= 10 + girlQ*5
+    $ P = 10 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//5)
+    $ game.girl.willingPercent += P*10
+    $ game.rape.actual_proud   -= P
+    $ game.dragon.tongue_exp       += 1
+    $ game.dragon.tongue_exp_pussy += 1
     if game.rape.actual_proud <= 1:
         $ game.rape.actual_proud = 1
         $ game.girl.willing = True

@@ -929,6 +929,26 @@ class GirlsList(object):
 
         return cnt
 
+    def UseVirgins12_protection(self):
+        cnt = 0
+        for girl_i in reversed(xrange(self.prisoners_count)):
+            girl = self.prisoners[girl_i]
+            if girl.virgin and girl.willing:
+                cnt += 1
+                self.game.girl = girl
+                girl.virgin = False
+                self.game.chronik.write_chronik(u"Девушка была лишена невинности в ритуале девственной ромашки и послужила хорошим подспорьем в деле защиты логова", self.game.dragon.level, girl.girl_id)
+                del self.prisoners[girl_i]
+                self.free_list.append(girl)
+                self.game.girl = None
+
+
+        self.game.dragon.drain_energy(cnt, True)
+        self.game.dragon.lust = 0
+        self.game.lair.inaccByGirls += cnt*100
+
+        return cnt
+
     @property
     def prisoners_count(self):
         """
@@ -1448,8 +1468,13 @@ class GirlsList(object):
             kl = 1
 
         for K in xrange(int(kl)):
+            skip_delay = renpy.config.skip_delay
+            renpy.config.skip_delay=75
+
             self.spawn.append(girl_type[self.spawn_class])
             self.event('spawn', girl_type[self.spawn_class])  # событие "рождение отродий"
+
+            renpy.config.skip_delay = skip_delay
 
 
     # noinspection PyTypeChecker

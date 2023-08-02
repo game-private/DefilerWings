@@ -1,73 +1,19 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 149, in script call
-    call lb_location_lair_main from _call_lb_location_lair_main_3
-  File "game/labels/location/lair.rpy", line 46, in script
-    menu:
-  File "game/screens.rpy", line 24, in execute
-    screen choice:
-  File "game/screens.rpy", line 24, in execute
-    screen choice:
-  File "game/screens.rpy", line 44, in execute
-    use status_bar
-  File "game/map.rpy", line 94, in execute
-    screen status_bar:
-  File "game/map.rpy", line 94, in execute
-    screen status_bar:
-  File "game/map.rpy", line 96, in execute
-    fixed:
-  File "game/map.rpy", line 102, in execute
-    if game.dragon is not None and game.dragon.is_alive:
-  File "game/map.rpy", line 152, in execute
-    text "%s" % lust_texts[game.dragon.lust]:
-KeyError: -8
+After initialization, but before game start.
+error: No available video device
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 149, in script call
-    call lb_location_lair_main from _call_lb_location_lair_main_3
-  File "game/labels/location/lair.rpy", line 46, in script
-    menu:
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 1443, in execute
-    choice = renpy.exports.menu(choices, self.set)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 748, in menu
-    rv = renpy.store.menu(items)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 896, in display_menu
-    show_screen(screen, items=item_actions, _widget_properties=props, _transient=True, _layer=renpy.config.choice_layer, **scope)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 981, in show_screen
-    sls.add(_layer, d, _tag, zorder=d.zorder, transient=_transient, keep_st=True, name=name)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 917, in add
-    self.hide_or_replace(layer, remove_index, "replaced")
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 939, in hide_or_replace
-    d = oldsle.displayable._hide(now - st, now - at, prefix)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 430, in _hide
-    self.update()
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/screen.py", line 565, in update
-    self.screen.function(**self.scope)
-  File "game/screens.rpy", line 24, in execute
-    screen choice:
-  File "game/screens.rpy", line 24, in execute
-    screen choice:
-  File "game/screens.rpy", line 44, in execute
-    use status_bar
-  File "game/map.rpy", line 94, in execute
-    screen status_bar:
-  File "game/map.rpy", line 94, in execute
-    screen status_bar:
-  File "game/map.rpy", line 96, in execute
-    fixed:
-  File "game/map.rpy", line 102, in execute
-    if game.dragon is not None and game.dragon.is_alive:
-  File "game/map.rpy", line 152, in execute
-    text "%s" % lust_texts[game.dragon.lust]:
-  File "<screen language>", line 152, in <module>
-KeyError: -8
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/bootstrap.py", line 281, in bootstrap
+    renpy.main.main()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/main.py", line 450, in main
+    renpy.display.core.Interface()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1439, in __init__
+    pygame.display.init()
+  File "pygame_sdl2/display.pyx", line 66, in pygame_sdl2.display.init (gen/pygame_sdl2.display.c:1501)
+error: No available video device
 
 Linux-5.15.0-78-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858

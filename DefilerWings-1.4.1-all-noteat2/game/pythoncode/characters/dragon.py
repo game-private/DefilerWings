@@ -205,10 +205,19 @@ class Dragon(Fighter):
             self.astral_projection_mana = 0
 
         self.attractiveness_12 = 0
+        self.tongue_exp        = 0
+        self.tongue_exp_breast = 0
+        self.tongue_exp_kiss   = 0
+        self.tongue_exp_pussy  = 0
         # @fdsc Девственная ромашка
         if parent is not None:
             if 'attractiveness_12' in dir(parent):
                 self.attractiveness_12 = parent.attractiveness_12
+            if 'tongue_exp' in dir(parent):
+                self.tongue_exp        = parent.tongue_exp
+                self.tongue_exp_breast = parent.tongue_exp_breast
+                self.tongue_exp_kiss   = parent.tongue_exp_kiss
+                self.tongue_exp_pussy  = parent.tongue_exp_pussy
 
         self._gift = None  # Дар Владычицы
         if used_gifts is None:
