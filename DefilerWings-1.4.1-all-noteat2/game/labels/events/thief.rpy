@@ -228,7 +228,7 @@ label lb_event_thief_die_trap(thief, trap,method):
     # nvl clear    
     show expression "img/scene/thief_in_lair.jpg" as bg 
     $ txt = game.interpolate(data.lair_upgrades[trap].fail[method])
-    '[txt]' 
+    '{color=#00FF00}[txt]{/color}' 
     
     $ game.pauseForSkip()
 

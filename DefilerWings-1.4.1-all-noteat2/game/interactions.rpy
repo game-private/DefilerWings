@@ -339,7 +339,7 @@ label lb_lair_sex:
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
 
         # @fdsc Организовать работу в драконьем борделе
-        'В бордель' if not game.girl.in_brothel and game.girl.get_brothel_price > 0 and game.dragon.adv_attractiveness() > 0:
+        'В бордель' if not game.girl.in_brothel and game.girl.years_in_brothel <= 0 and game.girl.get_brothel_price > 0 and game.dragon.adv_attractiveness() > 0:
             $ game.girl.in_brothel = True
             $ text = u' %s назначил %s в бордель. Стоимость: %d\n' % (game.dragon.name, game.girl.name, game.girl.get_brothel_price)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
@@ -350,30 +350,6 @@ label lb_lair_sex:
             call screen girls_menu
             return
 
-        'Ласкать и расслаблять (для борделя)' if game.girl.years_in_brothel > 0 and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.dragon.adv_attractiveness() > 0:
-
-            $ game.girl.years_in_brothel -= game.dragon.adv_attractiveness() + 1
-            
-            if 'tongue' in game.dragon.modifiers():
-                $ game.girl.years_in_brothel -= 1
-
-            if game.girl.years_in_brothel < 0:
-                $ game.girl.years_in_brothel = 0
-            python:
-                if 'impregnator' in game.dragon.modifiers() or 'spermtoxicos' in game.dragon.modifiers():
-                    None
-                else:
-                    game.dragon.lust -= 1
-
-                game.dragon.drain_energy(1)
-
-            $ text = u' %s ласкал %s. Это было восхитительно\n' % (game.dragon.name, game.girl.name)
-            $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-            game.girl.third "[text]"
-
-            $ game.girls_list.jail_girl()
-            call screen girls_menu
-            return
 
         'Изъять из борделя' if game.girl.in_brothel:
             $ game.girl.in_brothel = False

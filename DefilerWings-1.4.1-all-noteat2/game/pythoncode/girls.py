@@ -1075,7 +1075,41 @@ class GirlsList(object):
             self.event('girl_kitchen')
             del self.prisoners[girl_i]
 
+
+    # @fdsc Дракон ласкает и расслабляет девушек из борделя, чтобы они не уставали
+    def brothel_girls_relaxation(self):
+
+        for girl_i in reversed(xrange(self.prisoners_count)):
+            self.game.girl = self.prisoners[girl_i]
+
+            adv_attractiveness = self.game.dragon.adv_attractiveness()
+            if adv_attractiveness <= 0 or self.game.dragon.energy() <= 0 or self.game.dragon.lust <= 0:
+                self.game.girl.in_brothel = False
+                continue
+
+            if not self.game.girl.in_brothel:
+                continue
+
+            self.game.girl.years_in_brothel -= adv_attractiveness + 1
+            if 'tongue' in self.game.dragon.modifiers():
+                self.game.girl.years_in_brothel -= 1
+
+            if self.game.girl.years_in_brothel < 0:
+                self.game.girl.years_in_brothel = 0
+
+            self.game.dragon.drain_energy(1)
+            if 'impregnator' in self.game.dragon.modifiers() or 'spermtoxicos' in self.game.dragon.modifiers():
+                None
+            else:
+                self.game.dragon.lust -= 1
+
+            text = u' %s ласкал %s. Это было восхитительно\n' % (self.game.dragon.name, self.game.girl.name)
+            self.game.chronik.write_chronik(text,self.game.dragon.level,self.game.girl.girl_id)
             
+
+            self.game.girl = None
+
+
     def next_year(self):
         """
         Все действия с девушками за год.
@@ -1401,6 +1435,10 @@ class GirlsList(object):
                 self.game.girl.third(text)
 
                 self.game.girl.years_in_brothel += 1
+
+        self.brothel_girls_relaxation()
+        # Конец обработки девушек в борделе
+
 
         # Всем девушкам, которые к концу цикла остались в тюрьме, прибавляем следующий год в описание
         for girl_i in reversed(xrange(self.prisoners_count)):

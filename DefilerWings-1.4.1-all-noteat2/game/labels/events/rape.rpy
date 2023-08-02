@@ -1830,10 +1830,11 @@ label lb_bdsm_breast_tongue:   # Полизать
 
     $ game.dragon.drain_energy(girlQ+1, True)
     $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_breast//5)
-    $ game.girl.willingPercent += P*10
+    $ game.girl.willingPercent += P*3
     $ game.rape.actual_proud   -= P
     $ game.dragon.tongue_exp        += 1
     $ game.dragon.tongue_exp_breast += 1
+    $ game.rape.tongue_to_breast    += 1
     if game.rape.actual_proud <= 1:
         $ game.rape.actual_proud = 1
         $ game.girl.willing = True
@@ -1860,10 +1861,11 @@ label lb_bdsm_head_tongue:   # Полизать
 
     $ game.dragon.drain_energy(girlQ+1, True)
     $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_kiss//5)
-    $ game.girl.willingPercent += P*10
-    $ game.rape.actual_proud   -= P
+    $ game.girl.willingPercent    += P*3
+    $ game.rape.actual_proud      -= P
     $ game.dragon.tongue_exp      += 1
     $ game.dragon.tongue_exp_kiss += 1
+    $ game.rape.tongue_to_head    += 1
     if game.rape.actual_proud <= 1:
         $ game.rape.actual_proud = 1
         $ game.girl.willing = True
@@ -1897,7 +1899,7 @@ label lb_bdsm_pussy_tongue:   # Полизать
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
     $ game.dragon.drain_energy(girlQ+2, True)
     $ P = 10 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//5)
-    $ game.girl.willingPercent += P*10
+    $ game.girl.willingPercent += P*3
     $ game.rape.actual_proud   -= P
     $ game.dragon.tongue_exp       += 1
     $ game.dragon.tongue_exp_pussy += 1

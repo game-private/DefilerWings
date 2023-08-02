@@ -560,7 +560,7 @@ screen bdsm_breast:   # Когти, клыки, огонь, лёд, молнии
             action [Hide('bdsm_breast'),Show('bdsm_breast') ]
 
 
-        if game.rape.tongue and game.dragon.energy() > 0: # Полизать:
+        if game.rape.tongue and game.rape.tongue_to_head > 0 and game.dragon.energy() > 0: # Полизать:
           hbox:
             ypos 100
             #xpos 1120
@@ -578,6 +578,15 @@ screen bdsm_breast:   # Когти, клыки, огонь, лёд, молнии
             textbutton _("Язык"):
               action [Hide('bdsm_breast'),Show('bdsm_breast') ]
               hovered rape_tooltip.Action('{color=#ff0000}Дракон слишком устал!{/color}')
+        elif game.rape.tongue_to_head <= 0:
+          hbox:
+            ypos 500
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              action [Hide('bdsm_breast'),Show('bdsm_breast') ]
+              hovered rape_tooltip.Action('{color=#ffff00}Поцелуи надо начинать с губ{/color}')
 
         elif not game.rape.tongue:
           hbox:
@@ -1323,7 +1332,7 @@ screen bdsm_pussy:   # Когти, огонь, лёд, молнии, яд, жа�
             hovered rape_tooltip.Action('{color=#ff0000}[game.dragon.name] оторвал бы пленнице клитор когтями - будь у него когти...{/color}')
             action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
 
-        if game.rape.tongue and game.dragon.energy() > 1: # Полизать:
+        if game.rape.tongue and game.rape.tongue_to_breast > 1 and game.dragon.energy() > 1: # Полизать:
           hbox:
             ypos 100
             #xpos 1120
@@ -1340,6 +1349,15 @@ screen bdsm_pussy:   # Когти, огонь, лёд, молнии, яд, жа�
             spacing 50
             textbutton _("Язык"):
               hovered rape_tooltip.Action('{color=#ff0000}Дракон слишком устал!{/color}')
+              action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
+        elif game.rape.tongue_to_breast <= 1:
+          hbox:
+            ypos 100
+            #xpos 1120
+            xpos 800
+            spacing 50
+            textbutton _("Язык"):
+              hovered rape_tooltip.Action('{color=#ffff00}Только нетерпеливые юнцы делают куни не расцеловав груди!{/color}')
               action [Hide('bdsm_pussy'),Show('bdsm_pussy') ]
         elif not game.rape.tongue:
           hbox:

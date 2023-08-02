@@ -749,6 +749,9 @@ label lb_caravan_trade:
     return
 
 label lb_new_love_lizardman:  # Девушка встречает контрабандиста
+    $ skip_delay = config.skip_delay
+    $ config.skip_delay=75
+
     call lb_girl_waits from _call_lb_girl_waits_1
     game.girl.love 'Ррагх. Гхар. Гхараггх!!!'
     'Теперь [game.girl.name] точно обречена: к мелким монстрикам прибился их старший братец. Могучий. Грозный. С острыми зубами, светящимися глазами, чешуйчатой кожей, вытянутой мордой... настоящее воплощение ночного кошмара.'
@@ -803,6 +806,8 @@ label lb_new_love_lizardman:  # Девушка встречает контраб
         call lb_nll_lust_sex from _call_lb_nll_lust_sex
     else:
         call lb_nll_pregnant from _call_lb_nll_pregnant
+
+    $ config.skip_delay=skip_delay
 
     return
 

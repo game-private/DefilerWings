@@ -73,6 +73,8 @@ class rape(object):
           self.tongue=True   # Язык
         if 'spermtoxicos' in self.game.dragon.modifiers():
           self.spermtoxicos=True
+        self.tongue_to_head   = 0
+        self.tongue_to_breast = 0
 
 #       Определяем размер дракона при изнасиловании
         if not girls_data.girls_info[self.game.girl.type]['giantess']:
