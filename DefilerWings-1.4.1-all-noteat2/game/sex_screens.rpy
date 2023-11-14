@@ -174,6 +174,10 @@ label lb_reputation:
 
 screen penetration_sex:
     python:
+        # Проблемы при загрузке после сохранения: почему-то этот путь не сохраняется
+        if "relative_path" not in dir(rape):
+            rape.relative_path = "img/sex_screen/brown/1"
+
         focus_mask_ext.load_focus_mask_girls(rape.relative_path + '/coordinates.bin')
         if game.rape.spermtoxicos:
           if game.rape.rage >= 10 and game.dragon.bloodiness < 1:
@@ -317,7 +321,7 @@ screen penetration_sex:
             spacing 50
             textbutton _("Попробовать иначе") hovered rape_tooltip.Action('{color=#ff0000}Потом придётся начинать заново...{/color}') action [Function(game.rape.define_freedom),Hide('penetration_sex'),Show('start_sex') ]
         # @fdsc Ухаживания языком - можно выйти не лишая невинности
-        if game.girl.virgin: # and game.girl.jailed:
+        if game.girl.virgin or game.rape.erection <4: # and game.girl.jailed:
             hbox: 
                 ypos 640
                 xpos 1020

@@ -194,7 +194,7 @@ label lb_location_lair_main:
                 $ cnt -= 1
                 $ rc  += 1
 
-                while game.dragon.energy() > game.dragon.max_energy() // 2:
+                while game.dragon.energy() > game.dragon.max_energy() // 2 and game.dragon.energy() > game.dragon.max_energy() - 2:
                     call lb_create_treasures(True)
                     if not _return:
                         nvl clear
@@ -258,9 +258,10 @@ label lb_create_treasures(random_choice=False):
 
             # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
             # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
-            while isImage and random.randint(0, int(QI)) > 10:
-                QE += 1
-                QK += 1
+            if QI > 0:
+                while isImage and random.randint(0, int(QI)) > 10:
+                    QE += 1
+                    QK += 1
 
             new_item.quality_mod = game.dragon.getTreasureMasterEffect(QK)
             if new_item.dec_mod > 1:

@@ -73,7 +73,7 @@ label lb_location_mountain_main:
             call lb_location_mountain_main_mine_gems()
 
         ''
-        'Охотиться за добычей':
+        '\nОхотиться за добычей\n':
             jump lb_location_mountain_main_travel
 
         # '\n{color=#707070}{b}Вернуться{/b}{/color}\n':

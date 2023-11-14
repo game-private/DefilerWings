@@ -31,7 +31,7 @@ label lb_location_city_main:
             while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
                 call lb_city_palace_atk(True, True)
 
-        'Украсть девушку с рынка' if game.dragon.can_fly and not (game.witch_st1==6 or game.witch_st1==7) and game.dragon.energy() > 0 and game.girl is not None and game.girls_list.free_size-game.girl.size >= 0:
+        'Украсть девушку с рынка' if game.dragon.can_fly and not (game.witch_st1==6 or game.witch_st1==7) and game.dragon.energy() > 0 and game.girls_list.free_size-game.girl.size >= 0:
             # @fdsc
             # 'Легко перемахнув через городскую стену, [game.dragon.kind] оказывается в самом центре города. От летучего врага укрепления не спасут...'
             call lb_city_market_atk(True)
@@ -55,6 +55,30 @@ label lb_location_city_main:
             # while game.dragon.energy() > 0 and game.dragon.injuries <= 0:
             call lb_city_market_atk(False, True)
 
+        'Украсть благородную девушку' if game.dragon.can_fly and not (game.witch_st1==6 or game.witch_st1==7) and game.dragon.energy() > 0 and game.girls_list.free_size-game.girl.size >= 0:
+            # @fdsc
+            # call lb_city_jew_atk
+
+            $ game.foe = Enemy('city_guard', game_ref=game)
+            call lb_fight from _call_lb_fight_E
+
+            $ description = game.girls_list.new_girl('princess')
+
+            $ game.dragon.reputation.points += 5
+            $ game.dragon.reputation.points += 3
+
+            $ game.dragon.drain_energy(1, True)
+
+            $ text = u'Заполучив благородную девицу с рынка, дракон утащил бедняжку в своё логово%s. \n\n' % game.lair.type.name_locative
+
+            $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
+            $ description = game.girls_list.steal_girl()
+            $ place = game.lair.type_name
+            show place
+            nvl clear
+            $ description = game.girls_list.jail_girl()
+
+            pass
         ''
 
         'Тайный визит' if game.dragon.mana > 0:

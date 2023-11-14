@@ -301,7 +301,7 @@ class Dragon(Fighter):
         [dp1,   dp2]   = self.defence_power()
         [at1,   at2]   = self.attack_strength()
         [girlW, girlQ] = self.attractiveness(None)
-        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d%%, привлекательность %d' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100), int(100-girlQ))
+        ddescription += u'\n Защита: сильная %d, слабая %d. Атака: сильная %d, слабая %d\nСтрах %d, мана %d, энергия %d, мастерство ювелира %d, уровень %d (1-13), добыча камней %d, астральная проекция %d%%, привлекательность %d, владение языком %d (бюст %d, поцелуи %d, между ног %d)' % (dp2, dp1, at2, at1, self.fear, self.magic, self.max_energy(), int(self.getTreasureMasterEffect(isNominal=True) * 100), self.level, int(self.miner.effectiveness() * self.sizeForMine), int(self.astral_projection_max*100), int(100-girlQ), int(self.tongue_exp), int(self.tongue_exp_breast), int(self.tongue_exp_kiss), int(self.tongue_exp_pussy))
 
         return ddescription
 

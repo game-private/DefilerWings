@@ -161,7 +161,7 @@ label lb_lair_sex:
             pass
 
         # @fdsc Ухаживать за девушкой
-        'Долго ухаживать за девушкой (+[girlW]\%)' if game.dragon.energy() >= 3 and game.dragon.energy() >= girlQ and game.girl.virgin:
+        'Долго ухаживать за девушкой (+[girlW]\%)' if game.dragon.energy() >= 3 and game.dragon.energy() >= girlQ and game.girl.virgin and (100-girlQ) >= 0:
 
             python:
                 [girlW, girlQ] = game.dragon.attractiveness(game.girl, game.lair)
@@ -179,7 +179,7 @@ label lb_lair_sex:
             pass
 
         # @fdsc Ухаживать за девушкой
-        'Очень долго ухаживать за девушкой' if game.dragon.energy() >= 4 and game.dragon.energy() >= girlQ+1 and game.girl.virgin and 'spermtoxicos' in game.dragon.modifiers():
+        'Очень долго ухаживать за девушкой' if game.dragon.energy() >= 4 and game.dragon.energy() >= girlQ+1 and game.girl.virgin and 'spermtoxicos' in game.dragon.modifiers() and (100-girlQ) >= 0:
 
             python:
                 # Это не ошибка: здесь энергия дракона после ухаживания будет отрицательной: просто поспать не получится
