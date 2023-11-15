@@ -161,10 +161,11 @@ label lb_lair_sex:
             pass
 
         # @fdsc Ухаживать за девушкой
-        'Долго ухаживать за девушкой (+[girlW]\%)' if game.dragon.energy() >= 3 and game.dragon.energy() >= girlQ and game.girl.virgin and (100-girlQ) >= 0:
+        'Долго ухаживать за девушкой (+[girlW]\%)' if game.dragon.energy() >= 3 and game.dragon.energy() >= girlQ and game.girl.virgin and (5-girlQ) >= 0:
 
             python:
                 [girlW, girlQ] = game.dragon.attractiveness(game.girl, game.lair)
+                # a_attr = game.dragon.adv_attractiveness()
 
                 game.dragon.drain_energy(girlQ, True)
                 if 'spermtoxicos' not in game.dragon.modifiers():
@@ -179,7 +180,7 @@ label lb_lair_sex:
             pass
 
         # @fdsc Ухаживать за девушкой
-        'Очень долго ухаживать за девушкой' if game.dragon.energy() >= 4 and game.dragon.energy() >= girlQ+1 and game.girl.virgin and 'spermtoxicos' in game.dragon.modifiers() and (100-girlQ) >= 0:
+        'Очень долго ухаживать за девушкой' if game.dragon.energy() >= 4 and game.dragon.energy() >= girlQ+1 and game.girl.virgin and 'spermtoxicos' in game.dragon.modifiers() and (5-girlQ) >= 0:
 
             python:
                 # Это не ошибка: здесь энергия дракона после ухаживания будет отрицательной: просто поспать не получится
@@ -339,7 +340,7 @@ label lb_lair_sex:
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
 
         # @fdsc Организовать работу в драконьем борделе
-        'В бордель' if not game.girl.in_brothel and game.girl.years_in_brothel <= 0 and game.girl.get_brothel_price > 0 and game.dragon.adv_attractiveness() > 0:
+        'В бордель' if not game.girl.in_brothel and game.girl.years_in_brothel <= 0 and game.girl.get_brothel_price > 0 and game.dragon.adv_attractiveness() >= 0:
             $ game.girl.in_brothel = True
             $ text = u' %s назначил %s в бордель. Стоимость: %d\n' % (game.dragon.name, game.girl.name, game.girl.get_brothel_price)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)

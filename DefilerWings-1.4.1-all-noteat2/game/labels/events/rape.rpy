@@ -1827,9 +1827,13 @@ label lb_bdsm_breast_tongue:   # Полизать
     game.girl.third '[game.girl.name] подёргивается от удовольствия. Грудь, которую должен был ласкать её суженый, к которой должно было припасть её дитя - эта грудь испытывает то, что больше не испытает никогда: особое прикосновение драконьего языка!'    
 
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+    $ attr = (5-girlQ)
+    python:
+        if attr < 1:
+            attr = 1
 
     $ game.dragon.drain_energy(girlQ+1, True)
-    $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_breast//5)
+    $ P = 5 + attr*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_breast//5)
     $ game.girl.willingPercent += P
     $ game.rape.actual_proud   -= P
     $ game.dragon.tongue_exp        += 1
@@ -1858,9 +1862,13 @@ label lb_bdsm_head_tongue:   # Полизать
     game.girl 'Ах!!! Ах!!! Ах!!!'   
     
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+    $ attr = (5-girlQ)
+    python:
+        if attr < 1:
+            attr = 1
 
     $ game.dragon.drain_energy(girlQ+1, True)
-    $ P = 5 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_kiss//5)
+    $ P = 5 + attr*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_kiss//5)
     $ game.girl.willingPercent    += P
     $ game.rape.actual_proud      -= P
     $ game.dragon.tongue_exp      += 1
@@ -1897,8 +1905,13 @@ label lb_bdsm_pussy_tongue:   # Полизать
     game.girl.third '[game.girl.name] изгибается от невыносимого удовольствия.'    
 
     $ [girlW, girlQ] = game.dragon.attractiveness(game.girl)
+    $ attr = (5-girlQ)
+    python:
+        if attr < 1:
+            attr = 1
+
     $ game.dragon.drain_energy(girlQ+2, True)
-    $ P = 10 + girlQ*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//5)
+    $ P = 10 + attr*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//5)
     $ game.girl.willingPercent += P
     $ game.rape.actual_proud   -= P
     $ game.dragon.tongue_exp       += 1

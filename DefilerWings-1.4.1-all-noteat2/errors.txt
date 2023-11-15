@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/interactions.rpy", line 341: expected menuitem
-    $ AAA = game.dragon.adv_attractiveness()
-    ^
+File "game/labels/events/rape.rpy", line 1864: invalid syntax
+    [girlW, girlQ] = game.dragon.attractiveness(game.girl)$ attr = (100-girlQ)
+                                                           ^
+    
 
 Ren'Py Version: Ren'Py 6.99.7.858
