@@ -45,7 +45,8 @@ python early:
         0: '{font=fonts/AnticvarShadow.ttf}{color=#ff0000}Вялый{/color}{/font}',
         1: '{font=fonts/AnticvarShadow.ttf}{color=#ff00ff}Возбужден{/color}{/font}',
         2: '{font=fonts/AnticvarShadow.ttf}{color=#0085ff}Перевозбужден{/color}{/font}',
-        3: '{font=fonts/AnticvarShadow.ttf}{color=#00ff00}Сосуд похоти{/color}{/font}'
+        3: '{font=fonts/AnticvarShadow.ttf}{color=#00ff00}Сосуд похоти{/color}{/font}',
+        4: '{font=fonts/AnticvarShadow.ttf}{color=#55ff55}Разрывается от желания{/color}{/font}'
     }
 
     bloodlust_texts = [

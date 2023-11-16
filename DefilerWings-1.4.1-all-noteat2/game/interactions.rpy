@@ -37,14 +37,14 @@ label lb_nature_sex:
             $ game.girl.willing=True
             $ game.dragon.drain_mana(game.girl.quality + 1)
             pass
-        
+
         # @fdsc Быстрый секс после гипноза
         'Быстрый секс' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0:
-            # call lb_sex
-            $ description = game.girls_list.rape_impregnate()
+            # Здесь похоть уменьшается автоматически
+            $ description = game.girls_list.impregnate()
             $ text = u' %s предавался утехам с %s, пока она не забеременела' % (game.dragon.name, game.girl.name)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-            $ game.dragon.lust -= 1
+            # $ game.dragon.lust -= 1
 
         # @fdsc Умиротворяем дракона
         'Секс для удовольствия (уменьшает ярость)' if game.girl.willing and not game.girl.virgin and game.girl.quality >= 0 and game.dragon.bloodiness > 0 and game.dragon.lust > 0:
@@ -53,6 +53,7 @@ label lb_nature_sex:
             $ game.girl.quality = game.girl.quality - 1
             $ game.dragon.gain_rage(-1)
             $ game.dragon.lust -= 1
+
 
         # @fdsc Ритуалы только в логове
         
@@ -202,13 +203,16 @@ label lb_lair_sex:
         # @fdsc Быстрый секс после гипноза
         'Быстрый секс' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0:
             # call lb_sex
-            $ description = game.girls_list.rape_impregnate()
+            $ description = game.girls_list.impregnate()
             $ text = u' %s предавался утехам с %s, пока она не забеременела' % (game.dragon.name, game.girl.name)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
-            $ game.dragon.lust -= 1
+            # $ game.dragon.lust -= 1
+            
+            pass
+            
 
         # @fdsc 
-        'Лишить невинности без оплодотворения (мана на ход)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.girl.willingPercent > 101:
+        'Лишить невинности без оплодотворения (мана на ход)' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0:
             python:
                 wp = game.girl.willingPercent - 100
                 if wp < 1001:
@@ -225,10 +229,28 @@ label lb_lair_sex:
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
             $ game.dragon.drain_mana(-mana)
             $ game.girl.virgin = False
-            $ game.dragon.lust -= 1
+            if 'spermtoxicos' not in game.dragon.modifiers():
+                $ game.dragon.lust -= 1
+
+
+
+        # @fdsc 
+        'Ритуал с девственницей: войти в спермотоксикоз' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.girls_list.is_human_girl:
+            python:
+
+                game.dragon.add_effect('spermtoxicos')
+
+            $ text = u' %s целый день развлекался с %s, лишив её невинности, но воздержавшись от оплодотворения: дракон получил спермотоксикоз' % (game.dragon.name, game.girl.name)
+            $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
+            $ game.dragon.drain_energy(1)
+            $ game.girl.virgin = False
+            if game.dragon.lust < 4:
+                $ game.dragon.lust += 1
+
+
 
         # @fdsc
-        'Ритуал с девственницей: повысить защиту логова'  if game.girl.willing and game.girl.virgin and game.girl.quality >= 0 and game.dragon.lust >= game.girl.quality and game.dragon.energy() >= game.girl.quality:
+        'Ритуал с девственницей: повысить защиту логова'  if game.girl.willing and game.girl.virgin and game.girl.quality >= 0 and game.dragon.lust >= game.girl.quality and game.dragon.energy() >= game.girl.quality and game.girl.willingPercent > 101:
         
             python:
                 game.dragon.drain_energy(game.girl.quality)
@@ -338,6 +360,7 @@ label lb_lair_sex:
 
             $ text = u' %s провёл ритуал лишения девственности с %s и получил очки уродства или атаки: %d\n' % (game.dragon.name, game.girl.name, cnt)
             $ game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
+
 
         # @fdsc Организовать работу в драконьем борделе
         'В бордель' if not game.girl.in_brothel and game.girl.years_in_brothel <= 0 and game.girl.get_brothel_price > 0 and game.dragon.adv_attractiveness() >= 0:

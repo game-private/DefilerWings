@@ -274,6 +274,9 @@ label lb_talk_obtained(repeat=False):
       game.girl.willing=True
       game.girl.gift=game.chronik.active_gift
       game.chronik.active_gift = None
+      # @fdsc
+      game.girl.willingPercent = int(100.0 * game.girl.gift.cost / data.gift_price[game.girl.type][game.girl.nature])
+
       text = u'Впрочем, пленнице повезло - если это вообще можно назвать везением. %s - прекрасный подарок, и в благодарность %s решила отдаться дракону по собственной воле. \n\n' % (treasures.capitalize_first(game.girl.gift.description()), game.girl.name)
       game.chronik.write_chronik(text,game.dragon.level,game.girl.girl_id)
     return

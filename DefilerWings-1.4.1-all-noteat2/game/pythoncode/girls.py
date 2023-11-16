@@ -583,10 +583,15 @@ class GirlsList(object):
                     text = self.description('think_proud_after') 
                     self.game.girl.third(text)
 
-                # @fdsc Было 1, 3 вместо 1 + ina
+                # @fdsc Было randint(1, 3) вместо 1 + ina
                 ina  = self.game.lair.inaccessability
                 ina += self.game.lair.reachableSumm([]) * 8
                 ina -= self.game.girl.quality * 12
+                ina += self.game.lair.summProtection() / 10
+                ina += self.game.lair.summBrilliance() / 10;
+                if self.game.girl.virgin == True:
+                    ina -= 1
+                ina  = int(ina)
                 if ina < 1:
                     ina = 1
                 # self.game.girl(u'Побег %s%%' % (100 / ina))
@@ -885,6 +890,8 @@ class GirlsList(object):
         """
         Ограбить девушку.
         """
+        # @fdsc - после ограбления подарки девушкам дарить не получится
+        self.game.girl.willing_attemp=False
         self.game.lair.treasury.receive_treasures(self.game.girl.treasure)
         return self.description('rob')
 
@@ -1688,6 +1695,18 @@ class GirlsList(object):
             possible=True
         return possible
 
+    # @fdsc
+    @property
+    def is_human_girl(self):
+        """
+        Проверяет, что девушка является именно человеческой девушкой
+        """
+        assert self.game.girl, "Girl not found"
+
+        if self.game.girl.type=='peasant' or self.game.girl.type=='citizen' or self.game.girl.type=='princess':
+            return True
+        return False
+
 
     @property
     def love_possible_lizardman(self):
@@ -1828,7 +1847,7 @@ class GirlsList(object):
           self.game.girl = self.prisoners[girl_i]
           self.event('dragon_lair')
           if not(('servant' in self.game.lair.upgrades) or ('gremlin_servant' in self.game.lair.upgrades)):
-            text = u'Из-за безалаберности дракона %s умерла от голода. Перед смертью она распробывала собственные пальцы. ' %(self.game.girl.name )
+            text = u'Из-за безалаберности дракона %s умерла от голода. Перед смертью она распробовала собственные пальцы. ' %(self.game.girl.name )
             self.game.chronik.write_chronik(text,self.game.dragon.level,self.game.girl.girl_id)
             self.event('hunger_death')  # событие "смерть девушки от голода"
             del self.prisoners[girl_i]

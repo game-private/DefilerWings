@@ -114,6 +114,7 @@ label lb_enchanted_forest_druid:
                 trs_list = game.lair.treasury.treasures_description(trs)
                 trs_descrptn = '\n'.join(trs_list)
             'Друид повержен. [game.dragon.reputation.gain_description]\n[game.dragon.name] находит на трупе кое-что ценное:\n[trs_descrptn]'
+            jump lb_enchanted_forest_enter
         'Отступить и покинуть лес' if game.dragon.bloodiness < 5:
             $ game.dragon.gain_rage()   
     return

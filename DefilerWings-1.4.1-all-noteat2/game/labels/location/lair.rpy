@@ -157,15 +157,6 @@ label lb_location_lair_main:
 
 
         ''
-        'Смастерить вещь' if ('servant' in game.lair.upgrades) or ('gremlin_servant' in game.lair.upgrades):
-            $ new_item = game.lair.treasury.craft(**data.craft_options['servant'])
-            if new_item:
-                $ game.lair.treasury.receive_treasures([new_item])
-                $ test_description = new_item.description()
-                nvl clear
-                "Изготовлено: [test_description]."
-            call lb_location_lair_main from _call_lb_location_lair_main_4              
-
          # @fdsc
         'Заниматься искусством ([quality_mod])' if game.dragon.energy() > 0:
 
@@ -177,6 +168,21 @@ label lb_location_lair_main:
         'Вдохновенно создать случайную вещь' if game.dragon.energy() > 2:
 
             call lb_create_treasures(True)
+
+            if not _return:
+                nvl clear
+                'Нет материала для создания вещей'
+
+            call lb_location_lair_main from _call_lb_location_lair_main_4
+
+        # @fdsc
+        'Вдохновенно создать дешёвые случайные вещи' if game.dragon.energy() > 0 and game.dragon.mana >= 0:
+
+            $ cnt = 0
+            # cnt нужен для того, чтобы цикл не зациклился, т.к. вещи не всегда создаются
+            while game.dragon.energy() > 0 and game.dragon.mana >= 0 and cnt < 10:
+                call lb_create_treasures(True, 3)
+                $ cnt += 1
 
             if not _return:
                 nvl clear
@@ -240,7 +246,7 @@ label lb_location_lair_main:
     return
 
 
-label lb_create_treasures(random_choice=False):
+label lb_create_treasures(random_choice=False, maxQE=game.dragon.energy()):
 
     $ new_item = game.lair.treasury.craft(is_crafting=True, quality=['common'], price_multiplier=0, by_dragon=game.dragon.energy(), random_choice=random_choice)
     if new_item:
@@ -248,13 +254,20 @@ label lb_create_treasures(random_choice=False):
         python:
             QM = game.dragon.mana
             QE = game.dragon.energy()
+            if QE > maxQE:
+                QE = maxQE
+
             QK = 0
 
-            QI = math.log(1+game.dragon.Treasure_master) + game.dragon.max_energy() - QE + game.dragon.magic - QM
+            QI = math.log(1+game.dragon.Treasure_master) + QE + QM
 
             isImage = new_item.dec_mod > 1
             if not isImage:
                 isImage = new_item.image
+
+            if 'art_dragon' in game.dragon.modifiers():
+                QI += 10
+                QM += 1
 
             # Если у дракона достаточно маны и энергии, а также есть опыт и он делает изображение
             # То на него может снизойти вдохновение: он потратит больше энергии, чем у него есть
@@ -280,7 +293,7 @@ label lb_create_treasures(random_choice=False):
 
             txt = ""
             if QK > 0:
-                txt = u"\nВо время творчества на дракона снизошло вдохновение (-" + str(QK) + u" энергии; стоимость увеличена)"
+                txt = u"\nВо время творчества на дракона снизошло вдохновение {color=#00FF00}(-" + str(QK) + u" энергии; стоимость увеличена){/color}"
 
         # if not random_choice:
         nvl clear

@@ -1693,7 +1693,7 @@ paws_description = [
 ]
 
 # @fdsc
-special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos', 'energy', 'strong_heart', 'astral_projection')
+special_features = ('tough_scale', 'gold_scale', 'poisoned_sting', 'clutches', 'horns', 'fangs', 'ugly', 'uglyVirgin', 'attackPVirgin', 'attackIVirgin', 'attackSVirgin', 'attackFVirgin', 'attackLVirgin', 'defenseVirgin', 'tongue', 'spermtoxicos', 'energy', 'strong_heart', 'astral_projection', 'art_dragon')
 
 special_description = [
     u'Его чешуя крепче, чем закалённая цвергами сталь.',
@@ -1720,7 +1720,8 @@ special_description = [
     u'Увеличенное влечение, уменьшающее ярость при ухаживаниях. Великий осеменитель - никогда не рождаются слабые отродья от сильных женщин',
     u'Дракон делает всё так быстро, что время иногда не успевает проходить мимо него',
     u'Мощное сердце удваивает эффект энергии от лап и от крыльев, но, при этом, повышается ярость',
-    u'Астральная проекция позволяет дракону накапливать ману между годами'
+    u'Астральная проекция позволяет дракону накапливать ману между годами',
+    u'Дракон склонен к творчеству: на него чаще восходит вдохновение'
 ]
 
 # @fdsc
@@ -1741,7 +1742,8 @@ special_features_rus = {
     "defenseVirgin": u"Общая слабая защита от ритуала",
     "tongue": u"Сладкий язык",
     'spermtoxicos': u"Спермотоксикоз",
-    'energy': u"Энергичный дракон"
+    'energy': u"Энергичный дракон",
+    'art_dragon': u"Творческий дракон"
 }
 
 cunning_description = [
@@ -1836,7 +1838,7 @@ spell_unknown = {
     # 'spellbound_trap2': ['spellbound_trap2'],
     # 'spellbound_trap3': ['spellbound_trap3'],
     'swimmer_spell': ['swimming'],
-    'impregnator': ['impregnator'],
+    'impregnator': ['impregnator']
 }
 
 spell_description_list = {
@@ -1867,6 +1869,7 @@ spell_description_list = {
     'boar_meat': [u"Плоть вепря даровала атакам дракона убийственную мощь! \n"],
     'bear_meat': [u"Плоть медведя даровала дракону взвешенную и расчётливую осторожность! \n"],
     'shark_meat': [u"Плоть акулы даровала дракону магическую мощь! \n"],
+    'spermtoxicos': [u"Ритуал над девственницей ввёл дракона в спермотоксикоз\n"]
 }
 
 # Русское название для отображения заклинания
@@ -1905,6 +1908,7 @@ effects_list = {
     'griffin_meat': ['mg_up'],
     'shark_meat': ['mg_up'],
     'witch_spell': ['mg_up'],
+    'spermtoxicos': ['spermtoxicos']
 }
 
 modifiers = {
@@ -1949,6 +1953,7 @@ modifiers = {
     'energy':               Modifier(),
     "strong_heart":         Modifier(),
     "astral_projection":    Modifier(),
+    "art_dragon":           Modifier(),
     # Заклинания
     'fire_breath':          Modifier(attack=('fire', (0, 1))),
     'ice_breath':           Modifier(attack=('ice', (0, 1))),
