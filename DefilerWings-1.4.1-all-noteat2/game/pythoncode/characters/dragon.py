@@ -750,7 +750,13 @@ class Dragon(Fighter):
         if a < 1:
             return 1
 
-        return 1 + QK + math.log(a) / math.log(100)
+        a  = 1 + QK + math.log(a) / math.log(100)
+        a -= self.size - 1
+        if a < 1:
+            a = math.pow(10, a-1)
+
+        return a
+
 
     class GirlHelperClass:
         quality      = 1

@@ -235,7 +235,7 @@ label lb_lair_sex:
 
 
         # @fdsc 
-        'Ритуал с девственницей: войти в спермотоксикоз' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.girls_list.is_human_girl:
+        'Ритуал с девственницей: войти в спермотоксикоз' if game.girl.willing and game.girl.virgin and game.dragon.lust > 0 and game.dragon.energy() > 0 and game.girls_list.is_human_girl and 'spermtoxicos' not in game.dragon.modifiers() and 'impregnator' not in game.dragon.modifiers():
             python:
 
                 game.dragon.add_effect('spermtoxicos')

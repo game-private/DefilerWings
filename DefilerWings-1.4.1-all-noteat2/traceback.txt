@@ -1,26 +1,71 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 191, in script call
-    call lb_create_treasures(True, 3)
-  File "game/labels/location/lair.rpy", line 257, in script
-    $ new_item = game.lair.treasury.craft(is_crafting=True, quality=['common'], price_multiplier=0, by_dragon=game.dragon.energy(), random_choice=random_choice)
-Exception: Possible infinite loop.
+While loading <'Image' 'img/scene/spawn/alla.jpg'>:
+  File "game/labels/events/girl.rpy", line 3367, in script
+    game.girl.third "[free_spawn_description]"
+  File "renpy/common/00nvl_mode.rpy", line 285, in do_display
+    **display_args)
+IOError: Couldn't find file 'img/scene/spawn/alla.jpg'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 67, in script call
-    $ renpy.call(target_label)
-  File "game/labels/location/lair.rpy", line 191, in script call
-    call lb_create_treasures(True, 3)
-  File "game/labels/location/lair.rpy", line 257, in script
-    $ new_item = game.lair.treasury.craft(is_crafting=True, quality=['common'], price_multiplier=0, by_dragon=game.dragon.energy(), random_choice=random_choice)
-  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/execution.py", line 52, in check_infinite_loop
-    raise Exception("Possible infinite loop.")
-Exception: Possible infinite loop.
+  File "game/labels/events/girl.rpy", line 3367, in script
+    game.girl.third "[free_spawn_description]"
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ast.py", line 603, in execute
+    renpy.exports.say(who, what, interact=self.interact)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/exports.py", line 1036, in say
+    who(what, interact=interact)
+  File "pythoncode/characters/talker.py", line 53, in third
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 826, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, **display_args)
+  File "renpy/common/00nvl_mode.rpy", line 285, in do_display
+    **display_args)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/character.py", line 491, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/ui.py", line 277, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 2354, in interact
+    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 2691, in interact_core
+    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/core.py", line 1788, in draw_screen
+    renpy.config.screen_height,
+  File "renpy/display/render.pyx", line 394, in renpy.display.render.render_screen (gen/renpy.display.render.c:6190)
+    rv = render(root, width, height, 0, 0)
+  File "renpy/display/render.pyx", line 185, in renpy.display.render.render (gen/renpy.display.render.c:2721)
+    rv = d.render(widtho, heighto, st, at)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/layout.py", line 650, in render
+    surf = render(child, width, height, cst, cat)
+  File "renpy/display/render.pyx", line 103, in renpy.display.render.render (gen/renpy.display.render.c:3104)
+    cpdef render(d, object widtho, object heighto, double st, double at):
+  File "renpy/display/render.pyx", line 185, in renpy.display.render.render (gen/renpy.display.render.c:2721)
+    rv = d.render(widtho, heighto, st, at)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/layout.py", line 650, in render
+    surf = render(child, width, height, cst, cat)
+  File "renpy/display/render.pyx", line 103, in renpy.display.render.render (gen/renpy.display.render.c:3104)
+    cpdef render(d, object widtho, object heighto, double st, double at):
+  File "renpy/display/render.pyx", line 185, in renpy.display.render.render (gen/renpy.display.render.c:2721)
+    rv = d.render(widtho, heighto, st, at)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/layout.py", line 650, in render
+    surf = render(child, width, height, cst, cat)
+  File "renpy/display/render.pyx", line 103, in renpy.display.render.render (gen/renpy.display.render.c:3104)
+    cpdef render(d, object widtho, object heighto, double st, double at):
+  File "renpy/display/render.pyx", line 185, in renpy.display.render.render (gen/renpy.display.render.c:2721)
+    rv = d.render(widtho, heighto, st, at)
+  File "renpy/display/accelerator.pyx", line 104, in renpy.display.accelerator.transform_render (gen/renpy.display.accelerator.c:1904)
+    cr = render(child, widtho, heighto, st - self.child_st_base, at)
+  File "renpy/display/render.pyx", line 185, in renpy.display.render.render (gen/renpy.display.render.c:2721)
+    rv = d.render(widtho, heighto, st, at)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/im.py", line 478, in render
+    im = cache.get(self)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/im.py", line 200, in get
+    surf = image.load()
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/display/im.py", line 529, in load
+    surf = renpy.display.pgrender.load_image(renpy.loader.load(self.filename), self.filename)
+  File "/home/g2/Games/DefilerWings/DefilerWings-1.4.1-all-noteat2/renpy/loader.py", line 533, in load
+    raise IOError("Couldn't find file '%s'." % name)
+IOError: Couldn't find file 'img/scene/spawn/alla.jpg'.
 
 Linux-5.15.0-88-generic-x86_64-with-debian-bookworm-sid
 Ren'Py 6.99.7.858

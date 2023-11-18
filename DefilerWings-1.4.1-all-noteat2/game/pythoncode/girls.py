@@ -1839,6 +1839,12 @@ class GirlsList(object):
         if girl_size not in self.offspring:
           self.offspring.append(girl_size)
         self.spawn_type = girls_data.girls_info[self.game.girl.type][self.spawn_class]
+
+        # @fdsc
+        if self.game.girls_list.is_human_girl:
+            if random.randint(1, 20) <= girls_data.spawn_info[self.spawn_type]['power']:
+                self.spawn_type = 'alla'
+
         text = u'В крови и муках %s родила %s. ' %(self.game.girl.name, girls_data.spawn_info[self.spawn_type]['name_genitive'])
         self.game.chronik.write_chronik(text,self.game.dragon.level,self.game.girl.girl_id)
 
