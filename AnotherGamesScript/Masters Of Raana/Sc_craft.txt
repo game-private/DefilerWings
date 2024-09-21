@@ -1,0 +1,741 @@
+function getReturn(array)
+{
+    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], true, 100]);
+}
+
+function getOneReturn(array)
+{
+    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], false, 100]);
+}
+
+function getConcludeDay(a)
+{
+    a.push([3, "a", "Conclude day", false, 1]);
+    a.push([4, 1, ConcludeDay_doWait]);
+    a.push([3, "a", ["Yes", "yes", "YES", "exterminate", "Accept!", "Enslave", "Turn in"], true, 1]);
+    a.push([3, "a", "Endorse", true, 1]);
+
+    toPicture(a, "Pics/Butt/manbuttman.png");  // Открываем окно лога
+    a.push([4, 1, ConcludeDay_doLog]);
+    a.push([0, "#ui-overlay", 0]);      // Закрываем окно лога
+    a.push([4, 1, ConcludeDay_doLog2]);
+
+    a.push([3, "a", "Continue", false]);
+}
+
+function ConcludeDay_doWait(object)
+{
+    array = object.array;
+
+    if (  clickST("a", "Conclude day", false, false)  )
+        setTimeout
+        (
+            () => { ConcludeDay_doWait(object) },
+            100
+        );
+    else
+        ClicksS(array);
+}
+
+function ConcludeDay_doLog(object)
+{
+    array = object.array;
+
+    if (doShowLog)
+    {
+        var logWindow = document.querySelectorAll("#wrapper2")[0];
+        var messages  = document.querySelectorAll("#wrapper2 strong");
+
+        if (messages.length > 0)
+        {
+            array = [[4, 1000 * messages.length]].concat(array);
+
+            if (logWindow)
+            console.log(logWindow.textContent);
+
+            // console.error(messages.length);
+        }
+    }
+
+    ClicksS(array);
+}
+
+function ConcludeDay_doLog2(object)
+{
+    array = object.array;
+    var time = 0;
+
+    if (doShowLog)
+    {
+        var events = document.querySelectorAll(".introleft2 .padd20left strong");
+        
+        // - BUSINESS AS USUAL -
+        var BusinessAsUsual = false;
+        for (var event of events)
+        {
+            if (event.textContent.contains("BUSINESS AS USUAL"))
+            {
+                BusinessAsUsual = true;
+                break;
+            }
+        }
+
+        if (!BusinessAsUsual)
+        {
+            events = document.querySelectorAll(".introleft2 .padd20left li");
+            var effects = true;
+
+            time += 1000;
+            for (var event of events)
+            {
+                if (!event.textContent.contains("None."))
+                {
+                    time += 1500;
+                }
+            }
+        }
+
+        // .eventholderthin3 - не знаю, есть ли такой или нет
+        events = document.querySelectorAll(".eventholder, .eventholderthin2, .eventholderthin3");
+        time += 1500 * events.length;
+    }
+
+    if (time)
+        time += 1500;
+
+    if (time)
+    array = [[4, time]].concat(array);
+
+    ClicksS(array);
+}
+
+function exitHouse(a)
+{
+    toPicture(a, "Pics/Butt/out.png");
+}
+
+function toExit(a)
+{
+    toPicture(a, "Pics/Butt/out.png");
+}
+
+function toHome(a)
+{
+    toPicture(a, "Pics/Butt/home.png");
+}
+
+
+// -----------------------------------------------------------
+// !!! Крафт
+// -----------------------------------------------------------
+function MainCraft(a, cnt=1, num=0)
+{
+    toFacilities(a);
+    toCraft(a);
+    a.push([0, ".craftholder>.ulsmall>a", num]);      /* Первый верхний */
+
+    for (var i = 0; i < cnt; i++)
+    {
+        if (i > 0)
+            a.push([4, 1000]);
+
+        getCraft(a);
+    }
+
+    getReturn(a);
+}
+
+// Вызывается из основного меню
+function toFacilities(array)
+{
+    array.push([3, "Facilities"]);
+    array.push([0, "[src='Pics/Butt/manbuttcraft.png']", 0]);
+}
+
+// Может быть вызван сразу после toFacilities
+// Входит в крафтинг и выбирает верхний предмет для изготовления
+function toCraft(array)
+{
+    array.push([3, "Start Crafting"]);
+}
+
+// Вызывается после toCraft
+function getCraft(array)
+{
+    /* Стартуем изготовление */
+    array.push([3, "Begin!"]);
+    array.push([3, "a", "Continue", true]);
+    array.push([4, 300]);
+}
+
+// Перейти в крафт ресурсов
+function getResources(a)
+{
+    a.push([3, "Manage resources"]);
+}
+
+// Разбор мусора
+function getCarbage(a)
+{
+    toFacilities(a);
+    getResources(a);
+
+    a.push([3, "a", "Prepare meat",  true]);
+    a.push([3, "a", "Refine cloth",  true]);
+    a.push([3, "a", "Prepare skins", true]);
+    a.push([3, "a", "extract circuit boards", true]);
+
+
+    if (ScrapMetal)
+    a.push([3, "a", "convert scrap metal", true, 0, ScrapMetal]);
+    a.push([3, "a", "Scrap Merchandise",   true]);
+
+    getReturn(a);
+}
+
+function Fhishing(array)
+{
+    array.push([0, "[src='Pics/Butt/out.png']", 0]);    // Выход из дома
+    array.push([0, "[src='Pics/Maps/fish.png']", 0]);    // Рыбалка
+    array.push([3, "Start!"]);
+    array.push([3, "Session one"]);
+    array.push([3, "Drift"]);
+    array.push([3, "Session two"]);
+    array.push([3, "Shore fishing"]);
+    array.push([3, "Session three"]);
+    array.push([3, "Deep fishing"]);
+    array.push([3, "Session four"]);
+    array.push([3, "Drift"]);
+    array.push([0, "[src='Pics/Butt/out.png']", 0]);
+    array.push([0, "[src='Pics/Butt/home.png']", 0]);
+}
+
+function craftArrow(a, toLeft=false)
+{
+    if (toLeft)
+    {
+        a.push([0, "[src='Pics/Butt/carrowleft.png']", 0]);
+    }
+    else
+    {
+        a.push([0, "[src='Pics/Butt/carrowright.png']", 0]);
+    }
+}
+
+// Инжектор
+function Injector(a, pic='Pics//Stuff/injectorbutt.png', cnt=100, arrow=2)
+{
+    toFacilities(a);
+    toCraft(a);
+    for (var i = 0; i < arrow; i++)
+        craftArrow(a, false);
+
+    /* Изготовление инжектора */
+    a.push([0, "[src='" + pic + "']", 0]);
+    a.push([3, "a", "x10", false, 1000]);
+
+    /* Инжектор */
+    var p = [3, "a", "Begin!", false, 2500];
+
+    for (var i = 0; i < cnt; i++)
+    {
+        a.push(p);
+    }
+
+    getOneReturn(a);
+    for (var i = 0; i < arrow; i++)
+        craftArrow(a, true);
+    getReturn(a);
+}
+
+// -----------------------------------------------------------
+// !!! Тренировка
+// -----------------------------------------------------------
+
+function childTrainigEdu(a, infinity=true, eduType="educate")
+{
+    a.push([3, "Manage"]);
+    toPicture(a, "Pics/Butt/manbuttnurse.png");
+    a.push([3, "a", eduType, infinity, infinity ? 2000 : 0]);
+
+    getReturn(a);
+}
+
+function childTrainigCombat(a, infinity=true, eduType="train combat")
+{
+    a.push([3, "Manage"]);
+    toPicture(a, "Pics/Butt/manbuttnurse.png");
+    a.push([3, "a", eduType, infinity, infinity ? 2000 : 0]);
+
+    getReturn(a);
+}
+
+function childTrainigPlay(a, infinity=true, eduType="Play!")
+{
+    a.push([3, "Manage"]);
+    toPicture(a, "Pics/Butt/manbuttnurse.png");
+    a.push([3, "a", eduType, infinity, infinity ? 2000 : 0]);
+
+    getReturn(a);
+}
+
+
+var getBasicTrainings_cycle = 0;
+function getBasicTrainings(a, doRepeat)
+{
+    if (!Training1 && !Training2)
+        return;
+
+    correctTrainings();
+    getBasicTrainings_cycle++;
+
+    if (Training1 && Training1.Name)
+    if (getBasicTrainings_cycle % Training1.schedule[1] == Training1.schedule[0])
+    {
+        a.push([3, "Actions & Events"]);
+        toPicture(a, "Pics/Butt/manbutttrain.png");
+        a.push([3, "Basic training"]);
+
+        a.push([3, Training1.Name]);
+        if (Training1.push)
+            a.push([3, "Push it!"]);
+        /*if (Training1.slave)
+            a.push([3, "include slave"]);*/
+        if (Training1.trainer)
+            a.push([3, "Hire trainer"]);
+
+        a.push([3, "Start!"]);
+        a.push([4, 200]);
+
+        if (doRepeat)
+            a.push([3, "Repeat"]);
+    }
+
+    getReturn(a);
+
+
+    if (Training2)
+    {
+        a.push([3, "Actions & Events"]);
+        toPicture(a, "Pics/Butt/manbutttrain.png");
+        a.push([3, "Basic training"]);
+
+        a.push([3, Training2.Name]);
+        if (Training2.push)
+            a.push([3, "Push it!"]);
+        /*if (Training2.slave)
+            a.push([3, "include slave"]);*/
+        if (Training2.trainer)
+            a.push([3, "Hire trainer"]);
+
+        a.push([3, "Start!"]);
+        a.push([4, 200]);
+    }
+
+    getReturn(a);
+}
+
+function getAdvancedTrainings(a)
+{
+    a.push([3, "Actions & Events"]);
+    toPicture(a, "Pics/Butt/manbutttrain.png");
+    a.push([3, "Advanced training"]);
+
+    var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting"];
+    for (var e of edu)
+    {
+        a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
+        a.push([0, ".bookbox>div>.link-internal.link-image", 0]);
+        a.push([3, "Read book"]);
+
+        a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
+        a.push([0, ".bookbox>div>.link-internal.link-image", 0]);
+        a.push([3, "Read book"]);
+    }
+
+    getReturn(a);
+
+    correctTrainings();
+}
+
+function Academia(a)
+{
+    toPicture(a, "Pics/Butt/travel_aca.png");
+    a.push([3, "courses"]);
+    a.push([0, ".vendorleft>.ulvendor>a"]);
+    a.push([3, "Begin"]);
+    a.push([3, "CONTINUE"]);
+
+    toExit(a);
+    toHome(a);
+}
+
+function Professor(a)
+{
+    toPicture(a, "Pics/Butt/travel_aca.png");
+    a.push([3, "Tutor (Academics)"]);
+    a.push([3, "Tutor (Science)"]);
+    // a.push([0, ".vendorleft>.ulvendor>a"]);
+    a.push([0, ".alt1>a"]); // Это если возникли проблемы
+    a.push([3, "End class"]);
+
+    toExit(a);
+    toHome(a);
+}
+
+function Library(a)
+{
+    a.push([3, "Manage"]);
+    toPicture(a, "Pics/Butt/manbutthouse.png");
+    toPicture(a, "Pics/Butt/carrowleft.png");
+    toPicture(a, "Pics/Butt/carrowleft.png");
+    toPicture(a, "Pics/Home/icon_42.png");
+
+    a.push([3, "Study books"]);
+
+    toExit(a);
+}
+
+
+
+// -----------------------------------------------------------
+// !!! Молитва в католической церкви; умывание
+// -----------------------------------------------------------
+
+function getPrayCatholic(a, doToHome=true)
+{
+    exitHouse(a);
+    toPicture(a, "Pics/Maps/waysign_westup.png", 200);
+
+    toPicture(a, "Pics/Maps/butt_virgin.png");
+
+    a.push([3, "Pray"]);
+    toExit(a);
+
+    if (doToHome)
+        toHome(a);
+}
+
+
+function getBath(a)
+{
+    a.push([3, "Facilities"]);
+    toPicture(a, "Pics/Butt/manbuttbath.png");
+    a.push([3, ["Shower", "Bathe alone"]]);
+    a.push([3, ["Exit shower", "Get up"]]);
+    a.push([3, "Leave bathroom"]);
+    a.push([4, 500]);
+
+    getReturn(a);
+}
+
+// -----------------------------------------------------------
+// !!! Девушки-рабыни
+// -----------------------------------------------------------
+
+function selectGirl(a, num=0)
+{
+    a.push([1, ".alt3>.interactbox>.row>.resholder", num]);
+}
+
+function deselectGirl(a)
+{
+    getReturn(a);
+    a.push([4, 200]);
+    a.push([3, "End interaction"]);
+    getReturn(a);
+}
+
+function bondageSex(a, cnt=3, doBath=true)
+{
+   if (doBath)
+    {
+        getBathSlave(a);
+    }
+
+    a.push([3, "Sexual options"]);
+    a.push([3, "Bondage"]);
+    // a.push([3, "brute force"]);
+    a.push([3, "Casual tone"]);
+    a.push([3, "The rack"]);
+    a.push([3, "Stimulate"]);
+    a.push([3, "Dirty talk"]);
+    a.push([3, "Dirty talk"]);
+    for (var i = 0; i < cnt; i++)
+        a.push([3, "Caress pussy"]);
+    a.push([3, "Back"]);
+    a.push([3, "Fuck girl"]);
+    a.push([3, "Initiate sex"]);
+    a.push([3, "Her pussy!"]);
+    a.push([3, "a", "Continue", true]);
+    a.push([3, "Cum in pussy!"]);
+    a.push([3, "back"]);
+    a.push([3, "Free girl"]);
+}
+
+function seductionSex(a, cnt=4, doBath=true)
+{
+    if (doBath)
+    {
+        getBathSlave(a);
+    }
+
+    a.push([3, "Sexual options"]);
+    a.push([3, "Start seduction"]);
+    a.push([3, "Passionate"]);
+    for (var i = 0; i < cnt; i++)
+    {
+        a.push([3, "Kissing"]);
+        a.push([3, "Kissing"]);
+        a.push([3, "Body kissing"]);
+    }
+
+    a.push([3, "Suggest sex"]);
+    a.push([3, "Vaginal sex"]);
+    a.push([3, "Normal"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+    a.push([3, "Undress"]);
+    a.push([3, "Cowgirl"]);
+    a.push([3, "Start"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "cum!"]);
+    a.push([3, "Creampie"]);
+    a.push([3, "a", "Finish", true, 100]);
+
+    getReturn(a);
+}
+
+function seductionNoSex(a, cnt=4, doBath=true)
+{
+    if (doBath)
+    {
+        getBathSlave(a);
+    }
+
+    a.push([3, "Sexual options"]);
+    a.push([3, "Start seduction"]);
+    a.push([3, "Passionate"]);
+    for (var i = 0; i < cnt; i++)
+    {
+        a.push([3, "Kissing"]);
+        a.push([3, "Kissing"]);
+        a.push([3, "Body kissing"]);
+    }
+
+    a.push([3, "Abort"]);
+
+    getReturn(a);
+}
+
+function getBathSlave(a)
+{
+    a.push([3, "take to bathroom"]);
+    a.push([3, "Normal"]);
+    a.push([3, "Continue"]);
+    a.push([3, "Scrub me"]);
+    a.push([3, "Scrub her"]);
+    a.push([3, "Get up"]);
+    a.push([3, "Exit shower"]);
+    a.push([3, "Return"]);
+    a.push([4, 500]);
+}
+
+function normalSex(a, doBath=true)
+{
+    if (doBath)
+    {
+        getBathSlave(a);
+    }
+
+    a.push([3, "Sexual options"]);
+    a.push([3, "Request sex"]);
+    a.push([3, "Vaginal sex"]);
+    a.push([3, "Normal"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+    a.push([3, "Undress"]);
+    a.push([3, "Cowgirl"]);
+    a.push([3, "Start"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "cum!"]);
+    a.push([3, "Creampie"]);
+    a.push([3, "a", "Finish", true, 100]);
+
+    getReturn(a);
+}
+
+function girlEducationClass(a, edu)
+{
+    a.push([3, "a", "Education", false, 300]);
+    a.push([3,  edu]);
+    a.push([3, "Begin!"]);
+    a.push([3, "Continue"]);
+    a.push([4, 400]);
+    a.push([3, "Finish"]);
+    a.push([3, "back"]);
+}
+
+function freeDayForSelectedGirl(a)
+{
+    a.push([3, "Events & activities"]);
+    a.push([3, "Give free time"]);
+    a.push([3, "Continue"]);
+    a.push([3, "Back"]);
+}
+
+// [3, "acrobatics"],
+// [3, "science"],
+// [3, "Medicine"],
+// [3, "Academics"],
+// [3, "domestic"],
+// [3, "dancing"],
+function girlEducation(a, num, edu1, cnt=4)
+{
+    selectGirl(a, num);
+
+    for (var i = 0; i < cnt; i++)
+        girlEducationClass(a, edu1);
+
+    // freeDayForSelectedGirl(a);
+
+    deselectGirl(a);
+}
+
+
+function combatMenu(parent)
+{
+    var div = document.createElement("div");
+    parent.appendChild(div);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { b=[]; doCombatStep(b); doCombatStep(b); doCombatStep(b); doCombatStep(b); doCombatStep(b); ClicksS(b); }  );
+    a.textContent = " Сильный Шаг  ";
+    // a.style.display = "inline";
+    div.appendChild(a);
+    
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { b=[]; doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); ClicksS(b); }  );
+    a.textContent = " Слабый Шаг ";
+    // a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { b=[]; doCombatStep(b, 2); doCombatStep(b, 2); doCombatStep(b, 2); doCombatStep(b, 2); doCombatStep(b, 2); ClicksS(b); }  );
+    a.textContent = " Огонь ";
+    // a.style.display = "inline";
+    div.appendChild(a);
+}
+
+function doCombatStep(a, doPowerStrike = true)
+{
+    if (doPowerStrike)
+        a.push([3, "Power strike"]);
+
+    if (doPowerStrike === 2)
+        a.push([3, "Fire at enemy"]);
+    else
+        a.push([3, "Strike enemy"]);
+
+    a.push([0, ".targetholder>a"]);
+    a.push([4, 1500]);
+}
+
+function doEncourage(a, num)
+{
+    selectGirl(a, num);
+
+    a.push([3, "Talk"]);
+    a.push([3, "Affect"]);
+    a.push([3, "Encourage"]);
+
+    getReturn(a);
+    deselectGirl(a);
+}
+
+
+// -----------------------------------------------------------
+// Охота
+// -----------------------------------------------------------
+
+// "Search prey", "Stand hunting"
+function Hunt(a)
+{
+    a.push([3, "Use crossbow"]);
+    a.push([3, "Stand hunting"]);
+    a.push([3, "a", ["Start", "Try again"], true, 500]);
+
+    getReturn(a);
+
+    // Нажимаем, если у нас третье место охоты; если другое - действие просто не будет выполнено
+    toPicture(a, "Pics/Maps/waysign_ponddown.png");
+    toPicture(a, "Pics/Maps/waysign_imogen.png");
+
+    // Нажимаем, если у нас второе место охоты; если первое - то это действие будет просто пропущено
+    toPicture(a, "Pics/Maps/waysign_kaseyright.png");
+    toHome(a);
+}
+
+function HuntPlace1(a)
+{
+    exitHouse(a);
+    toPicture(a, "Pics/Maps/waysign_marswampleft.png");
+    toPicture(a, "Pics/Maps/waysign_wetlandsup.png");
+    toPicture(a, "Pics/Maps/hunting.png");
+}
+
+function HuntPlace2(a)
+{
+    toPicture(a, "Pics/Butt/travel_barrow.png");
+    toPicture(a, "Pics/Maps/hunting.png");
+}
+
+function HuntPlace3(a)
+{
+    toPicture(a, "Pics/Butt/travel_barrow.png");
+    toPicture(a, "Pics/Maps/waysign_pond.png");
+    toPicture(a, "Pics/Maps/waysign_darkmereup.png");
+    toPicture(a, "Pics/Maps/huntpelt.png");
+}
+
+function getMeatAndSkins(a)
+{
+    toFacilities(a);
+    getResources(a);
+
+    a.push([3, "a", "Prepare meat",  true]);
+    a.push([3, "a", "Prepare skins", true]);
+
+    getReturn(a);
+}
+
+// "Devotion" "Pro Willpower" "Pro Decadence"
+// all followers
+function FaithLecture(a, edu="Devotion", target="all", doPray=false, doZeal=false)
+{
+    toPicture(a, "Pics/Butt/travel_shrine.png");
+
+    if (edu)
+    {
+        a.push([3, "lecture"]);
+        a.push([3, target]);
+        a.push([3, edu]);
+
+        if (doZeal)
+            a.push([3, "Religious Zeal"]);
+
+        a.push([3, "Use Fury!"]);
+        a.push([3, "Start!"]);
+        a.push([3, "a", "Repeat", true]);
+        a.push([3, "Cancel"]);  // На случай, если "all" нажал не на ту кнопку (если кнопка "all" неактивна)
+        a.push([3, "Cancel"]);
+        // a.push([3, "Back (Shrine)"]);
+        a.push([3, "Back (Home)"]);
+    }
+
+    if (doPray)
+        a.push([3, "a", ["Pray", "Meditate"], true]);
+
+    getReturn(a);
+}
+

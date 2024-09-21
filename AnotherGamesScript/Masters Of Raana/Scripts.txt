@@ -1,0 +1,259 @@
+// Основные скрипты
+// см. функцию function ClicksS
+
+function doClick(a)
+{
+    a.click();
+/*
+    a.style.borderWidth = "5px";
+    a.style.borderColor = "red";
+
+
+    setTimeout
+    (
+        () => { a.click()},
+        0
+    );
+*/
+}
+
+// clickST("a", "BOLTS", 0, true) 
+function clickST(selector, textContent, repeat, noClick=false)
+{
+    if (!textContent)
+    {
+        textContent = selector;
+        selector    = "a";
+    }
+
+    if (!(textContent instanceof Array))
+    {
+        textContent = [textContent];
+    }
+
+    try
+    {
+        // console.log("document.querySelectorAll('" + selector + "')[" + textContent + "]");
+        var arr = document.querySelectorAll(selector);
+        for (var a of arr)
+        {
+            for (var e of textContent)
+            {
+                if (e)
+                if (a && a.textContent.toLowerCase().contains(e.toLowerCase()))
+                {
+                    if (!noClick)
+                    {
+                        doClick(a);
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    catch (e)
+    {
+        // console.error('document.querySelectorAll("' + selector + '")[' + num + "]");
+        throw e;
+    }
+}
+
+function clickS(selector, num=0, click=true)
+{
+    try
+    {
+        // console.log("document.querySelectorAll('" + selector + "')[" + num + "]");
+        var a = document.querySelectorAll(selector)[num];
+        if (click)
+        {
+            doClick(a);
+        }
+
+        return a;
+    }
+    catch (e)
+    {
+        console.error('clickS: document.querySelectorAll("' + selector + '")[' + num + "]");
+        console.error(e);
+        // throw e;
+    }
+}
+
+function clickSA(selector, num, click=true)
+{
+    try
+    {
+        var a = document.querySelectorAll(selector)[num];
+        a = a.querySelector("a");
+        if (click)
+        {
+            doClick(a);
+        }
+
+        return a;
+    }
+    catch (e)
+    {
+        console.error("clickSA: document.querySelectorAll('" + selector + "')[" + num + "]");
+        // throw e;
+    }
+}
+
+function clickSR(selector, num, textContent)
+{
+    try
+    {
+        // console.log("document.querySelectorAll('" + selector + "')[" + num + "]");
+        var a = document.querySelectorAll(selector)[num];
+
+        if (!a)
+            return;
+        if (a.textContent.toLowerCase() != textContent.toLowerCase())
+            return;
+
+        doClick(a);
+
+        return true;
+
+    }
+    catch (e)
+    {
+        console.error("clickSR: document.querySelectorAll('" + selector + "')[" + num + "]");
+        // throw e;
+    }
+}
+
+// Переход на img с картинкой. pause - пауза после перехода
+function toPicture(a, pic, pause=0, num=0)
+{
+    var src = "[src='" + pic + "']";
+    a.push([0, src, num, 0, pause]);
+}
+
+// [["funcNum", "selector", num]]
+// [0, селектор, номер элемента из массива выбранных, задержка]
+// [1, селектор, номер элемента, задержка] После выбора элемента дополнительно выбирает подчинённый элемент "a"
+// [2, селектор, номер элемента, содержимое text-content для проверки, задержка]. Циклически выбирает элемент для клика, пока text-content совпадает с указанным в настроечном массиве
+// [3, text-content]. Кликает по элементу "a", содержащий заданный text-content
+// [3, селектор, text-content, флаг повторения, задержка].
+// Циклически кликает по элементу, выбранному селектором,  до тех пор, пока он содержит text-content.
+// Если флаг повторения false или не указан, то клик происходит один раз
+// [4, время задержки (в миллисекундах), функция для запуска]. Если задержка не указана, то 2000 миллисекунд. Функция для запуска должна быть последняя в списке массива
+function ClicksS(array)
+{
+    if (AuStop)
+        return;
+
+    if (!array || !(array instanceof Array) || array.length <= 0)
+    {
+        AddMenu();
+
+        return;
+    }
+
+    var arr = array[0];
+    // console.log(arr);
+
+    if (arr[0] == 0)
+        clickS(arr[1], arr[2]);
+    else
+    if (arr[0] == 1)
+        clickSA(arr[1], arr[2]);
+    else
+    if (arr[0] == 4)    // Пауза
+    {
+        array.shift();
+        setTimeout
+        (
+            function()
+            {
+                if (arr[2]) //  instanceof Function
+                {
+                    if (arr[2] instanceof Function)
+                    {
+                        /*if (array.length > 0)
+                            console.error("Функция для запуска указана не в конце массива");*/
+
+                        arr[2]({array: array});
+                    }
+                    else
+                    {
+                        console.error("clickS: arr[2] is not a function");
+                        console.error(arr[2]);
+                    }
+/*
+                    if (array.length > 0)
+                        ClicksS(array);*/
+                }
+                else
+                    ClicksS(array);
+            },
+            arr[1] || 2000
+        );
+
+        return;
+    }
+    else
+    if (arr[0] == 2)
+    {
+        if (  clickSR(arr[1], arr[2], arr[3])  )
+        {
+            setTimeout
+            (
+                function()
+                {
+                    ClicksS(array);
+                },
+                arr[4] || 1
+            );
+
+            return;
+        }
+    }
+    else
+    if (arr[0] == 3)
+    {
+        var f = clickST(arr[1], arr[2], arr[3]);
+        if (!arr[5])
+            arr[5] = 65536;
+        else
+        if (arr[3] && arr[5] < 100)
+        {
+            // console.log(arr);
+        }
+
+        arr[5]--;
+
+        if (f && arr[3] && arr[5] > 0)
+        {
+            setTimeout
+            (
+                function()
+                {
+                    ClicksS(array);
+                },
+                arr[4] || 1
+            );
+
+            return;
+        }
+    }
+    else
+    {
+        console.error("!!! Illegal command array !!!");
+        console.error(arr);
+    }
+
+    array.shift();
+    setTimeout
+    (
+        function()
+        {
+            ClicksS(array);
+        },
+        arr[4] || 1
+    );
+}

@@ -1,0 +1,351 @@
+var Training1 = {Name: "Dexterity",  push: true, trainer: false, schedule: [0, 1]};
+
+// Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
+var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
+
+// ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
+
+var TrainigsNames1  = [];
+var TrainigsNames1i = -1;
+
+// var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
+var TrainigsNames2  = ["Stamina", "Dexterity"];
+var TrainigsNames2i = -1;
+
+
+var getBasicTrainingsAtEvening = false;
+
+var ScrapMetal=0;
+
+
+var AuStop=false;
+var cycle=10;
+var doShowLog = false;
+
+var girlNum = 0;
+var sexGirlNum = 0;
+var acNum   = 0;
+var acNum2  = 0;
+var acNum3  = 0;
+var mainCraftCnt = [0, 0, 0];
+
+var InjectorCnt = 0;
+var fishingCnt  = 0;
+
+/* Число говорит о количестве прошедших дней, строка - о состоянии
+ "Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"
+ "Normal craving" "Huge craving!"
+ */
+var cycleSexEvening = "Strong craving";
+
+// [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
+// [[0, seductionSex], [1, seductionSex], [2, seductionSex]];
+var girls = [[0, seductionSex], [1, seductionSex], [1, seductionSex]];
+var morninggirls = [];
+var sexCnt = 1;
+// "Medicine", "science", "domestic", "Medicine", "domestic", "Academics", "dancing", "acrobatics"
+// homeschool  = [["Medicine", 4]];
+var homeschool  = [];
+var homeschool2 = [];
+var homeschool3 = [];
+var encourageGirl = [];
+
+var childTrainigPlayFlag   = [0, 2];
+var childTrainigCombatFlag = [1, 3];
+var childTrainigEduFlag    = [1, 2];
+var childTrainigPlayFlagX   = false;
+var childTrainigCombatFlagX = false;
+var childTrainigEduFlagX    = false;
+var childTrainigEduInf      = false;
+
+var doAcademia   = false;
+var doLibrary    = false;
+var doProfessor  = [0, 1];
+var doProfessorX = false;
+
+var doAdvancedTrainings = false;
+
+// "Devotion" "Pro Willpower" "Pro Decadence" "Anti Willpower" [false, "Pray", true] [false, "Meditate", true]
+// all followers
+// var doFaithLecture = "Devotion";
+// var doFaithLecture = "Pro Decadence";
+// var doFaithLecture  = [["Devotion", "all", false], ["Anti Willpower", "followers", false], ["Pro Willpower", "followers", false], ["Pro Decadence", "followers", false]];
+
+
+// var doFaithLecture  = [["Pro Willpower", "all", false], ["Devotion", "all", false], ["Pro Decadence", "all", false]];
+
+// var doFaithLecture  = [["Devotion", "followers", false]];
+
+var doFaithLecture  = [];
+
+var doFaithLectureC = 0;
+
+
+// Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
+var doHunt=[];
+// var doHunt=[];
+var doHuntC = 0;
+function mainCycle()
+{
+    var a = [];
+
+    if ((cycle % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
+        Professor(a);
+
+    if (morninggirls.length > 0)
+    if (isShouldSex(cycle, cycleSexEvening))
+    {
+        sexGirlNum = (sexGirlNum + 1) % morninggirls.length;
+        selectGirl(a, morninggirls[sexGirlNum][0]);
+        for (var i = 0; i < sexCnt; i++)
+        {
+            morninggirls[sexGirlNum][1](a);
+            if (i + 1 < sexCnt)
+            {
+                getBathSlave(a);getBathSlave(a);
+            }
+        }
+
+        // bondageSex(a, 3);
+        // normalSex(a);
+        deselectGirl(a);
+    }
+
+
+    if (doAcademia)
+    Academia(a);
+
+    if (doLibrary)
+    Library(a);
+
+
+    if ((cycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
+        childTrainigPlay(a, false);
+    if ((cycle % childTrainigCombatFlag[1] == childTrainigCombatFlag[0]) ^ childTrainigCombatFlagX)
+        childTrainigCombat(a, false);
+    if ((cycle % childTrainigEduFlag[1] == childTrainigEduFlag[0]) ^ childTrainigEduFlagX)
+        childTrainigEdu(a, false);
+
+    if (childTrainigEduInf)
+    childTrainigEdu(a, true);
+
+    if (doAdvancedTrainings)
+    getAdvancedTrainings(a);
+
+    if (!getBasicTrainingsAtEvening)
+        getBasicTrainings(a, true);
+
+    if (doFaithLecture.length > 0)
+    {
+        doFaithLectureC  = (doFaithLectureC + 1) % doFaithLecture.length;
+        
+        var dfl = doFaithLecture[doFaithLectureC];
+
+        if (dfl)
+            FaithLecture(a, dfl[0], dfl[1], dfl[2], dfl[3]);
+    }
+
+    if (homeschool.length > 0)
+    {
+        acNum   = (acNum + 1) % homeschool.length;
+        if (homeschool[acNum])
+        girlEducation(a, 0, homeschool[acNum][0], homeschool[acNum][1]);
+    }
+
+    if (homeschool2.length > 0)
+    {
+        acNum2  = (acNum2 + 1) % homeschool2.length;
+        if (homeschool2[acNum2])
+        girlEducation(a, 1, homeschool2[acNum2][0], homeschool2[acNum2][1]);
+    }
+
+    if (homeschool3.length > 0)
+    {
+        acNum3  = (acNum3 + 1) % homeschool3.length;
+        if (homeschool3[acNum3])
+        girlEducation(a, 2, homeschool3[acNum3][0], homeschool3[acNum3][1]);
+    }
+
+    // getBasicTrainings(a, true);
+    // childTrainigEdu(a, fl);
+
+    for (var i = 0; i < encourageGirl.length; i++)
+        doEncourage(a, encourageGirl[i]);
+
+    if (doHunt.length > 0)
+    {
+        doHuntC = (doHuntC + 1) % doHunt.length;
+        if (doHunt[doHuntC])
+        {
+            doHunt[doHuntC](a);
+            Hunt(a);
+        }
+    }
+
+    if (getBasicTrainingsAtEvening)
+        getBasicTrainings(a, true);
+
+
+    // getPrayCatholic(a);
+    getCarbage(a);
+
+/*  // Производство патронов
+    Injector(a, 'Pics/Weapons/306butt.png',     1, 0);
+    Injector(a, 'Pics/Weapons/762butt.png',     1, 0);
+    Injector(a, 'Pics/Weapons/shellsbutt.png',  1, 0);        
+*//*
+  // Производство аптечек
+    Injector(a, 'Pics//Stuff/injectorbutt.png', 3, 2);
+    MainCraft(a, 3, 1);
+    if ((cycle & 3) == 1)
+    MainCraft(a, 1, 2);
+*/
+
+    getMeatAndSkins(a);
+    if (InjectorCnt > 0)
+    {
+        Injector(a, 'Pics//Stuff/injectorbutt.png', 3, 2);
+    }
+
+    // if ((cycle % 2) != 0)
+    for (var i = 0; i < mainCraftCnt.length; i++)
+        if (mainCraftCnt[i] > 0)
+            MainCraft(a, mainCraftCnt[i], i);
+
+    if (girls.length > 0)
+    if (isShouldSex(cycle, cycleSexEvening))
+    {
+        girlNum = (girlNum + 1) % girls.length;
+        // a.push([3, "spend time"]);
+        selectGirl(a, girls[girlNum][0]);
+        // normalSex(a);
+        // seductionSex(a);
+        girls[girlNum][1](a);
+        deselectGirl(a);
+    }
+
+
+    for (var i = 0; i < fishingCnt; i++)
+        Fhishing(a);
+
+    cycle--;
+
+    if (!AuStop && cycle > 0)
+    {
+        getConcludeDay(a);
+    }
+
+
+    if (!AuStop && cycle > 0)
+        if (isAccountNotEmpty())
+            a.push([4, 100, mainCycle]);
+        else
+            showNotification();
+    else
+        showNotification();
+
+    ClicksS(a);
+}
+
+// Если false, то цикл останавливается. Автоматически устанавливается в true при отображении меню.
+var doCycle = true;
+function isAccountNotEmpty()
+{
+    // Проверяем деньги
+    if (document.querySelector("div.acts2>div.alt4b>strong").textContent == "$0")
+        return false;
+
+    if (document.querySelector("div.acts2>div.alt4b>strong").textContent.startsWith("$-"))
+        return false;
+
+
+    // Проверяем наличие рационов питания
+    var a = document.querySelector('img[src="Pics/Butt/rationsmall.png"]').parentNode.parentNode.parentNode.parentNode;
+    a = a.querySelector("span.hoverBox");
+    var num = a.textContent.split("(")[1].split(")")[0];
+    num = num.replace(/\s/, "");
+    num = Number(num);
+    if (num < 2 || num >= 7400)
+        return false;
+
+    return doCycle; // true, если продолжать
+}
+
+function getSexCarving()
+{
+    var carving = "";
+    try
+    {
+        carving = document.querySelector("#passages div.red").textContent;
+        if (carving == "Throbbing!")
+            return carving;
+    }
+    catch
+    {}
+
+    var carvingArray = document.querySelector("#passages em > strong").textContent.split("  ");
+    for (var a of carvingArray)
+    {
+        if (a.trim().length > 0)
+            carving = a.toLowerCase().trim();
+    }
+
+    return carving;
+}
+
+function isLowCarving()
+{
+    var car = getSexCarving();
+    if (car == "sexually depleted" || car == "satisfied")
+        return true;
+
+    return false;
+}
+
+var SexCarvingArray = ["Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"];
+function isShouldSex(cycle, cycleSexEvening)
+{
+    if (typeof(cycleSexEvening) == "number")
+    {
+        return (cycle % cycleSexEvening) == 0;
+    }
+    else
+    if (typeof(cycleSexEvening) == "string")
+    {
+        // Ищем, что наше текущее состояние curCarving выше или равно желаемому cycleSexEvening
+        cycleSexEvening = cycleSexEvening.toLowerCase();
+        var curCarving  = getSexCarving().toLowerCase();
+        for (var i = 0; i < SexCarvingArray.length; i++)
+        {
+            var sexCarving = SexCarvingArray[i].toLowerCase();
+            if (cycleSexEvening == sexCarving)
+                return true;
+
+            if (curCarving == sexCarving)
+                return false;
+        }
+    }
+
+    return false;
+}
+
+function correctTrainings()
+{
+    if (Training1)
+    {
+        TrainigsNames1i++;
+        if (TrainigsNames1i >= TrainigsNames1.length)
+            TrainigsNames1i = 0;
+
+        Training1.Name = TrainigsNames1[TrainigsNames1i];
+    }
+
+    if (Training2)
+    {
+        TrainigsNames2i++;
+        if (TrainigsNames2i >= TrainigsNames2.length)
+            TrainigsNames2i = 0;
+
+        Training2.Name = TrainigsNames2[TrainigsNames2i];
+    }
+}

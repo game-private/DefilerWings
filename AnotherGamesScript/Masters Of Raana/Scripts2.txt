@@ -1,0 +1,677 @@
+// См. Тренировки.txt
+
+function showNotification(text = 'Закончено!')
+{
+    Notification.requestPermission().then((permission) =>
+    {
+        if (permission === "granted")
+        {
+            const notification = new Notification("Master of Raana", {body: text, requireInteraction: true});
+        }
+    });
+}
+
+function AddMenu()
+{
+    AuStop  = false;
+    doCycle = true;
+
+    var parent = document.querySelector(".alt1home");
+    var div = document.createElement("div");
+
+    if (!parent)
+    {
+        parent = document.querySelector(".combatacts");
+        if (parent)
+        {
+            combatMenu(parent);
+            return;
+        }
+
+        var parent = document.querySelector(".alt1");
+        var div = document.createElement("div");
+        var isRevital = false;
+        
+        if (!parent)
+        {
+            parent    = document.querySelector(".slinleft>.written");
+            isRevital = true;
+            if (!parent)
+                return;
+        }
+
+        parent.appendChild(div);
+
+        if (clickST("a", "BOLTS", 0, true))
+        {
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Bolts (x8)", 40) }  );
+            a.textContent = "Болты ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Bolts (x8)", 200) }  );
+            a.textContent = "Болтыx5 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Bolts (x8)", 1000) }  );
+            a.textContent = "Болтыx25 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+        }
+        else
+        if (clickST("a", "Sell (10)", 0, true))
+        {
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Sell (10)", 10) }  );
+            a.textContent = "Продать 10 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Sell (10)", 100) }  );
+            a.textContent = "Продать 100 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+        }
+        else
+        if (clickST("a", "Use Revital", 0, true))
+        {
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Use Revital", 10) }  );
+            a.textContent = "Use Revital 10 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { PurchaseB("Use Revital", 50) }  );
+            a.textContent = "Use Revital 50 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+        }
+        else
+        {
+            if (isRevital)
+                return;
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { Purchase(10) }  );
+            a.textContent = "Купить10 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { Purchase(40) }  );
+            a.textContent = "Купить40 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+
+            var a = document.createElement("a");
+            a.addEventListener("click", (e) => { Purchase(1000) }  );
+            a.textContent = "Купить1000 ";
+            a.style.display = "inline";
+            div.appendChild(a);
+        }
+        
+
+        return;
+    }
+
+    parent.appendChild(div);
+/*
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { WIn(20) }  );
+    a.textContent = "Инжекторы ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { Ab(1,3,true,Ar); }  );
+    a.textContent = "Цикл ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { Ar(); }  );
+    a.textContent = "Рабыня0 ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { Read() }  );
+    a.textContent = "Чтение ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { TrF(3, 0); }  );
+    a.textContent = "Фолловер4 ";
+    div.appendChild(a);
+    
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => { TrF(4, 0); }  );
+    a.textContent = "Фолловер5 ";
+    div.appendChild(a);*/
+/*
+    var div = document.createElement("div");
+    parent.appendChild(div);
+*/
+/*
+    var a = document.createElement("a");
+    a.addEventListener("click", WW(2));
+    a.textContent = "Крафтинг(2) ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", WW(5));
+    a.textContent = "Крафтинг(5) ";
+    a.style.display = "inline";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", WSc);
+    a.textContent = "Мусор ";
+    div.appendChild(a);
+    
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) => WSs(100));
+    a.textContent = "Сталь ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", (e) =>  { SexB(1) });
+    a.textContent = "Секс ";
+    div.appendChild(a);
+*/
+
+    var parent = document.querySelector(".alt2");
+    var div = document.createElement("div");
+    parent.appendChild(div);
+
+    var a = document.createElement("span");
+    a.textContent = "" + cycle + "  ";
+    a.id = "cyclesCounter";
+    div.appendChild(a);
+
+    var sl = document.createElement("a");
+        sl.addEventListener("click", (e) => { doShowLog ^= true; addToCycleCounter(0); }  );
+        sl.textContent = doShowLog ? "! " : "x ";
+        sl.style.display = "inline";
+        sl.id = "showLogElement";
+        div.appendChild(sl);
+
+
+    var a = document.createElement("a");
+    a.addEventListener("click", () => { cycle=0; addToCycleCounter(0); });
+    a.textContent = "СТОП ";
+    div.appendChild(a);
+/*
+
+    var a = document.createElement("a");
+    a.addEventListener("click", WSsteel);
+    a.textContent = "Сталь ";
+    div.appendChild(a);
+    
+    var a = document.createElement("a");
+    a.addEventListener("click", Ar1);
+    a.textContent = "Тренировка ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", Ar2);
+    a.textContent = "Рыбалка ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", MainCraft);
+    a.textContent = "Крафт1 ";
+    div.appendChild(a);
+*/
+
+    var a = document.createElement("a");
+    a.addEventListener("click", () => { addToCycleCounter(1) });
+    a.textContent = "+1 ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", () => { addToCycleCounter(5) });
+    a.textContent = "+5 ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", () => { addToCycleCounter(10) });
+    a.textContent = "+10 ";
+    div.appendChild(a);
+
+    var a = document.createElement("a");
+    a.addEventListener("click", () => { addToCycleCounter(30) });
+    a.textContent = "+30 ";
+    div.appendChild(a);
+
+
+    var a = document.createElement("a");
+    a.addEventListener("click", mainCycle);
+    a.textContent = "ГЦикл ";
+    div.appendChild(a);
+}
+
+function addToCycleCounter(num)
+{
+    cycle += num;
+    var cycleSpans = document.querySelectorAll("#cyclesCounter");
+
+    for (var cycleSpan of cycleSpans)
+        cycleSpan.textContent = "" + cycle + "  ";
+    
+    var cycleSpans = document.querySelectorAll("#showLogElement");
+    for (var cycleSpan of cycleSpans)
+        cycleSpan.textContent = doShowLog ? "! " : "x ";
+}
+
+function Ar()
+{
+    var a2 =[
+        /* Рабыни */
+        [1, ".alt3>.interactbox>.row>.resholder.lighthover", 0],
+        [3, "a", "Education", false, 300],
+        [3, "domestic"],
+        // [3, "acrobatics"],
+        // [3, "science"],
+        // [3, "Medicine"],
+        // [3, "Academics"],
+        // [3, "domestic"],
+        // [3, "dancing"],
+        [3, "Begin!"],
+        [3, "Continue"],
+        [3, "Finish"],
+        [3, "back"],
+        [3, "End interaction"],
+
+        /* Рабыни */
+        [1, ".alt3>.interactbox>.row>.resholder.lighthover", 0],
+        [3, "Education"],
+        // [3, "science"],
+        [3, "domestic"],
+        [3, "Begin!"],
+        [3, "Continue"],
+        [3, "Finish"],
+        [3, "back"],
+
+        /* Освобождаем её от забот на оставшийся день */
+        [3, "Events & activities"],
+        [3, "Give free time"],
+        [3, "Casual"],
+        [3, "Back"],
+    
+        /* Выход */
+        [3, "End interaction"],
+        [3, "a", "Conclude day", true, 500],
+        [3, "a", "Endorse", true, 400],
+        [3, "a", "Continue", true],
+        [4, 100, () => { W(2,Ar) }]
+    ];
+
+    var array=[
+    /* Обучение рукопашному бою */
+    [3, "Actions & Events"], [0, "div.alt1home>div.row>.resholder>span>a", 1], [3, "Basic training"],
+    [3, "Dexterity"], [3, "Hire trainer"]/*, [3, "Push it!"]*/, [3, "include slave"], [3, "Start!"], [4, 1000],
+    // [3, "Melee combat"]/*, [3, "Push it!"]*/, [3, "include slave"], [3, "Start!"], 
+    [3, "Ranged combat"], [3, "Hire trainer"], [3, "include slave"], [3, "Start!"], 
+    [3, "a", "Return", true],
+
+        /* Выход */
+        [3, "a", "Conclude day", true, 100],
+        [3, "a", "Endorse", true, 100],
+        [3, "a", "Yes", true, 100],
+        [3, "a", "Continue", true],
+        [4, 100, Ar]
+    ];
+
+    if (!AuStop)
+        ClicksS(a2);
+        // ClicksS(array);
+}
+
+
+function Ar1()
+{
+    var a = [];
+    getBasicTrainings(a);
+
+    ClicksS(a);
+}
+
+
+
+
+function Ar2()
+{
+    var array=[
+        [0, "[src='Pics/Butt/out.png']", 0],    // Выход из дома
+        [0, "[src='Pics/Maps/fish.png']", 0],    // Рыбалка
+        [3, "Start!"],
+        [3, "Session one"],
+        [3, "Drift"],
+        [3, "Session two"],
+        [3, "Shore fishing"],
+        [3, "Session three"],
+        [3, "Deep fishing"],
+        [3, "Session four"],
+        [3, "Drift"],
+
+        
+
+        [0, "[src='Pics/Butt/out.png']", 0],
+        
+        /*
+        [0, "[src='Pics/Maps/butt_market.png']", 0],
+        [3, "Sell materials"],
+        [3, "a", "Merchandise", false, 100],
+        [3, "a", "Sell all", false, 100],
+        [0, "[src='Pics/Butt/out.png']", 0],*/
+
+        [0, "[src='Pics/Butt/home.png']", 0]
+    ];
+
+    array = array.concat(getTrainings());
+    array = array.concat(getConcludeDay());
+
+    if (!AuStop)
+        array.push([4, 100, Ar2]);
+
+    ClicksS(array);
+}
+
+
+
+function Ab(Edu1=0, Edu2=1, Push=true, func)
+{
+    if (Push)
+        Push="Push it!"
+    else
+        Push="!!!!! ::: !!!!!";
+
+    var Ed = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
+    Edu1   = Ed[Edu1];
+    Edu2   = Ed[Edu2];
+
+    /* Обучене рукопашному бою и рабыни акробатике */
+    var array=[
+    /* Обучение рукопашному бою */
+    [3, "Actions & Events"], [0, "div.alt1home>div.row>.resholder>span>a", 1], [3, "Basic training"],
+    [3, Edu1], [3, Push]/*, [3, "include slave"]*/, [3, "Start!"], 
+    [3, Edu2], [3, Push]/*, [3, "include slave"]*/, [3, "Start!"], 
+    [3, "Return"], [3, "Return"]
+    ];
+    var r = [];
+
+    var a2 =[
+    /* Рабыни */
+    [1, ".alt3>.interactbox>.row>.resholder.lighthover", 1],
+    [3, "Education"],
+    // [3, "acrobatics"],
+    // [3, "science"],
+    // [3, "Medicine"],
+    [3, "domestic"],
+    [3, "Begin!"],
+    [3, "Continue"],
+    [3, "Finish"],
+    [3, "back"],
+    [3, "End interaction"],
+
+    /* Рабыни */
+    [1, ".alt3>.interactbox>.row>.resholder.lighthover", 1],
+    [3, "Education"],
+    [3, "domestic"],
+    [3, "Begin!"],
+    [3, "Continue"],
+    [3, "Finish"],
+    [3, "back"],
+    /* Выход */
+    [3, "End interaction"],
+    ];
+    
+    //r = array.concat(a2);
+    r = array;
+
+    if (func)
+        r.push([4, 100, func]);
+
+    ClicksS(r);
+}
+
+
+// Переход на чтение
+function Read()
+{
+    var array = [
+        [3, "Actions & Events"], [0, "div.alt1home>div.row>.resholder>span>a", 1], [3, "Advanced training"],
+        [3, "BDSM"]
+    ];
+
+    ClicksS(array);
+}
+
+function Purchase(cnt=1)
+{
+    var a = [3, "a", "Purchase", false, 100];
+    var array = [];
+
+    for (var i = 0; i < cnt; i++)
+        array.push(a);
+
+    ClicksS(array);
+}
+
+// "Bolts (x8) - $12"
+function PurchaseB(text, cnt=1)
+{
+    var a = [3, "a", text, false, 1];
+    var array = [];
+
+    for (var i = 0; i < cnt; i++)
+        array.push(a);
+
+    ClicksS(array);
+}
+
+// Крафтинг
+function W(cnt=1, func)
+{
+    /* Изготовление первого выбранного предмета */
+    var a1=[
+        /* FACILITIES */
+        [3, "Facilities"],
+        /* Крафтинг */
+        [0, "div.alt1home>div.row>.resholder>span>a", 1],
+        /* Изготовление */
+        [3, "Start Crafting"],
+        /* Первый верхний */
+        [0, ".craftholder>.ulsmall>a", 0],
+    ]
+
+    var p = [
+        /* Стартуем изготовление */
+        [3, "Begin!"],
+        [3, "a", "Continue", true],
+        [4, 2000],
+    ];
+    
+    for (var i = 0; i < cnt; i++)
+    {
+        a1 = a1.concat(p);
+    }
+
+    var a2 = [
+        /* Выход из крафтинга предмета */
+        [3, "a", "Return", true, 100],
+    ];
+
+    if (func)
+        a2.push([4, 100, func]);
+
+    var array = a1.concat(a2);
+    ClicksS(array);
+}
+
+function WW(cnt=20)
+{
+    return () =>
+    {
+        W(cnt);
+    };
+}
+
+
+
+function WSs(cnt=100)
+{
+    var array=[
+        /* FACILITIES */
+        [3, "Facilities"],
+        /* Крафтинг */
+        [0, "div.alt1home>div.row>.resholder>span>a", 1],
+        /* Изготовление */
+        [3, "Manage resources"],
+    ];
+
+    var p = [3, "convert scrap metal"]
+
+    var e = [3, "a", "Return", true];
+    
+    for (var i = 0; i < cnt; i++)
+    {
+        array.push(p);
+    }
+
+    array.push(e);
+
+    ClicksS(array);
+}
+
+// Разбор мусора
+function WSc(func)
+{
+    var array=[
+    /* FACILITIES */
+    [3, "Facilities"],
+    /* Крафтинг */
+    [0, "div.alt1home>div.row>.resholder>span>a", 1],
+    /* Изготовление */
+    [3, "Manage resources"],
+    /* Первый верхний */
+    [3, "a", "Prepare meat", true],
+    [4, 500],
+    [3, "a", "Refine cloth", true],
+    [4, 500],
+    [3, "a", "Prepare skins", true],
+    [4, 500],
+    [3, "a", "Scrap Merchandise", true],
+    /* Выход из крафтинга предмета */
+    [3, "Return"],
+    /* Выход из крафтинга */
+    [3, "Return"],
+    /* Выход из меню FACILITIES */
+    [3, "Return"], [3, "Return"],
+    ];
+
+    if (func)
+        array.push([4, 100, func]);
+
+    ClicksS(array);
+}
+
+// Разбор мусора на сталь
+function WSsteel(func)
+{
+    var array=[
+    /* FACILITIES */
+    [3, "Facilities"],
+    /* Крафтинг */
+    [0, "div.alt1home>div.row>.resholder>span>a", 1],
+    /* Изготовление */
+    [3, "Manage resources"],
+    [3, "a", "convert scrap metal", true, 0, 12],
+    /* Выход из крафтинга предмета */
+    [3, "a", "Return", true, 100]
+    ];
+
+    if (func instanceof Function)
+        array.push([4, 100, func]);
+    else
+    if (func.array instanceof Array)
+        array = array.concat(func.array);
+
+    ClicksS(array);
+}
+
+function SexB(num=0, func)
+{
+    var array=[
+    /* FACILITIES */
+    [3, "Facilities"],
+    /* Мойка */
+    [0, "div.alt1home>div.row>.resholder>span>a", 0],
+    [3, "Shower alone"],
+    [3, "Exit shower"],
+    [3, "Leave bathroom"],
+    [3, "a", "Return", true, 100],
+    /* Рабыни */ [1, ".alt3>.interactbox>.row>.resholder.lighthover", num],
+    [3, "Sexual options"],
+    [3, "Bondage"],
+    [3, "brute force"],
+    [3, "The rack"],
+    [3, "Stimulate"],
+    [3, "Caress pussy"],
+    [3, "Caress pussy"],
+    [3, "Back"],
+    [3, "Fuck girl"],
+    [3, "Initiate sex"],
+    [3, "Her pussy!"],
+    [3, "a", "Continue", true],
+    [3, "Cum in pussy!"],
+    [3, "back"],
+    [3, "Free girl"],
+    /* Освобождаем её сегодня от забот */
+    [3, "Events & activities"],
+    [3, "Give free time"],
+    [3, "Casual"],
+    [3, "Back"],
+    [3, "End interaction"]
+    ];
+
+    if (func)
+        array.push([4, 100, func]);
+
+    ClicksS(array);
+}
+
+
+function TrF(num=0, edu=0, func)
+{
+    var ed  = ["Intelligence and Education", "Melee skill", "Ranged skill", "Strength", "Dexterity"];
+    var edu = ed[edu];
+
+    var array=[
+        [3, "Manage"],
+        [0, "div.alt1home>div.row>.resholder>span>div>a", 0],
+        [0, "div.troopbox2>div>a", 1 + num*2],
+        [3, "Activities"],
+        [3, "Train skills"],
+        [3, "a", edu, true],
+        [3, "Back"],
+        [3, "Back"],
+        [3, "Return"],
+        [3, "Return"],
+        [3, "Return"]
+    ];
+
+    if (func)
+        array.push([4, 100, func]);
+
+    ClicksS(array);
+}

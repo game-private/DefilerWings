@@ -1,0 +1,19 @@
+document.body.addEventListener("contextmenu", (e) => { AddMenu(); e.preventDefault(); }, {capture: true})
+
+Менять в Scripts2.txt
+AddMenu()
+
+Оно появляется по правой кнопке мыши на основном экране
+
+
+https://www.mastersofraana.com/index.php/Main_Page
+
+
+// Текущее время
+document.querySelector("div.acts2>div.alt3b>strong").textContent
+// Текущий счёт
+document.querySelector("div.acts2>div.alt4b>strong").textContent
+
+
+<audio id="notif" src="notify.mp3"></audio>
+<button onclick="document.getElementById('notif').play()">Проиграть звук</button>
