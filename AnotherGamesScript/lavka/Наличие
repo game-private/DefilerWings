@@ -1,0 +1,39 @@
+console.log(Date().toLocaleString())
+function getQ()
+{
+    var a = document.querySelectorAll("[data-type='product-card-link']")
+    result = ""
+    for (var e of a)
+    {
+        // console.error(e);
+        // console.log("----------------------------------------------------------------")
+        // console.log(e.href)
+        // result.push(e.href)
+        result += e.href + "\r\n";
+        // console.log(e.nextSibling.innerText.replace("В корзину", ""))
+    }
+    console.log(result);
+}
+getQ();
+
+
+1. При заказе заказ оформляется без напоминания о том, что нужно указать номер квартиры. Каждый раз приходится вводить номер квартиры, этаж и подъезд.
+2. После оформления заказа невозможно ни ввести номер квартиры, этаж и подъезд, ни заполнить их из предыдущего заказа (если забыл заполнить).
+3. При нажатии на переключатель "использовать баллы плюса", введённый номер квартиры и другие поля формы сбрасываются.
+4. На сайте https://lavka.market.yandex.ru/ нет полной функциональности сайта https://lavka.yandex.ru/ и нет ссылки на основной сайт.
+
+
+https://lavka.yandex.ru/good/salat-seld-pod-shuboj-kulinarium-250-gram
+
+https://lavka.yandex.ru/good/hren-stolovyj-maheevu-140-gram
+
+
+https://lavka.yandex.ru/category/milk_products/svezhee_moloko
+https://lavka.yandex.ru/category/cheese/syr_kuskom
+https://lavka.yandex.ru/category/kefir_smetana_tvorog/kislomolochnye-produkty-6
+https://lavka.yandex.ru/category/kefir_smetana_tvorog/smetana-2
+https://lavka.yandex.ru/category/beef_pork/kurica
+https://lavka.yandex.ru/category/beef_pork/indejka_i_utka
+https://lavka.yandex.ru/category/seasonal
+
+

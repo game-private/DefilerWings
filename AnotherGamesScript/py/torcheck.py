@@ -36,7 +36,6 @@ def isSignificantLine(line):
         "Problem bootstrapping",
         "connections died",
         "connections have failed",
-        "Problem bootstrapping",
         "Bootstrapped"
     ]
     
@@ -66,6 +65,7 @@ class State:
         self.LastLogLen  = 0
         self.sleep       = self.sleeps["disconnected"]
         self.isConnected = False
+        self.isError     = False
         self.timeout     = self.timeouts["0"]
 
         self.ConnectedPercent      = 0
@@ -94,10 +94,28 @@ class State:
         
         print("timeout: " + str(self.timeout))
 
+    def isErrorLine(self, line):
+        ErrorTemplate = ["Problem bootstrapping", "connections have failed", "connections died in state"]
+        
+        for i, template in enumerate(ErrorTemplate):
+            if template in line:
+                return True
+
+        return False
+                
 
     # isinstance(SetConnectedPercent(line), int)
     # isinstance(SetConnectedPercent(line), bool)
     def SetConnectedPercent(self, line):
+
+        self.isError = False
+        if self.isErrorLine(line):
+            self.ConnectedPercent = 0
+            self.toRightConnetionState()
+            self.isError = True
+
+            return 0
+
         BootstrappedString = "Bootstrapped "
         if BootstrappedString in line:
             btEnd = line.index(BootstrappedString) + len(BootstrappedString)
@@ -154,6 +172,11 @@ def checkLog():
     return True
 
 while checkLog():
+    if not state.isConnected or state.isError:
+        interval = datetime.datetime.now() - state.lastStatusChangedTime
+        if state.isError or interval.seconds > state.timeout:
+            doRestartTor()
+
     time.sleep(state.sleep)
     
 

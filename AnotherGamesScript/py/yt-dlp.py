@@ -5,11 +5,14 @@ import datetime
 import os
 import subprocess
 import time
+import random
 
 current_datetime = datetime.datetime.now()
 print(current_datetime)
 
-print('/inRamS/mounts/records/_sh/py/yt-dlp.py')
+# scriptPath = '/inRamS/mounts/records/_sh/py/yt-dlp.py'
+# print(scriptPath)
+print(os.path.realpath(__file__))
 
 # parser = argparse.ArgumentParser()
 # parser.add_argument('filename')
@@ -20,10 +23,13 @@ print('/inRamS/mounts/records/_sh/py/yt-dlp.py')
 
 log  = '/Arcs/tmp/youtube/log'
 dirs = [['/Arcs/tmp/youtube/144/', "144"], ['/Arcs/tmp/youtube/360/', "360"], ['/Arcs/tmp/youtube/480/', "480"]]
+# , ['/Arcs/tmp/youtube/144/02-ЕвичКлимовДругие/Выживание/', "all"]
+
 
 newUrlsCount = 0
 successfullDownloaded = 0
 logsLines = []
+isLoggedDir = []
 
 
 def ReadLog():
@@ -60,6 +66,9 @@ def WriteToLog(pi, dirName, url):
     ReadLog()
 
 def downloadUrl(url, dirName):
+    current_datetime = datetime.datetime.now()
+    print(current_datetime.strftime("%H:%M"))
+
     pi = subprocess.run(["yt-dlp", url])
     # pi = subprocess.run(["yt-dlp", "--cookies-from-browser", "firefox", url])
 
@@ -79,11 +88,12 @@ def downloadUrl(url, dirName):
         WriteToLog(pi, dirName, url)
         print(f"Download successfully ended: {url}")
         print()
+        time.sleep(5 + random.randint(0, 15))
         return True
     else:
         print(f"returned {pi.returncode}")
         print()
-        time.sleep(15)
+        time.sleep(15 + random.randint(0, 89))
         return False
 
 
@@ -98,7 +108,7 @@ def isCheckingTimeOutExpired():
     return datetime.datetime.now().timestamp() - last_date > MAX_TIME_WITHOUT_CHECKING
 
 
-def downloadUrls(ulrs, dirName):
+def downloadUrls(ulrs, dirName, printDir):
     global newUrlsCount
     global successfullDownloaded
 
@@ -111,9 +121,11 @@ def downloadUrls(ulrs, dirName):
             return
         
         if url in logsLines:
-            print(f"Skip {url}")
+            if printDir(False):
+                print(f"Skip {url}")
             continue
 
+        printDir(True)
         newUrlsCount += 1
         print(f"Try to get {url}")
 
@@ -121,6 +133,8 @@ def downloadUrls(ulrs, dirName):
         while triesCount < 2:
             triesCount += 1
             if triesCount >= 2:
+                print("Try second time after timeout")
+                time.sleep(15)
                 print("Try second time")
             if downloadUrl(url, dirName):
                 break
@@ -130,6 +144,9 @@ def enumerateDirs(dirs, RecurseCnt):
     global successfullDownloaded
     global RecurseTarget
     global RecurseMax
+
+    if len(dirs) <= 0:
+        return
 
     if isCheckingTimeOutExpired():
         return
@@ -144,18 +161,26 @@ def enumerateDirs(dirs, RecurseCnt):
             return
 
         dirPrinted = False
-        def printDir():
+        def printDir(nonSkip):
             nonlocal dirPrinted
+            global   isLoggedDir
 
             if dirPrinted:
-                return
+                return True
+           
+            if dirName in isLoggedDir and nonSkip != True:
+                return False
 
+            fDirName = os.path.join(dirName, fileName)
             print()
             print("------------------------------------------------")
-            print(f"Work with directory {dirName} ({fileName})")
+            print(f"Work with directory {fDirName}")
             print()
             
             dirPrinted = True
+            isLoggedDir.append(dirName)
+            
+            return True
         
         os.chdir(dirName)
 
@@ -164,8 +189,7 @@ def enumerateDirs(dirs, RecurseCnt):
             urls = getUrls(fileName)
 
             if len(urls) > 0:
-                printDir()
-                downloadUrls(urls, dirName)
+                downloadUrls(urls, dirName, printDir)
 
 
         # Проверяем поддиректории
@@ -191,6 +215,7 @@ RecurseMax    = 0
 RecurseTarget = 0
 while True:
     newUrlsCount = 0
+    RecurseMax   = 0
     successfullDownloaded = 0
     last_date = datetime.datetime.now().timestamp()
     
@@ -202,13 +227,20 @@ while True:
             break;
         else:
             RecurseTarget += 1
+            print("------------------------------------------------")
             print(f"Recurse added: {RecurseTarget}")
             # time.sleep(15)
     else:
         RecurseTarget = 0
+        isLoggedDir  = []
+        if successfullDownloaded <= 0:
+            time.sleep(15 + random.randint(0, 89))
 
 
 print()
 print()
 print(f"See result in {log}")
+
+# print(f'Ended.\r\n{scriptPath}')
+print(os.path.realpath(__file__))
 
