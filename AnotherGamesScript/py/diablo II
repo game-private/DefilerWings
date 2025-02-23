@@ -1,0 +1,106 @@
+https://rutracker.org/forum/viewtopic.php?t=5293202
+https://rutracker.org/forum/viewtopic.php?t=5314506
+(скачано, кажется, со второго)
+
+mount -o loop /Arcs/tmp/G/Diablo2/Diablo2_CD1.iso /media/veracrypt62/game2/mnt  -o uid=1017,mode=0777
+mount -o loop /Arcs/tmp/G/Diablo2/Diablo2_CD2.iso /media/veracrypt62/game2/mnt2 -o uid=1017,mode=0777
+
+// wine explorer.exe
+
+D2Game.exe, если не идёт Game.exe (чёрный экран)
+
+
+https://wiki.glasscannon.ru/Скелет-маг_(Diablo_II)
+https://cyber.sports.ru/tribuna/blogs/doyouwannaplayagame/2969637.html
+https://lutgholein.ru/items/horadrik-kub/
+4 зелья здоровья (любые) + 1 Рубин (любой) + магический/редкий/сетовый меч	Длинный меч Лича
++3-19-урона, 4-7% здоровье воруемое при попадании
+
+Железный голем
+https://classic.battle.net/diablo2exp/skills/necromancer-summoning.shtml#irongolem
+level    1   2   3
+Defense	190	225	260
+
+
+
+
+
+Читы
+В файле по смещению 301h расположены статы (это для Diablo II v1.09)
+Но нужно изменить checksum, расположена по смещению 12 (0Сh). Байты суммируются. При этом после каждого байта происходит циклический свдиг влево.
+
+Располагаются следующим образом:
+Strength	These fields are self-explanatory.  They are always present.  Remember, all values are stored as longs.
+Energy
+Dexterity
+Vitality
+Stat Points Remaining (optional)	The number of Stat Points earned but not distributed.
+Skill Choices Remaining (optional)	The number of Skill Choices earned but not distributed.
+Life (current; optional)	--
+Life (base)
+Mana (current)
+Mana (base)
+Stamina (current)
+Stamina (base)
+32D - где-то рядом накопленный опыт
+
+
+Чтобы менять, надо, чтобы они не были нулевыми, иначе поле может просто отсутствовать.
+
+Процедура вычисления контрольной суммы
+def rotl(a, c):
+    b = a << c
+    b &= 0xFFFFFFFF
+    return b | (a >> (32-c))
+
+def printSum(fName):
+    with open(fName, 'rb') as file:
+        bt = file.read()
+        
+        s  = 0
+        for i in range(0, len(bt)):
+            if i >= 12 and i < 16:
+                s = rotl(s, 1)
+                continue
+            
+            s  = rotl(s, 1)
+            s += bt[i]
+        
+        print(hex(s))
+
+printSum('One.d2s')
+
+
+// https://user.xmission.com/~trevin/DiabloIIv1.09_File_Format.shtml
+// https://user.xmission.com/~trevin/DiabloIIv1.09_Item_Format.shtml
+
+
+Не работает
+HeroEditor
+Чтобы найти MSVBVM60.DLL
+winetricks vb6run
+winetricks tabctl32
+winetricks richtx32
+winetricks comctl32ocx # mscomctl
+winetricks comdlg32ocx msdxmocx
+
+# msstdfmt
+
+comdlg32ocx
+
+comctl32ocx, mfc42
+
+
+
+# Это описание формата контрольной суммы файла
+https://github.com/gucio321/d2d2s
+https://user.xmission.com/~trevin/DiabloIIv1.09_File_Format.shtml
+
+https://github.com/pairofdocs/d2s_edit_recalc
+
+
+# Дополнительные ссылки на формат
+https://github.com/krisives/d2s-format
+https://github.com/nokka/d2s
+
+
