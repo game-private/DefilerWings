@@ -1,0 +1,1623 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RoofDef>
+    <defName>RoofConstructedVin</defName>
+    <label>constructed roof vin</label>
+    <isThickRoof>true</isThickRoof>
+    <filthLeaving>Filth_RubbleBuilding</filthLeaving>
+    <soundPunchThrough>PunchThroughRoofMetal</soundPunchThrough>
+  </RoofDef>
+
+  <ThingDef ParentName="LampBase" >
+    <graphicData>
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+    </graphicData>
+    <defName>StandingLampPathCostZero</defName>
+    <label>standing lamp PC0</label>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <!-- LightingOverlay BuildingOnTop Item Skyfaller Projectile VisEffects -->
+    <fillPercent>0.00</fillPercent>
+    <passability>Standable</passability>
+    <pathCost>0</pathCost>
+    <description>Lamp at ceil</description>
+    <designationHotKey>Misc11</designationHotKey>
+    <costList>
+      <Steel>40</Steel>
+    </costList>
+    <statBases>
+      <Mass>8</Mass>
+      <StyleDominance MayRequire="Ludeon.RimWorld.Ideology">5</StyleDominance>
+      <MaxHitPoints>500</MaxHitPoints>
+      <WorkToBuild>3000</WorkToBuild>
+      <Flammability>0.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>54</glowRadius>
+        <glowColor>(64,64,64,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>300</basePowerConsumption>
+      </li>
+      <!-- li Class="CompProperties_Schedule">
+        <startTime>0.8</startTime>
+        <endTime>0.25</endTime>
+        <offMessage>Off for plant resting period</offMessage>
+      </li -->
+    <li Class="CompProperties_Styleable" />
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="LampBase" >
+    <graphicData>
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+    </graphicData>
+    <defName>StandingLampHalf</defName>
+    <label>Standing Lamp Half</label>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <!-- LightingOverlay BuildingOnTop Item Skyfaller Projectile VisEffects -->
+    <fillPercent>0.00</fillPercent>
+    <passability>Standable</passability>
+    <pathCost>0</pathCost>
+    <description>Lamp at ceil</description>
+    <designationHotKey>Misc11</designationHotKey>
+    <costList>
+      <Steel>10</Steel>
+    </costList>
+    <statBases>
+      <Mass>2</Mass>
+      <StyleDominance MayRequire="Ludeon.RimWorld.Ideology">5</StyleDominance>
+      <MaxHitPoints>25</MaxHitPoints>
+      <WorkToBuild>150</WorkToBuild>
+      <Flammability>0.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>6</glowRadius>
+        <glowColor>(217,217,208,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>7.5</basePowerConsumption>
+      </li>
+      <!-- li Class="CompProperties_Schedule">
+        <startTime>0.8</startTime>
+        <endTime>0.25</endTime>
+        <offMessage>Off for plant resting period</offMessage>
+      </li -->
+    <li Class="CompProperties_Styleable" />
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>HeaterFull</defName>
+    <label>heater full</label>
+    <description>A device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
+    <thingClass>Building_Heater</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shadowData>
+        <volume>(0.5,0.3,0.7)</volume>
+        <offset>(0,0,-0.15)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(0.234375,0,0.515625,0.984375)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <blockWind>true</blockWind>
+    <rotatable>false</rotatable>
+    <fillPercent>0.4</fillPercent>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>6</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>175</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_TempControl">
+        <energyPerSecond>175</energyPerSecond>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <designationHotKey>Misc2</designationHotKey>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+
+<ThingDef ParentName="BuildingBase">
+    <defName>HeaterFullRed</defName>
+    <label>heater full red</label>
+    <description>A device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
+    <thingClass>Building_Heater</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shadowData>
+        <volume>(0.5,0.3,0.7)</volume>
+        <offset>(0,0,-0.15)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(0.234375,0,0.515625,0.984375)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>0</pathCost>
+    <blockWind>true</blockWind>
+    <rotatable>false</rotatable>
+    <fillPercent>0.0</fillPercent>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <statBases>
+      <WorkToBuild>10000</WorkToBuild>
+      <MaxHitPoints>1000</MaxHitPoints>
+      <Mass>60</Mass>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <costList>
+      <Steel>500</Steel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>1750</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_TempControl">
+        <energyPerSecond>1750</energyPerSecond>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,255,0,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <designationHotKey>Misc2</designationHotKey>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>HeaterFullRedG</defName>
+    <label>heater full redG</label>
+    <description>A device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
+    <thingClass>Building_Heater</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shadowData>
+        <volume>(0.5,0.3,0.7)</volume>
+        <offset>(0,0,-0.15)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(0.234375,0,0.515625,0.984375)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>0</pathCost>
+    <blockWind>true</blockWind>
+    <rotatable>false</rotatable>
+    <fillPercent>0.0</fillPercent>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <statBases>
+      <WorkToBuild>10000</WorkToBuild>
+      <MaxHitPoints>1000</MaxHitPoints>
+      <Mass>60</Mass>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <costList>
+      <Steel>500</Steel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>1750</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>1750</heatPerSecond>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,0,0,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <designationHotKey>Misc2</designationHotKey>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+
+
+  <ThingDef ParentName="LampBase" >
+    <graphicData>
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+    </graphicData>
+    <defName>StandingLampGenerator</defName>
+    <label>Standing Lamp Generator (cheats)</label>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <!-- LightingOverlay BuildingOnTop Item Skyfaller Projectile VisEffects -->
+    <fillPercent>0.00</fillPercent>
+    <passability>Standable</passability>
+    <pathCost>0</pathCost>
+    <description>Generator at ceil</description>
+    <designationCategory>Power</designationCategory>
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>20</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <Mass>20</Mass>
+      <StyleDominance MayRequire="Ludeon.RimWorld.Ideology">5</StyleDominance>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToBuild>1500</WorkToBuild>
+      <Flammability>0.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>27</glowRadius>
+        <glowColor>(370,370,370,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>-10000</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>10000</heatPerSecond>
+      </li>
+      <!-- li Class="CompProperties_Schedule">
+        <startTime>0.8</startTime>
+        <endTime>0.25</endTime>
+        <offMessage>Off for plant resting period</offMessage>
+      </li -->
+    <li Class="CompProperties_Styleable" />
+    </comps>
+  </ThingDef>
+
+<ThingDef ParentName="BuildingBase">
+  <defName>WindTurbineTen</defName>
+    <thingClass>Building</thingClass>
+    <drawerType>MapMeshAndRealTime</drawerType>
+  <label>wind turbine ten</label>
+  <description>A wind-powered electrical generator. Requires a large clear space in front and behind for optimal air flow.</description>
+    <graphicData>
+      <texPath>Things/Building/Power/WindTurbine/WindTurbineBody</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5,2)</drawSize>
+      <shadowData>
+        <volume>(0.6, 1.0, 1.6)</volume>
+    <offset>(-0.1,0,-0.08)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(2,0.15,1,1.4)</rect>
+      </damageData>
+    </graphicData>
+  <uiIconPath>Things/Building/Power/WindTurbine/WindTurbine_MenuIcon</uiIconPath>
+  <altitudeLayer>Building</altitudeLayer>
+  <passability>PassThroughOnly</passability>
+  <pathCost>50</pathCost>
+  <canOverlapZones>false</canOverlapZones>
+  <blockWind>true</blockWind>
+  <fillPercent>0.5</fillPercent>
+  <statBases>
+    <MaxHitPoints>250</MaxHitPoints>
+    <WorkToBuild>33000</WorkToBuild>
+    <Flammability>0.5</Flammability>
+    <Beauty>-12</Beauty>
+  </statBases>
+    <tickerType>Normal</tickerType>
+  <size>(7,2)</size>
+  <selectable>true</selectable>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+  <rotatable>true</rotatable>
+  <designationCategory>Power</designationCategory>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+  <building>
+    <allowAutoroof>false</allowAutoroof>
+    <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+  </building>
+  <costList>
+    <Steel>1000</Steel>
+      <ComponentIndustrial>20</ComponentIndustrial>
+  </costList>
+    <constructEffect>ConstructMetal</constructEffect>
+    <placeWorkers>
+      <li>PlaceWorker_WindTurbine</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerPlantWind</compClass>
+        <basePowerConsumption>-230000</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationHotKey>Misc7</designationHotKey>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+  </ThingDef>
+  
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>BatteryTen</defName>
+    <label>battery Ten</label>
+    <description>Stores electricity for later use. Charged batteries explode when exposed to rain or fire.</description>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <thingClass>Building_Battery</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Power/Battery</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2,3)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <blockWind>true</blockWind>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.40</fillPercent>
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsPower</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>20</Mass>
+      <Flammability>1.0</Flammability>
+      <Beauty>-15</Beauty>
+    </statBases>
+    <size>(1,2)</size>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+    </building>
+    <costList>
+      <Steel>700</Steel>
+      <ComponentIndustrial>20</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Battery">
+        <storedEnergyMax>6000</storedEnergyMax>
+        <efficiency>0.75</efficiency>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Power</designationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <constructEffect>ConstructMetal</constructEffect>
+    <designationHotKey>Misc4</designationHotKey>
+    <canOverlapZones>false</canOverlapZones>
+    <researchPrerequisites>
+      <li>Batteries</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>BatteryH</defName>
+    <label>battery Hundred</label>
+    <description>Stores electricity for later use. Charged batteries explode when exposed to rain or fire.</description>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <thingClass>Building_Battery</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Power/Battery</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2,3)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <blockWind>true</blockWind>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.40</fillPercent>
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsPower</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>20</Mass>
+      <Flammability>1.0</Flammability>
+      <Beauty>-15</Beauty>
+    </statBases>
+    <size>(1,2)</size>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+    </building>
+    <costList>
+      <Steel>700</Steel>
+      <ComponentIndustrial>200</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Battery">
+        <storedEnergyMax>6000</storedEnergyMax>
+        <efficiency>10.0</efficiency>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Power</designationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <constructEffect>ConstructMetal</constructEffect>
+    <designationHotKey>Misc4</designationHotKey>
+    <canOverlapZones>false</canOverlapZones>
+    <researchPrerequisites>
+      <li>Batteries</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <TerrainDef ParentName="FloorBase">
+    <defName>TenTile</defName>
+    <label>ten tile</label>
+    <renderPrecedence>243</renderPrecedence>
+    <description>Sterile tiles. 1 W power</description>
+    <texturePath>Terrain/Surfaces/GenericFloorTile</texturePath>
+    <color>(0.71, 0.71, 0.69)</color>
+    <pathCost>-8</pathCost>
+    <statBases>
+      <WorkToBuild>1600</WorkToBuild>
+      <Cleanliness>10.0</Cleanliness>
+    <Beauty>1</Beauty>
+    </statBases>
+    <costList>
+      <Steel>3</Steel>
+      <Silver>120</Silver>
+    </costList>
+    <constructEffect>ConstructMetal</constructEffect>
+    <designationHotKey>Misc4</designationHotKey>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>SterileMaterials</li>
+    </researchPrerequisites>
+  </TerrainDef>
+
+<ThingDef Name="VinnyCowColdBase" ParentName="AnimalThingBase" Abstract="True">
+    <defName>VinnyCowColdBase</defName>
+    <label>VinnyCowCold Base</label>
+    <!-- description>Vinny cow</description -->
+    <statBases>
+      <MoveSpeed>11</MoveSpeed>
+      <ComfyTemperatureMin>-80</ComfyTemperatureMin>
+      <ComfyTemperatureMax>+80</ComfyTemperatureMax>
+      <MarketValue>1</MarketValue>
+      <FilthRate>32</FilthRate>
+      <CaravanRidingSpeedFactor>2.0</CaravanRidingSpeedFactor>
+    </statBases>
+    <race>
+      <body>QuadrupedAnimalWithHooves</body>
+      <herdAnimal>true</herdAnimal>
+      <baseBodySize>2.4</baseBodySize>
+      <!-- baseHungerRate>1.0</baseHungerRate -->
+      <baseHungerRate>0.1</baseHungerRate>
+      <baseHealthScale>1.5</baseHealthScale>
+      <foodType>VegetarianRoughAnimal</foodType>
+      <leatherDef>Leather_Plain</leatherDef>
+      <wildness>0</wildness>
+      <roamMtbDays>2</roamMtbDays>
+      <trainability>Advanced</trainability>
+      <meatLabel>beef</meatLabel>
+      <packAnimal>true</packAnimal>
+      <gestationPeriodDays>12</gestationPeriodDays>
+      <lifeExpectancy>80</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalBaby</def>
+          <minAge>0</minAge>
+        </li>
+        <li>
+          <def>AnimalJuvenile</def>
+          <minAge>0.5</minAge>
+        </li>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>2</minAge>
+          <soundWounded>Pawn_Muffalo_Wounded</soundWounded>
+          <soundDeath>Pawn_Muffalo_Death</soundDeath>
+          <soundCall>Pawn_Muffalo_Call</soundCall>
+          <soundAngry>Pawn_Muffalo_Angry</soundAngry>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+    </race>
+    <tradeTags>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
+    </tradeTags>
+    <tools>
+      <li>
+        <capacities>
+          <li>Bite</li>
+        </capacities>
+        <power>5</power>
+        <cooldownTime>0.5</cooldownTime>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.7</chanceFactor>
+      </li>
+      <li>
+        <label>head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>12</power>
+        <cooldownTime>0.5</cooldownTime>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
+      </li>
+      <li>
+        <label>left hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>0.5</cooldownTime>
+        <linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>right hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>0.5</cooldownTime>
+        <linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <ThingDef ParentName="VinnyCowColdBase">
+    <defName>VinnyCowColdMilkWool</defName>
+    <label>VinnyCowCold MW</label>
+    <description>Vinny cow get milk and wool</description>
+    <comps>
+      <li Class="CompProperties_Milkable">
+        <milkDef>Milk</milkDef>
+        <milkIntervalDays>0.1</milkIntervalDays>
+        <milkAmount>10</milkAmount>
+      </li>
+      <li Class="CompProperties_Shearable">
+        <woolDef>VinnyCowColdWool</woolDef>
+        <shearIntervalDays>0.1</shearIntervalDays>
+        <woolAmount>1</woolAmount>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>8</overlightRadius>
+        <glowRadius>8</glowRadius>
+        <glowColor>(370,370,0,0)</glowColor>
+      </li>
+      <!-- li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1</heatPerSecond>
+      </li -->
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="VinnyCowColdBase">
+    <defName>VinnyCowColdIJMed</defName>
+    <label>VinnyCowCold IJ Med</label>
+    <description>Vinny cow get InsectJelly and MedicineUltratech</description>
+    <comps>
+      <li Class="CompProperties_Milkable">
+        <milkDef>InsectJelly</milkDef>
+        <milkIntervalDays>1</milkIntervalDays>
+        <milkAmount>10</milkAmount>
+        <milkFemaleOnly>false</milkFemaleOnly>
+      </li>
+      <li Class="CompProperties_Shearable">
+        <woolDef>MedicineUltratech</woolDef>
+        <shearIntervalDays>10</shearIntervalDays>
+        <woolAmount>1</woolAmount>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>8</overlightRadius>
+        <glowRadius>8</glowRadius>
+        <glowColor>(370,370,0,0)</glowColor>
+      </li>
+      <!-- li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1</heatPerSecond>
+      </li -->
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="VinnyCowColdBase">
+    <defName>VinnyCowColdSteel</defName>
+    <label>VinnyCowCold Steel</label>
+    <description>Vinny cow get steel</description>
+    <comps>
+      <li Class="CompProperties_Milkable">
+        <milkDef>Steel</milkDef>
+        <milkIntervalDays>1</milkIntervalDays>
+        <milkAmount>10</milkAmount>
+        <milkFemaleOnly>false</milkFemaleOnly>
+      </li>
+      <li Class="CompProperties_Shearable">
+        <woolDef>ComponentIndustrial</woolDef>
+        <shearIntervalDays>10</shearIntervalDays>
+        <woolAmount>1</woolAmount>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>8</overlightRadius>
+        <glowRadius>8</glowRadius>
+        <glowColor>(370,370,0,0)</glowColor>
+      </li>
+      <!-- li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1</heatPerSecond>
+      </li -->
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="VinnyCowColdBase">
+    <defName>VinnyCowColdPlast</defName>
+    <label>VinnyCowColdPlast</label>
+    <description>Vinny cow get InsectJelly and MedicineUltratech</description>
+    <comps>
+      <li Class="CompProperties_Milkable">
+        <milkDef>Gold</milkDef>
+        <milkIntervalDays>1</milkIntervalDays>
+        <milkAmount>10</milkAmount>
+        <milkFemaleOnly>false</milkFemaleOnly>
+      </li>
+      <li Class="CompProperties_Shearable">
+        <woolDef>Plasteel</woolDef>
+        <shearIntervalDays>1</shearIntervalDays>
+        <woolAmount>10</woolAmount>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>8</overlightRadius>
+        <glowRadius>8</glowRadius>
+        <glowColor>(370,370,0,0)</glowColor>
+      </li>
+      <!-- li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1</heatPerSecond>
+      </li -->
+    </comps>
+  </ThingDef>
+  
+
+  <PawnKindDef Name="PawnVinnyCowColdBase" ParentName="AnimalKindBase" Abstract="True">
+    <combatPower>100</combatPower>
+    <ecoSystemWeight>1.1</ecoSystemWeight>
+    <wildGroupSize>3~9</wildGroupSize>
+    <lifeStages>
+      <li>
+        <label>VinnyCowCold calf</label>
+        <labelPlural>VinnyCowCold calves</labelPlural>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Muffalo</texPath>
+          <drawSize>1.5</drawSize>
+          <shadowData>
+            <volume>(0.4, 0.3, 0.3)</volume>
+            <offset>(0,0,-0.2)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Dessicated_Muffalo</texPath>
+          <drawSize>1.5</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Muffalo</texPath>
+          <drawSize>2.25</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.45, 0.45)</volume>
+            <offset>(0,0,-0.25)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Dessicated_Muffalo</texPath>
+          <drawSize>2.25</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Muffalo</texPath>
+          <drawSize>3</drawSize>
+          <shadowData>
+            <volume>(0.8, 0.6, 0.6)</volume>
+            <offset>(0,0,-0.3)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/Dessicated_Muffalo</texPath>
+          <drawSize>3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+  
+ <PawnKindDef ParentName="PawnVinnyCowColdBase">
+      <defName>VinnyCowColdMilkWool</defName>
+    <label>VinnyCowColdMilkWool</label>
+    <race>VinnyCowColdMilkWool</race>
+  </PawnKindDef>
+  
+    <PawnKindDef ParentName="PawnVinnyCowColdBase">
+      <defName>VinnyCowColdIJMed</defName>
+    <label>VinnyCowColdIJMed</label>
+    <race>VinnyCowColdIJMed</race>
+  </PawnKindDef>
+  
+  <PawnKindDef ParentName="PawnVinnyCowColdBase">
+      <defName>VinnyCowColdPlast</defName>
+    <label>VinnyCowColdPlast</label>
+    <race>VinnyCowColdPlast</race>
+  </PawnKindDef>
+    
+  <PawnKindDef ParentName="PawnVinnyCowColdBase">
+      <defName>VinnyCowColdSteel</defName>
+    <label>VinnyCowColdSteel</label>
+    <race>VinnyCowColdSteel</race>
+  </PawnKindDef>
+  
+  <ThingDef ParentName="WoolBase">
+    <defName>VinnyCowColdWool</defName>
+    <label>VinnyCowCold wool</label>
+    <description>VinnyCowCold wool</description>
+    <statBases>
+      <StuffPower_Insulation_Cold>34</StuffPower_Insulation_Cold>
+      <StuffPower_Insulation_Heat>24</StuffPower_Insulation_Heat>
+      <MaxHitPoints>200</MaxHitPoints>
+      <MarketValue>1</MarketValue>
+      <Mass>0.025</Mass>
+      <Flammability>0.0</Flammability>
+      <DeteriorationRate>30</DeteriorationRate>
+      <StuffPower_Armor_Sharp>0.5</StuffPower_Armor_Sharp>
+      <StuffPower_Armor_Blunt>0.5</StuffPower_Armor_Blunt>
+      <StuffPower_Armor_Heat>5.0</StuffPower_Armor_Heat>
+    </statBases>
+    <graphicData>
+      <color>(179,192,186)</color>
+    </graphicData>
+    <stuffProps>
+      <color>(179,192,186)</color>
+      <statFactors>
+        <Flammability>0.0</Flammability>
+        <MaxHitPoints>2.0</MaxHitPoints>
+        <Beauty>1.0</Beauty>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
+
+<ThingDef ParentName="AnimalThingBase">
+    <defName>HorseA</defName>
+    <label>horseA</label>
+    <devNote>cow-1</devNote>
+    <description>A large hoofed mammal with a short coat, a long mane, and a long tail. Horses have been domesticated since ancient times.\n\nWhen in a caravan, people can ride horses to increase the caravan's speed.</description>
+    <statBases>
+      <MoveSpeed>10.0</MoveSpeed>
+      <MarketValue>0</MarketValue>
+      <ComfyTemperatureMin>-80</ComfyTemperatureMin>
+      <ComfyTemperatureMax>80</ComfyTemperatureMax>
+      <FilthRate>0</FilthRate>
+      <CaravanRidingSpeedFactor>3.0</CaravanRidingSpeedFactor>
+    </statBases>
+    <uiIconScale>1.1</uiIconScale>
+    <comps>
+      <li Class="CompProperties_Milkable">
+        <!-- milkDef>Chemfuel</milkDef -->
+        <milkDef>Silver</milkDef>
+        <milkIntervalDays>1</milkIntervalDays>
+        <milkAmount>10</milkAmount>
+      </li>
+      <li Class="CompProperties_Shearable">
+        <woolDef>Luciferium</woolDef>
+        <shearIntervalDays>1</shearIntervalDays>
+        <woolAmount>10</woolAmount>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>12</overlightRadius>
+        <glowRadius>12</glowRadius>
+        <glowColor>(370,370,0,0)</glowColor>
+      </li>
+      <!-- li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1</heatPerSecond>
+      </li -->
+    </comps>
+    <race>
+      <herdAnimal>true</herdAnimal>
+      <body>QuadrupedAnimalWithHooves</body>
+      <baseBodySize>2.4</baseBodySize>
+      <baseHealthScale>1.00</baseHealthScale>
+      <!-- baseHungerRate>3.0</baseHungerRate -->
+      <baseHungerRate>0.1</baseHungerRate>
+      <foodType>VegetarianRoughAnimal</foodType>
+      <leatherDef>Leather_Plain</leatherDef>
+      <gestationPeriodDays>6.66</gestationPeriodDays>
+      <wildness>0.35</wildness>
+      <roamMtbDays>2</roamMtbDays>
+      <petness>0.6</petness>
+      <trainability>Advanced</trainability>
+      <meatLabel>horse meat</meatLabel>
+      <packAnimal>true</packAnimal>
+      <lifeExpectancy>80</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalBaby</def>
+          <minAge>0</minAge>
+        </li>
+        <li>
+          <def>AnimalJuvenile</def>
+          <minAge>0.5</minAge>
+        </li>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>2.0</minAge>
+          <soundWounded>Pawn_Horse_Wounded</soundWounded>
+          <soundDeath>Pawn_Horse_Death</soundDeath>
+          <soundCall>Pawn_Horse_Call</soundCall>
+          <soundAngry>Pawn_Horse_Angry</soundAngry>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+    </race>
+    <tradeTags>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
+    </tradeTags>
+    <tools>
+      <li>
+        <label>head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>10</power>
+        <cooldownTime>2.9</cooldownTime>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+      </li>
+      <li>
+        <label>left hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>7</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>right hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>7</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <capacities>
+          <li>Bite</li>
+        </capacities>
+        <power>5</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.5</chanceFactor>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <PawnKindDef Name="HorseA" ParentName="AnimalKindBase">
+    <defName>HorseA</defName>
+    <label>horseA</label>
+    <labelMale>stallion</labelMale>
+    <labelFemale>mareA</labelFemale>
+    <race>HorseA</race>
+    <combatPower>100</combatPower>
+    <ecoSystemWeight>1.1</ecoSystemWeight>
+    <wildGroupSize>3~6</wildGroupSize>
+    <alternateGraphicChance>0.8</alternateGraphicChance>
+    <alternateGraphics>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse1</texPath></li>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse2</texPath></li>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse3</texPath></li>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse4</texPath></li>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse5</texPath></li>
+      <li><texPath>Things/Pawn/Animal/Horse/Horse6</texPath></li>
+    </alternateGraphics>
+    <lifeStages>
+      <li>
+        <label>foal</label>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Horse</texPath>
+          <drawSize>1.3</drawSize>
+          <shadowData>
+            <volume>(0.4, 0.3, 0.3)</volume>
+            <offset>(0,0,-0.2)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Dessicated_Horse</texPath>
+          <drawSize>1.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Horse</texPath>
+          <drawSize>1.8</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.45, 0.45)</volume>
+            <offset>(0,0,-0.25)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Dessicated_Horse</texPath>
+          <drawSize>1.8</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Horse</texPath>
+          <drawSize>2.1</drawSize>
+          <shadowData>
+            <volume>(0.8, 0.6, 0.6)</volume>
+            <offset>(0,0,-0.3)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Horse/Dessicated_Horse</texPath>
+          <drawSize>2.1</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+
+ <ThingDef ParentName="LampBase">
+    <defName>SunLampHP</defName>
+    <label>sun lamp HP</label>
+    <description>An industrial lamp which lights an area brightly enough to grow crops, but consumes a huge amount of power. Automatically turns itself off at night.</description>
+    <thingClass>Building_SunLamp</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Production/LampSun</texPath>
+    </graphicData>
+    <blockWind>true</blockWind>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <WorkToBuild>330</WorkToBuild>
+      <Mass>14</Mass>
+    </statBases>
+    <costList>
+      <Steel>640</Steel>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>28</overlightRadius>
+        <glowRadius>56</glowRadius>
+        <glowColor>(370,370,370,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>46400</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Schedule">
+        <!-- Match plant growing times -->
+        <startTime>0.25</startTime>
+        <endTime>0.8</endTime>
+        <offMessage>Off for plant resting period</offMessage>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>48</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+
+    <!--=========================== Food crops ==============================-->
+
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Luciferium</defName>
+    <label>Luciferium plant</label>
+    <description>Luciferium plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Luciferium</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Food</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Silver</defName>
+    <label>Silver plant</label>
+    <description>Silver plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Silver</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Steel</defName>
+    <label>Steel plant</label>
+    <description>Steel plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Steel</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Plasteel</defName>
+    <label>Plasteel plant</label>
+    <description>Plasteel plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Plasteel</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Gold</defName>
+    <label>Gold plant</label>
+    <description>Gold plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Gold</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_ComponentIndustrial</defName>
+    <label>ComponentIndustrial plant</label>
+    <description>ComponentIndustrial plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>ComponentIndustrial</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_MedicineUltratech</defName>
+    <label>MedicineUltratech plant</label>
+    <description>MedicineUltratech plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>MedicineUltratech</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_VinnyCowColdWool</defName>
+    <label>VinnyCowColdWool plant</label>
+    <description>VinnyCowColdWool plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>VinnyCowColdWool</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Milk</defName>
+    <label>Milk plant</label>
+    <description>Milk plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Milk</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_ComponentSpacer</defName>
+    <label>ComponentSpacer plant</label>
+    <description>ComponentSpacer plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>ComponentSpacer</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Misc</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>1</overlightRadius>
+        <glowRadius>3</glowRadius>
+        <glowColor>(150,150,150,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-10</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+    
+ 
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_InsectJellyCold</defName>
+    <label>InsectJelly cold plant</label>
+    <description>InsectJelly cold plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>InsectJelly</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Food</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>1</overlightRadius>
+        <glowRadius>3</glowRadius>
+        <glowColor>(100,150,255,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-1000</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_InsectJellyHeat</defName>
+    <label>InsectJelly heat plant</label>
+    <description>InsectJelly heat plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>InsectJelly</harvestedThingDef>
+      <harvestYield>6</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+          <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Food</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>1</overlightRadius>
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>1000</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_InsectJellyLight</defName>
+    <label>InsectJelly Light plant</label>
+    <description>InsectJelly Light plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+      <Beauty>4</Beauty>
+      <BeautyOutdoors>4</BeautyOutdoors>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>4</maxMeshCount>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>3</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Beauty</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>8</overlightRadius>
+        <glowRadius>12</glowRadius>
+        <glowColor>(150,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-100</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+    
+</Defs>
+
