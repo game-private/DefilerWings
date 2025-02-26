@@ -554,7 +554,7 @@
     <defName>TenTile</defName>
     <label>ten tile</label>
     <renderPrecedence>243</renderPrecedence>
-    <description>Sterile tiles. 1 W power</description>
+    <description>Sterile tiles.</description>
     <texturePath>Terrain/Surfaces/GenericFloorTile</texturePath>
     <color>(0.71, 0.71, 0.69)</color>
     <pathCost>-8</pathCost>
@@ -566,6 +566,7 @@
     <costList>
       <Steel>3</Steel>
       <Silver>120</Silver>
+      <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <constructEffect>ConstructMetal</constructEffect>
     <designationHotKey>Misc4</designationHotKey>
@@ -574,6 +575,7 @@
       <li>SterileMaterials</li>
     </researchPrerequisites>
   </TerrainDef>
+
 
 <ThingDef Name="VinnyCowColdBase" ParentName="AnimalThingBase" Abstract="True">
     <defName>VinnyCowColdBase</defName>
@@ -1147,7 +1149,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Food</purpose>
@@ -1182,7 +1184,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1217,7 +1219,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1252,7 +1254,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1287,7 +1289,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1322,7 +1324,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1357,7 +1359,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1392,7 +1394,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1427,7 +1429,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1462,7 +1464,7 @@
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Misc</purpose>
@@ -1477,99 +1479,6 @@
       <li Class="CompProperties_HeatPusher">
         <compClass>CompHeatPusherPowered</compClass>
         <heatPerSecond>-10</heatPerSecond>
-      </li>
-    </comps>
-  </ThingDef>
-    
- 
-  <ThingDef ParentName="PlantBase">
-    <defName>Plant_InsectJellyCold</defName>
-    <label>InsectJelly cold plant</label>
-    <description>InsectJelly cold plant.</description>
-    <statBases>
-      <MaxHitPoints>85</MaxHitPoints>
-      <Nutrition>0.175</Nutrition>
-    </statBases>
-    <graphicData>
-      <texPath>Things/Plant/RicePlant</texPath>
-      <graphicClass>Graphic_Random</graphicClass>
-    </graphicData>
-    <selectable>true</selectable>
-    <pathCost>14</pathCost>
-    <ingestible />
-    <plant>
-      <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>4</maxMeshCount>
-      <harvestTag>Standard</harvestTag>
-      <harvestedThingDef>InsectJelly</harvestedThingDef>
-      <harvestYield>6</harvestYield>
-      <sowTags>
-        <li>Ground</li>
-        <li>Hydroponic</li>
-        <li>Decorative</li>
-      </sowTags>
-      <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
-      <visualSizeRange>0.3~0.8</visualSizeRange>
-      <wildOrder>2</wildOrder>
-      <purpose>Food</purpose>
-      <humanFoodPlant>false</humanFoodPlant>
-    </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>1</overlightRadius>
-        <glowRadius>3</glowRadius>
-        <glowColor>(100,150,255,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-1000</heatPerSecond>
-      </li>
-    </comps>
-  </ThingDef>
-
-  <ThingDef ParentName="PlantBase">
-    <defName>Plant_InsectJellyHeat</defName>
-    <label>InsectJelly heat plant</label>
-    <description>InsectJelly heat plant.</description>
-    <statBases>
-      <MaxHitPoints>85</MaxHitPoints>
-      <Nutrition>0.175</Nutrition>
-    </statBases>
-    <graphicData>
-      <texPath>Things/Plant/RicePlant</texPath>
-      <graphicClass>Graphic_Random</graphicClass>
-    </graphicData>
-    <selectable>true</selectable>
-    <pathCost>14</pathCost>
-    <ingestible />
-    <plant>
-      <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>4</maxMeshCount>
-      <harvestTag>Standard</harvestTag>
-      <harvestedThingDef>InsectJelly</harvestedThingDef>
-      <harvestYield>6</harvestYield>
-      <sowTags>
-        <li>Ground</li>
-        <li>Hydroponic</li>
-          <li>Decorative</li>
-      </sowTags>
-      <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
-      <visualSizeRange>0.3~0.8</visualSizeRange>
-      <wildOrder>2</wildOrder>
-      <purpose>Food</purpose>
-      <humanFoodPlant>false</humanFoodPlant>
-    </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>1</overlightRadius>
-        <glowRadius>3</glowRadius>
-        <glowColor>(255,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>1000</heatPerSecond>
       </li>
     </comps>
   </ThingDef>
@@ -1594,13 +1503,16 @@
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
       <maxMeshCount>4</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>InsectJelly</harvestedThingDef>
+      <harvestYield>6</harvestYield>
       <sowTags>
         <li>Ground</li>
         <li>Hydroponic</li>
         <li>Decorative</li>
       </sowTags>
       <topWindExposure>0.1</topWindExposure>
-      <growDays>3</growDays>
+      <growDays>0.5</growDays>
       <visualSizeRange>0.3~0.8</visualSizeRange>
       <wildOrder>2</wildOrder>
       <purpose>Beauty</purpose>
