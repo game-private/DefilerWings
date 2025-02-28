@@ -1502,7 +1502,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>InsectJelly</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1550,7 +1550,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Mechlink</harvestedThingDef>
       <harvestYield>1</harvestYield>
@@ -1598,7 +1598,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>SubcoreHigh</harvestedThingDef>
       <harvestYield>1</harvestYield>
@@ -1646,7 +1646,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>SubcoreRegular</harvestedThingDef>
       <harvestYield>1</harvestYield>
@@ -1694,7 +1694,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>SubcoreBasic</harvestedThingDef>
       <harvestYield>1</harvestYield>
@@ -1742,9 +1742,105 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <!-- maxMeshCount>400</maxMeshCount -->
+      <maxMeshCount>400</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>NanostructuringChip</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>0.1</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Beauty</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>8</overlightRadius>
+        <glowRadius>12</glowRadius>
+        <glowColor>(150,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-100</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_PowerfocusChip</defName>
+    <label>PowerfocusChip plant</label>
+    <description>PowerfocusChip plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+      <Beauty>4</Beauty>
+      <BeautyOutdoors>4</BeautyOutdoors>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>400</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>PowerfocusChip</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>0.1</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Beauty</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+    <comps>
+      <li Class="CompProperties_Glower">
+          <overlightRadius>8</overlightRadius>
+        <glowRadius>12</glowRadius>
+        <glowColor>(150,150,100,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>-100</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_SignalChip</defName>
+    <label>SignalChip plant</label>
+    <description>SignalChip plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+      <Beauty>4</Beauty>
+      <BeautyOutdoors>4</BeautyOutdoors>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>400</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>SignalChip</harvestedThingDef>
       <harvestYield>1</harvestYield>
       <sowTags>
         <li>Ground</li>
