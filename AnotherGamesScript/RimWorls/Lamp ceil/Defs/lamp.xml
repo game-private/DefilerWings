@@ -559,8 +559,10 @@
     <color>(0.71, 0.71, 0.69)</color>
     <pathCost>-8</pathCost>
     <statBases>
-      <WorkToBuild>1600</WorkToBuild>
+      <WorkToBuild>3200</WorkToBuild>
       <Cleanliness>10.0</Cleanliness>
+      <CleaningTimeFactor>0.6</CleaningTimeFactor>
+      <FilthMultiplier>0.90</FilthMultiplier>
     <Beauty>1</Beauty>
     </statBases>
     <costList>
@@ -576,6 +578,38 @@
     </researchPrerequisites>
   </TerrainDef>
 
+  <TerrainDef ParentName="FloorBase">
+    <defName>TenTile2</defName>
+    <label>ten tile2</label>
+    <renderPrecedence>243</renderPrecedence>
+    <description>Sterile tiles 2.</description>
+    <texturePath>Terrain/Surfaces/GenericFloorTile</texturePath>
+    <color>(0.65, 0.65, 0.45)</color>
+    <pathCost>-8</pathCost>
+    <statBases>
+      <WorkToBuild>4800</WorkToBuild>
+      <Cleanliness>10.0</Cleanliness>
+      <CleaningTimeFactor>0.1</CleaningTimeFactor>
+      <FilthMultiplier>0.05</FilthMultiplier>
+    <Beauty>11</Beauty>
+    </statBases>
+    <costList>
+      <Gold>70</Gold>
+      <Steel>3</Steel>
+      <Silver>120</Silver>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <constructEffect>ConstructMetal</constructEffect>
+    <designationHotKey>Misc4</designationHotKey>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>SterileMaterials</li>
+    </researchPrerequisites>
+    <tags>
+      <li>FineFloor</li>
+    </tags>
+  </TerrainDef>
+    
 
 <ThingDef Name="VinnyCowColdBase" ParentName="AnimalThingBase" Abstract="True">
     <defName>VinnyCowColdBase</defName>
@@ -1139,7 +1173,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Luciferium</harvestedThingDef>
       <harvestYield>60</harvestYield>
@@ -1174,7 +1208,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Silver</harvestedThingDef>
       <harvestYield>60</harvestYield>
@@ -1209,7 +1243,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Steel</harvestedThingDef>
       <harvestYield>60</harvestYield>
@@ -1244,7 +1278,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Plasteel</harvestedThingDef>
       <harvestYield>60</harvestYield>
@@ -1279,7 +1313,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Gold</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1314,7 +1348,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>ComponentIndustrial</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1349,7 +1383,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>MedicineUltratech</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1384,7 +1418,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>VinnyCowColdWool</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1454,7 +1488,7 @@
     <ingestible />
     <plant>
       <dieIfLeafless>false</dieIfLeafless>
-      <maxMeshCount>40</maxMeshCount>
+      <maxMeshCount>4</maxMeshCount>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>ComponentSpacer</harvestedThingDef>
       <harvestYield>20</harvestYield>
@@ -1566,17 +1600,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1614,17 +1637,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1662,17 +1674,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1710,17 +1711,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1758,17 +1748,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1806,17 +1785,6 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
-    <comps>
-      <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
-        <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
-    </comps>
   </ThingDef>
     
   <ThingDef ParentName="PlantBase">
@@ -1854,17 +1822,82 @@
       <purpose>Beauty</purpose>
       <humanFoodPlant>false</humanFoodPlant>
     </plant>
+  </ThingDef>
+    
+  <ThingDef ParentName="PlantBase">
+    <defName>Plant_Uranium</defName>
+    <label>Uranium plant</label>
+    <description>Uranium plant.</description>
+    <statBases>
+      <MaxHitPoints>85</MaxHitPoints>
+      <Nutrition>0.175</Nutrition>
+      <Beauty>4</Beauty>
+      <BeautyOutdoors>4</BeautyOutdoors>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Plant/RicePlant</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <selectable>true</selectable>
+    <pathCost>14</pathCost>
+    <ingestible />
+    <plant>
+      <dieIfLeafless>false</dieIfLeafless>
+      <maxMeshCount>400</maxMeshCount>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Uranium</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+      <sowTags>
+        <li>Ground</li>
+        <li>Hydroponic</li>
+        <li>Decorative</li>
+      </sowTags>
+      <topWindExposure>0.1</topWindExposure>
+      <growDays>0.1</growDays>
+      <visualSizeRange>0.3~0.8</visualSizeRange>
+      <wildOrder>2</wildOrder>
+      <purpose>Beauty</purpose>
+      <humanFoodPlant>false</humanFoodPlant>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="Wall" Name="WallLight">
+    <defName>WallLight</defName>
+    <label>WallLight</label>
+    <description>(cheat) An impassable wall with light. Capable of holding up a roof.</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <WorkToBuild>135</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <MeditationFocusStrength>0.22</MeditationFocusStrength>
+    </statBases>
+    <costStuffCount>5</costStuffCount>
+    <tickerType>Long</tickerType>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costList>
+      <Steel>1</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
     <comps>
+      <li Class="CompProperties_MeditationFocus">
+        <statDef>MeditationFocusStrength</statDef>
+        <focusTypes>
+          <li>Minimal</li>
+        </focusTypes>
+      </li>
       <li Class="CompProperties_Glower">
-          <overlightRadius>8</overlightRadius>
         <glowRadius>12</glowRadius>
-        <glowColor>(150,150,100,0)</glowColor>
+        <glowColor>(370,370,370,0)</glowColor>
       </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
-        <heatPerSecond>-100</heatPerSecond>
-      </li>
+    <li Class="CompProperties_Styleable" />
     </comps>
+    <designationHotKey>Misc3</designationHotKey>
   </ThingDef>
     
     
