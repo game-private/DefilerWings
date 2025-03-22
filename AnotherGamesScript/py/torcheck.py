@@ -1,3 +1,5 @@
+# python3 /inRamS/mounts/records/_sh/py/torcheck.py "/inRam-Logs/tor-8080.log"
+
 import argparse
 import datetime
 import os
@@ -37,6 +39,7 @@ def isSignificantLine(line):
         "connections died",
         "connections have failed",
         "Bootstrapped"
+        # "[warn]"
     ]
     
     for i, template in enumerate(SignificantTemplate):
@@ -53,14 +56,22 @@ def isNoHavePing(cnt):
     
     if "100% packet loss" in outputLine:
         return True
+   
+    if "packet loss" not in outputLine:
+        return True
     
     return False
     
+def beep(note, vol = "0.1"):
+    process = subprocess.run(["play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
+    pass
+
 
 class State:
     def __init__(self):
+        minus = 0
         self.sleeps      = { "connected": 15, "disconnected": 1 }
-        self.timeouts    = { "0": 30, "10": 30, "15": 120, "25": 120, "30": 600, "100": -1 }
+        self.timeouts    = { "0": 48-minus, "10": 61-minus, "15": 122-minus*2, "25": 122, "30": 604, "100": -1 }
         
         self.LastLogLen  = 0
         self.sleep       = self.sleeps["disconnected"]
@@ -73,7 +84,10 @@ class State:
         
     def toConnectedState(self):
         self.isConnected = True
+        self.isError     = False
         self.sleep       = self.sleeps["connected"]
+        print()
+        print("connected")
     
     def toDisconnectedState(self):
         self.isConnected = False
@@ -92,10 +106,11 @@ class State:
             if self.ConnectedPercent >= iPer:
                 self.timeout = self.timeouts[percent]
         
-        print("timeout: " + str(self.timeout))
+        print("timeout: " + str(self.timeout) + f" ({self.ConnectedPercent}%)")
 
     def isErrorLine(self, line):
         ErrorTemplate = ["Problem bootstrapping", "connections have failed", "connections died in state"]
+        # , "unable to connect OR connection"
         
         for i, template in enumerate(ErrorTemplate):
             if template in line:
@@ -119,22 +134,40 @@ class State:
         BootstrappedString = "Bootstrapped "
         if BootstrappedString in line:
             btEnd = line.index(BootstrappedString) + len(BootstrappedString)
-            line  = line[btEnd:]
+            line  = line[btEnd:].strip()
             if "%" not in line:
                 return False
             
             btEnd = line.index("%")
             line  = line[:btEnd]
 
-            self.ConnectedPercent = int(line)
+            newVal = int(line)
+            if newVal == 100 and newVal != self.ConnectedPercent:
+                # Если в первый раз лог уже не пустой,
+                # то мы можем много раз пройти не нужные нам линии успешного подключения
+                if state.LastLogLen > 0:
+                    beep("A5", "0.07")
+            
+            self.ConnectedPercent = newVal
             self.toRightConnetionState()
             return self.ConnectedPercent
         
         return False
         
 def doRestartTor():
+    global state
+
+    state.toDisconnectedState()
+    state.ConnectedPercent = 0
+
     process = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
-    time.sleep(2)
+    
+    current_datetime = datetime.datetime.now()
+    print()
+    print()
+    print("restarted at " + current_datetime.strftime("%H:%M:%S"))
+    time.sleep(7)
+
 
 state = State()
 
@@ -142,12 +175,23 @@ def checkLog():
     global state
     
     isNoHavePingFlag = False
-    while isNoHavePing(1):
-        while isNoHavePing(7):
+    if isNoHavePing(1):
+        print("bad ping")
+        pingCount = 3
+        if state.isConnected:
+            pingCount = 7
+
+        sleep = 0
+        while isNoHavePing(pingCount):
             print("no ping")
             isNoHavePingFlag = True
             state.toDisconnectedState()
             state.ConnectedPercent = 0
+            time.sleep(state.sleep + sleep)
+            sleep += 1
+            if sleep > 15:
+                sleep = 15
+
 
     if isNoHavePingFlag:
         doRestartTor()
@@ -174,6 +218,8 @@ def checkLog():
 while checkLog():
     if not state.isConnected or state.isError:
         interval = datetime.datetime.now() - state.lastStatusChangedTime
+        current_datetime = datetime.datetime.now()
+        # print("time " + current_datetime.strftime("%H:%M:%S") + " / " + str(interval.seconds))
         if state.isError or interval.seconds > state.timeout:
             doRestartTor()
 

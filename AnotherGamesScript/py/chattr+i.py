@@ -1,3 +1,6 @@
+# Накладывает на все файлы (но не директории) chattr +i, удаляет чтение для others и запись для всех
+# +t на директории
+
 import argparse
 import datetime
 import os
@@ -21,14 +24,20 @@ def doEnumerateDir(dirName):
 
     for i, subDirName in enumerate(subdirs):
         subDirName = os.path.join(dirName, subDirName)
+        
+        if os.path.islink(subDirName):
+            return
 
         try:
-        
+
             if os.path.isdir(subDirName):
+                process = subprocess.run(["chmod", "+t", subDirName])
+                process = subprocess.run(["chmod", "o-rwX", subDirName])
                 doEnumerateDir(subDirName)
             else:
+                process = subprocess.run(["chmod", "o-r", subDirName])
                 process = subprocess.run(["chmod", "a-w", subDirName])
-                process = subprocess.run(["sudo", "chattr", "+i",  "--", subDirName])
+                process = subprocess.run(["sudo",  "chattr", "+i",  "--", subDirName])
 
         except Exception as e:
             exception_traceback = traceback.format_exc()
