@@ -5,6 +5,7 @@ from enum import Enum
 import webdav3
 import webdav3.client as wc
 import getpass
+import random
 import time
 import datetime
 import os
@@ -33,7 +34,7 @@ min_modified_time += datetime.timedelta(hours=-lastHours)
 # Раскомментировать, если необходимо принудительно проверить все файлы на дату
 # min_modified_time  = False
 # Раскомментировать, если необходимо пропускать файлы, старше последней загрузки с сервера (должна быть верно установлена дата последней загрузки с сервера)
-min_modified_time_min  = datetime.datetime.strptime('2025.03.20 15:00', '%Y.%m.%d %H:%M')
+min_modified_time_min  = datetime.datetime.strptime('2025.03.22 15:00', '%Y.%m.%d %H:%M')
 
 if min_modified_time_min > min_modified_time:
     min_modified_time = min_modified_time_min
@@ -66,10 +67,6 @@ options = {
 
 
 client = wc.Client(options)
-# files1 = client.list()
-
-# for file in enumerate(files1):
-#     print(file)
 
 
 def check(noPrint=False):
@@ -133,9 +130,11 @@ checkInLoop()
 # x = current_time.strftime("%a, %d %b %Y %H:%M:%S %z %Z")
 # print(x)
 
+FailTimeout = [300, 120]
+
 # rFileName - имя удалённого файла
 # lFileName - имя локального файла
-def doUpdateFile(rFileName, lFileName, threadPool, doPrint, index, lenDir):
+def doUpdateFile(rFileName, lFileName, threadPool, doPrint, index, lenDir, isFailed=False):
     global threadsCount
     global updloadedFiles
     global skippedFiles
@@ -182,27 +181,38 @@ def doUpdateFile(rFileName, lFileName, threadPool, doPrint, index, lenDir):
         strNewFile = " (новый файл)"
         if doPrint.value >= PrintCommandState.NEW.value:
             print(f"Новый файл: " + rFileName)
+
     except webdav3.exceptions.NoConnection:
         printBadNetwork()
+        time.sleep(random.randint(0, 60))
         checkInLoop()
         threadPool.submit(doUpdateFile, rFileName, lFileName, threadPool, doPrint)
         return
+    
     except webdav3.exceptions.ConnectionException:
         printBadNetwork()
+        time.sleep(random.randint(0, 60))
         checkInLoop()
         threadPool.submit(doUpdateFile, rFileName, lFileName, threadPool, doPrint)
         return
+    
     except Exception as e:
         print(f"Произошла ошибка: {str(e)}")
         print(type(e))
         
-        try:
-            lock.acquire()
-            failedFiles += 1
-        finally:
-            lock.release()
+        if isFailed:
+            try:
+                lock.acquire()
+                failedFiles += 1
+            finally:
+                lock.release()
+        else:
+            time.sleep(FailTimeout[0] + random.randint(0, FailTimeout[1]))
+            checkInLoop()
+            threadPool.submit(doUpdateFile, rFileName, lFileName, threadPool, doPrint, True)
 
         return
+
 
     if rmodified < lmodified:
         if doPrint.value >= PrintCommandState.SHORT.value:
@@ -239,13 +249,19 @@ def doUpdateFile(rFileName, lFileName, threadPool, doPrint, index, lenDir):
             print(f"Произошла ошибка: {str(e)}")
             print(type(e))
             print("------------------------------------------------")
-            time.sleep(60)
-            
-            try:
-                lock.acquire()
-                failedFiles += 1
-            finally:
-                lock.release()
+
+            if isFailed:
+                try:
+                    lock.acquire()
+                    failedFiles += 1
+                finally:
+                    lock.release()
+            else:
+                time.sleep(FailTimeout[0] + random.randint(0, FailTimeout[1]))
+                checkInLoop()
+                threadPool.submit(doUpdateFile, rFileName, lFileName, threadPool, doPrint, True)
+
+            return
 
     printProgress(lock, index, lenDir)
 
@@ -274,7 +290,11 @@ def printProgress(lock, i, lenDir):
 def push(remote, local, name, doPrintFiles=PrintCommandState.NONE, max_workers=16):
     # current_time = datetime.datetime.now()
     # print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
+    global updloadedFiles, skippedFiles
 
+    oldUpdloadedFiles = updloadedFiles
+    oldSkippedFiles   = skippedFiles
+    
     threadPool = ThreadPoolExecutor(max_workers)
 
     checkInLoop()
@@ -311,7 +331,7 @@ def push(remote, local, name, doPrintFiles=PrintCommandState.NONE, max_workers=1
 
     threadPool.shutdown(True)
     print()
-    print("Закончено " + name)
+    print("Закончено " + name + f" [{updloadedFiles - oldUpdloadedFiles}, {skippedFiles - oldSkippedFiles}]")
     current_time = datetime.datetime.now()
     print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
     
@@ -349,7 +369,7 @@ if failedFiles > 0:
 
 if min_modified_time:
     
-    print(f"Программа завершена. Загружено {updloadedFiles} файлов. Пропущено (слишком старые) {skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если min_modified_time  = False. Сейчас пропускаются файлы старше {lastHours} часов (либо не старше абсолютной даты).")
+    print(f"Программа завершена. Загружено {updloadedFiles} файлов. Пропущено (слишком старые) {skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если min_modified_time  = False. Сейчас пропускаются файлы старше {lastHours} часов (либо старше абсолютной даты {min_modified_time_min.strftime("%Y.%m.%d")}).")
 
     totalDays = (start_time - min_modified_time).total_seconds()/3600/24
     print(f"Обновлялись только файлы новее, чем {min_modified_time.strftime("%Y.%m.%d %H:%M:%S")}  ({totalDays:.0f} дней)")
@@ -357,3 +377,4 @@ if min_modified_time:
 else:
     print(f"Программа завершена. Загружено {updloadedFiles} файлов. Все файлы проверены по дате.")
 
+print("sudo -u webdav python3 /inRamS/mounts/records/_sh/startup/cp-reserve.py")
