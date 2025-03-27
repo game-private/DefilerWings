@@ -14,12 +14,12 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 
 class PrintCommandState(Enum):
-    ERROR = 0
-    NONE  = 1
-    DONE  = 2
-    NEW   = 3
-    SHORT = 4
-    FULL  = 5
+    ERROR  = 0
+    NONE   = 1
+    DONE   = 2
+    NEW    = 3
+    SHORT  = 4
+    FULL   = 5
 
 class Statistic():
     def __init__(self):
@@ -34,6 +34,10 @@ class State():
         # Настройки скрипта
         self.max_workers    = 16
         self.doPrintFiles   = PrintCommandState.NONE
+        self.doPrintSubdirs = False
+        # Если True, то обновление файла будет всегда только одно (стоит в блокировке)
+        self.doSingleUpdate = True
+        self.singleUpdLock  = threading.Lock()
         # Должно быть положительное значение в часах (давность файлов, которые всё ещё проверяются)
         self.lastHours      = 720
         self.DateFileName   = "/Arcs/Disks/Reserve/date.cp-reserve.log"
@@ -64,6 +68,8 @@ class State():
 
         #if self.min_modified_time_min and self.min_modified_time_min > self.min_modified_time:
         #    self.min_modified_time = self.min_modified_time_min
+        
+        self.tasks            = []
         
         self.stat             = Statistic()
         self.FailTimeout      = [300, 120]
@@ -196,14 +202,16 @@ class State():
             self.printBadNetwork()
             time.sleep(random.randint(0, 60))
             self.checkInLoop()
-            threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+            res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+            self.tasks.append(res)
             return
 
         except webdav3.exceptions.ConnectionException:
             self.printBadNetwork()
             time.sleep(random.randint(0, 60))
             self.checkInLoop()
-            threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+            res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+            self.tasks.append(res)
             return
 
         except Exception as e:
@@ -219,17 +227,26 @@ class State():
             else:
                 time.sleep(self.FailTimeout[0] + random.randint(0, self.FailTimeout[1]))
                 self.checkInLoop()
-                threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, True)
+                res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, True)
+                self.tasks.append(res)
 
             return
 
 
         if rmodified <= lmodified:
-            if doPrint.value >= PrintCommandState.SHORT.value:
-                print("Обновление файла " + rFileName + f" [remote {rmodified}, local {lmodified}]")
-
             try:
-                self.client.upload_sync(remote_path=rFileName, local_path=lFileName)
+                try:
+                    if self.doSingleUpdate:
+                        self.singleUpdLock.acquire()
+
+                    if doPrint.value >= PrintCommandState.SHORT.value:
+                        print("Обновление файла " + rFileName + f" [remote {rmodified}, local {lmodified}]")
+
+                    self.client.upload_sync(remote_path=rFileName, local_path=lFileName)
+                finally:
+                    if self.doSingleUpdate:
+                        self.singleUpdLock.release()
+
                 if doPrint.value >= PrintCommandState.DONE.value:
                     print("Обновление файла " + rFileName + " закончилось успешно." + strNewFile)
 
@@ -244,14 +261,18 @@ class State():
                     print("Разрыв соединения с сетью при обновлении файла " + rFileName)
                 self.printBadNetwork()
                 self.checkInLoop()
-                threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+                res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+                self.tasks.append(res)
+
                 return
             except webdav3.exceptions.ConnectionException:
                 if doPrint.value >= PrintCommandState.SHORT.value:
                     print("Разрыв соединения с сетью при обновлении файла " + rFileName)
                 self.printBadNetwork()
                 self.checkInLoop()
-                threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+                res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
+                self.tasks.append(res)
+
                 return
             except Exception as e:
                 print("------------------------------------------------")
@@ -269,7 +290,8 @@ class State():
                 else:
                     time.sleep(self.FailTimeout[0] + random.randint(0, self.FailTimeout[1]))
                     self.checkInLoop()
-                    threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, True)
+                    res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, True)
+                    self.tasks.append(res)
 
                 return
 
@@ -283,18 +305,17 @@ class State():
 
         self.printProgress(index, lenDir)
 
+    def push(self, remote, local, name, doPrintFiles=PrintCommandState.NONE, recurse=""):
 
-    def push(self, remote, local, name, doPrintFiles=PrintCommandState.NONE):
-
-        tasks   = []
-        oldstat = copy.deepcopy(self.stat)
+        self.tasks = []
+        oldstat    = copy.deepcopy(self.stat)
         self.checkInLoop()
 
-        print()
-        print("Обновление " + name)
-
         current_time = datetime.datetime.now()
-        print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
+        if len(recurse) == 0 or self.doPrintSubdirs:
+            print()
+            print("Обновление " + name + recurse)
+            print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
 
         # dirList = client.list(remote)
         dirList = os.listdir(local)
@@ -304,8 +325,14 @@ class State():
             lFileName = os.path.join(local,  file)
 
             if os.path.isdir(lFileName):
-                print(f"ОШИБКА: в директории найдена папка '{lFileName}'. Папки не сихронизируются, только отдельные файлы!")
-                break
+                # Ждём завершения задач
+                for i, task in enumerate(self.tasks):
+                    task.result()
+
+                # print(f"ОШИБКА: в директории найдена папка '{lFileName}'. Папки не сихронизируются, только отдельные файлы!")
+                # break
+                self.push(rFileName, lFileName, name,  doPrintFiles, f" [{rFileName}]")
+                continue
 
             try:
                 #print(dir(self.stat))
@@ -318,16 +345,20 @@ class State():
 
             # doUpdateFile(rFileName, lFileName, doPrintFiles)
             res = self.threadPool.submit(self.doUpdateFile, rFileName, lFileName, self.threadPool, doPrintFiles, i, len(dirList))
-            tasks.append(res)
+            self.tasks.append(res)
 
         # Ждём завершения задач
-        for i, task in enumerate(tasks):
+        for i, task in enumerate(self.tasks):
             task.result()
 
-        print()
-        print("Закончено " + name + f" [up {self.stat.updloadedFiles - oldstat.updloadedFiles}, checked {self.stat.CheckedOldFiles - oldstat.CheckedOldFiles}, sk {self.stat.skippedFiles - oldstat.skippedFiles}, all {self.stat.allFiles - oldstat.allFiles}]")
-        current_time = datetime.datetime.now()
-        print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
+        if len(recurse) == 0 or self.doPrintSubdirs:
+            print()
+            #if len(recurse) == 0:
+            print("Закончено " + name + recurse + f" [up {self.stat.updloadedFiles - oldstat.updloadedFiles}, checked {self.stat.CheckedOldFiles - oldstat.CheckedOldFiles}, sk {self.stat.skippedFiles - oldstat.skippedFiles}, all {self.stat.allFiles - oldstat.allFiles}]")
+            #else:
+                #print("Закончено " + name + recurse + f" [all {self.stat.allFiles - oldstat.allFiles}]")
+            current_time = datetime.datetime.now()
+            print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
 
 
 state = State()
@@ -355,9 +386,18 @@ state.client = wc.Client(options)
 state.checkInLoop()
 
 
-state.push('/Arcs/keys/',    '/Arcs/Disks/Reserve/keys',    "keys",    state.doPrintFiles)
-state.push('/Arcs/records/', '/Arcs/Disks/Reserve/records', "records", state.doPrintFiles)
-state.push('/Arcs/books3/',  '/Arcs/Disks/Reserve/books3',  "books3",  state.doPrintFiles)
+state.push('/Arcs/reserve/keys/',    '/Arcs/Disks/Reserve/keys',    "keys",    state.doPrintFiles)
+state.push('/Arcs/reserve/records/', '/Arcs/Disks/Reserve/records', "records", state.doPrintFiles)
+state.push('/Arcs/reserve/books3/',  '/Arcs/Disks/Reserve/books3',  "books3",  state.doPrintFiles)
+state.push('/Crypto/',               '/Arcs/Disks/ya/Crypto/',      "Crypto",  state.doPrintFiles)
+state.push('/Ключи/',                '/Arcs/Disks/ya/Ключи/',       "Ключи",   state.doPrintFiles)
+state.push('/Arcs/TorBrowser/',      '/Arcs/Disks/ya/Arcs/TorBrowser/', "TorBrowser",  state.doPrintFiles)
+#state.push('/',                     '/Arcs/Disks/ya/',             "/",   state.doPrintFiles)
+
+
+# Ждём завершения задач
+for i, task in enumerate(state.tasks):
+    task.result()
 
 state.threadPool.shutdown(True)
 
@@ -372,6 +412,9 @@ state.threadPool.shutdown(True)
 #thread1.join()
 #thread2.join()
 #thread3.join()
+
+print()
+print()
 
 current_time = datetime.datetime.now()
 print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
