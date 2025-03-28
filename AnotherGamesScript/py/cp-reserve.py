@@ -1,6 +1,8 @@
 # https://github.com/CloudPolis/webdav-client-python
 # sudo -u webdav python3 /inRamS/mounts/records/_sh/startup/cp-reserve.py
 
+print("sudo -u webdav python3 /inRamS/mounts/records/_sh/startup/cp-reserve.py")
+
 from enum import Enum
 import webdav3
 import webdav3.client as wc
