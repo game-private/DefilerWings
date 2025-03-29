@@ -1,4 +1,6 @@
 # https://github.com/CloudPolis/webdav-client-python
+# https://github.com/ezhov-evgeny/webdav-client-python-3
+# https://pypi.org/project/webdavclient3/
 # sudo -u webdav python3 /inRamS/mounts/records/_sh/startup/cp-reserve.py
 
 print("sudo -u webdav python3 /inRamS/mounts/records/_sh/startup/cp-reserve.py")
@@ -18,8 +20,8 @@ from concurrent.futures import ThreadPoolExecutor
 class PrintCommandState(Enum):
     ERROR  = 0
     NONE   = 1
-    DONE   = 2
-    NEW    = 3
+    NEW    = 2
+    DONE   = 3
     SHORT  = 4
     FULL   = 5
 
@@ -182,6 +184,14 @@ class State():
                     self.printProgress(index, lenDir)
                     return
 
+            # Ожидаем блокировку и сразу её освобождаем:
+            # чтобы не мешать файлу загружаться, просто ждём блокировку и отпускаем
+            try:
+                if self.doSingleUpdate:
+                    self.singleUpdLock.acquire()
+            finally:
+                if self.doSingleUpdate:
+                    self.singleUpdLock.release()
 
             info = self.client.info(rFileName)
 
@@ -241,10 +251,16 @@ class State():
                     if self.doSingleUpdate:
                         self.singleUpdLock.acquire()
 
-                    if doPrint.value >= PrintCommandState.SHORT.value:
-                        print("Обновление файла " + rFileName + f" [remote {rmodified}, local {lmodified}]")
+                    if doPrint.value >= PrintCommandState.SHORT.value or rmodified == 0 and doPrint.value >= PrintCommandState.NEW.value:
+                        print("Обновление файла " + rFileName + f" [remote {rmodified}, local {lmodified}; {datetime.datetime.now().strftime("%H:%M:%S")}]")
 
-                    self.client.upload_sync(remote_path=rFileName, local_path=lFileName)
+                    def progress_update(current, total):
+                        print(f"{current} / {total}")
+
+                    # В общем, ничего не работает по частям всё равно
+                    # force - кажется, не работает в этой функции
+                    # progress нужен для передачи файла по частям
+                    self.client.upload_sync(remote_path=rFileName, local_path=lFileName, progress=progress_update)
                 finally:
                     if self.doSingleUpdate:
                         self.singleUpdLock.release()
@@ -260,7 +276,7 @@ class State():
 
             except webdav3.exceptions.NoConnection:
                 if doPrint.value >= PrintCommandState.SHORT.value:
-                    print("Разрыв соединения с сетью при обновлении файла " + rFileName)
+                    print("Разрыв соединения с сетью при обновлении файла " + rFileName + f"; {datetime.datetime.now().strftime("%H:%M:%S")}")
                 self.printBadNetwork()
                 self.checkInLoop()
                 res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
@@ -269,7 +285,7 @@ class State():
                 return
             except webdav3.exceptions.ConnectionException:
                 if doPrint.value >= PrintCommandState.SHORT.value:
-                    print("Разрыв соединения с сетью при обновлении файла " + rFileName)
+                    print("Разрыв соединения с сетью при обновлении файла " + rFileName + f"; {datetime.datetime.now().strftime("%H:%M:%S")}")
                 self.printBadNetwork()
                 self.checkInLoop()
                 res = threadPool.submit(self.doUpdateFile, rFileName, lFileName, threadPool, doPrint, index, lenDir, False)
@@ -333,7 +349,35 @@ class State():
 
                 # print(f"ОШИБКА: в директории найдена папка '{lFileName}'. Папки не сихронизируются, только отдельные файлы!")
                 # break
-                self.push(rFileName, lFileName, name,  doPrintFiles, f" [{rFileName}]")
+                successDir = False
+                while not successDir:
+                    try:
+                        info = self.client.info(rFileName)
+                        successDir = True
+                    except webdav3.exceptions.RemoteResourceNotFound:
+                        self.client.mkdir(rFileName)
+                        successDir = True
+
+                        if doPrintFiles.value >= PrintCommandState.NONE.value:
+                            print(f"Создана директория " + rFileName)
+
+                    except webdav3.exceptions.ConnectionException:
+                        self.checkInLoop()
+                        continue
+                    except Exception as e:
+                        try:
+                            self.lock.acquire()
+                            self.stat.failedFiles += 1
+                        finally:
+                            self.lock.release()
+
+                        print(f"Произошла ошибка: {str(e)}")
+                        print(type(e))
+                        print(f"Пропущена директория {rFileName} | {lFileName}")
+                        break
+
+                if successDir:
+                    self.push(rFileName, lFileName, name,  doPrintFiles, f" [{rFileName}]")
                 continue
 
             try:
@@ -373,7 +417,10 @@ options = {
     'webdav_hostname': "https://webdav.yandex.ru/",
     'webdav_login'   : authLines[0].strip(),
     'webdav_password': authLines[1].strip(),
-    'verbose'        : True
+    'verbose'        : True,                    # Похоже, этих опций тут нет
+    'chunk_size'     : 1024*1024,
+    'webdav_chunk_size' : 1024*1024,            # Не работает
+    'webdav_timeout' : 20
 }
 
 
@@ -383,7 +430,7 @@ options = {
 
 state.client = wc.Client(options)
 
-
+# print(f"chunk_size: {state.client.chunk_size}")
 
 state.checkInLoop()
 
