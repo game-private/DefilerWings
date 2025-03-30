@@ -39,6 +39,7 @@ class State():
         self.max_workers    = 16
         self.doPrintFiles   = PrintCommandState.NONE
         self.doPrintSubdirs = False
+        self.oldstat        = []
         # Если True, то обновление файла будет всегда только одно (стоит в блокировке)
         self.doSingleUpdate = True
         self.singleUpdLock  = threading.Lock()
@@ -83,6 +84,11 @@ class State():
 
         self.checkInLoop_printed = False
 
+    # Возвращает контрольную сумму: если в программе всё в порядке, то сумма на момент завершения всех загрузок должна быть равна нулю
+    def getCheckSumm(self):
+        return self.stat.updloadedFiles + self.stat.skippedFiles + self.stat.CheckedOldFiles - self.stat.allFiles
+
+    
     def check(self, noPrint=False):
         try:
             # Проверка подключения
@@ -128,14 +134,20 @@ class State():
 
     def printProgress(self, i, lenDir):
         try:
+            if len(self.oldstat) <= 0:
+                return
+
+            old = self.oldstat[0]
+
             self.lock.acquire()
             progress = (i+1)*100/lenDir
             curTime = datetime.datetime.now()
             if (curTime - self.lastProgressDate).total_seconds() > self.progressInterval:
-                if progress < 0:
-                    progress = 0
+                #if progress < 0:
+                #    progress = 0
 
-                print(f"{progress:3.0f}%; Всего:\tup {self.stat.updloadedFiles},\tchecked {self.stat.CheckedOldFiles},\tsk {self.stat.skippedFiles}\t{curTime.strftime("%H:%M:%S")}")
+                # {progress:3.0f}% \t
+                print(f"up {self.stat.updloadedFiles - old.updloadedFiles},\tchecked {self.stat.CheckedOldFiles - old.CheckedOldFiles},\tsk {self.stat.skippedFiles - old.skippedFiles}\t{curTime.strftime("%H:%M:%S")}")
 
 
                 self.lastProgressDate = datetime.datetime.now()
@@ -331,6 +343,7 @@ class State():
 
         current_time = datetime.datetime.now()
         if len(recurse) == 0 or self.doPrintSubdirs:
+            self.oldstat.insert(0, oldstat)
             print()
             print("Обновление " + name + recurse)
             print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
@@ -406,6 +419,8 @@ class State():
             current_time = datetime.datetime.now()
             print(current_time.strftime("%Y.%m.%d %H:%M:%S"))
 
+            self.oldstat.pop(0)
+
 
 state = State()
 
@@ -475,8 +490,9 @@ if state.stat.failedFiles > 0:
     print("----------------------------------------------------------------------------------------")
     print()
 
-if state.stat.failedFiles == 0 and (state.stat.updloadedFiles + state.stat.skippedFiles + state.stat.CheckedOldFiles - state.stat.allFiles) == 0:
+if state.stat.failedFiles == 0 and state.getCheckSumm() == 0:
     with open(state.DateFileName, "w") as file:
+        state.start_time += datetime.timedelta(seconds=-1)
         file.write(state.start_time.strftime(state.DateFileFormat))
 else:
     print()
