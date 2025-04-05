@@ -16,6 +16,8 @@ print(current_datetime)
 # print(scriptPath)
 print(os.path.realpath(__file__))
 
+# ownerString = "undelete:arcs-read"
+ownerString = "undelete"
 
 
 def doEnumerateDir(dirName):
@@ -33,11 +35,13 @@ def doEnumerateDir(dirName):
             if os.path.isdir(subDirName):
                 process = subprocess.run(["chmod", "+t", subDirName])
                 process = subprocess.run(["chmod", "o-rwX", subDirName])
+                process = subprocess.run(["sudo",  "chown",  ownerString, "--", subDirName])
                 doEnumerateDir(subDirName)
             else:
                 process = subprocess.run(["chmod", "o-r", subDirName])
                 process = subprocess.run(["chmod", "a-w", subDirName])
-                process = subprocess.run(["sudo",  "chattr", "+i",  "--", subDirName])
+                process = subprocess.run(["sudo",  "chown",  ownerString, "--", subDirName])
+                process = subprocess.run(["sudo",  "chattr", "+i",        "--", subDirName])
 
         except Exception as e:
             exception_traceback = traceback.format_exc()
