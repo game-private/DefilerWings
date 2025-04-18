@@ -1,5 +1,7 @@
 # Накладывает на все файлы (но не директории) chattr +i, удаляет чтение для others и запись для всех
 # +t на директории
+# Зайти в директорию и вызвать (без sudo; отдельные команды sudo уже должны быть разрешены в sudoers)
+# python3 /inRamS/mounts/records/_sh/py/chattr+i.py
 
 import argparse
 import datetime
@@ -17,6 +19,7 @@ print(current_datetime)
 print(os.path.realpath(__file__))
 
 # ownerString = "undelete:arcs-read"
+groupString = ":arcs-read"
 ownerString = "undelete"
 
 
@@ -35,7 +38,8 @@ def doEnumerateDir(dirName):
             if os.path.isdir(subDirName):
                 process = subprocess.run(["chmod", "+t", subDirName])
                 process = subprocess.run(["chmod", "o-rwX", subDirName])
-                process = subprocess.run(["sudo",  "chown",  ownerString, "--", subDirName])
+                process = subprocess.run([         "chown", groupString, "--", subDirName])
+                process = subprocess.run(["sudo",  "chown", ownerString, "--", subDirName])
                 doEnumerateDir(subDirName)
             else:
                 process = subprocess.run(["chmod", "o-r", subDirName])
