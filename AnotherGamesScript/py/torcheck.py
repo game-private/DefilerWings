@@ -177,9 +177,9 @@ def checkLog():
     isNoHavePingFlag = False
     if isNoHavePing(1):
         print("bad ping")
-        pingCount = 3
+        pingCount = 1
         if state.isConnected:
-            pingCount = 7
+            pingCount = 3
 
         sleep = 0
         while isNoHavePing(pingCount):
