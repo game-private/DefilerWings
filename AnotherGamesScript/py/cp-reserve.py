@@ -507,8 +507,8 @@ if state.min_modified_time:
     
     print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Пропущена проверка (слишком старые) {state.stat.skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если файл {state.DateFileName} удалён или дата в этом файле поставлена ранее, чем время создания самых старых файлов.")
 
-    totalDays = (state.start_time - state.min_modified_time).total_seconds()/3600/24
-    print(f"Обновлялись только файлы новее, чем {state.min_modified_time.strftime("%Y.%m.%d %H:%M:%S")}  ({totalDays:.0f} дней)")
+    totalHours = (state.start_time - state.min_modified_time).total_seconds()/3600
+    print(f"Обновлялись только файлы новее, чем {state.min_modified_time.strftime("%Y.%m.%d %H:%M:%S")}  ({totalHours:.0f} часов)")
 
 else:
     print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Все файлы проверены по дате.")
