@@ -57,12 +57,14 @@ def doEnumerateDir(dirName):
                 # Если хоть где-то стоит "w" (на группе или на пользователе) - добавляем "w" везьде
                 if rights[1] or rights[4]:
                     process = subprocess.run(["chmod",          "ug+rwX",     subDirName])
+                    process = subprocess.run(["chmod",          "a-t",        subDirName])
                     process = subprocess.run(["setfacl", "-dm", "u:a1:rwX",   subDirName])
                     process = subprocess.run(["setfacl", "-dm", "u:inet:rwX", subDirName])
                     process = subprocess.run(["setfacl", "-m",  "u:inet:rwX", subDirName])
                     process = subprocess.run(["setfacl", "-m",  "u:a1:rwX",   subDirName])
                 else:
-                    process = subprocess.run(["chmod", "ug+rX",              subDirName])
+                    process = subprocess.run(["chmod",          "ug+rwX",    subDirName])
+                    process = subprocess.run(["chmod",          "a-t",       subDirName])
                     process = subprocess.run(["setfacl", "-dm", "u:a1:rX",   subDirName])
                     process = subprocess.run(["setfacl", "-dm", "u:inet:rX", subDirName])
                     process = subprocess.run(["setfacl", "-m",  "u:inet:rX", subDirName])
