@@ -38,7 +38,7 @@ class State():
         # Настройки скрипта
         # max_workers = 16 лучше, но если сеть не хочется перегружать, то лучше 4. 1 - если сервером выдаётся "Request per second limit exceeded for user"
         self.max_workers    = 1
-        self.sleepForTask   = 60
+        self.sleepForTask   = 5
         self.doPrintFiles   = PrintCommandState.NONE
         self.doPrintSubdirs = False
         self.oldstat        = []

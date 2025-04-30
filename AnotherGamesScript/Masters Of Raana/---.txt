@@ -4,3 +4,9 @@ https://grimdark-studios.itch.io/moh
 
 
 https://www.mastersofraana.com/index.php/Changelog
+
+
+cd /Arcs/tmp/G/download
+sudo -u wget wget
+
+
