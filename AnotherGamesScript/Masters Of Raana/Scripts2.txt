@@ -16,7 +16,7 @@ function AddMenu()
     AuStop  = false;
     doCycle = true;
 
-    var parent = document.querySelector(".alt1home");
+    var parent = document.querySelector(".storynoscroll");
     var div = document.createElement("div");
 
     if (!parent)
@@ -122,76 +122,10 @@ function AddMenu()
 
     parent.appendChild(div);
 /*
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { WIn(20) }  );
-    a.textContent = "Инжекторы ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { Ab(1,3,true,Ar); }  );
-    a.textContent = "Цикл ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { Ar(); }  );
-    a.textContent = "Рабыня0 ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { Read() }  );
-    a.textContent = "Чтение ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { TrF(3, 0); }  );
-    a.textContent = "Фолловер4 ";
-    div.appendChild(a);
-    
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => { TrF(4, 0); }  );
-    a.textContent = "Фолловер5 ";
-    div.appendChild(a);*/
-/*
-    var div = document.createElement("div");
-    parent.appendChild(div);
-*/
-/*
-    var a = document.createElement("a");
-    a.addEventListener("click", WW(2));
-    a.textContent = "Крафтинг(2) ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", WW(5));
-    a.textContent = "Крафтинг(5) ";
-    a.style.display = "inline";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", WSc);
-    a.textContent = "Мусор ";
-    div.appendChild(a);
-    
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) => WSs(100));
-    a.textContent = "Сталь ";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", (e) =>  { SexB(1) });
-    a.textContent = "Секс ";
-    div.appendChild(a);
-*/
-
     var parent = document.querySelector(".alt2");
     var div = document.createElement("div");
     parent.appendChild(div);
-
+*/
     var a = document.createElement("span");
     a.textContent = "" + cycle + "  ";
     a.id = "cyclesCounter";
@@ -209,28 +143,6 @@ function AddMenu()
     a.addEventListener("click", () => { cycle=0; addToCycleCounter(0); });
     a.textContent = "СТОП ";
     div.appendChild(a);
-/*
-
-    var a = document.createElement("a");
-    a.addEventListener("click", WSsteel);
-    a.textContent = "Сталь ";
-    div.appendChild(a);
-    
-    var a = document.createElement("a");
-    a.addEventListener("click", Ar1);
-    a.textContent = "Тренировка ";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", Ar2);
-    a.textContent = "Рыбалка ";
-    div.appendChild(a);
-
-    var a = document.createElement("a");
-    a.addEventListener("click", MainCraft);
-    a.textContent = "Крафт1 ";
-    div.appendChild(a);
-*/
 
     var a = document.createElement("a");
     a.addEventListener("click", () => { addToCycleCounter(1) });

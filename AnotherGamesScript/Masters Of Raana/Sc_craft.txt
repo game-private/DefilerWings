@@ -5,7 +5,7 @@ function getReturn(array)
 
 function getOneReturn(array)
 {
-    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], false, 100]);
+    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], true, 100]);
 }
 
 function getConcludeDay(a)
@@ -49,10 +49,10 @@ function ConcludeDay_doLog(object)
         if (messages.length > 0)
         {
             array = [[4, 1000 * messages.length]].concat(array);
-
+/*
             if (logWindow)
             console.log(logWindow.textContent);
-
+*/
             // console.error(messages.length);
         }
     }
@@ -148,7 +148,7 @@ function MainCraft(a, cnt=1, num=0)
 // Вызывается из основного меню
 function toFacilities(array)
 {
-    array.push([3, "Facilities"]);
+    // array.push([3, "Facilities"]);
     array.push([0, "[src='Pics/Butt/manbuttcraft.png']", 0]);
 }
 
@@ -292,7 +292,7 @@ function getBasicTrainings(a, doRepeat)
     if (Training1 && Training1.Name)
     if (getBasicTrainings_cycle % Training1.schedule[1] == Training1.schedule[0])
     {
-        a.push([3, "Actions & Events"]);
+        setFollowers(a);
         toPicture(a, "Pics/Butt/manbutttrain.png");
         a.push([3, "Basic training"]);
 
@@ -304,6 +304,7 @@ function getBasicTrainings(a, doRepeat)
         if (Training1.trainer)
             a.push([3, "Hire trainer"]);
 
+        a.push([4, 100]);
         a.push([3, "Start!"]);
         a.push([4, 200]);
 
@@ -313,10 +314,10 @@ function getBasicTrainings(a, doRepeat)
 
     getReturn(a);
 
-
     if (Training2)
     {
-        a.push([3, "Actions & Events"]);
+        setFollowers(a);
+        // a.push([3, "Actions & Events"]);
         toPicture(a, "Pics/Butt/manbutttrain.png");
         a.push([3, "Basic training"]);
 
@@ -328,16 +329,17 @@ function getBasicTrainings(a, doRepeat)
         if (Training2.trainer)
             a.push([3, "Hire trainer"]);
 
+        a.push([4, 100]);
         a.push([3, "Start!"]);
         a.push([4, 200]);
     }
 
     getReturn(a);
+    resetFollowers(a);
 }
 
 function getAdvancedTrainings(a)
 {
-    a.push([3, "Actions & Events"]);
     toPicture(a, "Pics/Butt/manbutttrain.png");
     a.push([3, "Advanced training"]);
 
@@ -358,7 +360,19 @@ function getAdvancedTrainings(a)
     correctTrainings();
 }
 
-function Academia(a)
+// Выполняется из района Академии
+function HistoricalSocietyAction(a)
+{
+    toPicture(a, "Pics/Maps/butt_historical.png");
+    a.push([3, "Use library"]);
+    a.push([3, "Back"]);
+    a.push([3, "Use cigar room"]);
+    a.push([3, "Back"]);
+    
+    toExit(a);
+}
+
+function Academia(a, HistoricalSociety)
 {
     toPicture(a, "Pics/Butt/travel_aca.png");
     a.push([3, "courses"]);
@@ -367,36 +381,76 @@ function Academia(a)
     a.push([3, "CONTINUE"]);
 
     toExit(a);
+    
+    // Аналог и в Academia, и в Professor
+    if (HistoricalSociety)
+        HistoricalSocietyAction(a);
+    
     toHome(a);
 }
 
-function Professor(a)
+function Professor(a, HistoricalSociety)
 {
     toPicture(a, "Pics/Butt/travel_aca.png");
     a.push([3, "Tutor (Academics)"]);
-    a.push([3, "Tutor (Science)"]);
+    // a.push([3, "Tutor (Science)"]);
     // a.push([0, ".vendorleft>.ulvendor>a"]);
     a.push([0, ".alt1>a"]); // Это если возникли проблемы
     a.push([3, "End class"]);
 
     toExit(a);
+    
+    // Аналог и в Academia, и в Professor
+    if (HistoricalSociety)
+        HistoricalSocietyAction(a);
+
     toHome(a);
 }
 
 function Library(a)
 {
-    a.push([3, "Manage"]);
+    // a.push([3, "Manage"]);
     toPicture(a, "Pics/Butt/manbutthouse.png");
     toPicture(a, "Pics/Butt/carrowleft.png");
     toPicture(a, "Pics/Butt/carrowleft.png");
+    toPicture(a, "Pics/Butt/carrowright.png");
     toPicture(a, "Pics/Home/icon_42.png");
 
-    a.push([3, "Study books"]);
+    a.push([3, "a", "Study books", true, 200]);
+    
+    
+    a.push([3, "Exit"]);
+    a.push([3, "Exit"]);
 
-    toExit(a);
+    // toExit(a);
 }
 
 
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+function setFollowers(a)
+{
+    a.push([3, "a", "npc Menu", true, 100]);
+    toPicture(a, "Pics/Butt/slbutt31.png");
+    toPicture(a, "Pics/Butt/slbutt31.png");
+    toPicture(a, "Pics/Butt/slbutt31.png");
+    toPicture(a, "Pics/Butt/slbutt31.png");
+    toPicture(a, "Pics/Butt/slbutt31.png");
+    
+    getReturn(a);
+}
+
+function resetFollowers(a)
+{
+    a.push([3, "a", "npc Menu", true, 100]);
+    toPicture(a, "Pics/Butt/slbutt32.png");
+    toPicture(a, "Pics/Butt/slbutt32.png");
+    toPicture(a, "Pics/Butt/slbutt32.png");
+    toPicture(a, "Pics/Butt/slbutt32.png");
+    toPicture(a, "Pics/Butt/slbutt32.png");
+    
+    getReturn(a);
+}
 
 // -----------------------------------------------------------
 // !!! Молитва в католической церкви; умывание
@@ -487,14 +541,14 @@ function seductionSex(a, cnt=4, doBath=true)
     {
         a.push([3, "Kissing"]);
         a.push([3, "Kissing"]);
-        a.push([3, "Body kissing"]);
+        a.push([3, "a", "Body kissing", true, 100]);
     }
 
-    a.push([3, "Suggest sex"]);
-    a.push([3, "Vaginal sex"]);
-    a.push([3, "Normal"]);
+    a.push([3, "a", "Suggest sex", true, 100]);
+    a.push([3, "a", "Vaginal sex", true, 100]);
+    a.push([3, "a", "Politely (charm)", true, 100]);
     a.push([3, "a", "Continue", true, 100]);
-    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+    a.push([3, "a", ["The bedroom", "The office", "The livingroom"], true, 100]);
     a.push([3, "Undress"]);
     a.push([3, "Cowgirl"]);
     a.push([3, "Start"]);
@@ -530,7 +584,7 @@ function seductionNoSex(a, cnt=4, doBath=true)
 
 function getBathSlave(a)
 {
-    a.push([3, "take to bathroom"]);
+    a.push([3, "take a shower"]);
     a.push([3, "Normal"]);
     a.push([3, "Continue"]);
     a.push([3, "Scrub me"]);
@@ -550,6 +604,7 @@ function normalSex(a, doBath=true)
 
     a.push([3, "Sexual options"]);
     a.push([3, "Request sex"]);
+    a.push([3, "Politely (charm)"]);
     a.push([3, "Vaginal sex"]);
     a.push([3, "Normal"]);
     a.push([3, "a", "Continue", true, 100]);

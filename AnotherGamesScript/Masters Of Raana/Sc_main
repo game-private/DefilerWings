@@ -5,7 +5,8 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
-var TrainigsNames1  = [];
+// var TrainigsNames1  = ["Strength", "Dexterity", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Dexterity", "Stamina", "Melee combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -13,7 +14,8 @@ var TrainigsNames2  = ["Stamina", "Dexterity"];
 var TrainigsNames2i = -1;
 
 
-var getBasicTrainingsAtEvening = false;
+var getBasicTrainingsAtEvening = true;
+var getBasicTrainingsRepeat    = true;
 
 var ScrapMetal=0;
 
@@ -27,7 +29,7 @@ var sexGirlNum = 0;
 var acNum   = 0;
 var acNum2  = 0;
 var acNum3  = 0;
-var mainCraftCnt = [0, 0, 0];
+var mainCraftCnt = [];
 
 var InjectorCnt = 0;
 var fishingCnt  = 0;
@@ -36,34 +38,35 @@ var fishingCnt  = 0;
  "Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"
  "Normal craving" "Huge craving!"
  */
-var cycleSexEvening = "Strong craving";
+var cycleSexEvening = "Normal craving";
 
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
 // [[0, seductionSex], [1, seductionSex], [2, seductionSex]];
-var girls = [[0, seductionSex], [1, seductionSex], [1, seductionSex]];
+var girls = [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Medicine", "domestic", "Academics", "dancing", "acrobatics"
 // homeschool  = [["Medicine", 4]];
 var homeschool  = [];
-var homeschool2 = [];
-var homeschool3 = [];
+var homeschool2 = [["Medicine", 1], ["Academics", 1], ["science", 1]];
+var homeschool3 = [["Medicine", 2], ["Medicine", 2], ["Academics", 2], ["Medicine", 2], ["Academics", 2], ["science", 2]];
 var encourageGirl = [];
 
-var childTrainigPlayFlag   = [0, 2];
-var childTrainigCombatFlag = [1, 3];
-var childTrainigEduFlag    = [1, 2];
-var childTrainigPlayFlagX   = false;
-var childTrainigCombatFlagX = false;
-var childTrainigEduFlagX    = false;
+var childTrainigPlayFlag    = [0, 1];
+var childTrainigCombatFlag  = [0, 1];
+var childTrainigEduFlag     = [0, 1];
+var childTrainigPlayFlagX   = true;
+var childTrainigCombatFlagX = true;
+var childTrainigEduFlagX    = true;
 var childTrainigEduInf      = false;
 
 var doAcademia   = false;
 var doLibrary    = false;
-var doProfessor  = [0, 1];
+var doProfessor  = [0, 5];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX = false;
+var doHistoricalSociety = true;
 
-var doAdvancedTrainings = false;
+var doAdvancedTrainings = false; // чтение обучающих книг
 
 // "Devotion" "Pro Willpower" "Pro Decadence" "Anti Willpower" [false, "Pray", true] [false, "Meditate", true]
 // all followers
@@ -73,8 +76,9 @@ var doAdvancedTrainings = false;
 
 
 // var doFaithLecture  = [["Pro Willpower", "all", false], ["Devotion", "all", false], ["Pro Decadence", "all", false]];
+// Просто молитва [false, false, true, false]
 
-// var doFaithLecture  = [["Devotion", "followers", false]];
+// var doFaithLecture  = [["Devotion", "followers", false], false];
 
 var doFaithLecture  = [];
 
@@ -90,7 +94,7 @@ function mainCycle()
     var a = [];
 
     if ((cycle % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
-        Professor(a);
+        Professor(a, doHistoricalSociety);
 
     if (morninggirls.length > 0)
     if (isShouldSex(cycle, cycleSexEvening))
@@ -113,11 +117,10 @@ function mainCycle()
 
 
     if (doAcademia)
-    Academia(a);
+    Academia(a, doHistoricalSociety);
 
     if (doLibrary)
     Library(a);
-
 
     if ((cycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
         childTrainigPlay(a, false);
@@ -130,10 +133,12 @@ function mainCycle()
     childTrainigEdu(a, true);
 
     if (doAdvancedTrainings)
-    getAdvancedTrainings(a);
+    {
+        getAdvancedTrainings(a);
+    }
 
     if (!getBasicTrainingsAtEvening)
-        getBasicTrainings(a, true);
+        getBasicTrainings(a, getBasicTrainingsRepeat);
 
     if (doFaithLecture.length > 0)
     {
@@ -166,9 +171,6 @@ function mainCycle()
         girlEducation(a, 2, homeschool3[acNum3][0], homeschool3[acNum3][1]);
     }
 
-    // getBasicTrainings(a, true);
-    // childTrainigEdu(a, fl);
-
     for (var i = 0; i < encourageGirl.length; i++)
         doEncourage(a, encourageGirl[i]);
 
@@ -183,11 +185,11 @@ function mainCycle()
     }
 
     if (getBasicTrainingsAtEvening)
-        getBasicTrainings(a, true);
+        getBasicTrainings(a, getBasicTrainingsRepeat);
 
 
     // getPrayCatholic(a);
-    getCarbage(a);
+    // getCarbage(a);
 
 /*  // Производство патронов
     Injector(a, 'Pics/Weapons/306butt.png',     1, 0);
@@ -201,7 +203,7 @@ function mainCycle()
     MainCraft(a, 1, 2);
 */
 
-    getMeatAndSkins(a);
+    // getMeatAndSkins(a);
     if (InjectorCnt > 0)
     {
         Injector(a, 'Pics//Stuff/injectorbutt.png', 3, 2);
@@ -220,7 +222,7 @@ function mainCycle()
         selectGirl(a, girls[girlNum][0]);
         // normalSex(a);
         // seductionSex(a);
-        girls[girlNum][1](a);
+        girls[girlNum][1](a, girls[girlNum][2]);
         deselectGirl(a);
     }
 

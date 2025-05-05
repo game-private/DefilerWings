@@ -68,6 +68,7 @@ function clickS(selector, num=0, click=true)
         // console.log("document.querySelectorAll('" + selector + "')[" + num + "]");
         var a = document.querySelectorAll(selector)[num];
         if (click)
+        if (a)
         {
             doClick(a);
         }
