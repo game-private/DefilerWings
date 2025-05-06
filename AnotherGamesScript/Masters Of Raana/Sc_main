@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Strength", "Dexterity", "Stamina", "Melee combat"];
+var TrainigsNames1  = [];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -42,14 +42,15 @@ var cycleSexEvening = "Normal craving";
 
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
 // [[0, seductionSex], [1, seductionSex], [2, seductionSex]];
-var girls = [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
+// var girls = [[1, seductionSex, 1]];
+var girls = [];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Medicine", "domestic", "Academics", "dancing", "acrobatics"
 // homeschool  = [["Medicine", 4]];
 var homeschool  = [];
-var homeschool2 = [["Medicine", 1], ["Academics", 1], ["science", 1]];
-var homeschool3 = [["Medicine", 2], ["Medicine", 2], ["Academics", 2], ["Medicine", 2], ["Academics", 2], ["science", 2]];
+var homeschool2 = [];
+var homeschool3 = [];
 var encourageGirl = [];
 
 var childTrainigPlayFlag    = [0, 1];
@@ -62,7 +63,7 @@ var childTrainigEduInf      = false;
 
 var doAcademia   = false;
 var doLibrary    = false;
-var doProfessor  = [0, 5];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor  = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX = false;
 var doHistoricalSociety = true;
 
@@ -92,9 +93,14 @@ var doHuntC = 0;
 function mainCycle()
 {
     var a = [];
+    
+    var ProfessoredOrAcademic = false;
 
     if ((cycle % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
+    {
         Professor(a, doHistoricalSociety);
+        ProfessoredOrAcademic = true;
+    }
 
     if (morninggirls.length > 0)
     if (isShouldSex(cycle, cycleSexEvening))
@@ -117,7 +123,10 @@ function mainCycle()
 
 
     if (doAcademia)
-    Academia(a, doHistoricalSociety);
+    {
+        Academia(a, doHistoricalSociety);
+        ProfessoredOrAcademic = true;
+    }
 
     if (doLibrary)
     Library(a);
@@ -150,25 +159,28 @@ function mainCycle()
             FaithLecture(a, dfl[0], dfl[1], dfl[2], dfl[3]);
     }
 
-    if (homeschool.length > 0)
+    if (!ProfessoredOrAcademic)
     {
-        acNum   = (acNum + 1) % homeschool.length;
-        if (homeschool[acNum])
-        girlEducation(a, 0, homeschool[acNum][0], homeschool[acNum][1]);
-    }
+        if (homeschool.length > 0)
+        {
+            acNum   = (acNum + 1) % homeschool.length;
+            if (homeschool[acNum])
+            girlEducation(a, 0, homeschool[acNum][0], homeschool[acNum][1]);
+        }
 
-    if (homeschool2.length > 0)
-    {
-        acNum2  = (acNum2 + 1) % homeschool2.length;
-        if (homeschool2[acNum2])
-        girlEducation(a, 1, homeschool2[acNum2][0], homeschool2[acNum2][1]);
-    }
+        if (homeschool2.length > 0)
+        {
+            acNum2  = (acNum2 + 1) % homeschool2.length;
+            if (homeschool2[acNum2])
+            girlEducation(a, 1, homeschool2[acNum2][0], homeschool2[acNum2][1]);
+        }
 
-    if (homeschool3.length > 0)
-    {
-        acNum3  = (acNum3 + 1) % homeschool3.length;
-        if (homeschool3[acNum3])
-        girlEducation(a, 2, homeschool3[acNum3][0], homeschool3[acNum3][1]);
+        if (homeschool3.length > 0)
+        {
+            acNum3  = (acNum3 + 1) % homeschool3.length;
+            if (homeschool3[acNum3])
+            girlEducation(a, 2, homeschool3[acNum3][0], homeschool3[acNum3][1]);
+        }
     }
 
     for (var i = 0; i < encourageGirl.length; i++)
