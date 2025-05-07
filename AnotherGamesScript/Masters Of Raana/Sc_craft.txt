@@ -351,7 +351,7 @@ function getAdvancedTrainings(a)
     toPicture(a, "Pics/Butt/manbutttrain.png");
     a.push([3, "Advanced training"]);
 
-    var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting"];
+    var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting", "Occult"];
     for (var e of edu)
     {
         a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
@@ -790,8 +790,9 @@ function FaithLecture(a, edu="Devotion", target="all", doPray=false, doZeal=fals
         a.push([3, "a", "Repeat", true]);
         a.push([3, "Cancel"]);  // На случай, если "all" нажал не на ту кнопку (если кнопка "all" неактивна)
         a.push([3, "Cancel"]);
-        // a.push([3, "Back (Shrine)"]);
-        a.push([3, "Back (Home)"]);
+
+        a.push([3, "Back (Shrine)"]);
+        //a.push([3, "Back (Home)"]);
     }
 
     if (doPray)

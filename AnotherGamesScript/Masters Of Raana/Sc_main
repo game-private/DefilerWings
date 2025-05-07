@@ -1,12 +1,12 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: false, schedule: [0, 1]};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
-// var TrainigsNames1  = ["Strength", "Dexterity", "Melee combat"];
-var TrainigsNames1  = [];
+// var TrainigsNames1  = [];
+var TrainigsNames1  = ["Strength", "Ranged combat", "Philosophy", "Ranged combat", "Philosophy", "Ranged combat", "Philosophy"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -41,14 +41,14 @@ var fishingCnt  = 0;
 var cycleSexEvening = "Normal craving";
 
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
-// [[0, seductionSex], [1, seductionSex], [2, seductionSex]];
+// [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 // var girls = [[1, seductionSex, 1]];
 var girls = [];
 var morninggirls = [];
 var sexCnt = 1;
-// "Medicine", "science", "domestic", "Medicine", "domestic", "Academics", "dancing", "acrobatics"
-// homeschool  = [["Medicine", 4]];
-var homeschool  = [];
+// "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
+// homeschool  = [["science", 3], ];
+var homeschool  = [["Medicine", 3], ["domestic", 3], ["dancing", 3], ["acrobatics", 3], ["administration", 3]];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
@@ -63,7 +63,7 @@ var childTrainigEduInf      = false;
 
 var doAcademia   = false;
 var doLibrary    = false;
-var doProfessor  = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor  = [2, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX = false;
 var doHistoricalSociety = true;
 
@@ -79,7 +79,7 @@ var doAdvancedTrainings = false; // чтение обучающих книг
 // var doFaithLecture  = [["Pro Willpower", "all", false], ["Devotion", "all", false], ["Pro Decadence", "all", false]];
 // Просто молитва [false, false, true, false]
 
-// var doFaithLecture  = [["Devotion", "followers", false], false];
+// var doFaithLecture  = [["Devotion", "followers", true], false, false];
 
 var doFaithLecture  = [];
 
@@ -230,12 +230,12 @@ function mainCycle()
     if (isShouldSex(cycle, cycleSexEvening))
     {
         girlNum = (girlNum + 1) % girls.length;
-        // a.push([3, "spend time"]);
-        selectGirl(a, girls[girlNum][0]);
-        // normalSex(a);
-        // seductionSex(a);
-        girls[girlNum][1](a, girls[girlNum][2]);
-        deselectGirl(a);
+        if (girls[girlNum])
+        {
+            selectGirl(a, girls[girlNum][0]);
+            girls[girlNum][1](a, girls[girlNum][2]);
+            deselectGirl(a);
+        }
     }
 
 
