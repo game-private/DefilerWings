@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = [];
-var TrainigsNames1  = ["Strength", "Ranged combat", "Philosophy", "Ranged combat", "Philosophy", "Ranged combat", "Philosophy"];
+var TrainigsNames1  = [];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -48,7 +48,7 @@ var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["science", 3], ];
-var homeschool  = [["Medicine", 3], ["domestic", 3], ["dancing", 3], ["acrobatics", 3], ["administration", 3]];
+var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
@@ -61,10 +61,11 @@ var childTrainigCombatFlagX = true;
 var childTrainigEduFlagX    = true;
 var childTrainigEduInf      = false;
 
-var doAcademia   = false;
-var doLibrary    = false;
-var doProfessor  = [2, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
-var doProfessorX = false;
+var doAcademia    = false;
+var doLibrary     = false;
+var doSlaveMarket = true;
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessorX  = false;
 var doHistoricalSociety = true;
 
 var doAdvancedTrainings = false; // чтение обучающих книг
@@ -130,6 +131,9 @@ function mainCycle()
 
     if (doLibrary)
     Library(a);
+
+    if (doSlaveMarket)
+        SlaveMarket(a);
 
     if ((cycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
         childTrainigPlay(a, false);

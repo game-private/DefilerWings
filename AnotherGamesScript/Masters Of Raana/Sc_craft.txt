@@ -25,7 +25,7 @@ function getConcludeDay(a)
 
 function ConcludeDay_doWait(object)
 {
-    array = object.array;
+    var array = object.array;
 
     if (  clickST("a", "Conclude day", false, false)  )
         setTimeout
@@ -39,7 +39,7 @@ function ConcludeDay_doWait(object)
 
 function ConcludeDay_doLog(object)
 {
-    array = object.array;
+    var array = object.array;
 
     if (doShowLog)
     {
@@ -62,7 +62,7 @@ function ConcludeDay_doLog(object)
 
 function ConcludeDay_doLog2(object)
 {
-    array = object.array;
+    var array = object.array;
     var time = 0;
 
     if (doShowLog)
@@ -801,3 +801,57 @@ function FaithLecture(a, edu="Devotion", target="all", doPray=false, doZeal=fals
     getReturn(a);
 }
 
+// -----------------------------------------------------------
+// Рынок рабов
+// -----------------------------------------------------------
+
+function SlaveMarket(a)
+{
+    exitHouse(a);
+    toPicture(a, "Pics/Maps/waysign_emcityright.png", 100);
+    toPicture(a, "Pics/Maps/waysign_heightsdown.png", 100);
+    toPicture(a, "Pics/Maps/butt_slavemarket.png", 100);
+    
+    AuctionStart(a);
+}
+
+function AuctionStart(a)
+{
+    a.push([3, "a", "The Auction hall", true, 100]);
+    a.push([3, "a", "Start!",           true, 100]);
+    
+    a.push([4, 1, SlaveMarketAuction]);
+}
+
+function SlaveMarketAuction(object)
+{
+    var array = object.array;
+    
+    try
+    {
+        var text = document.querySelectorAll("div.story")[0].textContent.toLowerCase();
+        if (text.includes("virgin"))
+        {
+            showNotification();
+            return;
+        }
+    }
+    catch
+    {}
+
+    var newArray = [];
+    newArray.push([3, "a", "Leave", true, 100]);
+    if (  clickST("a", "Continue", false, true)  )
+    {
+        AuctionStart(newArray)
+        array = newArray.concat(array);
+    }
+    else
+    {
+        toExit(newArray);
+        toHome(newArray);
+        array = newArray.concat(array);
+    }
+    
+    ClicksS(array);
+}
