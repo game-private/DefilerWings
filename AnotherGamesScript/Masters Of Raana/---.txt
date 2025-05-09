@@ -9,6 +9,4 @@ cd /Arcs/tmp/G/download
 sudo -u wget wget
 
 
-Rain Kindness 41
-Reb 59
-BAE 30
+1-9-8-6

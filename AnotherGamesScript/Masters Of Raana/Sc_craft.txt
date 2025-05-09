@@ -699,6 +699,7 @@ function doCombatStep(a, doPowerStrike = true)
         a.push([3, "Strike enemy"]);
 
     a.push([0, ".targetholder>a"]);
+    a.push([0, ".targetholder2>a"]);
     a.push([4, 1500]);
 }
 
@@ -832,7 +833,7 @@ function SlaveMarketAuction(object)
         var text = document.querySelectorAll("div.story")[0].textContent.toLowerCase();
         if (text.includes("virgin"))
         {
-            showNotification();
+            showNotification("Событие на рынке рабов");
             return;
         }
     }

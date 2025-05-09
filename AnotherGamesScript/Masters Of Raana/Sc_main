@@ -63,7 +63,7 @@ var childTrainigEduInf      = false;
 
 var doAcademia    = false;
 var doLibrary     = false;
-var doSlaveMarket = true;
+var doSlaveMarket = false;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = true;
@@ -258,7 +258,7 @@ function mainCycle()
         if (isAccountNotEmpty())
             a.push([4, 100, mainCycle]);
         else
-            showNotification();
+            showNotification("Приостанавливающее событие");
     else
         showNotification();
 
