@@ -294,8 +294,11 @@ function getBasicTrainings(a, doRepeat)
     if (Training1 && Training1.Name)
     if (getBasicTrainings_cycle % Training1.schedule[1] == Training1.schedule[0])
     {
-        setFollowers(a);
-        isFollowersSetted = true;
+        if (Training1.Followers)
+        {
+            setFollowers(a);
+            isFollowersSetted = true;
+        }
         
         toPicture(a, "Pics/Butt/manbutttrain.png");
         a.push([3, "Basic training"]);
@@ -320,8 +323,11 @@ function getBasicTrainings(a, doRepeat)
 
     if (Training2)
     {
-        setFollowers(a);
-        isFollowersSetted = true;
+        if (Training2.Followers)
+        {
+            setFollowers(a);
+            isFollowersSetted = true;
+        }
         
         // a.push([3, "Actions & Events"]);
         toPicture(a, "Pics/Butt/manbutttrain.png");
@@ -421,7 +427,7 @@ function Library(a)
     toPicture(a, "Pics/Butt/manbutthouse.png");
     toPicture(a, "Pics/Butt/carrowleft.png");
     toPicture(a, "Pics/Butt/carrowleft.png");
-    toPicture(a, "Pics/Butt/carrowright.png");
+    // toPicture(a, "Pics/Butt/carrowright.png");
     toPicture(a, "Pics/Home/icon_42.png");
 
     a.push([3, "a", "Study books", true, 200]);
@@ -558,6 +564,14 @@ function seductionSex(a, cnt=4, doBath=true)
     a.push([3, "Undress"]);
     a.push([3, "Cowgirl"]);
     a.push([3, "Start"]);
+    a.push([4, 300]);
+    a.push([3, "Make out"]);
+    a.push([4, 100]);
+    a.push([3, "Passionately"]);
+    a.push([4, 100]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "Resume sex"]);
+    a.push([4, 100]);
     a.push([3, "a", "Continue", true, 100]);
     a.push([3, "cum!"]);
     a.push([3, "Creampie"]);
