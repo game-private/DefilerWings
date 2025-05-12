@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = [];
-var TrainigsNames1  = ["Strength", "Stamina", "Melee combat"];
+var TrainigsNames1  = ["Strength"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -43,22 +43,22 @@ var cycleSexEvening = "Normal craving";
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 // var girls = [[1, seductionSex, 1]];
-var girls = [[0, seductionSex, 1]];
+var girls = [];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["science", 3], ];
 var homeschool  = [];
-var homeschool2 = [["science", 3]];
+var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
 
-var childTrainigPlayFlag    = [0, 1];
-var childTrainigCombatFlag  = [0, 1];
-var childTrainigEduFlag     = [0, 1];
-var childTrainigPlayFlagX   = true;
-var childTrainigCombatFlagX = true;
-var childTrainigEduFlagX    = true;
+var childTrainigPlayFlag    = [199, 200];   // FreeThinking
+var childTrainigCombatFlag  = [198, 200];
+var childTrainigEduFlag     = [1, 1];
+var childTrainigPlayFlagX   = false;
+var childTrainigCombatFlagX = false;
+var childTrainigEduFlagX    = false;
 var childTrainigEduInf      = false;
 
 var doAcademia    = false;
@@ -80,16 +80,17 @@ var doAdvancedTrainings = false; // чтение обучающих книг
 // var doFaithLecture  = [["Pro Willpower", "all", false], ["Devotion", "all", false], ["Pro Decadence", "all", false]];
 // Просто молитва [false, false, true, false]
 
-// var doFaithLecture  = [["Devotion", "followers", true], false, false];
+// var doFaithLecture  = [["Devotion", "all", true], false, false];
 
-var doFaithLecture  = [["Devotion", "all", false], false, false];
+var doFaithLecture  = [];
 
 var doFaithLectureC = 0;
 
+var doMakeResources = true;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
-var doHunt=[];
+var doHunt=[HuntPlace1, HuntPlace2, HuntPlace3];
 var doHuntAtEvening = true;
 var doHuntC = 0;
 function mainCycle()
@@ -206,7 +207,8 @@ function mainCycle()
 
 
     // getPrayCatholic(a);
-    // getCarbage(a);
+    if (doMakeResources)
+    getCarbage(a);
 
 /*  // Производство патронов
     Injector(a, 'Pics/Weapons/306butt.png',     1, 0);

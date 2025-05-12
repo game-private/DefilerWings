@@ -263,18 +263,23 @@ function childTrainigEdu(a, infinity=true, eduType="educate")
 
 function childTrainigCombat(a, infinity=true, eduType="train combat")
 {
-    a.push([3, "Manage"]);
-    toPicture(a, "Pics/Butt/manbuttnurse.png");
-    a.push([3, "a", eduType, infinity, infinity ? 2000 : 0]);
-
+    toPicture(a, "Pics/Butt/manbuttnurse.png"); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip6", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip9", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip6", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip9", 0]); a.push([4, 100]);
+    
     getReturn(a);
 }
 
-function childTrainigPlay(a, infinity=true, eduType="Play!")
+// 9/6 - FreeThinking; 5/8 - Discipline
+function childTrainigPlay(a, infinity=true)
 {
-    a.push([3, "Manage"]);
-    toPicture(a, "Pics/Butt/manbuttnurse.png");
-    a.push([3, "a", eduType, infinity, infinity ? 2000 : 0]);
+    toPicture(a, "Pics/Butt/manbuttnurse.png"); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip5", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip8", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip5", 0]); a.push([4, 100]);
+    a.push([1, "#" + "hoverTip8", 0]); a.push([4, 100]);
 
     getReturn(a);
 }
@@ -575,6 +580,7 @@ function seductionSex(a, cnt=4, doBath=true)
     a.push([3, "a", "Continue", true, 100]);
     a.push([3, "cum!"]);
     a.push([3, "Creampie"]);
+    a.push([3, "damn it!"]);
     a.push([3, "a", "Finish", true, 100]);
 
     getReturn(a);
