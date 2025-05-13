@@ -5,8 +5,8 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
-// var TrainigsNames1  = [];
-var TrainigsNames1  = ["Strength"];
+// var TrainigsNames1  = ["Strength"];
+var TrainigsNames1  = [];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -38,7 +38,7 @@ var fishingCnt  = 0;
  "Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"
  "Normal craving" "Huge craving!"
  */
-var cycleSexEvening = "Normal craving";
+var cycleSexEvening = "Strong craving";
 
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
@@ -53,16 +53,18 @@ var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
 
-var childTrainigPlayFlag    = [199, 200];   // FreeThinking
-var childTrainigCombatFlag  = [198, 200];
+var childTrainigPlayFlag    = [0, 200];   // FreeThinking
+var childTrainigCombatFlag  = [1, 200];
 var childTrainigEduFlag     = [1, 1];
 var childTrainigPlayFlagX   = false;
 var childTrainigCombatFlagX = false;
 var childTrainigEduFlagX    = false;
 var childTrainigEduInf      = false;
 
+var childTrainigCycle = 0;
+
 var doAcademia    = false;
-var doLibrary     = true;
+var doLibrary     = false;
 var doSlaveMarket = false;
 var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
@@ -137,15 +139,17 @@ function mainCycle()
     if (doSlaveMarket)
         SlaveMarket(a);
 
-    if ((cycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
+    if ((childTrainigCycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
         childTrainigPlay(a, false);
-    if ((cycle % childTrainigCombatFlag[1] == childTrainigCombatFlag[0]) ^ childTrainigCombatFlagX)
+    if ((childTrainigCycle % childTrainigCombatFlag[1] == childTrainigCombatFlag[0]) ^ childTrainigCombatFlagX)
         childTrainigCombat(a, false);
-    if ((cycle % childTrainigEduFlag[1] == childTrainigEduFlag[0]) ^ childTrainigEduFlagX)
+    if ((childTrainigCycle % childTrainigEduFlag[1] == childTrainigEduFlag[0]) ^ childTrainigEduFlagX)
         childTrainigEdu(a, false);
 
     if (childTrainigEduInf)
     childTrainigEdu(a, true);
+
+    childTrainigCycle++;
 
     if (doAdvancedTrainings)
     {
@@ -192,6 +196,9 @@ function mainCycle()
     for (var i = 0; i < encourageGirl.length; i++)
         doEncourage(a, encourageGirl[i]);
 
+    if (getBasicTrainingsAtEvening)
+        getBasicTrainings(a, getBasicTrainingsRepeat);
+
     if (doHunt.length > 0)
     {
         doHuntC = (doHuntC + 1) % doHunt.length;
@@ -201,9 +208,6 @@ function mainCycle()
             Hunt(a);
         }
     }
-
-    if (getBasicTrainingsAtEvening)
-        getBasicTrainings(a, getBasicTrainingsRepeat);
 
 
     // getPrayCatholic(a);
