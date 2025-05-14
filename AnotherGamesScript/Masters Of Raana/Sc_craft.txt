@@ -517,6 +517,30 @@ function deselectGirl(a)
     getReturn(a);
 }
 
+function StrongBondage(a, whip=false)
+{
+    a.push([4, 200]);
+    a.push([3, "a", "give food", false, 100]);
+    
+    a.push([3, "Bondage"]);
+    if (whip)
+    {
+        a.push([3, "disciplinary acts"]);
+        a.push([3, "a", "Whip (cane)", true, 2800, 5]);
+        a.push([3, "Back"]);
+    }
+    a.push([3, "Stimulate"]);
+    a.push([3, "a", "Caress pussy", true, 100, 5]);
+    a.push([3, "Back"]);
+    a.push([3, "Fuck girl"]);
+    a.push([3, "Initiate sex"]);
+    a.push([3, "Her pussy!"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "Cum in pussy!"]);
+    a.push([3, "Back"]);
+    a.push([3, "Leave girl"]);
+}
+
 function bondageSex(a, cnt=3, doBath=true)
 {
    if (doBath)
@@ -566,8 +590,8 @@ function seductionSex(a, cnt=4, doBath=true)
     a.push([3, "a", "Politely (charm)", true, 100]);
     a.push([3, "a", "Continue", true, 100]);
     a.push([3, "a", ["The bedroom", "The office", "The livingroom"], true, 100]);
-    a.push([3, "Undress"]);
-    a.push([3, "Cowgirl"]);
+    a.push([3, "a", "Undress", true, 200]);
+    a.push([3, "a", "Cowgirl", true]);
     a.push([3, "Start"]);
     a.push([4, 300]);
     a.push([3, "Make out"]);

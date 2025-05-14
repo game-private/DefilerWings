@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
+var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: true};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -40,7 +40,7 @@ var fishingCnt  = 0;
  */
 var cycleSexEvening = "Strong craving";
 
-// [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)]
+// [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 // var girls = [[1, seductionSex, 1]];
 var girls = [];
@@ -84,7 +84,7 @@ var doAdvancedTrainings = false; // чтение обучающих книг
 
 // var doFaithLecture  = [["Devotion", "all", true], false, false];
 
-var doFaithLecture  = [];
+var doFaithLecture  = [["Devotion", "all", false]];
 
 var doFaithLectureC = 0;
 
@@ -92,7 +92,7 @@ var doMakeResources = true;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
-var doHunt=[HuntPlace1, HuntPlace2, HuntPlace3];
+var doHunt=[];
 var doHuntAtEvening = true;
 var doHuntC = 0;
 function mainCycle()
@@ -111,19 +111,23 @@ function mainCycle()
     if (isShouldSex(cycle, cycleSexEvening))
     {
         sexGirlNum = (sexGirlNum + 1) % morninggirls.length;
-        selectGirl(a, morninggirls[sexGirlNum][0]);
-        for (var i = 0; i < sexCnt; i++)
-        {
-            morninggirls[sexGirlNum][1](a);
-            if (i + 1 < sexCnt)
-            {
-                getBathSlave(a);getBathSlave(a);
-            }
-        }
 
-        // bondageSex(a, 3);
-        // normalSex(a);
-        deselectGirl(a);
+        if (morninggirls[sexGirlNum])
+        {
+            selectGirl(a, morninggirls[sexGirlNum][0]);
+            for (var i = 0; i < sexCnt; i++)
+            {
+                morninggirls[sexGirlNum][1](a, morninggirls[sexGirlNum][2]);
+                if (i + 1 < sexCnt)
+                {
+                    getBathSlave(a);getBathSlave(a);
+                }
+            }
+
+            // bondageSex(a, 3);
+            // normalSex(a);
+            deselectGirl(a);
+        }
     }
 
 
