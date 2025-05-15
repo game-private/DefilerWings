@@ -362,7 +362,8 @@ function getAdvancedTrainings(a)
     toPicture(a, "Pics/Butt/manbutttrain.png");
     a.push([3, "Advanced training"]);
 
-    var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting", "Occult"];
+    // var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting", "Occult"];
+    var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting"];
     for (var e of edu)
     {
         a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
@@ -899,4 +900,57 @@ function SlaveMarketAuction(object)
     }
     
     ClicksS(array);
+}
+
+
+/*
+var cnt = 1;
+var a = [];
+UseRevital(a, cnt, 2);
+ClicksS(a);
+*/
+// cntRevital - количество даваемых порций,
+// maxPage - количество просматриваемых страниц (считая с "1" до "8")
+function UseRevital(a, cntRevital=1, maxPage=8)
+{
+    a.push([3, "a", "npc Menu", true, 100]);
+
+    for (var i = 0; i < 8; i++)
+        toPicture(a, "Pics/Butt/carrowleft.png", 100);  // Переходим на самую первую страницу
+    
+    for (var page = 0; page < maxPage; page++)
+    {
+        a.push([4, 1, (obj) => { UseRevitalPage(obj, cntRevital); }]);
+    }
+    
+    getReturn(a);
+}
+
+function UseRevitalPage(obj, cntRevital)
+{
+    var array            = obj.array;
+    var cntPersonsInPage = document.querySelectorAll(".slholderpic .lighthover").length;
+
+    var a = [];
+    for (var i = 0; i < cntPersonsInPage; i++)
+    {
+        if (AuStop)
+            break;
+
+        a.push([1, ".slholderpic .lighthover", i]); a.push([4, 100]);
+        a.push([3, "a", "Inventory", false, 100]);
+        a.push([3, "a", "accessories", false, 100]);
+        a.push([3, "a", "Applicants", false, 100]);
+
+        for (var c = 0; c < cntRevital; c++)
+            a.push([3, "a", "Use Revital", false, 0]);
+
+        a.push([4, 200]);
+        a.push([3, "a", "Return", false, 100]);
+    }
+
+    toPicture(a, "Pics/Butt/carrowright.png", 100);
+    a = a.concat(array);
+
+    ClicksS(a);
 }

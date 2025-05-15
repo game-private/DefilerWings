@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
-var TrainigsNames1  = [];
+var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Ranged combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -53,8 +53,8 @@ var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
 
-var childTrainigPlayFlag    = [0, 200];   // FreeThinking
-var childTrainigCombatFlag  = [1, 200];
+var childTrainigPlayFlag    = [1, 1];   // FreeThinking
+var childTrainigCombatFlag  = [1, 1];
 var childTrainigEduFlag     = [1, 1];
 var childTrainigPlayFlagX   = false;
 var childTrainigCombatFlagX = false;
@@ -84,7 +84,7 @@ var doAdvancedTrainings = false; // чтение обучающих книг
 
 // var doFaithLecture  = [["Devotion", "all", true], false, false];
 
-var doFaithLecture  = [["Devotion", "all", false]];
+var doFaithLecture  = [];
 
 var doFaithLectureC = 0;
 
@@ -92,7 +92,7 @@ var doMakeResources = true;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
-var doHunt=[];
+var doHunt=[HuntPlace1, HuntPlace2, HuntPlace3];
 var doHuntAtEvening = true;
 var doHuntC = 0;
 function mainCycle()
