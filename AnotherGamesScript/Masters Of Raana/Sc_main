@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: true};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
-var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Ranged combat"];
+var TrainigsNames1  = [];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -44,7 +44,7 @@ var cycleSexEvening = "Strong craving";
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 // var girls = [[1, seductionSex, 1]];
 var girls = [];
-var morninggirls = [];
+var morninggirls = [[0, seductionSex, 1]];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["science", 3], ];
@@ -52,6 +52,7 @@ var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
+var doHomeschoolAlways = true;
 
 var childTrainigPlayFlag    = [1, 1];   // FreeThinking
 var childTrainigCombatFlag  = [1, 1];
@@ -63,7 +64,7 @@ var childTrainigEduInf      = false;
 
 var childTrainigCycle = 0;
 
-var doAcademia    = false;
+var doAcademia    = true;
 var doLibrary     = false;
 var doSlaveMarket = false;
 var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
@@ -88,11 +89,11 @@ var doFaithLecture  = [];
 
 var doFaithLectureC = 0;
 
-var doMakeResources = true;
+var doMakeResources = false;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
-var doHunt=[HuntPlace1, HuntPlace2, HuntPlace3];
+var doHunt=[];
 var doHuntAtEvening = true;
 var doHuntC = 0;
 function mainCycle()
@@ -173,7 +174,7 @@ function mainCycle()
             FaithLecture(a, dfl[0], dfl[1], dfl[2], dfl[3]);
     }
 
-    if (!ProfessoredOrAcademic)
+    if (!ProfessoredOrAcademic || doHomeschoolAlways)
     {
         if (homeschool.length > 0)
         {
