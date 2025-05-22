@@ -103,6 +103,14 @@ class State():
                     print("Не удалось установить подключение")
                 return False
 
+        except webdav3.exceptions.NoConnection:
+            if not noPrint:
+                print("Не удалось установить подключение")
+            return False
+        except webdav3.exceptions.ConnectionException:
+            if not noPrint:
+                print("Не удалось установить подключение")
+            return False
         except Exception as e:
             if not noPrint:
                 print(f"Произошла ошибка: {str(e)}")
@@ -379,6 +387,9 @@ class State():
                         if doPrintFiles.value >= PrintCommandState.NONE.value:
                             print(f"Создана директория " + rFileName)
 
+                    except webdav3.exceptions.NoConnection:
+                        self.checkInLoop()
+                        continue
                     except webdav3.exceptions.ConnectionException:
                         self.checkInLoop()
                         continue
