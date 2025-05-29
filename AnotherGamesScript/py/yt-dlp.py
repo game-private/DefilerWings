@@ -22,7 +22,7 @@ print(os.path.realpath(__file__))
 # print()
 
 log  = '/Arcs/tmp/youtube/log'
-dirs = [['/Arcs/tmp/youtube/audio/', 'all'], ['/Arcs/tmp/youtube/144/', "144"], ['/Arcs/tmp/youtube/360/', "360"], ['/Arcs/tmp/youtube/480/', "480"], ['/Arcs/tmp/youtube/Стратег/', 'all']]
+dirs = [['/Arcs/tmp/youtube/Стратег/', 'all'], ['/Arcs/tmp/youtube/audio/', 'all'], ['/Arcs/tmp/youtube/144/', "144"], ['/Arcs/tmp/youtube/360/', "360"], ['/Arcs/tmp/youtube/480/', "480"]]
 # , ['/Arcs/tmp/youtube/144/02-ЕвичКлимовДругие/Выживание/', "all"]
 
 
