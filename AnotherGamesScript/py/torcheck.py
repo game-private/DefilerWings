@@ -174,12 +174,12 @@ state = State()
 def checkLog():
     global state
     
+    pingCount = 1
     isNoHavePingFlag = False
     if isNoHavePing(1):
         print("bad ping")
-        pingCount = 1
         if state.isConnected:
-            pingCount = 3
+            pingCount = 2
 
         sleep = 0
         while isNoHavePing(pingCount):
@@ -188,6 +188,7 @@ def checkLog():
             state.toDisconnectedState()
             state.ConnectedPercent = 0
             time.sleep(state.sleep + sleep)
+            pingCount = 1
             sleep += 1
             if sleep > 15:
                 sleep = 15
