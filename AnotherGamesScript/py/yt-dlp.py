@@ -234,6 +234,7 @@ while True:
         RecurseTarget = 0
         isLoggedDir  = []
         if successfullDownloaded <= 0:
+            pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
             time.sleep(15 + random.randint(0, 89))
 
 
