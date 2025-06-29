@@ -2,8 +2,8 @@ https://rutracker.org/forum/viewtopic.php?t=5293202
 https://rutracker.org/forum/viewtopic.php?t=5314506
 (скачано, кажется, со второго)
 
-mount -o loop /Arcs/tmp/G/Diablo2/Diablo2_CD1.iso /media/veracrypt62/game2/mnt  -o uid=1017,mode=0777
-mount -o loop /Arcs/tmp/G/Diablo2/Diablo2_CD2.iso /media/veracrypt62/game2/mnt2 -o uid=1017,mode=0777
+mount -o loop /inRamS/mounts/prg/Архивы/Игры/Diablo2/Diablo2_CD1.iso /media/veracrypt62/game2/mnt  -o uid=1017,mode=0777
+mount -o loop /inRamS/mounts/prg/Архивы/Игры/Diablo2/Diablo2_CD2.iso /media/veracrypt62/game2/mnt2 -o uid=1017,mode=0777
 
 // wine explorer.exe
 
@@ -68,7 +68,7 @@ def printSum(fName):
         
         print(hex(s))
 
-printSum('One.d2s')
+printSum('Vol.d2s')
 
 
 // https://user.xmission.com/~trevin/DiabloIIv1.09_File_Format.shtml
