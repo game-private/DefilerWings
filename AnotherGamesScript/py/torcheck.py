@@ -70,8 +70,9 @@ def beep(note, vol = "0.1"):
 class State:
     def __init__(self):
         minus = 0
+        ADDS  = 2
         self.sleeps      = { "connected": 1, "disconnected": 1 }
-        self.timeouts    = { "0": 48-minus, "10": 61-minus, "15": 122-minus*2, "25": 122, "30": 604, "100": -1 }
+        self.timeouts    = { "0": 48-minus, "10": 61-minus+ADDS, "15": 122-minus*2, "25": 122, "30": 604, "100": -1 }
         
         self.LastLogLen  = 0
         self.sleep       = self.sleeps["disconnected"]
