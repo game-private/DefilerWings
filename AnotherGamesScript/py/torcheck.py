@@ -1,4 +1,6 @@
 # python3 /inRamS/mounts/records/_sh/py/torcheck.py "/inRam-Logs/tor-8080.log"
+# watch -n 2 'sudo cat "/inRam-Logs/tor-8080.log" | fgrep -i boot | tail'
+
 
 import argparse
 import datetime
@@ -166,7 +168,8 @@ def doRestartTor():
     current_datetime = datetime.datetime.now()
     print()
     print()
-    print("restarted at " + current_datetime.strftime("%H:%M:%S"))
+    print("--------------------------------------------------")
+    print("TOR restarted at " + current_datetime.strftime("%H:%M:%S"))
     time.sleep(7)
 
 

@@ -235,7 +235,8 @@ while True:
         isLoggedDir  = []
         if successfullDownloaded <= 0:
             pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
-            time.sleep(15 + random.randint(0, 89))
+            print(f"TOR restarted")
+            time.sleep(60 + random.randint(0, 89))
 
 
 print()
