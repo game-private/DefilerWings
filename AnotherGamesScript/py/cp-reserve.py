@@ -38,7 +38,7 @@ class State():
         # Настройки скрипта
         # max_workers = 16 лучше, но если сеть не хочется перегружать, то лучше 4. 1 - если сервером выдаётся "Request per second limit exceeded for user"
         self.max_workers    = 1
-        self.sleepForTask   = 5
+        self.sleepForTask   = 0
         self.doPrintFiles   = PrintCommandState.NONE
         self.doPrintSubdirs = False
         self.oldstat        = []
@@ -508,7 +508,7 @@ if state.stat.failedFiles > 0:
 
 if state.stat.failedFiles == 0 and state.getCheckSumm() == 0:
     with open(state.DateFileName, "w") as file:
-        state.start_time += datetime.timedelta(seconds=-1)
+        state.start_time += datetime.timedelta(seconds=-15) # 15 секунд на то, что со временем что-то не так
         file.write(state.start_time.strftime(state.DateFileFormat))
 else:
     print()
