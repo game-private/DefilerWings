@@ -129,8 +129,9 @@ def downloadUrls(ulrs, dirName, printDir):
         newUrlsCount += 1
         print(f"Try to get {url}")
 
+        TC = 1
         triesCount = 0
-        while triesCount < 2:
+        while triesCount < TC:
             triesCount += 1
             if triesCount >= 2:
                 print("Try second time after timeout")
