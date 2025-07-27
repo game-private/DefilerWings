@@ -85,16 +85,40 @@ class State:
         self.ConnectedPercent      = 0
         self.lastStatusChangedTime = datetime.datetime.now()
         
+        # Подготовка файла, который будет создаваться, если tor успешно запустился
+        # /inRamA/torstate/up
+        self.torStateDir = "/inRamS/torstate"
+        self.torUpFile   = os.path.join(self.torStateDir, "", "up")
+        os.makedirs(self.torStateDir, exist_ok=True)
+        self.setTorUpFile(False)
+
+
+    def setTorUpFile(self, isTorUp):
+        if isTorUp:
+            with open(self.torUpFile, 'a') as file:
+                pass
+        else:
+            try:
+                os.remove(self.torUpFile)
+            except FileNotFoundError:
+                pass
+
     def toConnectedState(self):
         self.isConnected = True
         self.isError     = False
         self.sleep       = self.sleeps["connected"]
+        
+        self.setTorUpFile(True);
+        
         print()
         print("connected")
     
     def toDisconnectedState(self):
         self.isConnected = False
         self.sleep       = self.sleeps["disconnected"]
+        
+        self.setTorUpFile(False);
+        
         
     def toRightConnetionState(self):
         self.lastStatusChangedTime = datetime.datetime.now()
