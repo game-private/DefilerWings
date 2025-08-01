@@ -101,6 +101,7 @@ def downloadUrl(url, dirName):
 # Время указывается в секундах
 MAX_TIME_WITHOUT_CHECKING = 60 * 60
 
+torDate = datetime.datetime.now().timestamp()
 def isCheckingTimeOutExpired():
     global last_date
     global MAX_TIME_WITHOUT_CHECKING
@@ -231,13 +232,19 @@ while True:
             print("------------------------------------------------")
             print(f"Recurse added: {RecurseTarget}")
             # time.sleep(15)
+            if successfullDownloaded > 0:
+                torDate = datetime.datetime.now().timestamp()
     else:
         RecurseTarget = 0
         isLoggedDir  = []
         if successfullDownloaded <= 0:
-            pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
-            print(f"TOR restarted")
-            time.sleep(60 + random.randint(0, 89))
+            if datetime.now().timestamp() - torDate > 8*60:
+                pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
+                print(f"TOR restarted")
+                time.sleep(60 + random.randint(0, 89))
+                torDate = datetime.datetime.now().timestamp()
+        else:
+            torDate = datetime.datetime.now().timestamp()
 
 
 print()
