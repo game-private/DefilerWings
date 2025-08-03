@@ -18,7 +18,7 @@ print(current_datetime.strftime("%H:%M:%S"))
 # args = parser.parse_args()
 # print(args.filename)
 
-print(os.path.realpath(__file__))
+print("python3 " + os.path.realpath(__file__))
 
 def isNoHavePing(cnt):
     process = subprocess.Popen(["ping", "77.88.8.88", "-s 16", "-O", "-c " + str(cnt), "-i 2.0"], stdout=subprocess.PIPE)
