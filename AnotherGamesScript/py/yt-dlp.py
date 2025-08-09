@@ -238,7 +238,7 @@ while True:
         RecurseTarget = 0
         isLoggedDir  = []
         if successfullDownloaded <= 0:
-            if datetime.now().timestamp() - torDate > 8*60:
+            if datetime.datetime.now().timestamp() - torDate > 8*60:
                 pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
                 print(f"TOR restarted")
                 time.sleep(60 + random.randint(0, 89))
