@@ -6,6 +6,8 @@ import os
 import subprocess
 import time
 import random
+import socket
+import dns.query
 
 current_datetime = datetime.datetime.now()
 print(current_datetime)
@@ -65,10 +67,59 @@ def WriteToLog(pi, dirName, url):
 
     ReadLog()
 
+
+def checkDNS(timeout = 240, domain_name = 'youtube.com.'):
+    nameserver  = '127.0.0.53'
+    port        = 5353
+    query       = dns.message.Message()
+    query.id    = 0
+    query.flags |= dns.flags.RD
+
+    try:
+        query.question.append(dns.rrset.from_text(domain_name, 0, dns.rdataclass.IN, 'A'))
+        response = dns.query.udp(query, nameserver, port=port, timeout=timeout)
+        # print(f"IP-адрес: {response.answer.to_text()}")
+        if response.rcode() != dns.rcode.NOERROR:
+            return False
+
+        for rrset in response.answer:
+            if rrset.rdtype == dns.rdatatype.A:
+                for rdata in rrset:
+                    #print(f"IP-адрес: {rdata.address}")
+                    #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    #    sock.setblocking(True)  # Дублируем блокирующий режим, хотя он такой по умолчанию
+                    #    sock.connect((rdata.address, 443))
+                    
+                    return True
+
+    except dns.exception.Timeout:
+        # print("Превышено время ожидания")
+        pass
+    except dns.exception.DNSException as e:
+        pass
+    except Exception as e:
+        print(f"Ошибка подключения: {e}")
+        pass
+
+    return False
+
+def isTorUp():
+    if not os.path.exists('/inRamS/torstate/up'):
+        return False
+    
+    # return checkDNS(90)
+    return True
+
+
 def downloadUrl(url, dirName):
     current_datetime = datetime.datetime.now()
     print(current_datetime.strftime("%H:%M"))
 
+    if url.startswith("https://www.youtube.com") or url.startswith("https://youtu.be"):
+        if not isTorUp():
+            print("tor down: skipped")
+            return False
+    
     pi = subprocess.run(["yt-dlp", url])
     # pi = subprocess.run(["yt-dlp", "--cookies-from-browser", "firefox", url])
 
@@ -212,6 +263,12 @@ def enumerateDirs(dirs, RecurseCnt):
         enumerateDirs(subDescs, RecurseCnt + 1)
 
 
+def torWait(count=2):
+    torDownCycleCount = 0
+    while not isTorUp() and torDownCycleCount < 2:
+        print("tor down: sleep")
+        time.sleep(15)
+        torDownCycleCount += 1
 
 RecurseMax    = 0
 RecurseTarget = 0
@@ -224,8 +281,8 @@ while True:
     enumerateDirs(dirs, 0)
     ReadLog()
 
-    if newUrlsCount <= 0:
-        if RecurseMax <= 0:
+    if newUrlsCount <= 0 or successfullDownloaded <= 0:
+        if RecurseMax <= 0 and newUrlsCount <= 0:
             break;
         else:
             RecurseTarget += 1
@@ -234,15 +291,21 @@ while True:
             # time.sleep(15)
             if successfullDownloaded > 0:
                 torDate = datetime.datetime.now().timestamp()
+            else:
+                # Если мы достигли максимальной глубины рекурсии, то делаем ожидание
+                if RecurseMax <= 0 and successfullDownloaded <= 0:
+                    torWait(4)
     else:
         RecurseTarget = 0
         isLoggedDir  = []
         if successfullDownloaded <= 0:
-            if datetime.datetime.now().timestamp() - torDate > 8*60:
+            torWait(4)
+            if datetime.datetime.now().timestamp() - torDate > 30*60:
                 pi = subprocess.run(["sudo", "systemctl", "restart", "tor.service"])
                 print(f"TOR restarted")
                 time.sleep(60 + random.randint(0, 89))
                 torDate = datetime.datetime.now().timestamp()
+                pass
         else:
             torDate = datetime.datetime.now().timestamp()
 

@@ -8,6 +8,13 @@ import os
 import subprocess
 import time
 import random
+import threading
+import signal
+import sys
+# apt install python3-dnspython
+# import dns.resolver
+import dns.query
+
 
 # current_datetime = datetime.datetime.now()
 # print(current_datetime)
@@ -84,6 +91,8 @@ class State:
 
         self.ConnectedPercent      = 0
         self.lastStatusChangedTime = datetime.datetime.now()
+        self.dns_id                = 0
+        self.isTerminated          = False
         
         # Подготовка файла, который будет создаваться, если tor успешно запустился
         # /inRamA/torstate/up
@@ -116,6 +125,7 @@ class State:
     def toDisconnectedState(self):
         self.isConnected = False
         self.sleep       = self.sleeps["disconnected"]
+        self.lastStatusChangedTime = datetime.datetime.now()
         
         self.setTorUpFile(False);
         
@@ -199,6 +209,70 @@ def doRestartTor():
 
 state = State()
 
+
+def checkDNS(timeout = 240, domain_name = 'youtube.com.'):
+    global state
+    state.dns_id += 1
+
+    nameserver  = '127.0.0.53'
+    port        = 5353
+    query       = dns.message.Message()
+    query.id    = state.dns_id
+    query.flags |= dns.flags.RD
+
+    try:
+        query.question.append(dns.rrset.from_text(domain_name, 0, dns.rdataclass.IN, 'A'))
+        response = dns.query.udp(query, nameserver, port=port, timeout=timeout)
+        # print(f"IP-адрес: {response.answer.to_text()}")
+        if response.rcode() != dns.rcode.NOERROR:
+            return False
+        
+        for rrset in response.answer:
+            if rrset.rdtype == dns.rdatatype.A:
+                for rdata in rrset:
+                    # print(f"IP-адрес: {rdata.address}")
+                    return True
+
+    except dns.exception.Timeout:
+        # print("Превышено время ожидания")
+        pass
+    except dns.exception.DNSException as e:
+        pass
+    
+    return False
+    
+
+def checkDNS_cycle():
+    global state
+
+    while not state.isTerminated:
+        time.sleep(1)
+        if not state.isConnected or state.isTerminated:
+            continue
+
+        time.sleep(15 + random.randint(0, 15))
+        if not state.isConnected or state.isTerminated:
+            continue
+
+        last = datetime.datetime.now()
+        if checkDNS(180):
+            interval = datetime.datetime.now() - last
+            time.sleep(180 - interval.seconds + random.randint(0, 120))
+            continue
+
+        if not state.isConnected or state.isTerminated:
+            continue
+
+        print("checkDNS_cycle: first check has failed. " + datetime.datetime.now().strftime("%H:%M:%S"))
+        if checkDNS(90, 'google.com.'):
+            print("checkDNS_cycle: second check has succeeded. " + datetime.datetime.now().strftime("%H:%M:%S"))
+            continue
+
+        if state.isConnected:
+            print("checkDNS_cycle: has a failed DNS check. Restarted. " + datetime.datetime.now().strftime("%H:%M:%S"))
+            doRestartTor()
+
+
 def checkLog():
     global state
     
@@ -244,7 +318,26 @@ def checkLog():
     state.LastLogLen = len(logLines)
     return True
 
-while checkLog():
+thread1 = threading.Thread(target=checkDNS_cycle, args=())
+thread1.start()
+
+def signal_handler(sig, frame):
+    global state
+    state.isTerminated=True
+    state.setTorUpFile(False)
+    print(f'Получен сигнал: {sig}')
+    if sig == signal.SIGINT:
+        # print('Программа прервана пользователем')
+        sys.exit(0)
+    elif sig == signal.SIGTERM:
+        # print('Программа завершена по SIGTERM')
+        sys.exit(0)
+
+# Регистрация обработчиков сигналов
+signal.signal(signal.SIGINT, signal_handler)  # Ctrl+C
+signal.signal(signal.SIGTERM, signal_handler)
+
+while checkLog() and not state.isTerminated:
     if not state.isConnected or state.isError:
         interval = datetime.datetime.now() - state.lastStatusChangedTime
         current_datetime = datetime.datetime.now()
@@ -254,9 +347,8 @@ while checkLog():
 
     time.sleep(state.sleep)
     
-
-
-# Bootstrapped 15% Bootstrapped 75%
+state.isTerminated=True
+state.setTorUpFile(False)
 
 # Включая границы интервала
 # random.randint(0, 15)
