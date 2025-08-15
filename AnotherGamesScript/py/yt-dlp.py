@@ -286,6 +286,10 @@ while True:
             break;
         else:
             RecurseTarget += 1
+            if RecurseMax <= 0:
+                RecurseTarget = 0
+                torWait(4)
+
             print("------------------------------------------------")
             print(f"Recurse added: {RecurseTarget}")
             # time.sleep(15)

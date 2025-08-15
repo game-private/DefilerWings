@@ -1,3 +1,4 @@
+# python3 /inRamS/mounts/records/_sh/py/torcheck.py
 # python3 /inRamS/mounts/records/_sh/py/torcheck.py "/inRam-Logs/tor-8080.log"
 # watch -n 2 'sudo cat "/inRam-Logs/tor-8080.log" | fgrep -i boot | tail'
 
@@ -22,12 +23,18 @@ import dns.query
 current_datetime = datetime.datetime.now()
 print(current_datetime.strftime("%H:%M:%S"))
 
-parser = argparse.ArgumentParser()
-parser.add_argument('filename')
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument('filename')
+# args = parser.parse_args()
 # print(args.filename)
+class Args:
+    pass
 
-print(os.path.realpath(__file__) + " " + args.filename)
+args=Args()
+args.filename = "/inRam-Logs/tor-8080.log"
+
+
+print("python3 " + os.path.realpath(__file__))
 
 # "/inRam-Logs/tor-8080.log"
 logFile = args.filename
