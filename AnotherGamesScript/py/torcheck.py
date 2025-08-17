@@ -1,21 +1,35 @@
 # python3 /inRamS/mounts/records/_sh/py/torcheck.py
-# python3 /inRamS/mounts/records/_sh/py/torcheck.py "/inRam-Logs/tor-8080.log"
+# sudo -u torcheck python3 /inRamS/mounts/records/_sh/py/torcheck.py
 # watch -n 2 'sudo cat "/inRam-Logs/tor-8080.log" | fgrep -i boot | tail'
 
 
 import argparse
 import datetime
-import os
-import subprocess
-import time
-import random
 import threading
+import subprocess
+import random
 import signal
+import shutil
+import time
+import stat
 import sys
+import os
 # apt install python3-dnspython
 # import dns.resolver
 import dns.query
 
+def reRun():
+    wellUser = 'torcheck'
+    process  = subprocess.Popen(["whoami"], stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    user = output.decode().splitlines()[0]
+    if user != wellUser:
+        print(f"rerun for user {wellUser}")
+        subprocess.run(["sudo", '-u', wellUser, 'python3', os.path.realpath(__file__)])
+        sys.exit(1)
+
+
+reRun()
 
 # current_datetime = datetime.datetime.now()
 # print(current_datetime)
@@ -32,12 +46,9 @@ class Args:
 
 args=Args()
 args.filename = "/inRam-Logs/tor-8080.log"
-
+logFile = args.filename
 
 print("python3 " + os.path.realpath(__file__))
-
-# "/inRam-Logs/tor-8080.log"
-logFile = args.filename
 
 def getLogLines():
     process = subprocess.Popen(["sudo", "cat", logFile], stdout=subprocess.PIPE)
@@ -106,6 +117,8 @@ class State:
         self.torStateDir = "/inRamS/torstate"
         self.torUpFile   = os.path.join(self.torStateDir, "", "up")
         os.makedirs(self.torStateDir, exist_ok=True)
+        os.chmod(self.torStateDir, stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IROTH | stat.S_IXOTH | stat.S_IRGRP)
+        shutil.chown(self.torStateDir, group='forall')
         self.setTorUpFile(False)
 
 
