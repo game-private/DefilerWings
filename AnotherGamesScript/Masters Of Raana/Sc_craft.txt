@@ -413,7 +413,7 @@ function Professor(a, HistoricalSociety)
 {
     toPicture(a, "Pics/Butt/travel_aca.png");
     a.push([3, "Tutor (Academics)"]);
-    // a.push([3, "Tutor (Science)"]);
+    a.push([3, "Tutor (Science)"]);
     // a.push([0, ".vendorleft>.ulvendor>a"]);
     a.push([0, ".alt1>a"]); // Это если возникли проблемы
     a.push([3, "End class"]);

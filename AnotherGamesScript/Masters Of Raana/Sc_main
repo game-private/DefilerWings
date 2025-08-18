@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
-var TrainigsNames1  = [];
+var TrainigsNames1  = ["Strength", "Melee combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -44,7 +44,7 @@ var cycleSexEvening = "Strong craving";
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 // var girls = [[1, seductionSex, 1]];
 var girls = [];
-var morninggirls = [[0, seductionSex, 1]];
+var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["science", 3], ];
@@ -64,12 +64,12 @@ var childTrainigEduInf      = false;
 
 var childTrainigCycle = 0;
 
-var doAcademia    = true;
-var doLibrary     = false;
+var doAcademia    = false;  // Учиться в академии
+var doLibrary     = true;
 var doSlaveMarket = false;
-var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = true;
+var doHistoricalSociety = false;
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
