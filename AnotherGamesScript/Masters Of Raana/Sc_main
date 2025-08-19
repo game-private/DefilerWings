@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [1, 1], Followers: true};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -6,7 +6,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
-var TrainigsNames1  = ["Strength", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -47,12 +47,12 @@ var girls = [];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
-// homeschool  = [["science", 3], ];
+// homeschool  = [["science", 3], ];   ["domestic", 1], ["Medicine", 1], ["administration", 1]
 var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
-var doHomeschoolAlways = true;
+var doHomeschoolAlways = false;
 
 var childTrainigPlayFlag    = [1, 1];   // FreeThinking
 var childTrainigCombatFlag  = [1, 1];
@@ -65,11 +65,11 @@ var childTrainigEduInf      = false;
 var childTrainigCycle = 0;
 
 var doAcademia    = false;  // Учиться в академии
-var doLibrary     = true;
+var doLibrary     = false;
 var doSlaveMarket = false;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = false;
+var doHistoricalSociety = [0, 1];
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
@@ -85,11 +85,16 @@ var doAdvancedTrainings = false; // чтение обучающих книг
 
 // var doFaithLecture  = [["Devotion", "all", true], false, false];
 
-var doFaithLecture  = [];
+var doFaithLecture  = [["Devotion", "all", true]];
 
 var doFaithLectureC = 0;
 
 var doMakeResources = false;
+
+function doActionStep(cycle, ActionArray, XorModifier)
+{
+    return cycle % doHistoricalSociety[1] == doHistoricalSociety[0];
+}
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
@@ -99,12 +104,12 @@ var doHuntC = 0;
 function mainCycle()
 {
     var a = [];
-    
+
     var ProfessoredOrAcademic = false;
 
     if ((cycle % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
     {
-        Professor(a, doHistoricalSociety);
+        Professor(a, doActionStep(cycle, doHistoricalSociety, false));
         ProfessoredOrAcademic = true;
     }
 
@@ -134,7 +139,7 @@ function mainCycle()
 
     if (doAcademia)
     {
-        Academia(a, doHistoricalSociety);
+        Academia(a, doActionStep(cycle, doHistoricalSociety, false));
         ProfessoredOrAcademic = true;
     }
 
@@ -167,7 +172,7 @@ function mainCycle()
     if (doFaithLecture.length > 0)
     {
         doFaithLectureC  = (doFaithLectureC + 1) % doFaithLecture.length;
-        
+
         var dfl = doFaithLecture[doFaithLectureC];
 
         if (dfl)
@@ -222,7 +227,7 @@ function mainCycle()
 /*  // Производство патронов
     Injector(a, 'Pics/Weapons/306butt.png',     1, 0);
     Injector(a, 'Pics/Weapons/762butt.png',     1, 0);
-    Injector(a, 'Pics/Weapons/shellsbutt.png',  1, 0);        
+    Injector(a, 'Pics/Weapons/shellsbutt.png',  1, 0);
 *//*
   // Производство аптечек
     Injector(a, 'Pics//Stuff/injectorbutt.png', 3, 2);
