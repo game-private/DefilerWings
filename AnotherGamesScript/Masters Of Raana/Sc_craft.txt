@@ -68,7 +68,7 @@ function ConcludeDay_doLog2(object)
     if (doShowLog)
     {
         var events = document.querySelectorAll(".introleft2 .padd20left strong");
-        
+
         // - BUSINESS AS USUAL -
         var BusinessAsUsual = false;
         for (var event of events)
@@ -268,7 +268,7 @@ function childTrainigCombat(a, infinity=true, eduType="train combat")
     a.push([1, "#" + "hoverTip9", 0]); a.push([4, 100]);
     a.push([1, "#" + "hoverTip6", 0]); a.push([4, 100]);
     a.push([1, "#" + "hoverTip9", 0]); a.push([4, 100]);
-    
+
     getReturn(a);
 }
 
@@ -304,7 +304,7 @@ function getBasicTrainings(a, doRepeat)
             setFollowers(a);
             isFollowersSetted = true;
         }
-        
+
         toPicture(a, "Pics/Butt/manbutttrain.png");
         a.push([3, "Basic training"]);
 
@@ -333,7 +333,7 @@ function getBasicTrainings(a, doRepeat)
             setFollowers(a);
             isFollowersSetted = true;
         }
-        
+
         // a.push([3, "Actions & Events"]);
         toPicture(a, "Pics/Butt/manbutttrain.png");
         a.push([3, "Basic training"]);
@@ -388,7 +388,7 @@ function HistoricalSocietyAction(a)
     a.push([3, "Back"]);
     a.push([3, "Use cigar room"]);
     a.push([3, "Back"]);
-    
+
     toExit(a);
 }
 
@@ -401,11 +401,11 @@ function Academia(a, HistoricalSociety)
     a.push([3, "CONTINUE"]);
 
     toExit(a);
-    
+
     // Аналог и в Academia, и в Professor
     if (HistoricalSociety)
         HistoricalSocietyAction(a);
-    
+
     toHome(a);
 }
 
@@ -419,7 +419,7 @@ function Professor(a, HistoricalSociety)
     a.push([3, "End class"]);
 
     toExit(a);
-    
+
     // Аналог и в Academia, и в Professor
     if (HistoricalSociety)
         HistoricalSocietyAction(a);
@@ -437,8 +437,8 @@ function Library(a)
     toPicture(a, "Pics/Home/icon_42.png");
 
     a.push([3, "a", "Study books", true, 200]);
-    
-    
+
+
     a.push([3, "Exit"]);
     a.push([3, "Exit"]);
 
@@ -455,7 +455,7 @@ function setFollowers(a)
     toPicture(a, "Pics/Butt/slbutt31.png");
     toPicture(a, "Pics/Butt/slbutt31.png");
     toPicture(a, "Pics/Butt/slbutt31.png");
-    
+
     getReturn(a);
 }
 
@@ -466,7 +466,7 @@ function resetFollowers(a)
     toPicture(a, "Pics/Butt/slbutt32.png");
     toPicture(a, "Pics/Butt/slbutt32.png");
     toPicture(a, "Pics/Butt/slbutt32.png");
-    
+
     getReturn(a);
 }
 
@@ -522,7 +522,7 @@ function StrongBondage(a, whip=false)
 {
     a.push([4, 200]);
     a.push([3, "a", "give food", false, 100]);
-    
+
     a.push([3, "Bondage"]);
     if (whip)
     {
@@ -719,7 +719,7 @@ function combatMenu(parent)
     a.textContent = " Сильный Шаг  ";
     // a.style.display = "inline";
     div.appendChild(a);
-    
+
     var a = document.createElement("a");
     a.addEventListener("click", (e) => { b=[]; doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); doCombatStep(b, false); ClicksS(b); }  );
     a.textContent = " Слабый Шаг ";
@@ -857,7 +857,7 @@ function SlaveMarket(a)
     toPicture(a, "Pics/Maps/waysign_emcityright.png", 100);
     toPicture(a, "Pics/Maps/waysign_heightsdown.png", 100);
     toPicture(a, "Pics/Maps/butt_slavemarket.png", 100);
-    
+
     AuctionStart(a);
 }
 
@@ -865,14 +865,14 @@ function AuctionStart(a)
 {
     a.push([3, "a", "The Auction hall", true, 100]);
     a.push([3, "a", "Start!",           true, 100]);
-    
+
     a.push([4, 1, SlaveMarketAuction]);
 }
 
 function SlaveMarketAuction(object)
 {
     var array = object.array;
-    
+
     try
     {
         var text = document.querySelectorAll("div.story")[0].textContent.toLowerCase();
@@ -898,15 +898,15 @@ function SlaveMarketAuction(object)
         toHome(newArray);
         array = newArray.concat(array);
     }
-    
+
     ClicksS(array);
 }
 
 
 /*
-var cnt = 1;
+var cnt = 12;
 var a = [];
-UseRevital(a, cnt, 2);
+UseRevital(a, cnt, 3);
 ClicksS(a);
 */
 // cntRevital - количество даваемых порций,
@@ -917,12 +917,12 @@ function UseRevital(a, cntRevital=1, maxPage=8)
 
     for (var i = 0; i < 8; i++)
         toPicture(a, "Pics/Butt/carrowleft.png", 100);  // Переходим на самую первую страницу
-    
+
     for (var page = 0; page < maxPage; page++)
     {
         a.push([4, 1, (obj) => { UseRevitalPage(obj, cntRevital); }]);
     }
-    
+
     getReturn(a);
 }
 
