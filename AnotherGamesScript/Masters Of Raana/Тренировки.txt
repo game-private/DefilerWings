@@ -1,8 +1,9 @@
 document.body.addEventListener("contextmenu", (e) => { AddMenu(); e.preventDefault(); }, {capture: true})
 
+Для смены цикла менять настройки, идующие в начале Sc_main
+
 Менять в Scripts2.txt
 AddMenu()
-
 Оно появляется по правой кнопке мыши на основном экране
 
 

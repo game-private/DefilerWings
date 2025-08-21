@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -6,7 +6,8 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
-var TrainigsNames1  = ["Strength", "Stamina"];
+// var TrainigsNames1  = ["Strength", "Stamina", "Melee combat", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -38,7 +39,7 @@ var fishingCnt  = 0;
  "Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"
  "Normal craving" "Huge craving!"
  */
-var cycleSexEvening = "Strong craving";
+var cycleSexEvening = "Huge craving!";
 
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
@@ -48,7 +49,7 @@ var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["science", 3], ];   ["domestic", 1], ["Medicine", 1], ["administration", 1]
-var homeschool  = [["Medicine", 3]];
+var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
@@ -67,7 +68,7 @@ var childTrainigCycle = 0;
 var doAcademia    = false;  // Учиться в академии
 var doLibrary     = false;
 var doSlaveMarket = false;
-var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = [1, 1];
 
