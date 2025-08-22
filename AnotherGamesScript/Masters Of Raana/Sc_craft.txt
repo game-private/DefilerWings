@@ -851,19 +851,31 @@ function FaithLecture(a, edu="Devotion", target="all", doPray=false, doZeal=fals
 // Рынок рабов
 // -----------------------------------------------------------
 
-function SlaveMarket(a)
+function SlaveMarket(a, doSlaveMarket)
 {
-    exitHouse(a);
-    toPicture(a, "Pics/Maps/waysign_emcityright.png", 100);
-    toPicture(a, "Pics/Maps/waysign_heightsdown.png", 100);
-    toPicture(a, "Pics/Maps/butt_slavemarket.png", 100);
+    if (doSlaveMarket == 2)
+    {
+        exitHouse(a);
+        toPicture(a, "Pics/Maps/waysign_emcityright.png", 100);
+        toPicture(a, "Pics/Maps/waysign_heightsdown.png", 100);
+        toPicture(a, "Pics/Maps/butt_slavemarket.png", 100);
+    }
+    else
+    {
+        toPicture(a, "Pics/Butt/travel_watery.png", 100);
+        toPicture(a, "Pics/Maps/butt_slavemarket2.png", 100);
+    }
 
-    AuctionStart(a);
+    AuctionStart(a, doSlaveMarket);
 }
 
 function AuctionStart(a)
 {
-    a.push([3, "a", "The Auction hall", true, 100]);
+    if (doSlaveMarket == 2)
+        a.push([3, "a", "The Auction hall", true, 100]);
+    else
+        a.push([3, "a", "The cages", true, 100]);
+
     a.push([3, "a", "Start!",           true, 100]);
 
     a.push([4, 1, SlaveMarketAuction]);
