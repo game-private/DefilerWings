@@ -41,6 +41,10 @@ function ConcludeDay_doLog(object)
 {
     var array = object.array;
 
+    if (  clickST("a", "Resolve!", false, true)  )
+        showNotification("Нападение");
+
+
     if (doShowLog)
     {
         var logWindow = document.querySelectorAll("#wrapper2")[0];
