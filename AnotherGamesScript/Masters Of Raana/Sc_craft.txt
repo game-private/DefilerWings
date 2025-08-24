@@ -41,8 +41,34 @@ function ConcludeDay_doLog(object)
 {
     var array = object.array;
 
-    if (  clickST("a", "Resolve!", false, true)  )
-        showNotification("Нападение");
+    // Он фестиваль тоже резольвит :(
+    if ( ! clickST("a", "Conclude day", false, true)  )
+    if (   clickST("a", "Resolve!", false, true)  )
+    {
+        try
+        {
+            var attackBody = document.querySelectorAll(".eventholderbody2")[0];
+            var attackText = attackBody.textContent;
+            var match      = attackText.match(/Raider Strength: ([0-9]+)./);
+            var rStr       = parseInt(match[1]);
+            var match      = attackText.match(/Household Strength: ([0-9]+)./);
+            var hStr       = parseInt(match[1]);
+
+            if (isNaN(rStr) || isNaN(hStr))
+                showNotification("Нападение (isNaN(rStr) || isNaN(hStr))");
+            else
+            if (rStr - 40 >= hStr)
+                showNotification("Нападение");
+            else
+            {
+                clickST("a", "Resolve!", false, false);
+            }
+        }
+        catch (e)
+        {
+            showNotification("Нападение. " + e.message);
+        }
+    }
 
 
     if (doShowLog)
