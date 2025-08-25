@@ -351,7 +351,12 @@ function getBasicTrainings(a, doRepeat)
         a.push([4, 200]);
 
         if (doRepeat)
+        {
             a.push([3, "Repeat"]);
+            a.push([4, 100]);
+            if (!Training2)
+            a.push([3, "Repeat"]);
+        }
     }
 
     getReturn(a);
