@@ -950,6 +950,17 @@ function SlaveMarketAuction(object)
 }
 
 
+function setFollowersGroup(a)
+{
+    toPicture(a, "Pics/Butt/gr1s.png", 100);
+}
+
+function resetFollowersGroup(a)
+{
+    toPicture(a, "Pics/Butt/grclear.png", 100);
+}
+
+
 /*
 var cnt = 12;
 var a = [];

@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Stamina"];
+var TrainigsNames1  = ["Strength", "Dexterity", "Melee combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -60,7 +60,7 @@ var doHomeschoolAlways = true;
 
 var doAcademia    = false;  // Учиться в академии
 var doLibrary     = false;
-var doSlaveMarket = 1;
+var doSlaveMarket = 0;
 var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = [0, 1];
@@ -152,7 +152,11 @@ function mainCycle()
     Library(a);
 
     if (doSlaveMarket > 0)
+    {
+        setFollowersGroup(a);
         SlaveMarket(a, doSlaveMarket);
+        resetFollowersGroup(a);
+    }
 
     if ((childTrainigCycle % childTrainigPlayFlag[1] == childTrainigPlayFlag[0]) ^ childTrainigPlayFlagX)
         childTrainigPlay(a, false);
