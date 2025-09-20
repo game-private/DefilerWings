@@ -1911,7 +1911,7 @@ label lb_bdsm_pussy_tongue:   # Полизать
             attr = 1
 
     $ game.dragon.drain_energy(girlQ+2, True)
-    $ P = 10 + attr*(5+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//5)
+    $ P = 10 + attr*(10+game.dragon.tongue_exp//50+game.dragon.tongue_exp_pussy//1.25)
     $ game.girl.willingPercent += P
     $ game.rape.actual_proud   -= P
     $ game.dragon.tongue_exp       += 1

@@ -1726,55 +1726,61 @@ class GirlsList(object):
 
     def girl_in_lair(self,girl_i):
         if self.game.girls_list.prisoners[girl_i].virgin:
-          status = u"девственная"
+            status = u"девственная"
         elif self.game.girls_list.prisoners[girl_i].pregnant>0:
-          status = u"беременная"
+            status = u"беременная"
         else:
-          status = u"попользованная"
+            status = u"попользованная"
         if self.game.girls_list.prisoners[girl_i].love is not None:
-          love = u", влюблённая"
+            love = u", влюблённая"
         else:
-          love = u""        
+            love = u""        
         if self.game.girls_list.prisoners[girl_i].blind:
-          add = u", слепая"
+            add = u", слепая"
         elif self.game.girls_list.prisoners[girl_i].cripple:
-          add = u", искалеченная"
+            add = u", искалеченная"
         else:
-          add = u""
+            add = u""
         if self.game.girls_list.prisoners[girl_i].in_brothel:
             add += u", в борделе (%d)" % self.game.girls_list.prisoners[girl_i].get_brothel_price
 
         girl = self.game.girls_list.prisoners[girl_i]
-        d = u"%s, %s, %s, %s%s%s (качество: %d; %d лет)" %(girl.name, girls_data.girls_info[girl.type]['description'], girls_data.nature_info[girl.nature], status, love,add, girl.quality, self.game.year - girl.birth_year)
+        seduced = "";
+        if girl.willingPercent > 0:
+            seduced = u" %d%s" % (girl.willingPercent, "%");
+        if girl.willing:
+            seduced += u" соблазнена";
+            
+        d = u"%s, %s, %s, %s%s%s (качество: %d; %d лет%s)" %(girl.name, girls_data.girls_info[girl.type]['description'], girls_data.nature_info[girl.nature], status, love,add, girl.quality, self.game.year - girl.birth_year, seduced)
         return d
 
     def love_escape(self): # Побег девчонок и их возлюбленных из логова
         for girl_i in reversed(xrange(self.prisoners_count)):
-          self.game.girl = self.prisoners[girl_i]
-          self.event('dragon_lair')
+            self.game.girl = self.prisoners[girl_i]
+            self.event('dragon_lair')
 # Проверка на побег влюблённых 
-          if self.game.girl.love is not None: # Проверка на любовника
-            if self.game.girl.love.type == 'smuggler':
-              if self.game.girl.cripple:
-                call ("lb_love_escape_smuggler_cripple")
-              elif self.game.girl.blind:
-                call ("lb_love_escape_smuggler_blind")
-                del self.prisoners[girl_i]
-              else:
-                call ("lb_love_escape_smuggler")
-                del self.prisoners[girl_i]
-            elif self.game.girl.love.type == 'lizardman':
-              if self.game.girl.cripple:
-                call ("lb_love_lizardman_cripple")
-              else:
-                if self.game.girl.pregnant>0:
-                  self.prison_birth()
-                if self.game.girl.pregnant<0:
-                  call ("lb_love_die_lizardman")
-                else:
-                  self.game.girl.pregnant = 0  # А то получится смешно
-                  call ("lb_love_escape_lizardman")
-              del self.prisoners[girl_i]
+            if self.game.girl.love is not None: # Проверка на любовника
+                if self.game.girl.love.type == 'smuggler':
+                  if self.game.girl.cripple:
+                    call ("lb_love_escape_smuggler_cripple")
+                  elif self.game.girl.blind:
+                    call ("lb_love_escape_smuggler_blind")
+                    del self.prisoners[girl_i]
+                  else:
+                    call ("lb_love_escape_smuggler")
+                    del self.prisoners[girl_i]
+                elif self.game.girl.love.type == 'lizardman':
+                  if self.game.girl.cripple:
+                    call ("lb_love_lizardman_cripple")
+                  else:
+                    if self.game.girl.pregnant>0:
+                      self.prison_birth()
+                    if self.game.girl.pregnant<0:
+                      call ("lb_love_die_lizardman")
+                    else:
+                      self.game.girl.pregnant = 0  # А то получится смешно
+                      call ("lb_love_escape_lizardman")
+                  del self.prisoners[girl_i]
 
     def love_escape_ind(self): # Активируется в том случае, если пленницу отпускают из логова
         self.event('dragon_lair')
