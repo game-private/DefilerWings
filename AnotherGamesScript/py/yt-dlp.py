@@ -14,7 +14,7 @@ print(current_datetime)
 
 # scriptPath = '/inRamS/mounts/records/_sh/py/yt-dlp.py'
 # print(scriptPath)
-print(os.path.realpath(__file__))
+print("python3 " + os.path.realpath(__file__))
 
 # parser = argparse.ArgumentParser()
 # parser.add_argument('filename')
