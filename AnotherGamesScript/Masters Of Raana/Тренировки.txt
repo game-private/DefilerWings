@@ -19,15 +19,3 @@ document.querySelector("div.acts2>div.alt4b>strong").textContent
 <audio id="notif" src="notify.mp3"></audio>
 <button onclick="document.getElementById('notif').play()">Проиграть звук</button>
 
-Adora-1
-Медик, комбатант лучше, чем Man1.
-Lovisa-1
-Возможно, танцовщица, но очень слабая физически, в том числе, по гибкости.
-Arianna-1
-Явно склонна к интеллекту
-Поставить назад в академию
-Adora-2
-Пристрастие к гуманитарным наукам???
-Academics:66
-Science:28
-Всё остальное: по нулям
