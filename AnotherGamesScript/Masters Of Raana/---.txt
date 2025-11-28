@@ -3,9 +3,9 @@ https://subscribestar.adult/grimdark
 
 https://www.mastersofraana.com/index.php/Changelog
 
+https://mega.nz/folder/991QWQ6A#h4kwnofvt8TXAtHXNznRBg/folder/wlsADCxC
+https://mega.nz/folder/Nht3xLQI#h8gELoH46FVgRk4y46fkxw
+
 
 cd /Arcs/tmp/G/download
 sudo -u wget wget
-
-
-1-9-8-6
