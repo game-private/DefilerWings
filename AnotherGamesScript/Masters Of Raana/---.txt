@@ -9,3 +9,6 @@ https://mega.nz/folder/Nht3xLQI#h8gELoH46FVgRk4y46fkxw
 
 cd /Arcs/tmp/G/download
 sudo -u wget wget
+
+
+0848
