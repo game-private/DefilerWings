@@ -54,7 +54,7 @@ var sexCnt = 1;
 // [["Medicine", 4], ["science", 4], ["domestic", 4], ["Academics", 4], ["dancing", 4], ["acrobatics", 4], ["administration", 4]];
 var homeschool  = [["domestic", 1]];
 var homeschool2 = [["domestic", 1]];
-var homeschool3 = [["administration", 1]];
+var homeschool3 = [["administration", 2]];
 var encourageGirl = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
@@ -65,7 +65,7 @@ var doProfessor   = [1, 1];  // [0, 1] - профессор каждый ден�
 var doProfessorX  = false;
 var doHistoricalSociety = [1, 1];
 
-var doAdvancedTrainings = true; // чтение обучающих книг
+var doAdvancedTrainings = false; // чтение обучающих книг
 
 var childTrainigPlayFlag    = [1, 1];   // FreeThinking
 var childTrainigCombatFlag  = [1, 1];
@@ -97,7 +97,7 @@ var doMakeResources = false;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
-var doHunt=[Fhishing];
+var doHunt=[];
 var doHuntAtEvening = true;
 var doHuntC = 0;
 

@@ -401,13 +401,12 @@ function getAdvancedTrainings(a)
     var edu = ["Academics", "Medicine", "Science", "Persuade", "BDSM", "Crafting"];
     for (var e of edu)
     {
-        a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
-        a.push([0, ".bookbox>div>.link-internal.link-image", 0]);
-        a.push([3, "Read book"]);
-
-        a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
-        a.push([0, ".bookbox>div>.link-internal.link-image", 0]);
-        a.push([3, "Read book"]);
+        for (var i = 0; i < 8; i++)
+        {
+            a.push([3, e]);   // Academics Medicine Science Persuade BDSM Crafting
+            a.push([0, ".bookbox>div>.link-internal.link-image", 0]);
+            a.push([3, "Read book"]);
+        }
     }
 
     getReturn(a);
