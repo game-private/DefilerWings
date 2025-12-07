@@ -52,9 +52,9 @@ var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["Medicine", 1], ["science", 1], ["domestic", 1], ["Academics", 1], ["dancing", 1], ["acrobatics", 1], ["administration", 1]]
 // [["Medicine", 4], ["science", 4], ["domestic", 4], ["Academics", 4], ["dancing", 4], ["acrobatics", 4], ["administration", 4]];
-var homeschool  = [["domestic", 1]];
-var homeschool2 = [["domestic", 1]];
-var homeschool3 = [["administration", 2]];
+var homeschool  = [["domestic", 1], ["science", 1]];
+var homeschool2 = [["domestic", 1], ["science", 1]];
+var homeschool3 = [["administration", 2], ["science", 2]];
 var encourageGirl = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
