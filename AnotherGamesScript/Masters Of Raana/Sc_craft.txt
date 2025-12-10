@@ -951,12 +951,12 @@ function SlaveMarketAuction(object)
 
 function setFollowersGroup(a)
 {
-    toPicture(a, "Pics/Butt/gr1s.png", 100);
+    toPicture(a, "Pics/Butt/gr1s.png", 1000);
 }
 
 function resetFollowersGroup(a)
 {
-    toPicture(a, "Pics/Butt/grclear.png", 100);
+    toPicture(a, "Pics/Butt/grclear.png", 1000);
 }
 
 
