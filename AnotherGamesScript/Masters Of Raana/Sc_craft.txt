@@ -705,13 +705,22 @@ function normalSex(a, doBath=true)
     getReturn(a);
 }
 
-function girlEducationClass(a, edu)
+function girlEducationClass(a, edu, cnt=1)
 {
     a.push([3, "a", "Education", false, 300]);
     a.push([3,  edu]);
     a.push([3, "Begin!"]);
     a.push([3, "Continue"]);
     a.push([4, 400]);
+
+    for (var i = 1; i < cnt; i++)
+    {
+        a.push([3, "Repeat"]);
+        a.push([4, 400]);
+        a.push([3, "Continue"]);
+        a.push([4, 400]);
+    }
+
     a.push([3, "Finish"]);
     a.push([3, "back"]);
 }
@@ -734,8 +743,8 @@ function girlEducation(a, num, edu1, cnt=4)
 {
     selectGirl(a, num);
 
-    for (var i = 0; i < cnt; i++)
-        girlEducationClass(a, edu1);
+//  for (var i = 0; i < cnt; i++)
+    girlEducationClass(a, edu1, cnt);
 
     // freeDayForSelectedGirl(a);
 

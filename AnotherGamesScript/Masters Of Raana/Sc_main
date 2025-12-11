@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [1, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [1, 1], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -52,18 +52,18 @@ var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["Medicine", 1], ["science", 1], ["domestic", 1], ["Academics", 1], ["dancing", 1], ["acrobatics", 1], ["administration", 1]]
 // [["Medicine", 4], ["science", 4], ["domestic", 4], ["Academics", 4], ["dancing", 4], ["acrobatics", 4], ["administration", 4]];
-var homeschool  = [["administration", 2]];
+var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
 var doAcademia    = false;  // Учиться в академии
-var doLibrary     = false;
+var doLibrary     = true;
 var doSlaveMarket = 0;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [1, 1];
+var doHistoricalSociety = [0, 1];
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
@@ -198,25 +198,26 @@ function mainCycle()
 
     if (!ProfessoredOrAcademic || doHomeschoolAlways)
     {
+        acNum++;
         if (homeschool.length > 0)
         {
-            acNum   = (acNum + 1) % homeschool.length;
-            if (homeschool[acNum])
-            girlEducation(a, 0, homeschool[acNum][0], homeschool[acNum][1]);
+            hsNum = acNum % homeschool.length;
+            if (homeschool[hsNum] && homeschool[hsNum][1] > 0)
+            girlEducation(a, 0, homeschool[hsNum][0], homeschool[hsNum][1]);
         }
 
         if (homeschool2.length > 0)
         {
-            acNum2  = (acNum2 + 1) % homeschool2.length;
-            if (homeschool2[acNum2])
-            girlEducation(a, 1, homeschool2[acNum2][0], homeschool2[acNum2][1]);
+            hsNum = acNum % homeschool2.length;
+            if (homeschool2[hsNum] && homeschool2[hsNum][1] > 0)
+            girlEducation(a, 1, homeschool2[hsNum][0], homeschool2[hsNum][1]);
         }
 
         if (homeschool3.length > 0)
         {
-            acNum3  = (acNum3 + 1) % homeschool3.length;
-            if (homeschool3[acNum3])
-            girlEducation(a, 2, homeschool3[acNum3][0], homeschool3[acNum3][1]);
+            hsNum  = acNum % homeschool3.length;
+            if (homeschool3[hsNum] && homeschool3[hsNum][1] > 0)
+            girlEducation(a, 2, homeschool3[hsNum][0], homeschool3[hsNum][1]);
         }
     }
 
