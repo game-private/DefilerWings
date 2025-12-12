@@ -1,11 +1,11 @@
 function getReturn(array)
 {
-    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], true, 100]);
+    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort", "Finish"], true, 100]);
 }
 
 function getOneReturn(array)
 {
-    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort"], true, 100]);
+    array.push([3, "a", ["Return", "Back", "back", "Continue", "Back (Home)", "Stop talking", "Exit", "Cancel", "Abort", "Finish"], true, 100]);
 }
 
 function getConcludeDay(a)
@@ -322,12 +322,11 @@ function getBasicTrainings(a, doRepeat)
         return;
 
     correctTrainings();
-    getBasicTrainings_cycle++;
 
     var isFollowersSetted = false;
 
     if (Training1 && Training1.Name)
-    if (getBasicTrainings_cycle % Training1.schedule[1] == Training1.schedule[0])
+    if (acNum % Training1.schedule[1] == Training1.schedule[0])
     {
         if (Training1.Followers)
         {
@@ -547,7 +546,9 @@ function selectGirl(a, num=0)
 function deselectGirl(a)
 {
     getReturn(a);
-    a.push([4, 200]);
+    a.push([4, 400]);
+    a.push([3, "End interaction"]);
+    a.push([4, 100]);
     a.push([3, "End interaction"]);
     getReturn(a);
 }
@@ -621,7 +622,7 @@ function seductionSex(a, cnt=4, doBath=true)
     }
 
     a.push([3, "a", "Suggest sex", true, 100]);
-    a.push([3, "a", "Vaginal sex", true, 100]);
+    a.push([3, "a", "Vaginal sex", true, 200]);
     a.push([3, "a", "Politely (charm)", true, 100]);
     a.push([3, "a", "Continue", true, 100]);
     a.push([3, "a", ["The bedroom", "The office", "The livingroom"], true, 100]);
@@ -689,20 +690,67 @@ function normalSex(a, doBath=true)
 
     a.push([3, "Sexual options"]);
     a.push([3, "Request sex"]);
-    a.push([3, "Politely (charm)"]);
+    a.push([4, 100]);
     a.push([3, "Vaginal sex"]);
-    a.push([3, "Normal"]);
+    a.push([4, 200]);
+    a.push([3, "Politely (charm)"]);
+    a.push([4, 500]);
+    a.push([3, "Politely (charm)"]);
     a.push([3, "a", "Continue", true, 100]);
-    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([4, 200]);
     a.push([3, "Undress"]);
+    a.push([4, 200]);
+    a.push([3, "Undress"]);
+//    a.push([3, "Normal"]);
+//    a.push([3, "a", "Continue", true, 100]);
+//    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+//    a.push([3, "Undress"]);
     a.push([3, "Cowgirl"]);
     a.push([3, "Start"]);
     a.push([3, "a", "Continue", true, 100]);
     a.push([3, "cum!"]);
     a.push([3, "Creampie"]);
-    a.push([3, "a", "Finish", true, 100]);
+    a.push([3, "a", "Finish", true, 300]);
 
     getReturn(a);
+    a.push([4, 100]);
+}
+
+function normalDemandSex(a, doBath=true)
+{
+    if (doBath)
+    {
+        getBathSlave(a);
+    }
+
+    a.push([3, "Sexual options"]);
+    a.push([3, "Request sex"]);
+    a.push([4, 100]);
+    a.push([3, "Vaginal sex"]);
+    a.push([4, 200]);
+    a.push([3, "Demanding (manipulate)"]);
+    a.push([4, 500]);
+    a.push([3, "Demanding (manipulate)"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([4, 200]);
+    a.push([3, "Undress"]);
+    a.push([4, 200]);
+    a.push([3, "Undress"]);
+//    a.push([3, "Normal"]);
+//    a.push([3, "a", "Continue", true, 100]);
+//    a.push([3, ["The bedroom", "The office", "The livingroom"]]);
+//    a.push([3, "Undress"]);
+    a.push([3, "Cowgirl"]);
+    a.push([3, "Start"]);
+    a.push([3, "a", "Continue", true, 100]);
+    a.push([3, "cum!"]);
+    a.push([3, "Creampie"]);
+    a.push([3, "a", "Finish", true, 300]);
+
+    getReturn(a);
+    a.push([4, 100]);
 }
 
 function girlEducationClass(a, edu, cnt=1)

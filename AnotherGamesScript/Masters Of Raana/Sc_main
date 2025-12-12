@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [1, 1], Followers: false};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Strength", "Dexterity", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Stamina"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -27,10 +27,7 @@ var cycle=10;
 var doShowLog = false;
 
 var girlNum = 0;
-var sexGirlNum = 0;
 var acNum   = 0;
-var acNum2  = 0;
-var acNum3  = 0;
 var mainCraftCnt = [];
 
 var InjectorCnt = 0;
@@ -47,7 +44,7 @@ var cycleSexEvening = "Strong craving";
 // [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 var girls = [];
-var morninggirls = [];
+var morninggirls = [[1, normalDemandSex]];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["Medicine", 1], ["science", 1], ["domestic", 1], ["Academics", 1], ["dancing", 1], ["acrobatics", 1], ["administration", 1]]
@@ -59,11 +56,11 @@ var encourageGirl = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
 var doAcademia    = false;  // Учиться в академии
-var doLibrary     = true;
+var doLibrary     = false;
 var doSlaveMarket = 0;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [0, 1];
+var doHistoricalSociety = [1, 1];
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
@@ -110,18 +107,19 @@ function mainCycle()
 {
     var a = [];
 
+    acNum++;
     var ProfessoredOrAcademic = false;
 
-    if ((cycle % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
+    if ((acNum % doProfessor[1] == doProfessor[0]) ^ doProfessorX)
     {
-        Professor(a, doActionStep(cycle, doHistoricalSociety, false));
+        Professor(a, doActionStep(acNum, doHistoricalSociety, false));
         ProfessoredOrAcademic = true;
     }
 
     if (morninggirls.length > 0)
-    if (isShouldSex(cycle, cycleSexEvening))
+    if (isShouldSex(acNum, cycleSexEvening))
     {
-        sexGirlNum = (sexGirlNum + 1) % morninggirls.length;
+        var sexGirlNum = acNum % morninggirls.length;
 
         if (morninggirls[sexGirlNum])
         {
@@ -144,7 +142,7 @@ function mainCycle()
 
     if (doAcademia)
     {
-        Academia(a, doActionStep(cycle, doHistoricalSociety, false));
+        Academia(a, doActionStep(acNum, doHistoricalSociety, false));
         ProfessoredOrAcademic = true;
     }
 
@@ -198,7 +196,6 @@ function mainCycle()
 
     if (!ProfessoredOrAcademic || doHomeschoolAlways)
     {
-        acNum++;
         if (homeschool.length > 0)
         {
             hsNum = acNum % homeschool.length;
@@ -266,9 +263,9 @@ function mainCycle()
             MainCraft(a, mainCraftCnt[i], i);
 
     if (girls.length > 0)
-    if (isShouldSex(cycle, cycleSexEvening))
+    if (isShouldSex(acNum, cycleSexEvening))
     {
-        girlNum = (girlNum + 1) % girls.length;
+        var girlNum = acNum % girls.length;
         if (girls[girlNum])
         {
             selectGirl(a, girls[girlNum][0]);
@@ -386,19 +383,12 @@ function correctTrainings()
 {
     if (Training1)
     {
-        TrainigsNames1i++;
-        if (TrainigsNames1i >= TrainigsNames1.length)
-            TrainigsNames1i = 0;
-
-        Training1.Name = TrainigsNames1[TrainigsNames1i];
+        Training1.Name = TrainigsNames1[acNum % TrainigsNames1.length];
     }
 
     if (Training2)
     {
-        TrainigsNames2i++;
-        if (TrainigsNames2i >= TrainigsNames2.length)
-            TrainigsNames2i = 0;
-
-        Training2.Name = TrainigsNames2[TrainigsNames2i];
+        Training2.Name = TrainigsNames2[acNum % TrainigsNames2.length];
     }
 }
+
