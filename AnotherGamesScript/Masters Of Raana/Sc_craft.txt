@@ -851,6 +851,18 @@ function doEncourage(a, num)
     deselectGirl(a);
 }
 
+function doDayOff(a, num)
+{
+    selectGirl(a, num);
+
+    a.push([3, "Events & activities"]);
+    a.push([3, "take the day off"]);
+    a.push([3, "Casual"]);
+
+    getReturn(a);
+    deselectGirl(a);
+}
+
 
 // -----------------------------------------------------------
 // Охота

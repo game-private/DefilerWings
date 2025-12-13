@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Strength", "Stamina"];
+var TrainigsNames1  = [];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -41,10 +41,10 @@ var fishingCnt  = 0;
 var cycleSexEvening = "Strong craving";
 // var cycleSexEvening = "Huge craving!";
 
-// [0, bondageSex]  [0, normalSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
+// [0, bondageSex]  [0, normalSex] [0, normalDemandSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
 var girls = [];
-var morninggirls = [[1, normalDemandSex]];
+var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
 // homeschool  = [["Medicine", 1], ["science", 1], ["domestic", 1], ["Academics", 1], ["dancing", 1], ["acrobatics", 1], ["administration", 1]]
@@ -53,14 +53,15 @@ var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
+var dayOff = [1];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
 var doAcademia    = false;  // Учиться в академии
-var doLibrary     = false;
+var doLibrary     = true;
 var doSlaveMarket = 0;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [1, 1];
+var doHistoricalSociety = [0, 1];
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
@@ -106,6 +107,9 @@ function doActionStep(cycle, ActionArray, XorModifier)
 function mainCycle()
 {
     var a = [];
+
+    for (var i = 0; i < dayOff.length; i++)
+        doDayOff(a, dayOff[i]);
 
     acNum++;
     var ProfessoredOrAcademic = false;
