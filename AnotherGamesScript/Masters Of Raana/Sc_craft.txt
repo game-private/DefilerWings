@@ -211,6 +211,7 @@ function getCarbage(a)
     getResources(a);
 
     a.push([3, "a", "Prepare meat",  true]);
+    a.push([3, "a", "Scrap Merch.",  true]);
     a.push([3, "a", "Refine cloth",  true]);
     a.push([3, "a", "Prepare skins", true]);
     a.push([3, "a", "extract circuit boards", true]);
@@ -229,15 +230,81 @@ function Fhishing(array)
     array.push([0, "[src='Pics/Maps/fish.png']", 0]);    // Рыбалка
     array.push([3, "Start!"]);
     array.push([3, "Session one"]);
-    array.push([3, "Drift"]);
-    array.push([3, "Session two"]);
-    array.push([3, "Shore fishing"]);
-    array.push([3, "Session three"]);
-    array.push([3, "Deep fishing"]);
-    array.push([3, "Session four"]);
-    array.push([3, "Drift"]);
-    array.push([0, "[src='Pics/Butt/out.png']", 0]);
-    array.push([0, "[src='Pics/Butt/home.png']", 0]);
+    array.push([4, 1, Fhishing1]);
+}
+
+function FhishingSwitch(a)
+{
+    a.push([4, 100]);
+    var text = document.querySelectorAll("div.talktraitpic")[0].textContent.toLowerCase();
+
+    if (text.includes("drifting"))
+    {
+        a.push([3, "Drift"]);
+    }
+    else
+    if (text.includes("the shore"))
+    {
+        a.push([3, "Shore fishing"]);
+    }
+    else
+    {
+        a.push([3, "Deep fishing"]);
+    }
+
+    a.push([4, 100]);
+}
+
+function Fhishing1(object)
+{
+    var a = object.array;
+
+    var newArray = [];
+    FhishingSwitch(newArray);
+    newArray.push([3, "Session two"]);
+    newArray.push([4, 1, Fhishing2]);
+
+    a = newArray.concat(a);
+    ClicksS(a);
+}
+
+function Fhishing2(object)
+{
+    var a = object.array;
+
+    var newArray = [];
+    FhishingSwitch(newArray);
+    newArray.push([3, "Session three"]);
+    newArray.push([4, 1, Fhishing3]);
+
+    a = newArray.concat(a);
+    ClicksS(a);
+}
+
+function Fhishing3(object)
+{
+    var a = object.array;
+
+    var newArray = [];
+    FhishingSwitch(newArray);
+    newArray.push([3, "Session four"]);
+    newArray.push([4, 1, Fhishing4]);
+
+    a = newArray.concat(a);
+    ClicksS(a);
+}
+
+function Fhishing4(object)
+{
+    var a = object.array;
+
+    var newArray = [];
+    FhishingSwitch(newArray);
+    newArray.push([0, "[src='Pics/Butt/out.png']", 0]);
+    newArray.push([0, "[src='Pics/Butt/home.png']", 0]);
+
+    a = newArray.concat(a);
+    ClicksS(a);
 }
 
 function craftArrow(a, toLeft=false)
@@ -438,6 +505,8 @@ function Academia(a, HistoricalSociety)
     // Аналог и в Academia, и в Professor
     if (HistoricalSociety)
         HistoricalSocietyAction(a);
+
+    a.push([4, 100]);
 
     toHome(a);
 }

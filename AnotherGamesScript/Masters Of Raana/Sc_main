@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1], Followers: false};
+var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = [];
+var TrainigsNames1  = ["Dexterity"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -23,15 +23,14 @@ var ScrapMetal=0;
 
 
 var AuStop=false;
-var cycle=10;
-var doShowLog = false;
+var cycle=1;
+var doShowLog = true;
 
 var girlNum = 0;
 var acNum   = 0;
 var mainCraftCnt = [];
 
 var InjectorCnt = 0;
-var fishingCnt  = 0;
 
 /* Число говорит о количестве прошедших дней, строка - о состоянии
  "Sexually depleted", "Satisfied", "Normal craving", "Strong craving", "Huge craving!", "Constant hardon!", "Extreme craving!", "Throbbing!"
@@ -53,17 +52,17 @@ var homeschool  = [];
 var homeschool2 = [];
 var homeschool3 = [];
 var encourageGirl = [];
-var dayOff = [1];
+var dayOff = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
 var doAcademia    = false;  // Учиться в академии
-var doLibrary     = true;
+var doLibrary     = false;
 var doSlaveMarket = 0;
-var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [0, 1];
+var doHistoricalSociety = [1, 1];
 
-var doAdvancedTrainings = false; // чтение обучающих книг
+var doAdvancedTrainings = true; // чтение обучающих книг
 
 var childTrainigPlayFlag    = [1, 1];   // FreeThinking
 var childTrainigCombatFlag  = [1, 1];
@@ -91,7 +90,7 @@ var doFaithLecture  = [];
 
 var doFaithLectureC = 0;
 
-var doMakeResources = false;
+var doMakeResources = true;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
@@ -278,9 +277,7 @@ function mainCycle()
         }
     }
 
-
-    for (var i = 0; i < fishingCnt; i++)
-        Fhishing(a);
+    Fhishing(a);
 
     cycle--;
 
