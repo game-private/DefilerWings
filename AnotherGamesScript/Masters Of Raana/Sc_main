@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: false};
+var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 4], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Dexterity"];
+var TrainigsNames1  = ["Strength"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -58,11 +58,11 @@ var doHomeschoolAlways = true;      // true - учить, даже если бы
 var doAcademia    = false;  // Учиться в академии
 var doLibrary     = false;
 var doSlaveMarket = 0;
-var doProfessor   = [1, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [1, 1];
+var doHistoricalSociety = [0, 1];
 
-var doAdvancedTrainings = true; // чтение обучающих книг
+var doAdvancedTrainings = false; // чтение обучающих книг
 
 var childTrainigPlayFlag    = [1, 1];   // FreeThinking
 var childTrainigCombatFlag  = [1, 1];
@@ -91,6 +91,7 @@ var doFaithLecture  = [];
 var doFaithLectureC = 0;
 
 var doMakeResources = true;
+var doRepair = true;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
@@ -240,7 +241,10 @@ function mainCycle()
 
     // getPrayCatholic(a);
     if (doMakeResources)
-    getCarbage(a);
+        getCarbage(a);
+    
+    if (doRepair)
+        MakeRepair(a);
 
 /*  // Производство патронов
     Injector(a, 'Pics/Weapons/306butt.png',     1, 0);

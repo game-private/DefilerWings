@@ -224,6 +224,14 @@ function getCarbage(a)
     getReturn(a);
 }
 
+function MakeRepair(a)
+{
+    a.push([0, "[src='Pics/Butt/manbutthouse.png']", 0]);
+    a.push([3, "a", "Repair (-$2)", true]);
+
+    getReturn(a);
+}
+
 function Fhishing(array)
 {
     array.push([0, "[src='Pics/Butt/out.png']", 0]);    // Выход из дома
