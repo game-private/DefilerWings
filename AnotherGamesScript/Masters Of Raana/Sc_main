@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 4], Followers: false};
+var Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 3], Followers: false};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -8,7 +8,7 @@ var Training2 = null; // {Name: "Melee combat", push: true, slave: false, traine
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Strength"];
+var TrainigsNames1  = ["Strength", "Stamina"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
@@ -242,7 +242,7 @@ function mainCycle()
     // getPrayCatholic(a);
     if (doMakeResources)
         getCarbage(a);
-    
+
     if (doRepair)
         MakeRepair(a);
 
