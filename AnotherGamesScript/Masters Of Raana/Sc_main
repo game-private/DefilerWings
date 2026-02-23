@@ -1,4 +1,4 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: false, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 1], Followers: true};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
 var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
@@ -42,7 +42,7 @@ var cycleSexEvening = "Strong craving";
 
 // [0, bondageSex]  [0, normalSex] [0, normalDemandSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
-var girls = [];
+var girls = [[1, seductionSex, 1]];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
@@ -55,12 +55,13 @@ var encourageGirl = [];
 var dayOff = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
-var doAcademia    = false;  // Учиться в академии
-var doLibrary     = true;
-var doSlaveMarket = 0;
+var doAcademia    = [3, 3];  // Учиться в академии
+var doAcademiaX   = false;
+var doLibrary     = false;
+var doSlaveMarket = 1;
 var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
-var doHistoricalSociety = [1, 1];
+var doHistoricalSociety = [3, 3];
 
 var doAdvancedTrainings = false; // чтение обучающих книг
 
@@ -91,7 +92,7 @@ var doFaithLecture  = [];
 var doFaithLectureC = 0;
 
 var doMakeResources = true;
-var doRepair = true;
+var doRepair = false;
 
 // см. также fishingCnt
 // Fhishing, HuntPlace1, HuntPlace2, HuntPlace3
@@ -133,7 +134,7 @@ function mainCycle()
                 morninggirls[sexGirlNum][1](a, morninggirls[sexGirlNum][2]);
                 if (i + 1 < sexCnt)
                 {
-                    getBathSlave(a);getBathSlave(a);
+                    getBathSlave(a);
                 }
             }
 
@@ -144,7 +145,7 @@ function mainCycle()
     }
 
 
-    if (doAcademia)
+    if ((acNum % doAcademia[1] == doAcademia[0]) ^ doAcademiaX)
     {
         Academia(a, doActionStep(acNum, doHistoricalSociety, false));
         ProfessoredOrAcademic = true;
@@ -281,7 +282,7 @@ function mainCycle()
         }
     }
 
-    Fhishing(a);
+    // Fhishing(a);
 
     cycle--;
 
