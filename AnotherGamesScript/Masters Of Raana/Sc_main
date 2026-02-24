@@ -1,6 +1,6 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 2], Followers: true};
+var Training1 = {Name: "Dexterity", push: false, trainer: false, schedule: [0, 2], Followers: true};
 
-// Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
+// Training1 = {Name: "Dexterity", push: true, trainer: true, schedule: [0, 1]};
 var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [1, 2], Followers: true};
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
@@ -12,7 +12,7 @@ var TrainigsNames1  = ["Strength", "Stamina", "Dexterity"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
-var TrainigsNames2  = ["Melee combat", "Ranged combat"];
+var TrainigsNames2  = ["Melee combat"];
 var TrainigsNames2i = -1;
 
 
@@ -58,8 +58,8 @@ var doHomeschoolAlways = true;      // true - учить, даже если бы
 var doAcademia    = [2, 2];  // Учиться в академии
 var doAcademiaX   = false;
 var doLibrary     = false;
-var doSlaveMarket = 0;
-var doProfessor   = [0, 2];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doSlaveMarket = 0;          // 1 - обычный рынок, 2 - элитный рынок
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = [3, 3];
 
