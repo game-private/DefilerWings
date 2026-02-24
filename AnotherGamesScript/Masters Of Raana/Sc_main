@@ -1,18 +1,18 @@
-var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity",  push: false, trainer: true, schedule: [0, 2], Followers: true};
 
 // Training1 = {Name: "Dexterity",  push: true, trainer: true, schedule: [0, 1]};
-var Training2 = null; // {Name: "Melee combat", push: true, slave: false, trainer: false};
+var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [1, 2], Followers: true};
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Stamina", "Dexterity"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
-var TrainigsNames2  = ["Stamina", "Dexterity"];
+var TrainigsNames2  = ["Melee combat", "Ranged combat"];
 var TrainigsNames2i = -1;
 
 
@@ -42,7 +42,7 @@ var cycleSexEvening = "Strong craving";
 
 // [0, bondageSex]  [0, normalSex] [0, normalDemandSex]  [0, seductionSex] [0, (a) => seductionNoSex(a, 5)], [0, StrongBondage]
 // [[0, seductionSex, 1], [1, seductionSex, 1], [2, seductionSex, 1]];
-var girls = [[1, seductionSex, 1]];
+var girls = [];
 var morninggirls = [];
 var sexCnt = 1;
 // "Medicine", "science", "domestic", "Academics", "dancing", "acrobatics", "administration"
@@ -55,11 +55,11 @@ var encourageGirl = [];
 var dayOff = [];
 var doHomeschoolAlways = true;      // true - учить, даже если был в академии
 
-var doAcademia    = [3, 3];  // Учиться в академии
+var doAcademia    = [2, 2];  // Учиться в академии
 var doAcademiaX   = false;
 var doLibrary     = false;
-var doSlaveMarket = 1;
-var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doSlaveMarket = 0;
+var doProfessor   = [0, 2];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = [3, 3];
 

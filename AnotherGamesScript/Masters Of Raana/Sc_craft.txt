@@ -399,6 +399,9 @@ function getBasicTrainings(a, doRepeat)
     correctTrainings();
 
     var isFollowersSetted = false;
+    var T2 = !!Training2;
+    if (acNum % Training2.schedule[1] != Training2.schedule[0])
+        T2 = false;
 
     if (Training1 && Training1.Name)
     if (acNum % Training1.schedule[1] == Training1.schedule[0])
@@ -428,19 +431,30 @@ function getBasicTrainings(a, doRepeat)
         {
             a.push([3, "Repeat"]);
             a.push([4, 100]);
-            if (!Training2)
+            if (!T2)
             a.push([3, "Repeat"]);
         }
     }
 
     getReturn(a);
 
-    if (Training2)
+    if (T2)
     {
         if (Training2.Followers)
         {
-            setFollowers(a);
-            isFollowersSetted = true;
+            if (!isFollowersSetted)
+            {
+                setFollowers(a);
+                isFollowersSetted = true;
+            }
+        }
+        else
+        {
+            if (isFollowersSetted)
+            {
+                resetFollowers(a);
+                isFollowersSetted = false;
+            }
         }
 
         // a.push([3, "Actions & Events"]);
@@ -458,6 +472,13 @@ function getBasicTrainings(a, doRepeat)
         a.push([4, 100]);
         a.push([3, "Start!"]);
         a.push([4, 200]);
+
+        if (doRepeat)
+        {
+            a.push([3, "Repeat"]);
+            a.push([4, 100]);
+            a.push([3, "Repeat"]);
+        }
     }
 
     getReturn(a);
