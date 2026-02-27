@@ -1,18 +1,18 @@
-var Training1 = {Name: "Dexterity", push: false, trainer: false, schedule: [0, 1], Followers: true};
+var Training1 = {Name: "Dexterity", push: false, trainer: false, schedule: [0, 2], Followers: true};
 
 // Training1 = {Name: "Dexterity", push: true, trainer: true, schedule: [0, 1]};
-var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [2, 2], Followers: true};
+var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [1, 2], Followers: true};
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
 // var TrainigsNames1  = ["Strength"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
-var TrainigsNames1  = ["Ranged combat", "Dexterity", "Melee combat", "Dexterity", "Melee combat"];
+var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 var TrainigsNames1i = -1;
 
 // var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
-var TrainigsNames2  = [];
+var TrainigsNames2  = ["Stamina", "Philosophy"];
 var TrainigsNames2i = -1;
 
 
@@ -24,7 +24,7 @@ var ScrapMetal=0;
 
 var AuStop=false;
 var cycle=1;
-var doShowLog = true;
+var doShowLog = false;
 
 var girlNum = 0;
 var acNum   = 0;
@@ -57,9 +57,9 @@ var doHomeschoolAlways = true;      // true - учить, даже если бы
 
 var doAcademia    = [2, 2];  // Учиться в академии
 var doAcademiaX   = false;
-var doLibrary     = true;
+var doLibrary     = false;
 var doSlaveMarket = 0;          // 1 - обычный рынок, 2 - элитный рынок
-var doProfessor   = [0, 2];  // [0, 1] - профессор каждый день, если doProfessorX = false
+var doProfessor   = [0, 1];  // [0, 1] - профессор каждый день, если doProfessorX = false
 var doProfessorX  = false;
 var doHistoricalSociety = [3, 3];
 
@@ -85,9 +85,9 @@ var childTrainigCycle = 0;
 // var doFaithLecture  = [["Pro Willpower", "all", false], ["Devotion", "followers", false], ["Pro Decadence", "all", false]];
 // Просто молитва [false, false, true, false]
 
-// var doFaithLecture  = [["Devotion", "all", true], false, false];
+// var doFaithLecture  = [["Devotion", "all", false], false, false];
 
-var doFaithLecture  = []; //[["Devotion", "followers", false]];
+var doFaithLecture  = [["Devotion", "all", false]]; //[["Devotion", "followers", false]];
 
 var doFaithLectureC = 0;
 

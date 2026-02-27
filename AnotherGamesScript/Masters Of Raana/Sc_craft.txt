@@ -408,7 +408,8 @@ function getBasicTrainings(a, doRepeat)
     {
         if (Training1.Followers)
         {
-            setFollowers(a);
+            //setFollowers(a);
+            setFollowersGroup(a);
             isFollowersSetted = true;
         }
 
@@ -444,7 +445,8 @@ function getBasicTrainings(a, doRepeat)
         {
             if (!isFollowersSetted)
             {
-                setFollowers(a);
+                //setFollowers(a);
+                setFollowersGroup(a);
                 isFollowersSetted = true;
             }
         }
@@ -452,7 +454,8 @@ function getBasicTrainings(a, doRepeat)
         {
             if (isFollowersSetted)
             {
-                resetFollowers(a);
+                //resetFollowers(a);
+                resetFollowersGroup(a);
                 isFollowersSetted = false;
             }
         }
@@ -484,7 +487,10 @@ function getBasicTrainings(a, doRepeat)
     getReturn(a);
 
     if (isFollowersSetted)
-    resetFollowers(a);
+    {
+        resetFollowersGroup(a);
+        //resetFollowers(a);
+    }
 }
 
 function getAdvancedTrainings(a)
@@ -1128,9 +1134,10 @@ function resetFollowersGroup(a)
 
 
 /*
-var cnt = 12;
+var cnt = 1;
 var a = [];
-UseRevital(a, cnt, 3);
+var page = 3;
+UseRevital(a, cnt, page);
 ClicksS(a);
 */
 // cntRevital - количество даваемых порций,
