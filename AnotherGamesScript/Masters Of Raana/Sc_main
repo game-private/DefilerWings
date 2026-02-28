@@ -1,7 +1,5 @@
 var Training1 = {Name: "Dexterity", push: false, trainer: false, schedule: [0, 2], Followers: true};
-
-// Training1 = {Name: "Dexterity", push: true, trainer: true, schedule: [0, 1]};
-var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [1, 2], Followers: true};
+var Training2 = {Name: "Dexterity", push: false, trainer: false, schedule: [1, 2], Followers: true};
 
 // ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat", "Philosophy"];
 
@@ -9,10 +7,10 @@ var Training2 = {Name: "Melee combat", push: false, trainer: false, schedule: [1
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
 // var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat"];
 var TrainigsNames1  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
-var TrainigsNames1i = -1;
+var TrainigsNames2  = ["Melee combat"];
 
-// var TrainigsNames2  = ["Strength", "Stamina", "Dexterity", "Melee combat", "Ranged combat"];
-var TrainigsNames2  = ["Stamina", "Philosophy"];
+
+var TrainigsNames1i = -1;
 var TrainigsNames2i = -1;
 
 
