@@ -1,6 +1,10 @@
 document.body.addEventListener("contextmenu", (e) => { AddMenu(); e.preventDefault(); }, {capture: true})
 
 
+124 интеллект
+148/115 Ак/Наук
+
+
 var s = document.styleSheets.item(".storynoscroll");
 
 

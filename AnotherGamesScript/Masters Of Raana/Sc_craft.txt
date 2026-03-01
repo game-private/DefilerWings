@@ -521,8 +521,11 @@ function HistoricalSocietyAction(a)
     toPicture(a, "Pics/Maps/butt_historical.png");
     a.push([3, "Use library"]);
     a.push([3, "Back"]);
-    a.push([3, "Use cigar room"]);
-    a.push([3, "Back"]);
+    if (HistoricalSocietyActionSigarRoom)
+    {
+        a.push([3, "Use cigar room"]);
+        a.push([3, "Back"]);
+    }
 
     toExit(a);
 }
