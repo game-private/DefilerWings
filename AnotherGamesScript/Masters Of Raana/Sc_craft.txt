@@ -409,7 +409,7 @@ function getBasicTrainings(a, doRepeat)
         if (Training1.Followers)
         {
             //setFollowers(a);
-            setFollowersGroup(a);
+            setFollowersGroup(a, Training1.Followers);
             isFollowersSetted = true;
         }
 
@@ -446,7 +446,7 @@ function getBasicTrainings(a, doRepeat)
             if (!isFollowersSetted)
             {
                 //setFollowers(a);
-                setFollowersGroup(a);
+                setFollowersGroup(a, Training2.Followers);
                 isFollowersSetted = true;
             }
         }
@@ -1125,9 +1125,12 @@ function SlaveMarketAuction(object)
 }
 
 
-function setFollowersGroup(a)
+function setFollowersGroup(a, followers)
 {
-    toPicture(a, "Pics/Butt/gr1s.png", 1000);
+    var f = Number(followers);
+    
+    if (!isNaN(f))
+        toPicture(a, "Pics/Butt/gr" + f + "s.png", 1000);
 }
 
 function resetFollowersGroup(a)
