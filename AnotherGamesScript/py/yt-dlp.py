@@ -1,4 +1,4 @@
-# python3 /inRamS/mounts/records/_sh/py/yt-dlp.py
+# sudo -u yt python3 /inRamS/mounts/records/_sh/py/yt-dlp.py
 
 import argparse
 import datetime
@@ -14,7 +14,7 @@ print(current_datetime)
 
 # scriptPath = '/inRamS/mounts/records/_sh/py/yt-dlp.py'
 # print(scriptPath)
-print("python3 " + os.path.realpath(__file__))
+print("sudo -u yt python3 " + os.path.realpath(__file__))
 
 # parser = argparse.ArgumentParser()
 # parser.add_argument('filename')

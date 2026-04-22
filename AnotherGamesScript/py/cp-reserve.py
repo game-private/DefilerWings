@@ -32,7 +32,9 @@ class Statistic():
         self.skippedFiles     = 0
         self.failedFiles      = 0
         self.CheckedOldFiles  = 0
-    
+        self.deletedFiles     = 0
+        self.failedDelete     = 0
+
 class State():
     def __init__(self):
         # Настройки скрипта
@@ -54,6 +56,8 @@ class State():
         self.start_time     = datetime.datetime.now()
         #self.min_modified_time  = self.start_time
         #self.min_modified_time += datetime.timedelta(hours=-self.lastHours)
+        
+        self.doRemoveMissing = True
 
         # Раскомментировать, если необходимо принудительно проверить все файлы на дату
         # min_modified_time  = False
@@ -348,6 +352,63 @@ class State():
 
         self.printProgress(index, lenDir)
 
+        
+    def findRemoteFilesNotOnLocal(self, remote_dir, local_dir):
+        """
+        Находит файлы на удалённом сервере, отсутствующие локально.
+        Возвращает список путей к таким файлам.
+        """
+
+        try:
+            remote_files = self.client.list(remote_dir)
+            missing_files = []
+
+            for r_file in remote_files:
+                r_full_path = os.path.join(remote_dir, r_file)
+                l_full_path = os.path.join(local_dir, r_file)
+
+                if not os.path.exists(l_full_path):
+                    missing_files.append(r_full_path)
+
+            return missing_files
+        
+        except Exception as e:
+            print(f"Ошибка при поиске отсутствующих файлов: {e}")
+            return []
+
+    def removeRemoteFile(self, remote_path, doPrint=False):
+        """Удаляет файл с удалённого WebDAV‑сервера."""
+        try:
+
+            if doPrint:
+                print(f"Удаляю сетевой файл: {remote_path}")
+
+            self.client.clean(remote_path)  # clean() — удаление в webdav3
+
+            try:
+                self.lock.acquire()
+                self.stat.deletedFiles += 1  # добавляем счётчик удалённых файлов
+            finally:
+                self.lock.release()
+
+        except webdav3.exceptions.RemoteResourceNotFound:
+            if doPrint:
+                print(f"Файл уже удалён или не найден: {remote_path}")
+
+            try:
+                self.lock.acquire()
+                self.stat.failedDelete += 1
+            finally:
+                self.lock.release()
+        except Exception as e:
+            print(f"Ошибка при удалении файла {remote_path}: {e}")
+            try:
+                self.lock.acquire()
+                self.stat.failedDelete += 1
+            finally:
+                self.lock.release()
+
+
     def push(self, remote, local, name, doPrintFiles=PrintCommandState.NONE, recurse=""):
 
         self.tasks = []
@@ -426,6 +487,14 @@ class State():
         for i, task in enumerate(self.tasks):
             task.result()
 
+        if self.doRemoveMissing:
+            missing_remote_files = self.findRemoteFilesNotOnLocal(remote, local)
+
+            for missing_file in missing_remote_files:
+                self.removeRemoteFile(missing_file, doPrint=doPrintFiles.value >= PrintCommandState.FULL.value)
+
+
+
         if len(recurse) == 0 or self.doPrintSubdirs:
             print()
             #if len(recurse) == 0:
@@ -451,7 +520,8 @@ options = {
     'verbose'        : True,                    # Похоже, этих опций тут нет
     'chunk_size'     : 1024*1024,
     'webdav_chunk_size' : 1024*1024,            # Не работает
-    'webdav_timeout' : 20
+    'webdav_timeout' : 180,
+    'timeout'        : 180
 }
 
 
@@ -521,7 +591,7 @@ else:
 
 if state.min_modified_time:
     
-    print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Пропущена проверка (слишком старые) {state.stat.skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если файл {state.DateFileName} удалён или дата в этом файле поставлена ранее, чем время создания самых старых файлов.")
+    print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов. Удалено {state.stat.deletedFiles}, не удалось удалить {state.stat.failedDelete}. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Пропущена проверка (слишком старые) {state.stat.skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если файл {state.DateFileName} удалён или дата в этом файле поставлена ранее, чем время создания самых старых файлов.")
 
     totalHours = (state.start_time - state.min_modified_time).total_seconds()/3600
     print(f"Обновлялись только файлы новее, чем {state.min_modified_time.strftime("%Y.%m.%d %H:%M:%S")}  ({totalHours:.0f} часов)")
