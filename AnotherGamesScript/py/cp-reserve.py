@@ -40,7 +40,7 @@ class State():
         # Настройки скрипта
         # max_workers = 16 лучше, но если сеть не хочется перегружать, то лучше 4. 1 - если сервером выдаётся "Request per second limit exceeded for user"
         self.max_workers    = 1
-        self.sleepForTask   = 0.5
+        self.sleepForTask   = 0.7
         self.doPrintFiles   = PrintCommandState.NONE
         self.doPrintSubdirs = False
         self.oldstat        = []
@@ -498,7 +498,7 @@ class State():
         if len(recurse) == 0 or self.doPrintSubdirs:
             print()
             #if len(recurse) == 0:
-            print("Закончено " + name + recurse + f" [up {self.stat.updloadedFiles - oldstat.updloadedFiles}, checked {self.stat.CheckedOldFiles - oldstat.CheckedOldFiles}, sk {self.stat.skippedFiles - oldstat.skippedFiles}, all {self.stat.allFiles - oldstat.allFiles}]")
+            print("Закончено " + name + recurse + f" [up {self.stat.updloadedFiles - oldstat.updloadedFiles}, checked {self.stat.CheckedOldFiles - oldstat.CheckedOldFiles}, sk {self.stat.skippedFiles - oldstat.skippedFiles}, del {self.stat.deletedFiles - oldstat.deletedFiles}, all {self.stat.allFiles - oldstat.allFiles}]")
             #else:
                 #print("Закончено " + name + recurse + f" [all {self.stat.allFiles - oldstat.allFiles}]")
             current_time = datetime.datetime.now()
@@ -536,12 +536,15 @@ state.client = wc.Client(options)
 state.checkInLoop()
 
 
-state.push('/Arcs/reserve/keys/',    '/Arcs/Disks/Reserve/keys',    "keys",    state.doPrintFiles)
-state.push('/Arcs/reserve/records/', '/Arcs/Disks/Reserve/records', "records", state.doPrintFiles)
-state.push('/Arcs/reserve/books3/',  '/Arcs/Disks/Reserve/books3',  "books3",  state.doPrintFiles)
-state.push('/Arcs/reserve/books4/',  '/Arcs/Disks/Reserve/books4',  "books4",  state.doPrintFiles)
-state.push('/Crypto/',               '/Arcs/Disks/ya/Crypto/',      "Crypto",  state.doPrintFiles)
-state.push('/Ключи/',                '/Arcs/Disks/ya/Ключи/',       "Ключи",   state.doPrintFiles)
+# remote local
+state.push('/Arcs/reserve/keys/',         '/Arcs/Disks/Reserve/keys',         "keys",      state.doPrintFiles)
+state.push('/Arcs/reserve/records/',      '/Arcs/Disks/Reserve/records',      "records",   state.doPrintFiles)
+state.push('/Arcs/reserve/keys-repo/',    '/Arcs/Disks/Reserve/keys-repo',    "keys-repo", state.doPrintFiles)
+state.push('/Arcs/reserve/records-repo/', '/Arcs/Disks/Reserve/records-repo', "records-repo", state.doPrintFiles)
+state.push('/Arcs/reserve/books3/',  '/Arcs/Disks/Reserve/books3',   "books3",  state.doPrintFiles)
+state.push('/Arcs/reserve/books4/',  '/Arcs/Disks/Reserve/books4',   "books4",  state.doPrintFiles)
+state.push('/Crypto/',               '/Arcs/Disks/ya/Crypto/',       "Crypto",  state.doPrintFiles)
+state.push('/Ключи/',                '/Arcs/Disks/ya/Ключи/',        "Ключи",   state.doPrintFiles)
 state.push('/Arcs/TorBrowser/',      '/Arcs/Disks/ya/Arcs/TorBrowser/', "TorBrowser",  state.doPrintFiles)
 #state.push('/',                     '/Arcs/Disks/ya/',             "/",   state.doPrintFiles)
 
