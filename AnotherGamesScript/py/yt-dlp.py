@@ -112,6 +112,10 @@ def isTorUp():
 
 
 def downloadUrl(url, dirName):
+    
+    YT_DLP_PATH="yt-dlp"
+    # YT_DLP_PATH="/Arcs/yt"    # https://github.com/yt-dlp/yt-dlp/releases/
+
     current_datetime = datetime.datetime.now()
     print(current_datetime.strftime("%H:%M"))
 
@@ -120,7 +124,7 @@ def downloadUrl(url, dirName):
             print("tor down: skipped")
             return False
     
-    pi = subprocess.run(["yt-dlp", url])
+    pi = subprocess.run([YT_DLP_PATH, url])
     # pi = subprocess.run(["yt-dlp", "--cookies-from-browser", "firefox", url])
 
     # Ниже такой же фрагмент кода
@@ -133,7 +137,7 @@ def downloadUrl(url, dirName):
     print(f"returned {pi.returncode}")
     print()
 
-    pi = subprocess.run(["yt-dlp", "--cookies-from-browser", "firefox", "-R 1", "--extractor-retries", "1", "--fragment-retries", "1", "--file-access-retries", "1", url])
+    pi = subprocess.run([YT_DLP_PATH, "--cookies-from-browser", "firefox", "-R 1", "--extractor-retries", "1", "--fragment-retries", "1", "--file-access-retries", "1", url])
 
     if pi.returncode == 0:
         WriteToLog(pi, dirName, url)
