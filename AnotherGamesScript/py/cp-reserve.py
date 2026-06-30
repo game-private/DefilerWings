@@ -398,6 +398,7 @@ class State():
             try:
                 self.lock.acquire()
                 self.stat.failedDelete += 1
+                self.stat.failedFiles  += 1
             finally:
                 self.lock.release()
         except Exception as e:
@@ -405,6 +406,7 @@ class State():
             try:
                 self.lock.acquire()
                 self.stat.failedDelete += 1
+                self.stat.failedFiles  += 1
             finally:
                 self.lock.release()
 
@@ -588,13 +590,13 @@ else:
     print()
     print("----------------------------------------------------------------------------------------")
     print(f"!!! Контрольная сумма не сошлась! !!!")
-    print(f"Загружено на сервер {state.stat.updloadedFiles}, проверено и пропущено {state.stat.CheckedOldFiles}, пропущено без проверки {state.stat.skippedFiles}, всего: {state.stat.allFiles}, должно быть всего: {state.stat.updloadedFiles+state.stat.CheckedOldFiles+state.stat.skippedFiles}")
+    print(f"Загружено на сервер {state.stat.updloadedFiles}, проверено и пропущено {state.stat.CheckedOldFiles}, пропущено без проверки {state.stat.skippedFiles}, всего: {state.stat.allFiles}, должно быть всего: {state.stat.updloadedFiles+state.stat.CheckedOldFiles+state.stat.skippedFiles}. Удалено {state.stat.deletedFiles}, не удалось удалить {state.stat.failedDelete}.")
     print("----------------------------------------------------------------------------------------")
     print()
 
 if state.min_modified_time:
     
-    print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов. Удалено {state.stat.deletedFiles}, не удалось удалить {state.stat.failedDelete}. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Пропущена проверка (слишком старые) {state.stat.skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если файл {state.DateFileName} удалён или дата в этом файле поставлена ранее, чем время создания самых старых файлов.")
+    print(f"Программа завершена. Загружено {state.stat.updloadedFiles} файлов, удалено {state.stat.deletedFiles}. Проверено по дате и пропущено {state.stat.CheckedOldFiles} файлов. Всего файлов обработано: {state.stat.allFiles}. Пропущена проверка (слишком старые) {state.stat.skippedFiles} файлов. Комментарий: старые файлы не будут пропускаться, если файл {state.DateFileName} удалён или дата в этом файле поставлена ранее, чем время создания самых старых файлов.")
 
     totalHours = (state.start_time - state.min_modified_time).total_seconds()/3600
     print(f"Обновлялись только файлы новее, чем {state.min_modified_time.strftime("%Y.%m.%d %H:%M:%S")}  ({totalHours:.0f} часов)")
