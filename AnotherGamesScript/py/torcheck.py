@@ -90,7 +90,7 @@ def isNoHavePing(cnt):
     return False
     
 def beep(note, vol = "0.1"):
-    process = subprocess.run(["play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
+    process = subprocess.run(["timeout", "3s", "play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
     pass
 
 

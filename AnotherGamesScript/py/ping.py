@@ -30,11 +30,11 @@ def isNoHavePing(cnt):
         return True
     
     return False
-    
+
 
 def beep(note, vol = "0.1"):
-    process = subprocess.run(["play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
-    
+    process = subprocess.run(["timeout", "3s", "play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
+
 class State:
     def __init__(self):
         self.sleeps      = { "connected": 5, "disconnected": 5 }
