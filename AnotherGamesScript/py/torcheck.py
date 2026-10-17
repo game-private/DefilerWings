@@ -15,6 +15,7 @@ import stat
 import sys
 import os
 # apt install python3-dnspython
+# pacman -S python-dnspython
 # import dns.resolver
 import dns.query
 
@@ -45,19 +46,34 @@ class Args:
     pass
 
 args=Args()
-args.filename = "/inRam-Logs/tor-8080.log"
+#args.filename = "/inRam-Logs/tor-8080.log"
+args.filename = "/inRamL/tor-8080.log"
 logFile = args.filename
 
 print("python3 " + os.path.realpath(__file__))
 
-def getLogLines():
-    process = subprocess.Popen(["sudo", "cat", logFile], stdout=subprocess.PIPE)
+def getLogLines_old():
+    if not Path(logFile).is_file():
+        return []
+
+    #process = subprocess.Popen(["sudo", "cat", logFile], stdout=subprocess.PIPE)
+    process = subprocess.Popen(["cat", logFile], stdout=subprocess.PIPE)
     output, error = process.communicate()
 
     logLines = output.decode().splitlines()
     # logLines.reverse()
     
     return logLines
+
+
+def getLogLines():
+    try:
+        with open(logFile, "r", encoding="utf-8", errors="replace") as f:
+            return f.read().splitlines()
+    except FileNotFoundError:
+        return []
+    #except PermissionError:
+    #    return []
 
 
 def isSignificantLine(line):
@@ -90,7 +106,7 @@ def isNoHavePing(cnt):
     return False
     
 def beep(note, vol = "0.1"):
-    process = subprocess.run(["timeout", "3s", "play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
+    # process = subprocess.run(["timeout", "3s", "play", "-q", "-n", "synth", "1.5", "pluck", note, "vol", vol])
     pass
 
 
@@ -118,7 +134,7 @@ class State:
         self.torUpFile   = os.path.join(self.torStateDir, "", "up")
         os.makedirs(self.torStateDir, exist_ok=True)
         os.chmod(self.torStateDir, stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IROTH | stat.S_IXOTH | stat.S_IRGRP)
-        shutil.chown(self.torStateDir, group='forall')
+        shutil.chown(self.torStateDir, group='foralld')
         self.setTorUpFile(False)
 
 
